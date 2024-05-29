@@ -1,0 +1,80 @@
+[gd_scene load_steps=2 format=3 uid="uid://hy5mfuk4bsut"]
+
+[ext_resource type="Script" path="res://scripts/MultiplayerController.gd" id="1_67xjm"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_67xjm")
+
+[node name="Host" type="Button" parent="."]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 409.0
+offset_right = 270.0
+offset_bottom = 450.0
+text = "Host"
+
+[node name="Join" type="Button" parent="."]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 476.0
+offset_right = 270.0
+offset_bottom = 517.0
+text = "Join"
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 543.0
+offset_right = 270.0
+offset_bottom = 584.0
+text = "Start"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 346.0
+offset_right = 279.0
+offset_bottom = 377.0
+alignment = 2
+max_length = 10
+
+[node name="Label" type="Label" parent="LineEdit"]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 58.0
+offset_bottom = 28.0
+text = "Name :"
+
+[node name="Message" type="Label" parent="."]
+layout_mode = 0
+offset_left = 57.0
+offset_top = 703.0
+offset_right = 585.0
+offset_bottom = 729.0
+text = "This is an error message that is rather long to test out its placement."
+
+[node name="PartyPanel" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="PartyPanel"]
+offset_left = 697.0
+offset_top = 318.0
+offset_right = 940.0
+offset_bottom = 722.0
+color = Color(0.121569, 0.121569, 0.121569, 0.729412)
+
+[node name="Players" type="VBoxContainer" parent="PartyPanel"]
+offset_left = 697.0
+offset_top = 320.0
+offset_right = 940.0
+offset_bottom = 723.0
+
+[connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
+[connection signal="button_down" from="Start" to="." method="_on_start_button_down"]
