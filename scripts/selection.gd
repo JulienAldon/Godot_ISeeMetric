@@ -41,9 +41,8 @@ func set_selected_unit_target_entity(entity, tilemap):
 func set_selected_unit_target_position(event_pos, tilemap):
 	#var field = calculate_flow_field(tilemap, event_pos)
 	#var flow_field = field
-	tilemap.calculate_flow_field(event_pos, selected)
+	var field = tilemap.compute_navigation(event_pos, selected)
 	for unit in selected:
 		if is_instance_valid(unit.collider):
-			pass
-			#unit.collider.set_flow_field(field, tilemap)
-			#unit.collider.set_target_position(event_pos, selected)
+			unit.collider.set_flow_field(field, tilemap)
+			unit.collider.set_target_position(event_pos, selected)

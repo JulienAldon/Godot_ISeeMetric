@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bs5181k63jx1w"]
+[gd_scene load_steps=9 format=3 uid="uid://bs5181k63jx1w"]
 
 [ext_resource type="Script" path="res://scripts/SceneManager.gd" id="1_s0nne"]
-[ext_resource type="PackedScene" uid="uid://b4qecf23eusp0" path="res://player.tscn" id="2_3xgj0"]
+[ext_resource type="PackedScene" uid="uid://b4qecf23eusp0" path="res://scenes/player.tscn" id="2_3xgj0"]
 [ext_resource type="Texture2D" uid="uid://2qhmnr83lmif" path="res://assets/free_assets/isometric-sandbox-sheet.png" id="3_swlv1"]
-[ext_resource type="Script" path="res://Tilemap.gd" id="4_3bs02"]
-[ext_resource type="Script" path="res://DebugTilemap.gd" id="5_ahx31"]
+[ext_resource type="Script" path="res://scripts/Tilemap.gd" id="4_3bs02"]
+[ext_resource type="Script" path="res://scripts/DebugTilemap.gd" id="5_ahx31"]
+[ext_resource type="FontFile" uid="uid://ctp2q2bix1apd" path="res://assets/arial_narrow_7.ttf" id="6_ysqbn"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qhnha"]
 texture = ExtResource("3_swlv1")
@@ -239,3 +240,4 @@ script = ExtResource("4_3bs02")
 [node name="DebugTilemap" type="Node2D" parent="." node_paths=PackedStringArray("tilemap")]
 script = ExtResource("5_ahx31")
 tilemap = NodePath("../TileMap")
+font = ExtResource("6_ysqbn")

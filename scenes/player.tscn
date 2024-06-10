@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b4qecf23eusp0"]
 
 [ext_resource type="Script" path="res://scripts/Player/PlayerController.gd" id="1_n2m40"]
-[ext_resource type="PackedScene" uid="uid://cfjgwqiy0a2ov" path="res://rts_ui.tscn" id="2_2aci7"]
+[ext_resource type="PackedScene" uid="uid://cfjgwqiy0a2ov" path="res://scenes/rts_ui.tscn" id="2_2aci7"]
 [ext_resource type="Script" path="res://scripts/Player/RtsController.gd" id="2_cmyih"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enl1o"]

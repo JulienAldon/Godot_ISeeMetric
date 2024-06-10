@@ -70,12 +70,15 @@ func get_unit_neighbors(radius):
 func move_toward_target(_delta):
 	if !reached_target():
 		var current_pos = Vector2(tilemap.local_to_map(position))
-		var index = flow_field[1].find(current_pos)
-		var flow_cell = flow_field[0][index]
-		var direction = cartesian_to_isometric(flow_cell)
+		var sector_index = tilemap.find_in_navigation_sectors(current_pos)
+		var tile_index = flow_field[sector_index].find_cell(current_pos)
+		var flow_cell = flow_field[sector_index].cells[tile_index]
+		#print("tile index: ", sector_index, " ", tile_index, " ", current_pos," ",  flow_cell.flow)
+		var direction = cartesian_to_isometric(flow_cell.flow)
 		var group = get_unit_neighbors(50)
 		var separation = Vector2()
 		var cohesion = Vector2()
+		
 		var alignment = direction
 		var separation_weight = 0.5
 		var cohesion_weight = 0.2

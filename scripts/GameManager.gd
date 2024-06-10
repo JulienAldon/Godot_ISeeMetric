@@ -1,6 +1,6 @@
 extends Node2D
 
-const Unit = preload("res://unit.tscn")
+const Unit = preload("res://scenes/unit.tscn")
 var Players = {}
 
 func set_players(value):

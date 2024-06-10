@@ -36,7 +36,7 @@ func connection_failed():
 	print('Connection failed')
 
 func add_player_menu(player):
-	var player_menu = load('res://PlayerMenu.tscn').instantiate()
+	var player_menu = load('res://scenes/PlayerMenu.tscn').instantiate()
 	player_menu.get_node('Name').text = player['name']
 	player_menu.controller = self
 	player_menu.get_node('Id').text = str(player['id'])
@@ -96,7 +96,7 @@ func send_player_information(_name, id):
 
 @rpc("any_peer", "call_local")
 func start_game():
-	var scene = load('res://game.tscn').instantiate()
+	var scene = load('res://scenes/game.tscn').instantiate()
 	get_tree().root.add_child(scene)
 	self.hide()
 
