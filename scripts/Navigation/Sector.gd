@@ -33,8 +33,8 @@ class Sector:
 		var new_cell = Cell.new(position, cost, flow)
 		cells.append(new_cell)
 
-	func find_neighbors(cell_index) -> Array[Cell]:
-		var offsets = [
+	func find_neighbors(cell_index: int) -> Array[Cell]:
+		var offsets: Array[Vector2] = [
 			Vector2(0, -self.width),
 			Vector2(-1, 0),
 			Vector2(0, self.width),
@@ -47,9 +47,12 @@ class Sector:
 
 		var neighbors: Array[Cell] = []
 		for offset in offsets:
-			var target_id = cell_index + offset.x + offset.y
+			var target_id: int = cell_index + offset.x + offset.y
 			if target_id < self.cells.size() and target_id >= 0:
-				neighbors.append(self.cells[target_id])
+				if (target_id % self.width == 9 and cell_index % self.width == 0) or (target_id % self.width == 0 and cell_index % self.width == 9):
+					pass
+				else:
+					neighbors.append(self.cells[target_id])
 		return neighbors
 
 	func get_nearest_portal(position):

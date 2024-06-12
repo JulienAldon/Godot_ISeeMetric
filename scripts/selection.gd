@@ -42,6 +42,8 @@ func set_selected_unit_target_position(event_pos, tilemap):
 	#var field = calculate_flow_field(tilemap, event_pos)
 	#var flow_field = field
 	var field = tilemap.compute_navigation(event_pos, selected)
+	if field == [-1]:
+		return
 	for unit in selected:
 		if is_instance_valid(unit.collider):
 			unit.collider.set_flow_field(field, tilemap)

@@ -16,5 +16,5 @@ func _draw():
 	if tilemap.debug_sector:
 		for sector in tilemap.debug_sector:
 			for cell in sector.cells:
-				var text = str(cell.flow)
+				var text = str(cell.cost)
 				draw_string(font,tilemap.map_to_local(cell.position), text, 0, 50, 8, Color.RED)

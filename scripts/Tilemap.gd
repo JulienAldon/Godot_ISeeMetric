@@ -153,6 +153,8 @@ func find_portal_index(sector_index: int):
 func get_sectors_index_path(source, target):
 	var source_sector_id = find_in_navigation_sectors(source)
 	var target_sector_id = find_in_navigation_sectors(target)
+	if source_sector_id == -1 or target_sector_id == -1:
+		return [-1]
 	var source_sector = navigation_sectors[source_sector_id]
 	var target_sector = navigation_sectors[target_sector_id]
 	var source_portal_index = source_sector.portals[source_sector.get_nearest_portal(source)].index
@@ -171,6 +173,8 @@ func compute_navigation(target_position: Vector2, sources):
 	
 	for source in sources:
 		var path = Array(get_sectors_index_path(Vector2(local_to_map(source.collider.position)), target_position))
+		if path == [-1]:
+			return [-1]
 		path.append(target_position)
 		var sectors_index = path.map(func(el): return find_in_navigation_sectors(el)) 
 		var path_index = 0
@@ -183,10 +187,12 @@ func compute_navigation(target_position: Vector2, sources):
 		sector_index_path.append(sectors_index[path_index - 1])
 		output_portals_position.append(path[path_index - 1])
 	var i = 0
+	print(sector_index_path, " ", output_portals_position)
 	for tile in sector_index_path:
 		var target = output_portals_position[i]
 		if i == sector_index_path.size() - 1:
 			target = target_position
+		print("sector ", tile, " ", target)
 		var flow_tile = calculate_navigation_sector(tile, target)
 		flow_atlas[tile].width = flow_tile.width
 		flow_atlas[tile].cells = flow_tile.cells
@@ -204,6 +210,7 @@ func calculate_integration_field_djikstra(target_id, sector):
 	open_list.append(target_id)
 	while (open_list.size() > 0):
 		var current_id = open_list.front()
+		print(final_map[current_id].cost, " ", final_map[current_id].position, " ", current_id)
 		open_list.pop_front()
 		var neighbors = sector.find_neighbors(current_id)
 		for neighbour in neighbors:

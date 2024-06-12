@@ -72,6 +72,8 @@ func move_toward_target(_delta):
 		var current_pos = Vector2(tilemap.local_to_map(position))
 		var sector_index = tilemap.find_in_navigation_sectors(current_pos)
 		var tile_index = flow_field[sector_index].find_cell(current_pos)
+		if tile_index == -1:
+			return
 		var flow_cell = flow_field[sector_index].cells[tile_index]
 		#print("tile index: ", sector_index, " ", tile_index, " ", current_pos," ",  flow_cell.flow)
 		var direction = cartesian_to_isometric(flow_cell.flow)
@@ -80,7 +82,7 @@ func move_toward_target(_delta):
 		var cohesion = Vector2()
 		
 		var alignment = direction
-		var separation_weight = 0.5
+		var separation_weight = 0.8
 		var cohesion_weight = 0.2
 		var alignment_weight = 0.5
 
