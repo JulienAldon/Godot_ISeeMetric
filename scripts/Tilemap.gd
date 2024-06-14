@@ -19,8 +19,9 @@ var tilemap_height = 0
 var navigation_sectors_width = 0
 var navigation_sectors_height = 0
 var navigation_sectors_astar: AStar2D
-var navigation_sector_size = 10
+var navigation_sector_size = 16
 
+var navigation_sectors_index: Dictionary = {}
 var navigation_sectors: Array[Sector] = []
 
 func get_tilemap_cells():
@@ -35,8 +36,19 @@ func _ready():
 	tilemap_height = get_used_rect().size.x
 	navigation_sectors_width = tilemap_width / navigation_sector_size
 	navigation_sectors_height = tilemap_height / navigation_sector_size
-	navigation_sectors = init_navigation_sectors(cells, tilemap_width, navigation_sector_size)
+	navigation_sectors = init_navigation_sectors(cells, tilemap_width, navigation_sector_size, navigation_sectors_width * navigation_sectors_height)
+	navigation_sectors_index = init_navigation_index()
 	navigation_sectors_astar = init_simple_astar()
+
+func init_navigation_index():
+	var result: Dictionary = {}
+	var index = 0
+	for sector in navigation_sectors:
+		for cell in sector.cells:
+			var sector_pos: Vector2 = Vector2(int(cell.position.x) / navigation_sector_size, int(cell.position.y) / navigation_sector_size)
+			result[sector_pos] = index
+		index += 1
+	return result
 
 func init_boundaries():
 	var offsets = [
@@ -63,8 +75,8 @@ func get_tile_cost(tile_type):
 		return 254
 	return 1
 
-func init_sector_cells(cells, map_width, sector_size):
-	var sectors: Array[Sector] = init_sector_array(sector_size)
+func init_sector_cells(cells, map_width, sector_size, nb_sectors):
+	var sectors: Array[Sector] = init_sector_array(nb_sectors)
 	var index = 0
 	for cell in cells:
 		var current_x = index % map_width
@@ -76,6 +88,56 @@ func init_sector_cells(cells, map_width, sector_size):
 		sectors[sector_index].add_cell(Vector2(cell), get_tile_cost(tile_type))
 		index += 1
 	return sectors
+
+var debug_portal = []
+
+func find_global_sector_cell(sectors, sector_index, cell_index, cell_offset, sector_offset):
+	if sectors.size() > sector_index + sector_offset:
+		var current_cell = sectors[sector_index].cells[cell_index].position
+		var current_y_offset = 0
+		if cell_offset.y > 0:
+			current_y_offset = 1
+		elif cell_offset.y < 0:
+			current_y_offset = -1
+		var neighbour_cell = sectors[sector_index + sector_offset].find_cell(Vector2(current_cell.x+current_y_offset, current_cell.y+cell_offset.x))
+		return sectors[sector_index + sector_offset].cells[neighbour_cell]
+
+func find_global_neighbour(sectors: Array[Sector], start_sector_index:int, cell_pos: Vector2) -> Array[Cell]:
+		var offsets: Array[Vector2] = [
+			Vector2(0, -navigation_sector_size),
+			Vector2(-1, 0),
+			Vector2(0, navigation_sector_size),
+			Vector2(1, 0),
+			Vector2(-1, -navigation_sector_size),
+			Vector2(-1, navigation_sector_size),
+			Vector2(1, -navigation_sector_size),
+			Vector2(1, navigation_sector_size),
+		]
+
+		var neighbors: Array[Cell] = []
+		var cell_index = sectors[start_sector_index].find_cell(cell_pos)
+		var previous_size = 0
+		for offset in offsets:
+			var target_id: int = cell_index + offset.x + offset.y
+			if target_id < sectors[start_sector_index].cells.size() and target_id >= 0:
+				if not (target_id % navigation_sector_size == navigation_sector_size - 1 and cell_index % navigation_sector_size == 0) and not \
+					(target_id % navigation_sector_size == 0 and cell_index % navigation_sector_size == navigation_sector_size - 1):
+					neighbors.append(sectors[start_sector_index].cells[target_id])
+			if neighbors.size() == previous_size:
+				var cell
+				# TODO find what is overflowing x or y
+				if offset.x > 0:
+					cell = find_global_sector_cell(sectors, start_sector_index, cell_index, offset, 1)
+				if offset.x < 0:
+					cell = find_global_sector_cell(sectors, start_sector_index, cell_index, offset, -1)
+				#if offset.y > 0:
+					#cell = find_global_sector_cell(sectors, start_sector_index, cell_index, offset, navigation_sectors_width)
+				#if offset.y < 0:
+					#cell = find_global_sector_cell(sectors, start_sector_index, cell_index, offset, -navigation_sectors_width)
+				if cell:
+					neighbors.append(cell)
+			previous_size = neighbors.size()
+		return neighbors
 
 func init_sector_portals(sectors, sector_size):
 	var index = 0
@@ -98,17 +160,22 @@ func init_sector_portals(sectors, sector_size):
 					var new_tile = Portal.new(tile.position, tile.cost, Directions.West)
 					portals[3].append(new_tile)
 			tile_id += 1
+		debug_portal.append(portals)
 		for portal in portals:
 			if portal.size() > 0:
+				
 				var midle_tile = portal[portal.size() / 2]
+				var n = find_global_neighbour(sectors, index, midle_tile.position)
+				for a in n:
+					print("midle tile: ", midle_tile.position, " neigbour: ", a.position)
 				sectors[index].portals.append(midle_tile)
 		#if not sector.cells.has(255) and not sector.has(254):
 			#sectors[index].cells = [1] #mark sector as "clear" if no obstacles
 		index+= 1
 	return sectors
 
-func init_navigation_sectors(cells, map_width, sector_size):
-	var sectors: Array[Sector] = init_sector_cells(cells, map_width, sector_size)
+func init_navigation_sectors(cells, map_width, sector_size, nb_sectors):
+	var sectors: Array[Sector] = init_sector_cells(cells, map_width, sector_size, nb_sectors)
 	return init_sector_portals(sectors, sector_size)
 
 func astar_connect_portals_inside_sector(portals: Array[Portal], astar: AStar2D):
@@ -180,19 +247,21 @@ func compute_navigation(target_position: Vector2, sources):
 		var path_index = 0
 		for p in path:
 			if (path_index + 1 < sectors_index.size() and sectors_index[path_index] != sectors_index[path_index + 1]):
-				output_portals_position.append(p)
+				if !output_portals_position.has(p):
+					output_portals_position.append(p)
 				if !sector_index_path.has(sectors_index[path_index]):
 					sector_index_path.append(sectors_index[path_index])
 			path_index += 1
-		sector_index_path.append(sectors_index[path_index - 1])
-		output_portals_position.append(path[path_index - 1])
+
+		if !output_portals_position.has(path[path_index - 1]):
+			output_portals_position.append(path[path_index - 1])
+		if !sector_index_path.has(sectors_index[path_index - 1]):
+			sector_index_path.append(sectors_index[path_index - 1])
 	var i = 0
-	print(sector_index_path, " ", output_portals_position)
 	for tile in sector_index_path:
 		var target = output_portals_position[i]
 		if i == sector_index_path.size() - 1:
 			target = target_position
-		print("sector ", tile, " ", target)
 		var flow_tile = calculate_navigation_sector(tile, target)
 		flow_atlas[tile].width = flow_tile.width
 		flow_atlas[tile].cells = flow_tile.cells
@@ -210,7 +279,6 @@ func calculate_integration_field_djikstra(target_id, sector):
 	open_list.append(target_id)
 	while (open_list.size() > 0):
 		var current_id = open_list.front()
-		print(final_map[current_id].cost, " ", final_map[current_id].position, " ", current_id)
 		open_list.pop_front()
 		var neighbors = sector.find_neighbors(current_id)
 		for neighbour in neighbors:
@@ -246,12 +314,8 @@ func calculate_navigation_sector(sector_index: int, cell_pos: Vector2):
 	return flow_field
 
 func find_in_navigation_sectors(pos):
-	var index = 0
-	for sector in navigation_sectors:
-		if sector.find_cell(pos) != -1:
-			return index
-		index += 1
-	return -1
+	var sector_pos = Vector2(int(pos.x / navigation_sector_size), int(pos.y / navigation_sector_size))
+	return navigation_sectors_index[sector_pos]
 
 func get_minimum_weight(neighbors, current_weight):
 	var min_weight = current_weight

@@ -49,9 +49,8 @@ class Sector:
 		for offset in offsets:
 			var target_id: int = cell_index + offset.x + offset.y
 			if target_id < self.cells.size() and target_id >= 0:
-				if (target_id % self.width == 9 and cell_index % self.width == 0) or (target_id % self.width == 0 and cell_index % self.width == 9):
-					pass
-				else:
+				if not (target_id % self.width == self.width - 1 and cell_index % self.width == 0) and not \
+						(target_id % self.width == 0 and cell_index % self.width == self.width - 1):
 					neighbors.append(self.cells[target_id])
 		return neighbors
 
