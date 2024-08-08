@@ -1,8 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://hy5mfuk4bsut"]
+[gd_scene load_steps=6 format=3 uid="uid://hy5mfuk4bsut"]
 
 [ext_resource type="Script" path="res://scripts/MultiplayerController.gd" id="1_67xjm"]
+[ext_resource type="Script" path="res://scripts/MessageQueue.gd" id="2_2gb6n"]
+[ext_resource type="PackedScene" uid="uid://b4qecf23eusp0" path="res://scenes/Rts/rts_player.tscn" id="2_qp6ih"]
+[ext_resource type="PackedScene" uid="uid://cfoshfln0a0vf" path="res://scenes/Hns/hns_player.tscn" id="3_hmiq1"]
+[ext_resource type="FontFile" uid="uid://ctp2q2bix1apd" path="res://assets/arial_narrow_7.ttf" id="5_wqhx7"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" node_paths=PackedStringArray("faction_picker", "player_name_label", "host", "join", "start", "party_panel", "party_creation_panel", "network_messages", "no_party")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,71 +14,167 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_67xjm")
+faction_picker = NodePath("PartyPanel/HBoxContainer/FactionPicker")
+player_name_label = NodePath("PartyCreation/LineEdit")
+host = NodePath("PartyCreation/Host")
+join = NodePath("PartyCreation/Join")
+start = NodePath("PartyPanel/Start")
+party_panel = NodePath("PartyPanel")
+party_creation_panel = NodePath("PartyCreation")
+network_messages = NodePath("NetworkInfo")
+faction_scenes = {
+0: ExtResource("2_qp6ih"),
+1: ExtResource("3_hmiq1")
+}
+no_party = NodePath("PartyPanel/NoParty")
 
-[node name="Host" type="Button" parent="."]
+[node name="PartyCreation" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 184.0
+offset_right = 449.0
+offset_bottom = 338.0
+
+[node name="Host" type="Button" parent="PartyCreation"]
 layout_mode = 0
-offset_left = 52.0
-offset_top = 409.0
-offset_right = 270.0
-offset_bottom = 450.0
+offset_left = 19.0
+offset_top = 148.0
+offset_right = 237.0
+offset_bottom = 189.0
 text = "Host"
 
-[node name="Join" type="Button" parent="."]
+[node name="Join" type="Button" parent="PartyCreation"]
 layout_mode = 0
-offset_left = 52.0
-offset_top = 476.0
-offset_right = 270.0
-offset_bottom = 517.0
+offset_left = 19.0
+offset_top = 203.0
+offset_right = 237.0
+offset_bottom = 244.0
 text = "Join"
 
-[node name="Start" type="Button" parent="."]
-layout_mode = 0
-offset_left = 52.0
-offset_top = 543.0
-offset_right = 270.0
-offset_bottom = 584.0
-text = "Start"
-
-[node name="LineEdit" type="LineEdit" parent="."]
-layout_mode = 0
-offset_left = 44.0
-offset_top = 346.0
-offset_right = 279.0
-offset_bottom = 377.0
+[node name="LineEdit" type="LineEdit" parent="PartyCreation"]
+layout_mode = 2
+offset_left = 19.0
+offset_top = 90.0
+offset_right = 238.0
+offset_bottom = 130.0
+size_flags_horizontal = 3
+placeholder_text = "name"
 alignment = 2
 max_length = 10
 
-[node name="Label" type="Label" parent="LineEdit"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 2.0
-offset_right = 58.0
-offset_bottom = 28.0
+[node name="Label" type="Label" parent="PartyCreation/LineEdit"]
+layout_mode = 2
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 62.0
+offset_bottom = 30.0
 text = "Name :"
+vertical_alignment = 1
+
+[node name="NetworkInfo" type="VBoxContainer" parent="." node_paths=PackedStringArray("timer")]
+layout_mode = 0
+offset_left = 419.0
+offset_top = 7.0
+offset_right = 635.0
+offset_bottom = 51.0
+script = ExtResource("2_2gb6n")
+timer = NodePath("MessageTimer")
+
+[node name="MessageTimer" type="Timer" parent="NetworkInfo"]
+wait_time = 2.0
 
 [node name="Message" type="Label" parent="."]
 layout_mode = 0
-offset_left = 57.0
-offset_top = 703.0
-offset_right = 585.0
-offset_bottom = 729.0
+offset_left = 56.0
+offset_top = 328.0
+offset_right = 584.0
+offset_bottom = 354.0
 text = "This is an error message that is rather long to test out its placement."
 
-[node name="PartyPanel" type="Node2D" parent="."]
+[node name="PartyPanel" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_left = -132.0
+offset_right = -132.0
 
 [node name="ColorRect" type="ColorRect" parent="PartyPanel"]
-offset_left = 697.0
-offset_top = 318.0
-offset_right = 940.0
-offset_bottom = 722.0
+layout_mode = 0
+offset_left = 313.0
+offset_top = 13.0
+offset_right = 575.0
+offset_bottom = 320.0
 color = Color(0.121569, 0.121569, 0.121569, 0.729412)
 
-[node name="Players" type="VBoxContainer" parent="PartyPanel"]
-offset_left = 697.0
-offset_top = 320.0
-offset_right = 940.0
-offset_bottom = 723.0
+[node name="PartyTitle" type="Label" parent="PartyPanel"]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 21.0
+offset_right = 553.0
+offset_bottom = 44.0
+text = "Party creation"
+horizontal_alignment = 1
 
-[connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
-[connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
-[connection signal="button_down" from="Start" to="." method="_on_start_button_down"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PartyPanel"]
+layout_mode = 0
+offset_left = 337.0
+offset_top = 53.0
+offset_right = 556.0
+offset_bottom = 84.0
+alignment = 1
+
+[node name="Label" type="Label" parent="PartyPanel/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "Choose faction"
+
+[node name="FactionPicker" type="OptionButton" parent="PartyPanel/HBoxContainer"]
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "King"
+popup/item_0/id = 0
+popup/item_1/text = "Mercenary"
+popup/item_1/id = 1
+popup/item_2/text = "Farmer"
+popup/item_2/id = 2
+
+[node name="Start" type="Button" parent="PartyPanel"]
+layout_mode = 0
+offset_left = 336.0
+offset_top = 259.0
+offset_right = 554.0
+offset_bottom = 300.0
+disabled = true
+text = "Start"
+
+[node name="NoParty" type="Label" parent="PartyPanel"]
+layout_mode = 0
+offset_left = 329.0
+offset_top = 141.0
+offset_right = 568.0
+offset_bottom = 155.0
+theme_override_colors/font_color = Color(1, 1, 1, 0.443137)
+theme_override_fonts/font = ExtResource("5_wqhx7")
+theme_override_font_sizes/font_size = 10
+text = "No party created yet"
+horizontal_alignment = 1
+
+[node name="Title" type="Label" parent="PartyPanel"]
+layout_mode = 0
+offset_left = 327.0
+offset_top = 100.0
+offset_right = 566.0
+offset_bottom = 123.0
+theme_override_fonts/font = ExtResource("5_wqhx7")
+text = "Party members"
+horizontal_alignment = 1
+
+[node name="Players" type="VBoxContainer" parent="PartyPanel"]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 123.0
+offset_right = 571.0
+offset_bottom = 240.0
+
+[connection signal="button_down" from="PartyCreation/Host" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="PartyCreation/Join" to="." method="_on_join_button_down"]
+[connection signal="item_selected" from="PartyPanel/HBoxContainer/FactionPicker" to="." method="_on_faction_picker_item_selected"]
+[connection signal="button_down" from="PartyPanel/Start" to="." method="_on_start_button_down"]

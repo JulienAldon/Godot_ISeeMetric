@@ -1,20 +1,31 @@
 extends Node2D
 
-var player_id
-var tilemap
+@export var current_controller: Controller
+@export var gui: Control
+var spawn: Vector2
+var color: Color
+var player_id: int
+var player_name: String
 
-func set_tilemap(value):
-	tilemap = value
+func set_spawn(pos):
+	spawn = pos
+	position = pos
 
-func set_player_id(value):
-	player_id = value
+func set_player_id(id: int):
+	player_id = id
+	name = str(id)
 
+func set_player_color(_color: Color):
+	color = _color
+	
 func set_player_name(value):
-	name = value
-# Called when the node enters the scene tree for the first time.
+	player_name = value
+
 func _ready():
-	$RtsController.name = str(player_id)
-	$RtsUI.set_player_name(str(name))
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+	var suffix = " (client)"
+	if player_id == 1:
+		suffix = " (host)"
+	gui.set_player_name(str(player_name) + suffix)
+
 func _process(_delta):
 	pass

@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfoshfln0a0vf"]
+
+[ext_resource type="Script" path="res://scripts/Player/PlayerController.gd" id="1_q8wlx"]
+[ext_resource type="Script" path="res://scripts/hns/HnsController.gd" id="2_bacit"]
+[ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://components/network/network_component.tscn" id="2_ufc5h"]
+[ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://components/health/health_component.tscn" id="4_klvyh"]
+[ext_resource type="Texture2D" uid="uid://6yh35k0xuhlr" path="res://assets/Used/Prototype_Character/Prototype_Character.png" id="5_ln8oo"]
+
+[node name="hnsPlayer" type="Node2D" node_paths=PackedStringArray("current_controller")]
+script = ExtResource("1_q8wlx")
+current_controller = NodePath("hnsController")
+
+[node name="NetworkComponent" parent="." instance=ExtResource("2_ufc5h")]
+
+[node name="hnsController" type="Node2D" parent="."]
+script = ExtResource("2_bacit")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="HealthComponent" parent="." instance=ExtResource("4_klvyh")]
+position = Vector2(1, -5)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("5_ln8oo")
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)

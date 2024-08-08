@@ -1,0 +1,116 @@
+[gd_scene load_steps=16 format=3 uid="uid://cw2ls3k0cc68i"]
+
+[ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://components/network/network_component.tscn" id="1_gnrgf"]
+[ext_resource type="Script" path="res://scripts/hns/HnsCharacter.gd" id="1_smhhb"]
+[ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://components/health/health_component.tscn" id="2_ts8xx"]
+[ext_resource type="Texture2D" uid="uid://6yh35k0xuhlr" path="res://assets/Used/Prototype_Character/Prototype_Character.png" id="3_vnanf"]
+[ext_resource type="Script" path="res://components/hitbox/HitboxComponent.gd" id="4_ytb48"]
+[ext_resource type="PackedScene" uid="uid://b16xsdnqifpbm" path="res://components/movement/movement_component.tscn" id="6_y1jah"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wrr6p"]
+properties/0/path = NodePath("..:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("../Sprite2D:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("../HealthComponent:health")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("../Sprite2D:animation")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("../Sprite2D:flip_h")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_n7qfr"]
+height = 32.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48838"]
+atlas = ExtResource("3_vnanf")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6v4mq"]
+atlas = ExtResource("3_vnanf")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnww8"]
+atlas = ExtResource("3_vnanf")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7tyj"]
+atlas = ExtResource("3_vnanf")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gg8sc"]
+atlas = ExtResource("3_vnanf")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mj2me"]
+atlas = ExtResource("3_vnanf")
+region = Rect2(96, 128, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tiqqy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48838")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6v4mq")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnww8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7tyj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gg8sc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mj2me")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 5.0
+}]
+
+[node name="HnsCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite")]
+collision_mask = 4
+script = ExtResource("1_smhhb")
+health = NodePath("HealthComponent")
+hitbox = NodePath("Hitbox")
+network = NodePath("NetworkComponent")
+movement = NodePath("MovementComponent")
+sprite = NodePath("Sprite2D")
+
+[node name="NetworkComponent" parent="." instance=ExtResource("1_gnrgf")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+replication_config = SubResource("SceneReplicationConfig_wrr6p")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_ts8xx")]
+position = Vector2(1, -5)
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_n7qfr")
+script = ExtResource("4_ytb48")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_tiqqy")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("body") instance=ExtResource("6_y1jah")]
+acceleration = 50
+speed = 200
+body = NodePath("..")

@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfoshfln0a0vf"]
+
+[ext_resource type="Script" path="res://scripts/Player/PlayerController.gd" id="1_q8wlx"]
+[ext_resource type="Script" path="res://scripts/hns/HnsController.gd" id="2_bacit"]
+[ext_resource type="Script" path="res://scripts/hns/HnsUi.gd" id="3_67vc8"]
+[ext_resource type="PackedScene" uid="uid://cw2ls3k0cc68i" path="res://scenes/Hns/hns_character.tscn" id="4_0vky4"]
+
+[node name="HnsPlayer" type="Node2D" node_paths=PackedStringArray("current_controller", "gui")]
+script = ExtResource("1_q8wlx")
+current_controller = NodePath("hnsController")
+gui = NodePath("UI")
+
+[node name="hnsController" type="Node2D" parent="." node_paths=PackedStringArray("character", "player", "camera")]
+script = ExtResource("2_bacit")
+character = NodePath("../HnsCharacter")
+player = NodePath("..")
+camera = NodePath("../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+script = ExtResource("3_67vc8")
+
+[node name="Name" type="Label" parent="UI"]
+visible = false
+texture_filter = 1
+layout_mode = 0
+offset_left = -317.0
+offset_top = -177.0
+offset_right = -237.0
+offset_bottom = -154.0
+theme_override_font_sizes/font_size = 14
+text = "aze"
+
+[node name="HnsCharacter" parent="." instance=ExtResource("4_0vky4")]

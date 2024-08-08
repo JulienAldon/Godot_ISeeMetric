@@ -1,0 +1,133 @@
+[gd_scene load_steps=5 format=3 uid="uid://hy5mfuk4bsut"]
+
+[ext_resource type="Script" path="res://scripts/MultiplayerController.gd" id="1_67xjm"]
+[ext_resource type="Script" path="res://scripts/MessageQueue.gd" id="2_2gb6n"]
+[ext_resource type="PackedScene" uid="uid://b4qecf23eusp0" path="res://scenes/Rts/rts_player.tscn" id="2_t0kh5"]
+[ext_resource type="PackedScene" uid="uid://cfoshfln0a0vf" path="res://scenes/Hns/hns_player.tscn" id="3_hmiq1"]
+
+[node name="Control" type="Control" node_paths=PackedStringArray("faction_picker", "player_name_label", "host", "join", "start", "player_color", "network_messages")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_67xjm")
+faction_picker = NodePath("HBoxContainer/FactionPicker")
+player_name_label = NodePath("LineEdit")
+host = NodePath("Host")
+join = NodePath("Join")
+start = NodePath("Start")
+player_color = NodePath("HBoxContainer/ColorPickerButton")
+network_messages = NodePath("NetworkInfo")
+faction_scenes = {
+0: ExtResource("2_t0kh5"),
+1: ExtResource("3_hmiq1")
+}
+
+[node name="NetworkInfo" type="VBoxContainer" parent="." node_paths=PackedStringArray("timer")]
+layout_mode = 0
+offset_left = 757.0
+offset_top = 6.0
+offset_right = 1152.0
+offset_bottom = 94.0
+script = ExtResource("2_2gb6n")
+timer = NodePath("MessageTimer")
+
+[node name="MessageTimer" type="Timer" parent="NetworkInfo"]
+wait_time = 2.0
+
+[node name="Host" type="Button" parent="."]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 148.0
+offset_right = 237.0
+offset_bottom = 189.0
+text = "Host"
+
+[node name="Join" type="Button" parent="."]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 215.0
+offset_right = 237.0
+offset_bottom = 256.0
+text = "Join"
+
+[node name="Start" type="Button" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 19.0
+offset_top = 282.0
+offset_right = 237.0
+offset_bottom = 323.0
+text = "Start"
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+offset_left = 19.0
+offset_top = 32.0
+offset_right = 225.0
+offset_bottom = 72.0
+size_flags_horizontal = 3
+placeholder_text = "name"
+alignment = 2
+max_length = 10
+
+[node name="Label" type="Label" parent="LineEdit"]
+layout_mode = 2
+offset_left = 7.0
+offset_top = 7.0
+offset_right = 62.0
+offset_bottom = 30.0
+text = "Name :"
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 84.0
+offset_right = 151.0
+offset_bottom = 115.0
+alignment = 1
+
+[node name="FactionPicker" type="OptionButton" parent="HBoxContainer"]
+layout_mode = 2
+item_count = 3
+popup/item_0/text = "King"
+popup/item_0/id = 0
+popup/item_1/text = "Mercenary"
+popup/item_1/id = 1
+popup/item_2/text = "Farmer"
+popup/item_2/id = 2
+
+[node name="ColorPickerButton" type="ColorPickerButton" parent="HBoxContainer"]
+layout_mode = 2
+text = "colo"
+color = Color(0.992157, 0, 0, 1)
+
+[node name="Message" type="Label" parent="."]
+layout_mode = 0
+offset_left = 15.0
+offset_top = 332.0
+offset_right = 543.0
+offset_bottom = 358.0
+text = "This is an error message that is rather long to test out its placement."
+
+[node name="PartyPanel" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="PartyPanel"]
+offset_left = 377.0
+offset_top = 8.0
+offset_right = 620.0
+offset_bottom = 320.0
+color = Color(0.121569, 0.121569, 0.121569, 0.729412)
+
+[node name="Players" type="VBoxContainer" parent="PartyPanel"]
+offset_left = 377.0
+offset_top = 10.0
+offset_right = 620.0
+offset_bottom = 320.0
+
+[connection signal="button_down" from="Host" to="." method="_on_host_button_down"]
+[connection signal="button_down" from="Join" to="." method="_on_join_button_down"]
+[connection signal="button_down" from="Start" to="." method="_on_start_button_down"]

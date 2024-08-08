@@ -1,0 +1,170 @@
+[gd_scene load_steps=22 format=3 uid="uid://bfvtfiwo5a8bd"]
+
+[ext_resource type="Shader" path="res://unit_outline.gdshader" id="1_2eckm"]
+[ext_resource type="Script" path="res://scripts/rts/Units/RtsCharacter.gd" id="1_5ashi"]
+[ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://components/network/network_component.tscn" id="1_p7edy"]
+[ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://components/health/health_component.tscn" id="2_i3fgo"]
+[ext_resource type="Script" path="res://components/hitbox/HitboxComponent.gd" id="3_0502e"]
+[ext_resource type="Texture2D" uid="uid://6yh35k0xuhlr" path="res://assets/Used/Prototype_Character/Prototype_Character.png" id="4_jiota"]
+[ext_resource type="PackedScene" uid="uid://ckia2wdtsnvks" path="res://components/navigation/navigation_component.tscn" id="6_1fg38"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://components/selection/selection_component.tscn" id="8_syf8d"]
+[ext_resource type="Script" path="res://components/attack/AttackComponent.gd" id="9_7byyw"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bcs1j"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Sprite2D:animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Sprite2D:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("HealthComponent:health")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("NavigationComponent:target_position")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("NavigationComponent:path")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gkunk"]
+radius = 5.0
+height = 16.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_233ta"]
+resource_local_to_scene = true
+shader = ExtResource("1_2eckm")
+shader_parameter/width = 0.0
+shader_parameter/outline_color = null
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48838"]
+atlas = ExtResource("4_jiota")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6v4mq"]
+atlas = ExtResource("4_jiota")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnww8"]
+atlas = ExtResource("4_jiota")
+region = Rect2(0, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7tyj"]
+atlas = ExtResource("4_jiota")
+region = Rect2(32, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gg8sc"]
+atlas = ExtResource("4_jiota")
+region = Rect2(64, 128, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mj2me"]
+atlas = ExtResource("4_jiota")
+region = Rect2(96, 128, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ekf6m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48838")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6v4mq")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnww8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7tyj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gg8sc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mj2me")
+}],
+"loop": true,
+"name": &"Walking",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xxdp7"]
+radius = 25.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m8s5j"]
+radius = 112.018
+
+[node name="RtsCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack") groups=["player_entity", "rts_unit"]]
+collision_layer = 3
+collision_mask = 28
+script = ExtResource("1_5ashi")
+health = NodePath("HealthComponent")
+hitbox = NodePath("Hitbox")
+network = NodePath("NetworkComponent")
+movement = NodePath("NavigationComponent")
+sprite = NodePath("Sprite2D")
+selection = NodePath("SelectionComponent")
+attack = NodePath("AttackComponent")
+
+[node name="NetworkComponent" parent="." instance=ExtResource("1_p7edy")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+root_path = NodePath("../..")
+replication_config = SubResource("SceneReplicationConfig_bcs1j")
+
+[node name="HealthComponent" parent="." instance=ExtResource("2_i3fgo")]
+visible = false
+position = Vector2(1, -5)
+scale = Vector2(0.5, 0.5)
+
+[node name="Hitbox" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component")]
+shape = SubResource("CapsuleShape2D_gkunk")
+script = ExtResource("3_0502e")
+health_component = NodePath("../HealthComponent")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_233ta")
+sprite_frames = SubResource("SpriteFrames_ekf6m")
+animation = &"Idle"
+autoplay = "Idle"
+
+[node name="NavigationComponent" parent="." node_paths=PackedStringArray("network_component", "body", "detection_range", "sprite") instance=ExtResource("6_1fg38")]
+network_component = NodePath("../NetworkComponent")
+body = NodePath("..")
+detection_range = NodePath("LocalGroup/CollisionShape2D")
+sprite = NodePath("../Sprite2D")
+max_separation_distance = 70
+
+[node name="LocalGroup" type="Area2D" parent="NavigationComponent"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationComponent/LocalGroup"]
+shape = SubResource("CircleShape2D_xxdp7")
+
+[node name="SelectionComponent" parent="." node_paths=PackedStringArray("network_component", "health_component", "sprite") instance=ExtResource("8_syf8d")]
+network_component = NodePath("../NetworkComponent")
+health_component = NodePath("../HealthComponent")
+sprite = NodePath("../Sprite2D")
+
+[node name="AttackComponent" type="Node2D" parent="." node_paths=PackedStringArray("body")]
+script = ExtResource("9_7byyw")
+body = NodePath("..")
+
+[node name="EnemyDetection" type="Area2D" parent="AttackComponent"]
+collision_layer = 0
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent/EnemyDetection"]
+shape = SubResource("CircleShape2D_m8s5j")
+
+[connection signal="body_entered" from="NavigationComponent/LocalGroup" to="NavigationComponent" method="_on_local_group_body_entered"]
+[connection signal="body_exited" from="NavigationComponent/LocalGroup" to="NavigationComponent" method="_on_local_group_body_exited"]
+[connection signal="body_entered" from="AttackComponent/EnemyDetection" to="AttackComponent" method="_on_enemy_detection_body_entered"]
+[connection signal="body_exited" from="AttackComponent/EnemyDetection" to="AttackComponent" method="_on_enemy_detection_body_exited"]

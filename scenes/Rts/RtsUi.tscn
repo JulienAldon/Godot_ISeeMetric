@@ -1,0 +1,222 @@
+[gd_scene load_steps=7 format=3 uid="uid://cfjgwqiy0a2ov"]
+
+[ext_resource type="Script" path="res://scripts/Rts/RtsUi.gd" id="1_d0qph"]
+[ext_resource type="Texture2D" uid="uid://crp2dpax6873n" path="res://assets/sword-brandish.png" id="2_wf3ni"]
+[ext_resource type="Texture2D" uid="uid://8eblhnf42cu0" path="res://assets/cog.png" id="3_7fbqc"]
+[ext_resource type="Texture2D" uid="uid://ciwo64c2dgk4a" path="res://assets/wood-beam.png" id="4_oc81t"]
+[ext_resource type="Texture2D" uid="uid://cl74nvbujjud4" path="res://assets/clay-brick.png" id="5_ykxpt"]
+[ext_resource type="PackedScene" uid="uid://dqwbpn64igs4t" path="res://scenes/Rts/GUI/production.tscn" id="6_cg5dg"]
+
+[node name="RtsUI" type="Control" node_paths=PackedStringArray("military_population", "worker_population", "wood_stock", "stone_stock", "productions_container")]
+z_index = 10
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = 83.0
+offset_right = 576.0
+offset_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_d0qph")
+military_population = NodePath("Informations/MarginContainer/HBoxContainer/Stats/Military/MilitaryPopulation")
+worker_population = NodePath("Informations/MarginContainer/HBoxContainer/Stats/Worker/WorkerPopulation")
+wood_stock = NodePath("Informations/MarginContainer/HBoxContainer/Stats/Wood/WoodStock")
+stone_stock = NodePath("Informations/MarginContainer/HBoxContainer/Stats/Stone/StoneStock")
+productions_container = NodePath("Actions/MarginContainer/GridContainer")
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 14.0
+offset_right = 60.0
+offset_bottom = 37.0
+
+[node name="Minimap" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 919.0
+offset_top = 3.0
+offset_right = 1152.0
+offset_bottom = 240.0
+mouse_filter = 1
+mouse_force_pass_scroll_events = false
+
+[node name="Informations" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 297.0
+offset_top = 78.0
+offset_right = 919.0
+offset_bottom = 240.0
+mouse_filter = 1
+mouse_force_pass_scroll_events = false
+
+[node name="MarginContainer" type="MarginContainer" parent="Informations"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Informations/MarginContainer"]
+layout_mode = 2
+
+[node name="SelectedUnitsList" type="VBoxContainer" parent="Informations/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Stats" type="VBoxContainer" parent="Informations/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+theme_override_constants/separation = 10
+
+[node name="Military" type="HBoxContainer" parent="Informations/MarginContainer/HBoxContainer/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Icon" type="TextureRect" parent="Informations/MarginContainer/HBoxContainer/Stats/Military"]
+layout_mode = 2
+texture = ExtResource("2_wf3ni")
+expand_mode = 3
+
+[node name="MilitaryPopulation" type="Label" parent="Informations/MarginContainer/HBoxContainer/Stats/Military"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+vertical_alignment = 3
+clip_text = true
+
+[node name="Worker" type="HBoxContainer" parent="Informations/MarginContainer/HBoxContainer/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Icon" type="TextureRect" parent="Informations/MarginContainer/HBoxContainer/Stats/Worker"]
+layout_mode = 2
+texture = ExtResource("3_7fbqc")
+expand_mode = 3
+
+[node name="WorkerPopulation" type="Label" parent="Informations/MarginContainer/HBoxContainer/Stats/Worker"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+vertical_alignment = 3
+clip_text = true
+
+[node name="Wood" type="HBoxContainer" parent="Informations/MarginContainer/HBoxContainer/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Icon" type="TextureRect" parent="Informations/MarginContainer/HBoxContainer/Stats/Wood"]
+layout_mode = 2
+texture = ExtResource("4_oc81t")
+expand_mode = 3
+
+[node name="WoodStock" type="Label" parent="Informations/MarginContainer/HBoxContainer/Stats/Wood"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+vertical_alignment = 3
+clip_text = true
+
+[node name="Stone" type="HBoxContainer" parent="Informations/MarginContainer/HBoxContainer/Stats"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Icon" type="TextureRect" parent="Informations/MarginContainer/HBoxContainer/Stats/Stone"]
+layout_mode = 2
+texture = ExtResource("5_ykxpt")
+expand_mode = 3
+
+[node name="StoneStock" type="Label" parent="Informations/MarginContainer/HBoxContainer/Stats/Stone"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 5
+vertical_alignment = 3
+clip_text = true
+
+[node name="Actions" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_top = 3.0
+offset_right = 297.0
+offset_bottom = 240.0
+mouse_filter = 1
+mouse_force_pass_scroll_events = false
+
+[node name="MarginContainer" type="MarginContainer" parent="Actions"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="GridContainer" type="GridContainer" parent="Actions/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 12
+columns = 5
+
+[node name="Production" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+layout_mode = 2
+
+[node name="Production2" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production3" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production4" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production5" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production6" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production7" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production8" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production9" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production10" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production11" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production12" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production13" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production14" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
+
+[node name="Production15" parent="Actions/MarginContainer/GridContainer" instance=ExtResource("6_cg5dg")]
+visible = false
+layout_mode = 2
