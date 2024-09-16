@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/SceneManager.gd" id="1_s0nne"]
 [ext_resource type="Script" path="res://scripts/map/Tilemap.gd" id="3_uxxc1"]
-[ext_resource type="Texture2D" uid="uid://dncj4udq87xwq" path="res://assets/Used/forest_.png" id="4_mhxb3"]
+[ext_resource type="Texture2D" uid="uid://dncj4udq87xwq" path="res://assets/forest_.png" id="4_mhxb3"]
+[ext_resource type="PackedScene" uid="uid://baxg8wjbqklw5" path="res://scenes/game/campfire.tscn" id="4_neojq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dat27"]
 texture = ExtResource("4_mhxb3")
@@ -665,16 +666,10 @@ source_geometry_mode = 1
 source_geometry_group_name = &"navigation"
 agent_radius = 50.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6d0g1"]
-resource_local_to_scene = true
-radius = 128.0
-
-[node name="game" type="Node2D" node_paths=PackedStringArray("spawns", "king_spawns", "tilemap")]
+[node name="game" type="Node2D" node_paths=PackedStringArray("tilemap", "spawns")]
 script = ExtResource("1_s0nne")
-spawns = NodePath("SpawnLocations")
-king_spawns = NodePath("KingInitalSpawnLocation")
 tilemap = NodePath("TileMap")
-king_initial_units = Array[int]([0])
+spawns = NodePath("SpawnLocations")
 
 [node name="debug" type="Node2D" parent="."]
 z_index = 2
@@ -711,49 +706,7 @@ position = Vector2(-614, 770)
 [node name="Player4" type="Node2D" parent="SpawnLocations"]
 position = Vector2(1384, -180)
 
-[node name="KingInitalSpawnLocation" type="Area2D" parent="."]
-visible = false
-collision_layer = 0
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KingInitalSpawnLocation"]
-position = Vector2(718, 353)
-shape = SubResource("CircleShape2D_6d0g1")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="KingInitalSpawnLocation"]
-position = Vector2(114, 194)
-shape = SubResource("CircleShape2D_6d0g1")
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="KingInitalSpawnLocation"]
-position = Vector2(1007, 463)
-shape = SubResource("CircleShape2D_6d0g1")
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="KingInitalSpawnLocation"]
-position = Vector2(691, 622)
-shape = SubResource("CircleShape2D_6d0g1")
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="KingInitalSpawnLocation"]
-position = Vector2(69, 526)
-shape = SubResource("CircleShape2D_6d0g1")
-
-[node name="CollisionShape2D6" type="CollisionShape2D" parent="KingInitalSpawnLocation"]
-position = Vector2(77, 852)
-shape = SubResource("CircleShape2D_6d0g1")
-
-[node name="CollisionShape2D7" type="CollisionShape2D" parent="KingInitalSpawnLocation"]
-position = Vector2(-182, 682)
-shape = SubResource("CircleShape2D_6d0g1")
-
-[node name="CollisionShape2D8" type="CollisionShape2D" parent="KingInitalSpawnLocation"]
-position = Vector2(-169, 324)
-shape = SubResource("CircleShape2D_6d0g1")
-
-[node name="CollisionShape2D9" type="CollisionShape2D" parent="KingInitalSpawnLocation"]
-position = Vector2(719, 904)
-shape = SubResource("CircleShape2D_6d0g1")
-
-[node name="CollisionShape2D10" type="CollisionShape2D" parent="KingInitalSpawnLocation"]
-position = Vector2(998, 758)
-shape = SubResource("CircleShape2D_6d0g1")
+[node name="Campfire" parent="." instance=ExtResource("4_neojq")]
+position = Vector2(-283, -179)
 
 [connection signal="child_entered_tree" from="TileMap" to="TileMap" method="_on_child_entered_tree"]

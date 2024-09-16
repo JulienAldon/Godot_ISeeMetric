@@ -1,5 +1,7 @@
 extends Control
 
+class_name MultiplayerController
+
 @export var address = '127.0.0.1'
 @export var port = 8910
 var peer
@@ -19,17 +21,17 @@ var peer
 @export var entity_spawner : MultiplayerSpawner
 
 @export var faction_scenes: Dictionary
-@export var king_scenes: Dictionary
+@export var npc_entities: Dictionary
 @export var no_party: Label
 
+@export var unit_spawner: String
 var is_level_loaded = false
 
 func instantiate_entity(informations: Dictionary):
-	var current_entity = king_scenes[informations["type"]].instantiate()
-	current_entity.controlled_by = informations["controlled_by"]
-	current_entity.position = informations["position"]
+	var current_entity = load(informations['scene']).instantiate()
+	for key in informations.keys():
+		current_entity[key] = informations[key]
 	return current_entity
-	#var current_entity = 
 
 func instantiate_player(informations: Dictionary):
 	var current_player = faction_scenes[informations["faction"]].instantiate()
@@ -37,6 +39,9 @@ func instantiate_player(informations: Dictionary):
 	current_player.set_player_name(informations["name"])
 	current_player.set_player_color(informations["color"])
 	current_player.set_spawn(informations["position"])
+	var unit = load(unit_spawner).instantiate()
+	unit.name = str(informations["id"])
+	$"..".add_child(unit, true)
 	return current_player
 
 func _enter_tree():
@@ -66,7 +71,6 @@ func peer_disconnected(id):
 	print('Player disconnected ' + str(id))
 	network_messages.add_message('Player disconnected ' + str(id))
 
-	
 # called only on client
 func connected_to_server():
 	print('Successfully connected to server')
@@ -119,6 +123,7 @@ func clear_connection():
 	clear_menu()
 	stop_game()
 	GameManager.Players = {}
+	await get_tree().create_timer(0.5).timeout	
 	if peer:
 		peer.close()
 		peer = OfflineMultiplayerPeer.new()
@@ -171,34 +176,26 @@ func send_player_information(_name, id, color, faction):
 		for i in GameManager.Players:
 			send_player_information.rpc(GameManager.Players[i]["name"], i, GameManager.Players[i]["color"], GameManager.Players[i]["faction"])
 
-func spawn_king_packs(locations_node, king_units, king_id):
-	var locations = locations_node.get_children()
-	for location in locations:
-		var number_spawn = randi_range(20,30)
-		var loc_pos = location.position
-		var location_shape = location.shape.radius
-		for _i in number_spawn:
-			var pos = Vector2(
-				randf_range(loc_pos.x - location_shape, loc_pos.x + location_shape), 
-				randf_range(loc_pos.y - location_shape, loc_pos.y + location_shape)
-			)
-			entity_spawner.spawn({
-				"position": pos, 
-				"controlled_by": king_id, 
-				"type": king_units[randi_range(0, king_units.size() - 1)]
-			})
-	
-func spawn_initial_king(_level):
-	var locations = _level.king_spawns
-	var king_ids = []
-	for i in GameManager.Players:
-		if GameManager.Players[i].faction == GameManager.Factions.King:
-			king_ids.append(i)
-
-	if king_ids.size() > 0:
-		# find number of kings
-		# divide locations by king number
-		spawn_king_packs(locations, _level.king_initial_units, king_ids[0])
+#func spawn_unit_packs(locations_node):
+	#var locations = locations_node.get_children()
+	#for location in locations:
+		#var number_spawn = randi_range(20,30)
+		#var loc_pos = location.position
+		#var location_shape = location.shape.radius
+		#for _i in number_spawn:
+			#var pos = Vector2(
+				#randf_range(loc_pos.x - location_shape, loc_pos.x + location_shape), 
+				#randf_range(loc_pos.y - location_shape, loc_pos.y + location_shape)
+			#)
+			#entity_spawner.spawn({
+				#"position": pos, 
+				#"controlled_by": 1, 
+				#"scene": npc_entities[0]
+			#})
+#
+#func spawn_initial_units(_level):
+	#var locations = _level.entity_spawns
+	#spawn_unit_packs(locations)
 
 func spawn_players(locations):
 	var spawn_index: int = 0
@@ -223,14 +220,21 @@ func change_level(scene: PackedScene):
 	var instantiated_scene = scene.instantiate()
 	level.add_child(instantiated_scene)
 	spawn_players(instantiated_scene.spawns.get_children())
-	spawn_initial_king(instantiated_scene)
+	#spawn_initial_units(instantiated_scene)
 	is_level_loaded = true
 
 func stop_game():
-	var current_level = get_tree().root.get_node_or_null("game")
-	if current_level:
+	if level.get_children().size() > 0:
+		var multi = $".."
+		var node = multi.get_node(str(multiplayer.get_unique_id()))
+		node.call_deferred("queue_free")
+		if multiplayer.is_server():
+			var current_entities = $"../Entities"
+			for child in current_entities.get_children():
+				child.call_deferred("queue_free")
+			current_entities.call_deferred("queue_free")
 		is_level_loaded = false
-		current_level.queue_free()
+		level.call_deferred("queue_free")
 		self.show()
 
 func _on_host_button_down():

@@ -1,14 +1,15 @@
-[gd_scene load_steps=22 format=3 uid="uid://bfvtfiwo5a8bd"]
+[gd_scene load_steps=23 format=3 uid="uid://bfvtfiwo5a8bd"]
 
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="1_2eckm"]
 [ext_resource type="Script" path="res://scripts/rts/Units/RtsCharacter.gd" id="1_5ashi"]
 [ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://components/network/network_component.tscn" id="1_p7edy"]
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://components/health/health_component.tscn" id="2_i3fgo"]
 [ext_resource type="Script" path="res://components/hitbox/HitboxComponent.gd" id="3_0502e"]
-[ext_resource type="Texture2D" uid="uid://6yh35k0xuhlr" path="res://assets/Used/Prototype_Character/Prototype_Character.png" id="4_jiota"]
+[ext_resource type="Texture2D" uid="uid://6yh35k0xuhlr" path="res://assets/Prototype_Character/Prototype_Character.png" id="4_jiota"]
 [ext_resource type="PackedScene" uid="uid://ckia2wdtsnvks" path="res://components/navigation/navigation_component.tscn" id="6_1fg38"]
 [ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://components/selection/selection_component.tscn" id="8_syf8d"]
 [ext_resource type="Script" path="res://components/attack/AttackComponent.gd" id="9_7byyw"]
+[ext_resource type="Script" path="res://components/death/DeathComponent.gd" id="10_yroxq"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bcs1j"]
 properties/0/path = NodePath(".:position")
@@ -101,7 +102,7 @@ radius = 25.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_m8s5j"]
 radius = 112.018
 
-[node name="RtsCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack") groups=["player_entity", "rts_unit"]]
+[node name="RtsCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death") groups=["player_entity", "rts_unit"]]
 collision_layer = 3
 collision_mask = 28
 script = ExtResource("1_5ashi")
@@ -112,6 +113,7 @@ movement = NodePath("NavigationComponent")
 sprite = NodePath("Sprite2D")
 selection = NodePath("SelectionComponent")
 attack = NodePath("AttackComponent")
+death = NodePath("DeathComponent")
 
 [node name="NetworkComponent" parent="." instance=ExtResource("1_p7edy")]
 
@@ -120,16 +122,18 @@ root_path = NodePath("../..")
 replication_config = SubResource("SceneReplicationConfig_bcs1j")
 
 [node name="HealthComponent" parent="." instance=ExtResource("2_i3fgo")]
-visible = false
+z_index = 1
 position = Vector2(1, -5)
 scale = Vector2(0.5, 0.5)
 
-[node name="Hitbox" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component")]
+[node name="Hitbox" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character")]
 shape = SubResource("CapsuleShape2D_gkunk")
 script = ExtResource("3_0502e")
 health_component = NodePath("../HealthComponent")
+character = NodePath("..")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
 texture_filter = 1
 material = SubResource("ShaderMaterial_233ta")
 sprite_frames = SubResource("SpriteFrames_ekf6m")
@@ -142,8 +146,12 @@ body = NodePath("..")
 detection_range = NodePath("LocalGroup/CollisionShape2D")
 sprite = NodePath("../Sprite2D")
 max_separation_distance = 70
+separation_weight = 0.1
+alignment_weight = 0.3
 
 [node name="LocalGroup" type="Area2D" parent="NavigationComponent"]
+collision_layer = 0
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationComponent/LocalGroup"]
 shape = SubResource("CircleShape2D_xxdp7")
@@ -160,11 +168,29 @@ body = NodePath("..")
 [node name="EnemyDetection" type="Area2D" parent="AttackComponent"]
 collision_layer = 0
 collision_mask = 17
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent/EnemyDetection"]
 shape = SubResource("CircleShape2D_m8s5j")
+
+[node name="DeathComponent" type="Node2D" parent="." node_paths=PackedStringArray("corpse", "body", "delete_timer")]
+script = ExtResource("10_yroxq")
+corpse = NodePath("Corpse")
+body = NodePath("..")
+delete_timer = NodePath("Timer")
+
+[node name="Corpse" type="Sprite2D" parent="DeathComponent"]
+visible = false
+texture = ExtResource("4_jiota")
+hframes = 4
+vframes = 12
+frame = 41
+
+[node name="Timer" type="Timer" parent="DeathComponent"]
+wait_time = 0.5
 
 [connection signal="body_entered" from="NavigationComponent/LocalGroup" to="NavigationComponent" method="_on_local_group_body_entered"]
 [connection signal="body_exited" from="NavigationComponent/LocalGroup" to="NavigationComponent" method="_on_local_group_body_exited"]
 [connection signal="body_entered" from="AttackComponent/EnemyDetection" to="AttackComponent" method="_on_enemy_detection_body_entered"]
 [connection signal="body_exited" from="AttackComponent/EnemyDetection" to="AttackComponent" method="_on_enemy_detection_body_exited"]
+[connection signal="timeout" from="DeathComponent/Timer" to="DeathComponent" method="_on_timer_timeout"]

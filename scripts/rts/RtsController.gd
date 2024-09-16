@@ -3,7 +3,7 @@ class_name RtsController
 
 @export var camera_margin := 50
 @export var camera_speed := 800
-
+@export var units: Node
 var camera_movement := Vector2(0,0)
 
 var drag_start = Vector2.ZERO
@@ -92,7 +92,6 @@ func command_unit_action(click_position):
 	for unit in group:
 		if is_instance_valid(unit) and unit.is_in_group("rts_unit"):
 			unit.movement.command_navigation(click_position, group_map, path)
-			print("command")
 
 func append_unit_action(click_position):
 	var group = selected.map(func(el): return el.collider)
@@ -102,7 +101,6 @@ func append_unit_action(click_position):
 	for unit in group:
 		if is_instance_valid(unit) and unit.is_in_group("rts_unit"):
 			unit.movement.append_navigation(click_position, group_map, path)
-			print("append")
 	
 func camera_control(delta):
 	var input_axis:= Vector2(0,0)
@@ -136,8 +134,12 @@ func selection_control(event):
 			else:
 				command_unit_action(mouse_pos)
 			queue_redraw()
+	if Input.is_action_pressed("spell_slot_2"):
+		GameManager.spawn_character(char_scene, {"position": mouse_pos, "controlled_by": player_id})
 	queue_redraw()
-	
+
+@export var char_scene: String = ""
+
 func compute_selected_units(start, end, space, filter_function=null):
 	var result
 	var query = PhysicsShapeQueryParameters2D.new()
@@ -146,7 +148,7 @@ func compute_selected_units(start, end, space, filter_function=null):
 	query.collision_mask = 2
 	query.transform = Transform2D(0, (end + start) / 2)
 	if filter_function:
-		result = space.intersect_shape(query, 1000).filter(filter_function)
+		result = space.intersect_shape(query, 50).filter(filter_function)
 	else:
 		result = space.intersect_shape(query)
 	return result

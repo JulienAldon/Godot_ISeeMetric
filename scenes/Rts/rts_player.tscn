@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://b4qecf23eusp0"]
+[gd_scene load_steps=10 format=3 uid="uid://b4qecf23eusp0"]
 
 [ext_resource type="Script" path="res://scripts/Player/PlayerController.gd" id="1_v4601"]
 [ext_resource type="Script" path="res://scripts/Rts/RtsUi.gd" id="2_1353d"]
 [ext_resource type="Script" path="res://scripts/rts/RtsController.gd" id="3_h1evf"]
+[ext_resource type="PackedScene" uid="uid://b2x6sdog8fqmo" path="res://scenes/multiplayer/unit_spawner.tscn" id="4_0ljgb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_enl1o"]
 size = Vector2(35, 363.5)
@@ -45,10 +46,12 @@ offset_bottom = -796.0
 theme_override_font_sizes/font_size = 18
 text = "aze"
 
-[node name="RtsController" type="Node2D" parent="." node_paths=PackedStringArray("player", "camera")]
+[node name="RtsController" type="Node2D" parent="." node_paths=PackedStringArray("units", "player", "camera")]
 script = ExtResource("3_h1evf")
 camera_margin = 40
 camera_speed = 600
+units = NodePath("../UnitSpawner")
+char_scene = "res://scenes/Rts/Units/rts_character.tscn"
 player = NodePath("..")
 camera = NodePath("../Camera2D")
 
@@ -102,6 +105,8 @@ collision_mask = 17
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EntityDetection"]
 shape = SubResource("CircleShape2D_q66si")
 debug_color = Color(0.791588, 0.419872, 0.227158, 0.42)
+
+[node name="UnitSpawner" parent="." instance=ExtResource("4_0ljgb")]
 
 [connection signal="mouse_entered" from="RtsController/Left" to="RtsController" method="_on_left_mouse_entered"]
 [connection signal="mouse_exited" from="RtsController/Left" to="RtsController" method="_on_left_mouse_exited"]

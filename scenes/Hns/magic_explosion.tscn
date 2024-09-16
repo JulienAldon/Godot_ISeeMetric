@@ -1,0 +1,152 @@
+[gd_scene load_steps=6 format=3 uid="uid://degstpf8wtqub"]
+
+[ext_resource type="Script" path="res://scripts/skills/SkillEntity.gd" id="1_uxfg2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_abn4o"]
+radius = 28.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_yqxsv"]
+properties/0/path = NodePath(".:ref")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:invoker_pos")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:scale")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:position")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:rotation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath(".:animation_speed")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath(".:damage")
+properties/6/spawn = true
+properties/6/replication_mode = 1
+
+[sub_resource type="Animation" id="Animation_erq8d"]
+resource_name = "explosion"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(2, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Effect/Primary:width")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.15),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 10.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Effect/Secondary:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.45),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(1, 1), Vector2(4, 4)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Effect/Secondary:default_color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.15, 0.45),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Effect/Primary:default_color")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.15, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Area2D/CollisionShape2D:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_48j8l"]
+_data = {
+"explosion": SubResource("Animation_erq8d")
+}
+
+[node name="MagicExplosion" type="Node2D" node_paths=PackedStringArray("behaviours_container", "animation_player")]
+scale = Vector2(2, 2)
+script = ExtResource("1_uxfg2")
+behaviours_container = NodePath("Behaviors")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 17
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_abn4o")
+disabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_yqxsv")
+
+[node name="Behaviors" type="Node2D" parent="."]
+
+[node name="Effect" type="Node2D" parent="."]
+
+[node name="Primary" type="Line2D" parent="Effect"]
+points = PackedVector2Array(-14, -18, 0, -23, 16, -16, 23, -1, 17, 16, 0, 23, -16, 17, -22, 6, -22, -6)
+closed = true
+default_color = Color(1, 1, 1, 0)
+
+[node name="Secondary" type="Line2D" parent="Effect"]
+scale = Vector2(4, 4)
+points = PackedVector2Array(-14, -18, 0, -23, 16, -16, 23, -1, 17, 16, 0, 23, -16, 17, -22, 6, -22, -6)
+closed = true
+width = 2.0
+default_color = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_48j8l")
+}
+autoplay = "explosion"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

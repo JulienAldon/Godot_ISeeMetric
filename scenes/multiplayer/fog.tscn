@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://tdxc50r7vig5"]
+
+[ext_resource type="Script" path="res://scripts/Fog.gd" id="1_s3x8x"]
+[ext_resource type="Texture2D" path="res://assets/Used/Light.png" id="2_jml7o"]
+
+[node name="Fog" type="Node2D" node_paths=PackedStringArray("fog")]
+script = ExtResource("1_s3x8x")
+fog = NodePath("Sprite2D")
+fog_dimensions = Vector2(4000, 4000)
+light_texture = ExtResource("2_jml7o")
+light_dimensions = Vector2(100, 100)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]

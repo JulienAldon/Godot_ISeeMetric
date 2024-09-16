@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://qvj8g1rdrrpe"]
+
+[ext_resource type="Script" path="res://scripts/skills/behaviours/Spliting.gd" id="1_3fuv3"]
+
+[node name="Spliting" type="Node2D"]
+script = ExtResource("1_3fuv3")
+additinal_behaviours = Array[String](["res://scenes/skills/behaviours/projectile.tscn", "res://scenes/skills/behaviours/piercing.tscn"])

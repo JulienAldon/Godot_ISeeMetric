@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1jwhmuilxbg5"]
+
+[ext_resource type="Script" path="res://scripts/skills/behaviours/Exploding.gd" id="1_i8flp"]
+
+[node name="Exploading" type="Node2D"]
+script = ExtResource("1_i8flp")
+explosion_scene = "res://scenes/Hns/magic_explosion.tscn"
+behaviours = Array[String](["res://scenes/skills/behaviours/piercing.tscn"])

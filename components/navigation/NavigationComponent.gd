@@ -94,7 +94,6 @@ func flock_direction(group, direction):
 	var separation = Vector2(0,0)
 	var cohesion = Vector2(0,0)
 	var alignment = direction
-
 	for unit in group:
 		if unit == self.body:
 			continue
@@ -103,7 +102,6 @@ func flock_direction(group, direction):
 		var distance = body.position.distance_to(unit.position)
 		if distance < max_separation_distance:
 			separation -= (unit.position - body.position).normalized() * (max_separation_distance / distance * speed)
-
 	cohesion /= group.size()
 	alignment /= group.size()
 	var center_direction = body.position.direction_to(cohesion)
@@ -113,13 +111,13 @@ func flock_direction(group, direction):
 
 func move_toward_target(delta):
 	switch_movement_animation("Walking")
-	var group = []
+	var group = get_local_units(5)
 	if reached_target(50, path[current_path_position]):
 		current_path_position = get_path_point(path[current_path_position], 1)
 	var next_path = path[current_path_position]
 	var direction = (next_path - body.position)
 	current_direction = direction
-	if !flocked_direction or Engine.get_process_frames() % 20 == 0:
+	if !flocked_direction or Engine.get_process_frames() % 10 == 0:
 		flocked_direction = flock_direction(group, direction)
 	body.velocity = (direction + flocked_direction).normalized() * speed
 	if direction.x > 0:
@@ -129,7 +127,7 @@ func move_toward_target(delta):
 	body.move_and_collide(body.velocity * delta)
 	
 	if !target_entity:
-		if Engine.get_process_frames() % 20 == 0:
+		if Engine.get_process_frames() % 10 == 0:
 			colliders_reached_target()
 	else:
 		# if target in range stop
@@ -143,7 +141,7 @@ func clear_navigation_command():
 	path = []
 
 func _physics_process(delta):
-	if !network_component.has_ownership():
+	if !is_multiplayer_authority():
 		return
 	if has_move_instruction() and !reached_target():
 		move_toward_target(delta)
