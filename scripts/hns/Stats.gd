@@ -4,6 +4,7 @@ class_name CharacterStats
 
 @export var attack_speed: float = 3
 @export var cast_speed: float = 3
+@export var base_range: float = 100
 
 @export var weapons: Array[Weapon]
 @export var current_weapon: int = 0
@@ -48,6 +49,8 @@ func get_skill_speed(skill: Skill):
 	return speed
 
 func calculate_effect_duration(effect: EffectResource):
+	if not get_weapon():
+		return effect.base_duration + additionnal_duration
 	return effect.base_duration + get_weapon().duration + additionnal_duration
 
 func get_skill_effects(skill: Skill):
@@ -59,18 +62,29 @@ func get_skill_effects(skill: Skill):
 	return effects
 
 func get_skill_behaviours(skill: Skill):
+	if not get_weapon():
+		return skill.behaviours + additionnal_behaviours
 	return skill.behaviours + additionnal_behaviours + get_weapon().additionnal_behaviours
 
 func get_skill_duration(skill: Skill):
-	return skill.base_duration + get_weapon().duration + additionnal_duration
+	if not get_weapon():
+		return skill.base_duration  + additionnal_duration
+	return skill.base_duration  + additionnal_duration + get_weapon().duration
 
 func get_skill_throw_speed(skill: Skill):
+	if not get_weapon():
+		return skill.throw_speed
 	return skill.throw_speed + get_weapon().throw_speed
 
 func set_weapon(weapon_index):
 	current_weapon = weapon_index
 
+func get_range():
+	return base_range
+
 func get_weapon():
+	if weapons.size() <= 0:
+		return false
 	return weapons[current_weapon]
 
 func calculate_added_physical():
@@ -139,7 +153,7 @@ func calculate_more_physical():
 func calculate_physical_damage(skill: Skill):
 	var damage = Damage.new()
 	damage.base = (skill.damage.base * skill.damage_effectiveness)
-	if skill.type == Skill.SkillType.Attack:
+	if skill.type == Skill.SkillType.Attack and get_weapon():
 		damage.base += (get_weapon().damage.base * get_weapon().damage_effectiveness)
 	damage.added += calculate_added_physical()
 	damage.increased = calculate_increased_physical() + calculate_increased()
@@ -149,7 +163,7 @@ func calculate_physical_damage(skill: Skill):
 func calculate_magic_damage(skill: Skill):
 	var damage = Damage.new()
 	damage.base = (skill.damage.base * skill.damage_effectiveness)
-	if skill.type == Skill.SkillType.Attack:
+	if skill.type == Skill.SkillType.Attack and get_weapon():
 		damage.base += (get_weapon().damage.base * get_weapon().damage_effectiveness)
 	damage.added += calculate_added_magic()
 	damage.increased = calculate_increased_magic() + calculate_increased()

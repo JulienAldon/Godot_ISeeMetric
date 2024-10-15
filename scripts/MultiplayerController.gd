@@ -35,12 +35,16 @@ func instantiate_entity(informations: Dictionary):
 
 func instantiate_player(informations: Dictionary):
 	var current_player = faction_scenes[informations["faction"]].instantiate()
+	var player_ui = load(current_player.ui_scene).instantiate()
+	player_ui.minimap.player = current_player
+	current_player.set_player_ui(player_ui)
 	current_player.set_player_id(informations["id"])
 	current_player.set_player_name(informations["name"])
 	current_player.set_player_color(informations["color"])
 	current_player.set_spawn(informations["position"])
 	var unit = load(unit_spawner).instantiate()
 	unit.name = str(informations["id"])
+	$"..".add_child(player_ui)
 	$"..".add_child(unit, true)
 	return current_player
 
@@ -75,7 +79,7 @@ func peer_disconnected(id):
 func connected_to_server():
 	print('Successfully connected to server')
 	$Message.text = "Successfully connected to server."
-	send_player_information.rpc_id(1, player_name_label.text, multiplayer.get_unique_id(), GameManager.factions_attributes[faction_picker.selected].color, faction_picker.selected)
+	send_player_information.rpc_id(1, player_name_label.text, multiplayer.get_unique_id(), GameManager.factions_attributes[faction_picker.selected].color[0], faction_picker.selected)
 
 # called only on client
 func connection_failed():
@@ -176,31 +180,12 @@ func send_player_information(_name, id, color, faction):
 		for i in GameManager.Players:
 			send_player_information.rpc(GameManager.Players[i]["name"], i, GameManager.Players[i]["color"], GameManager.Players[i]["faction"])
 
-#func spawn_unit_packs(locations_node):
-	#var locations = locations_node.get_children()
-	#for location in locations:
-		#var number_spawn = randi_range(20,30)
-		#var loc_pos = location.position
-		#var location_shape = location.shape.radius
-		#for _i in number_spawn:
-			#var pos = Vector2(
-				#randf_range(loc_pos.x - location_shape, loc_pos.x + location_shape), 
-				#randf_range(loc_pos.y - location_shape, loc_pos.y + location_shape)
-			#)
-			#entity_spawner.spawn({
-				#"position": pos, 
-				#"controlled_by": 1, 
-				#"scene": npc_entities[0]
-			#})
-#
-#func spawn_initial_units(_level):
-	#var locations = _level.entity_spawns
-	#spawn_unit_packs(locations)
-
 func spawn_players(locations):
 	var spawn_index: int = 0
 	for i in GameManager.Players:
-		var player_info = {"position": locations[spawn_index].position}
+		var player_info = {"position": locations[spawn_index].global_position}
+		var outpost = locations[spawn_index].get_node(locations[spawn_index].get_meta("start_outpost"))
+		outpost.capture.capture_success(GameManager.Players[i]["id"])
 		player_info.merge(GameManager.Players[i])
 		player_spawner.spawn(player_info)
 		spawn_index += 1
@@ -250,7 +235,7 @@ func _on_host_button_down():
 	print("waiting for players")
 	party_panel.visible = true
 	party_creation_panel.visible = false
-	send_player_information(player_name_label.text, multiplayer.get_unique_id(), GameManager.factions_attributes[faction_picker.selected].color, faction_picker.selected)
+	send_player_information(player_name_label.text, multiplayer.get_unique_id(), GameManager.factions_attributes[faction_picker.selected].color[0], faction_picker.selected)
 
 func _on_join_button_down():
 	if peer is ENetMultiplayerPeer:
@@ -274,10 +259,13 @@ func _on_level_child_exiting_tree(_node):
 	is_level_loaded = false
 
 func _on_faction_picker_item_selected(index):
+	var color_index = 0
+	var used_colors = GameManager.Players.values().filter(func(el): return el.faction == index)
+	color_index += used_colors.size()
 	if multiplayer.is_server():
-		send_player_information(player_name_label.text, multiplayer.get_unique_id(), GameManager.factions_attributes[index].color, index)
+		send_player_information(player_name_label.text, multiplayer.get_unique_id(), GameManager.factions_attributes[index].color[color_index], index)
 	else:
-		send_player_information.rpc_id(1, player_name_label.text, multiplayer.get_unique_id(), GameManager.factions_attributes[index].color, index)
+		send_player_information.rpc_id(1, player_name_label.text, multiplayer.get_unique_id(), GameManager.factions_attributes[index].color[color_index], index)
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

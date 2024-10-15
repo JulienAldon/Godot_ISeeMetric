@@ -1,0 +1,143 @@
+[gd_scene load_steps=17 format=3 uid="uid://4tbd8aqita4l"]
+
+[ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="1_7lsqu"]
+[ext_resource type="Script" path="res://scripts/Ui/actions/ActionUi.gd" id="2_m6ank"]
+[ext_resource type="PackedScene" uid="uid://ct5uvol3tm24r" path="res://scenes/Ui/ui_action.tscn" id="3_bv0gt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l48lq"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventKey" id="InputEventKey_mmsi7"]
+device = -1
+keycode = 49
+unicode = 38
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qiuv"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventKey" id="InputEventKey_8ot17"]
+device = -1
+keycode = 50
+unicode = 233
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x87u"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventKey" id="InputEventKey_c0b8x"]
+device = -1
+keycode = 51
+unicode = 34
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fqhef"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventKey" id="InputEventKey_3eid1"]
+device = -1
+keycode = 52
+unicode = 39
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pj3p"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aer66"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04mlm"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jqft"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v7db"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="ActionUI" type="PanelContainer" node_paths=PackedStringArray("action_container")]
+offset_left = 8.0
+offset_top = 257.0
+offset_right = 108.0
+offset_bottom = 357.0
+theme_override_styles/panel = ExtResource("1_7lsqu")
+script = ExtResource("2_m6ank")
+action_container = NodePath("MarginContainer/GridContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 3
+
+[node name="UIAction1" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l48lq")
+key = SubResource("InputEventKey_mmsi7")
+
+[node name="UIAction2" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7qiuv")
+key = SubResource("InputEventKey_8ot17")
+
+[node name="UIAction3" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5x87u")
+key = SubResource("InputEventKey_c0b8x")
+
+[node name="UIAction4" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fqhef")
+key = SubResource("InputEventKey_3eid1")
+
+[node name="UIAction5" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7pj3p")
+
+[node name="UIAction6" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aer66")
+
+[node name="UIAction7" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_04mlm")
+
+[node name="UIAction8" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1jqft")
+
+[node name="UIAction9" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2v7db")

@@ -2,7 +2,7 @@ extends CollisionShape2D
 class_name HitboxComponent
 @export var health_component: HealthComponent
 var current_effects: Array[Effect] = []
-@export var character: CharacterBody2D
+@export var character: Node2D
 
 @rpc("any_peer", "call_local")
 func damage(_damage: int):
@@ -33,4 +33,3 @@ func _process(delta):
 		else:
 			effect.stop()
 			current_effects.erase(effect)
-

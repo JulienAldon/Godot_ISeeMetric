@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://7ay25idlrphw"]
+
+[ext_resource type="Script" path="res://scripts/map/Minimap.gd" id="1_0ihho"]
+[ext_resource type="Texture2D" uid="uid://da8ke31t1flvn" path="res://assets/minimap/minimap_marker.png" id="2_1ds26"]
+[ext_resource type="Texture2D" uid="uid://d184herxftces" path="res://assets/minimap/minimap_icons.png" id="4_nxlhq"]
+[ext_resource type="PackedScene" uid="uid://tdxc50r7vig5" path="res://scenes/multiplayer/fog.tscn" id="5_51htw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1n53"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(1, 0.54902, 0.227451, 1)
+border_blend = true
+
+[sub_resource type="ImageTexture" id="ImageTexture_n5yhd"]
+
+[node name="Minimap" type="PanelContainer" node_paths=PackedStringArray("outpost_marker", "unit_marker", "entities", "player", "player_sprite", "texture_rect")]
+clip_contents = true
+offset_right = 135.0
+offset_bottom = 91.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_g1n53")
+script = ExtResource("1_0ihho")
+outpost_marker = NodePath("OutpostMarker")
+unit_marker = NodePath("UnitMarker")
+entities = NodePath("Entities")
+player = NodePath("Entities")
+player_sprite = NodePath("Entities/PlayerEntity")
+texture_rect = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = SubResource("ImageTexture_n5yhd")
+expand_mode = 1
+
+[node name="UnitMarker" type="Sprite2D" parent="."]
+texture = ExtResource("4_nxlhq")
+hframes = 4
+vframes = 2
+frame = 2
+
+[node name="OutpostMarker" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_nxlhq")
+hframes = 4
+vframes = 2
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="PlayerEntity" type="Sprite2D" parent="Entities"]
+position = Vector2(1.90735e-06, 3.8147e-06)
+texture = ExtResource("2_1ds26")
+
+[node name="Fog" parent="." instance=ExtResource("5_51htw")]
+visible = false
+position = Vector2(3, 3)
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

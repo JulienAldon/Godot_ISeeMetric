@@ -1,38 +1,61 @@
 extends Node2D
 
-@export var fog: Sprite2D
-@export var fog_dimensions: Vector2
-@export var light_texture: CompressedTexture2D
-@export var light_dimensions: Vector2
+signal fow_updated
 
-var time_since_last_fog_update = 0.0
+@export var camera: Camera2D
+@export var viewport: SubViewport
+@export var sprite: Sprite2D
+@export var timer: Timer
+var units: Array[Node2D]
 
-var light_image: Image
-var light_offset: Vector2
-var light_rect: Rect2
+var fow_stored : Array
+var main_image : Image
+var main_texture : ImageTexture
+var viewport_texture : ImageTexture
+var dissolve_test_image = preload("res://assets/Light.png")
+var map_rect : Rect2
 
-var fog_texture: ImageTexture
-var fog_image: Image
+var units_data : Dictionary = {}
 
-func init_fog():
-	light_image = light_texture.get_image()
-	light_image.resize(light_dimensions.x, light_dimensions.y)
+#func _ready():
+	#sprite.centered = false
+	#var map = GameManager.get_level_tilemap().get_used_rect()
+	#new_fog_of_war(Rect2(0, 0, map.size.x, map.size.y))
+
+func new_fog_of_war(new_map_rect: Rect2):
+	map_rect = new_map_rect
 	
-	light_offset = Vector2(light_dimensions.x/2, light_dimensions.y/2)
+	viewport.size = map_rect.size
+	(viewport.get_parent() as SubViewportContainer).size = map_rect.size
+	camera.position = Vector2.ZERO + map_rect.size * 0.5
 	
-	fog_image = Image.create(fog_dimensions.x, fog_dimensions.y, false, Image.FORMAT_RGBA8)
-	fog_image.fill(Color.BLACK)
-	fog_texture = ImageTexture.create_from_image(fog_image)
-	fog.texture = fog_texture
-	update_fog(Vector2.ZERO)
+	main_image = Image.create(
+		int(map_rect.size.x),
+		int(map_rect.size.y),
+		false,
+		Image.FORMAT_RGBA8
+	)
+	main_image.fill(Color(0.0, 0.0, 0.0, 1.0))
+	update_texture()
 
-func update_fog(pos):
-	fog_image.blend_rect(light_image, light_rect, pos - light_offset)
-	fog_texture.update(fog_image)
+#func _input(event):
+	#if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+		#var pos = get_global_mouse_position()
+		#fog_of_war_dissolve(pos, dissolve_test_image.get_image())
 
-#func _process(delta):
-	#time_since_last_fog_update >= debounce_time:
-		#var player_input = player.
-		#if player_iput.length() > 0:
-			#time_since_last_fog_update = 0.0
-			#update_fog(player.position)
+func update_texture():
+	main_texture = ImageTexture.create_from_image(main_image)
+	sprite.set_texture(main_texture)
+
+func fog_of_war_dissolve(pos: Vector2, dissolve_image: Image):
+	var dissolve_image_used_rect: Rect2 = dissolve_image.get_used_rect()
+	pos -= dissolve_image_used_rect.size * 0.5
+	#var map_pos = map_rect.position + pos
+	main_image.blend_rect(dissolve_image, dissolve_image_used_rect, pos)
+	update_texture()
+
+#func fog_of_war_units_data_process():
+	#for unit_id in units_data.keys():
+		#var data: Array = units_data[unit_id] as Array
+		#
+		#var poition_to_

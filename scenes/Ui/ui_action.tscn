@@ -1,0 +1,90 @@
+[gd_scene load_steps=8 format=3 uid="uid://ct5uvol3tm24r"]
+
+[ext_resource type="Script" path="res://scripts/Ui/actions/ActionButton.gd" id="1_odi3s"]
+[ext_resource type="Texture2D" uid="uid://bg1cvfm5gto25" path="res://assets/icons/default.png" id="2_mot27"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2c48"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="Gradient" id="Gradient_gpln8"]
+colors = PackedColorArray(1, 0.713726, 0.298039, 1, 1, 0.847059, 0.501961, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7cd3x"]
+gradient = SubResource("Gradient_gpln8")
+width = 12
+
+[sub_resource type="Gradient" id="Gradient_8w6uh"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0.254902, 0.329412, 0.564706)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_gykib"]
+gradient = SubResource("Gradient_8w6uh")
+width = 12
+
+[node name="UIAction" type="PanelContainer" node_paths=PackedStringArray("cooldown_background", "cooldown_label", "cooldown", "button", "hover_texture", "icon")]
+offset_right = 25.0
+offset_bottom = 25.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_j2c48")
+script = ExtResource("1_odi3s")
+cooldown_background = NodePath("CooldownBg")
+cooldown_label = NodePath("CooldownText")
+cooldown = NodePath("Cooldown")
+button = NodePath("Button")
+hover_texture = NodePath("TextureRect")
+icon = NodePath("Icon")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 2
+texture = SubResource("GradientTexture1D_7cd3x")
+expand_mode = 1
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(17, 17)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+mouse_default_cursor_shape = 2
+flat = true
+icon_alignment = 1
+expand_icon = true
+
+[node name="Cooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = ExtResource("2_mot27")
+expand_mode = 1
+
+[node name="CooldownBg" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 2
+texture = SubResource("GradientTexture1D_gykib")
+
+[node name="CooldownText" type="Label" parent="."]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 7
+text = "0.00
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[connection signal="mouse_entered" from="Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Button" to="." method="_on_button_mouse_exited"]
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://7ay25idlrphw"]
+
+[ext_resource type="Texture2D" uid="uid://bkjy7ls81s83a" path="res://assets/minimap.png" id="1_8c5x0"]
+[ext_resource type="Script" path="res://scripts/map/Minimap.gd" id="1_t57uc"]
+[ext_resource type="Texture2D" uid="uid://da8ke31t1flvn" path="res://assets/minimap/minimap_marker.png" id="2_1ds26"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vdqrw"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.800344, 0.552465, 0.0524193, 1)
+border_blend = true
+
+[node name="Minimap" type="Control" node_paths=PackedStringArray("player_sprite")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 98.0
+offset_bottom = 70.0
+script = ExtResource("1_t57uc")
+player_sprite = NodePath("PlayerEntity")
+minimap_size = null
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 98.0
+offset_bottom = 70.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vdqrw")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 95.0
+offset_bottom = 67.0
+texture = ExtResource("1_8c5x0")
+expand_mode = 1
+
+[node name="Entities" type="Node" parent="."]
+
+[node name="PlayerEntity" type="Sprite2D" parent="."]
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("2_1ds26")

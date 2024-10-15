@@ -1,0 +1,407 @@
+[gd_scene load_steps=35 format=3 uid="uid://dg3avobuf5qgf"]
+
+[ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="1_xtib4"]
+[ext_resource type="Script" path="res://scripts/Ui/informations/InformationUi.gd" id="2_51tbf"]
+[ext_resource type="Script" path="res://scripts/Ui/informations/SelectionUnique.gd" id="3_cxaxq"]
+[ext_resource type="Script" path="res://scripts/Ui/informations/UnitUi.gd" id="4_ome7i"]
+[ext_resource type="PackedScene" uid="uid://bwsy8kydswf1j" path="res://scenes/Ui/ui_passives.tscn" id="5_4ex2g"]
+[ext_resource type="Script" path="res://scripts/Ui/informations/BuildingUi.gd" id="6_vxk8t"]
+[ext_resource type="PackedScene" uid="uid://c8tdady5je2ar" path="res://scenes/Ui/queued_action.tscn" id="7_jfhkk"]
+[ext_resource type="Texture2D" uid="uid://bpsbje7ce7qfn" path="res://assets/ui_progress_bar.png" id="8_wquat"]
+[ext_resource type="Texture2D" uid="uid://bsn5glxg3v41x" path="res://assets/progress_bar.png" id="9_idq7k"]
+[ext_resource type="Script" path="res://components/progress/ProgressBar.gd" id="10_a18q5"]
+[ext_resource type="Script" path="res://scripts/Ui/informations/SelectionMultiple.gd" id="11_8mfhd"]
+[ext_resource type="PackedScene" uid="uid://c76c26bhkdupf" path="res://scenes/Ui/ui_entity.tscn" id="12_e0uwk"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_e6fnp"]
+size = Vector2(32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v255x"]
+resource_local_to_scene = true
+size = Vector2(32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c4sjr"]
+resource_local_to_scene = true
+size = Vector2(32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pgngf"]
+resource_local_to_scene = true
+size = Vector2(32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3m3wj"]
+resource_local_to_scene = true
+size = Vector2(32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fb1u5"]
+resource_local_to_scene = true
+size = Vector2(32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_po21r"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8ygu"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_058yv"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iam1p"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5htjq"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6w2wn"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2tm63"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5lxwm"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ihd3"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlcnt"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6o75"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x87yu"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2esch"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m2jwy"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1t8bx"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sunwx"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[node name="Informations" type="PanelContainer" node_paths=PackedStringArray("selection_unique", "selection_multiple")]
+clip_contents = true
+offset_left = 246.0
+offset_top = 295.0
+offset_right = 415.0
+offset_bottom = 357.0
+theme_override_styles/panel = ExtResource("1_xtib4")
+script = ExtResource("2_51tbf")
+selection_unique = NodePath("SelectionUnique")
+selection_multiple = NodePath("SelectionMultiple")
+
+[node name="SelectionUnique" type="CenterContainer" parent="." node_paths=PackedStringArray("icon", "health", "unit_container", "building_container")]
+visible = false
+layout_mode = 2
+script = ExtResource("3_cxaxq")
+icon = NodePath("HBoxContainer/EntityStatus/EntityIcon")
+health = NodePath("HBoxContainer/EntityStatus/Life")
+unit_container = NodePath("HBoxContainer/UnitInformations")
+building_container = NodePath("HBoxContainer/BuildingInformations")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SelectionUnique"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="EntityStatus" type="VBoxContainer" parent="SelectionUnique/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="EntityIcon" type="TextureRect" parent="SelectionUnique/HBoxContainer/EntityStatus"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("PlaceholderTexture2D_e6fnp")
+
+[node name="Life" type="Label" parent="SelectionUnique/HBoxContainer/EntityStatus"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "100/100"
+horizontal_alignment = 1
+
+[node name="UnitInformations" type="VBoxContainer" parent="SelectionUnique/HBoxContainer" node_paths=PackedStringArray("title", "passives_container")]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("4_ome7i")
+title = NodePath("EntityName")
+passives_container = NodePath("Grid")
+
+[node name="EntityName" type="Label" parent="SelectionUnique/HBoxContainer/UnitInformations"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "Entity Name"
+horizontal_alignment = 1
+
+[node name="Grid" type="GridContainer" parent="SelectionUnique/HBoxContainer/UnitInformations"]
+layout_mode = 2
+size_flags_vertical = 3
+columns = 5
+
+[node name="Passives" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
+visible = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_v255x")
+
+[node name="Passives2" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
+visible = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_c4sjr")
+
+[node name="Passives3" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
+visible = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_pgngf")
+
+[node name="Passives4" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
+visible = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_3m3wj")
+
+[node name="Passives5" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
+visible = true
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_fb1u5")
+
+[node name="BuildingInformations" type="VBoxContainer" parent="SelectionUnique/HBoxContainer" node_paths=PackedStringArray("production_queue", "production_container", "current_queued_action", "name_label")]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 4
+script = ExtResource("6_vxk8t")
+production_queue = NodePath("Grid")
+production_container = NodePath("Grid/NextProductions")
+current_queued_action = NodePath("Grid/CurrentProduction/QueuedAction")
+name_label = NodePath("EntityName")
+
+[node name="EntityName" type="Label" parent="SelectionUnique/HBoxContainer/BuildingInformations"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "Entity Name"
+horizontal_alignment = 1
+
+[node name="Grid" type="VBoxContainer" parent="SelectionUnique/HBoxContainer/BuildingInformations"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CurrentProduction" type="HBoxContainer" parent="SelectionUnique/HBoxContainer/BuildingInformations/Grid"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="QueuedAction" parent="SelectionUnique/HBoxContainer/BuildingInformations/Grid/CurrentProduction" instance=ExtResource("7_jfhkk")]
+layout_mode = 2
+queue_number = 1
+
+[node name="CustomProgresBar" type="TextureProgressBar" parent="SelectionUnique/HBoxContainer/BuildingInformations/Grid/CurrentProduction" node_paths=PackedStringArray("target")]
+clip_contents = true
+custom_minimum_size = Vector2(61, 10)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 8
+nine_patch_stretch = true
+texture_under = ExtResource("8_wquat")
+texture_progress = ExtResource("9_idq7k")
+tint_under = Color(0.596078, 0.482353, 0, 1)
+tint_progress = Color(0.176471, 0.219608, 0.690196, 1)
+script = ExtResource("10_a18q5")
+target = NodePath("../../..")
+watched_property = "production_progress"
+
+[node name="NextProductions" type="HBoxContainer" parent="SelectionUnique/HBoxContainer/BuildingInformations/Grid"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="QueuedAction" parent="SelectionUnique/HBoxContainer/BuildingInformations/Grid/NextProductions" instance=ExtResource("7_jfhkk")]
+layout_mode = 2
+queue_number = 2
+
+[node name="QueuedAction2" parent="SelectionUnique/HBoxContainer/BuildingInformations/Grid/NextProductions" instance=ExtResource("7_jfhkk")]
+layout_mode = 2
+queue_number = 3
+
+[node name="QueuedAction3" parent="SelectionUnique/HBoxContainer/BuildingInformations/Grid/NextProductions" instance=ExtResource("7_jfhkk")]
+layout_mode = 2
+queue_number = 4
+
+[node name="QueuedAction4" parent="SelectionUnique/HBoxContainer/BuildingInformations/Grid/NextProductions" instance=ExtResource("7_jfhkk")]
+layout_mode = 2
+queue_number = 5
+
+[node name="SelectionMultiple" type="CenterContainer" parent="." node_paths=PackedStringArray("selection_panel")]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+script = ExtResource("11_8mfhd")
+selection_panel = NodePath("Grid")
+
+[node name="Grid" type="GridContainer" parent="SelectionMultiple"]
+clip_contents = true
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 8
+
+[node name="UiEntity" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_po21r")
+
+[node name="UiEntity2" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_c8ygu")
+
+[node name="UiEntity3" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_058yv")
+
+[node name="UiEntity4" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_iam1p")
+
+[node name="UiEntity5" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5htjq")
+
+[node name="UiEntity6" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6w2wn")
+
+[node name="UiEntity7" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2tm63")
+
+[node name="UiEntity8" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5lxwm")
+
+[node name="UiEntity9" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1ihd3")
+
+[node name="UiEntity10" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qlcnt")
+
+[node name="UiEntity11" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e6o75")
+
+[node name="UiEntity12" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_x87yu")
+
+[node name="UiEntity13" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2esch")
+
+[node name="UiEntity14" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m2jwy")
+
+[node name="UiEntity15" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1t8bx")
+
+[node name="UiEntity16" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sunwx")

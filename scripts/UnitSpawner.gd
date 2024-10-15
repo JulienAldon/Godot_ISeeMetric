@@ -11,7 +11,6 @@ func _ready():
 	spawner.spawn_function = instantiate_entity
 
 func instantiate_entity(informations: Dictionary):
-	print(load(informations['scene']))
 	var current_entity = load(informations['scene']).instantiate()
 	for key in informations.keys():
 		if key == "scene": 

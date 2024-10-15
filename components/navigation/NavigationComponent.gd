@@ -4,7 +4,7 @@ class_name NavigationComponent
 @export var network_component: NetworkComponent
 
 @export var body: CharacterBody2D
-@export var detection_range: CollisionShape2D
+@export var detection_range: int
 @export var sprite: AnimatedSprite2D
 @export var max_separation_distance: int = 40
 @export var speed: int = 70
@@ -16,43 +16,30 @@ class_name NavigationComponent
 var current_direction: Vector2 = Vector2(0, 0)
 var movement_group: Dictionary = {}
 var current_path_position: int = 0
-var local_movement_group:= []
-var target_entity: Node2D = null
+var local_units: Array = []
+
 var flocked_direction: Vector2
 
-func set_target_entity(value: Node2D):
-	target_entity = value
-
-func switch_movement_animation(_name):
-	if body.sprite.animation != _name:
-		body.sprite.animation = _name
-
 func colliders_reached_target():
-	for collider in get_local_units(5):
+	for collider in local_units:
 		if is_instance_valid(collider) and movement_group.has(collider.get_instance_id()):
-			if collider.movement.reached_target(10):
+			if "reached_target" in collider.movement and collider.movement.reached_target(20):
 				stop()
 				reset_state()
 				return
+	if reached_target(20):
+		stop()
+		reset_state()
 
 func reached_target(distance: int = 5, _target_position=self.target_position) -> bool:
-	return body.position.distance_to(_target_position) < distance
-
-func append_navigation(pos: Vector2, group, _path: Array) -> void:
-	set_target_position(pos)
-	set_movement_group(group)
-	set_path(path + _path.slice(1), current_path_position)
-
-func command_navigation(pos: Vector2, group, _path: Array) -> void:
-	set_target_position(pos)
-	set_movement_group(group)
-	set_path(_path, 0)
+	return body.position.distance_squared_to(_target_position) < distance * 10
 
 func set_target_position(pos: Vector2):
 	target_position = pos
 
 func set_movement_group(group):
 	movement_group = group
+	local_units = get_local_units(10)
 
 func set_path(_path, index):
 	path = _path
@@ -61,24 +48,34 @@ func set_path(_path, index):
 		current_path_position = index
 
 func get_local_units(max_neighbours: int):
-	return local_movement_group.slice(0, max_neighbours)
+	var result = []
+	var threshold = 200
+	for unit in movement_group.values():
+		if not is_instance_valid(unit):
+			continue
+		if result.size() >= max_neighbours:
+			return result
+		if body.position.distance_squared_to(unit.position) < threshold:
+			result.append(unit)
+	return result
+	#return local_movement_group.slice(0, max_neighbours)
 
 func stop():
 	target_position = body.position
-	switch_movement_animation("Idle")
+	body.animation.set_is_idle()
+	body.attack.reset_target()
 	
 func reset_state():
 	clear_navigation_command()
-	target_entity = null
 
 func get_path_point(point: Vector2, offset: int):
 	if not path:
 		return Vector2(0, 0)
-	var lowest_distance = path[0].distance_to(point)
+	var lowest_distance = path[0].distance_squared_to(point)
 	var lowest_index = 0
 	var index = 0
 	for p in path:
-		var distance = p.distance_to(point)
+		var distance = p.distance_squared_to(point)
 		if distance < lowest_distance:
 			lowest_distance = distance
 			lowest_index = index
@@ -90,29 +87,33 @@ func get_path_point(point: Vector2, offset: int):
 func flock_direction(group, direction):
 	if group.size() <= 1:
 		return Vector2(0, 0)
-
 	var separation = Vector2(0,0)
 	var cohesion = Vector2(0,0)
 	var alignment = direction
 	for unit in group:
-		if unit == self.body:
+		if unit == self.body or not "current_direction" in unit.movement:
 			continue
 		cohesion += unit.position
 		alignment += unit.movement.current_direction
-		var distance = body.position.distance_to(unit.position)
-		if distance < max_separation_distance:
-			separation -= (unit.position - body.position).normalized() * (max_separation_distance / distance * speed)
+		var distance = body.position.distance_squared_to(unit.position)
+		if distance < max_separation_distance * 10:
+			if distance == 0:
+				distance = 1
+			separation -= (unit.position - body.position).normalized() * ((max_separation_distance * 10) / distance * speed)
 	cohesion /= group.size()
 	alignment /= group.size()
 	var center_direction = body.position.direction_to(cohesion)
-	var center_speed = speed * body.position.distance_to(cohesion) / detection_range.shape.radius
+	var center_speed = speed * body.position.distance_to(cohesion) / detection_range
 	cohesion = center_direction * center_speed
 	return (separation * separation_weight) + (cohesion * cohesion_weight) + (alignment * alignment_weight)
 
 func move_toward_target(delta):
-	switch_movement_animation("Walking")
-	var group = get_local_units(5)
-	if reached_target(50, path[current_path_position]):
+	if path.size() - 1 < current_path_position:
+		return
+	if !local_units or Engine.get_process_frames() % 60 == 0:
+		local_units = get_local_units(10)
+	var group = local_units
+	if reached_target(70, path[current_path_position]):
 		current_path_position = get_path_point(path[current_path_position], 1)
 	var next_path = path[current_path_position]
 	var direction = (next_path - body.position)
@@ -120,48 +121,12 @@ func move_toward_target(delta):
 	if !flocked_direction or Engine.get_process_frames() % 10 == 0:
 		flocked_direction = flock_direction(group, direction)
 	body.velocity = (direction + flocked_direction).normalized() * speed
-	if direction.x > 0:
-		body.sprite.flip_h = false
-	else:
-		body.sprite.flip_h = true
+	#body.velocity = (direction).normalized() * speed
 	body.move_and_collide(body.velocity * delta)
-	
-	if !target_entity:
-		if Engine.get_process_frames() % 10 == 0:
-			colliders_reached_target()
-	else:
-		# if target in range stop
-		pass
+	colliders_reached_target()
 
 func has_move_instruction():
 	return path.size() > 0
 	
 func clear_navigation_command():
-	movement_group = {}
 	path = []
-
-func _physics_process(delta):
-	if !is_multiplayer_authority():
-		return
-	if has_move_instruction() and !reached_target():
-		move_toward_target(delta)
-	#elif body.attack.has_target():
-		#var pos = body.attack.get_target().global_position
-		#command_navigation(pos, movement_group, [body.position, pos])
-	else:
-		stop()
-		reset_state()
-
-func _on_local_group_body_entered(_body):
-	if _body == body:
-		return
-	if local_movement_group.size() >= 10:
-		return
-	if _body.is_in_group("rts_unit") and (movement_group.has(_body.get_instance_id()) or body.attack.has_target()):
-		local_movement_group.append(_body)
-
-func _on_local_group_body_exited(_body):
-	if local_movement_group.size() <= 0:
-		return
-	if _body.is_in_group("rts_unit"):
-		local_movement_group.erase(_body)

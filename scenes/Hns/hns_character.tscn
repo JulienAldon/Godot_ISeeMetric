@@ -1,8 +1,9 @@
-[gd_scene load_steps=168 format=3 uid="uid://cw2ls3k0cc68i"]
+[gd_scene load_steps=172 format=3 uid="uid://cw2ls3k0cc68i"]
 
 [ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://components/network/network_component.tscn" id="1_gnrgf"]
 [ext_resource type="Script" path="res://scripts/hns/HnsCharacter.gd" id="1_smhhb"]
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://components/health/health_component.tscn" id="2_ts8xx"]
+[ext_resource type="Shader" path="res://unit_outline.gdshader" id="4_ft3ls"]
 [ext_resource type="Script" path="res://components/hitbox/HitboxComponent.gd" id="4_ytb48"]
 [ext_resource type="Texture2D" uid="uid://bpi47q8iuppx1" path="res://assets/Prototype_Character/sketch-Sheet.png" id="5_glm81"]
 [ext_resource type="PackedScene" uid="uid://b16xsdnqifpbm" path="res://components/movement/movement_component.tscn" id="6_y1jah"]
@@ -14,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://clpqde20meqmd" path="res://scenes/Hns/skill_slot.tscn" id="12_cq1lr"]
 [ext_resource type="Script" path="res://scripts/skills/effects/EffectResource.gd" id="13_50xgb"]
 [ext_resource type="Script" path="res://scripts/skills/Skill.gd" id="14_kiyuc"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://components/selection/selection_component.tscn" id="15_opsra"]
+[ext_resource type="Script" path="res://components/animation/AnimationComponent.gd" id="16_mwkya"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wrr6p"]
 properties/0/path = NodePath(".:position")
@@ -34,69 +37,74 @@ properties/4/replication_mode = 1
 properties/5/path = NodePath("Weapon:z_index")
 properties/5/spawn = true
 properties/5/replication_mode = 1
-properties/6/path = NodePath("AnimationTree:parameters/conditions/attack")
+properties/6/path = NodePath("MovementComponent:input_axis")
 properties/6/spawn = true
 properties/6/replication_mode = 1
-properties/7/path = NodePath("AnimationTree:parameters/conditions/idle")
+properties/7/path = NodePath("MovementComponent:tmp_input_axis")
 properties/7/spawn = true
 properties/7/replication_mode = 1
-properties/8/path = NodePath("AnimationTree:parameters/conditions/moving")
+properties/8/path = NodePath("MovementComponent:walk_blend")
 properties/8/spawn = true
 properties/8/replication_mode = 1
-properties/9/path = NodePath("MovementComponent:input_axis")
+properties/9/path = NodePath("AttackPoint:rotation")
 properties/9/spawn = true
 properties/9/replication_mode = 1
-properties/10/path = NodePath("MovementComponent:tmp_input_axis")
+properties/10/path = NodePath("Stats:current_weapon")
 properties/10/spawn = true
 properties/10/replication_mode = 1
-properties/11/path = NodePath("MovementComponent:walk_blend")
+properties/11/path = NodePath("AnimationComponent/AnimationTree:parameters/conditions/attack")
 properties/11/spawn = true
 properties/11/replication_mode = 1
-properties/12/path = NodePath("AttackPoint:rotation")
+properties/12/path = NodePath("AnimationComponent/AnimationTree:parameters/conditions/idle")
 properties/12/spawn = true
 properties/12/replication_mode = 1
-properties/13/path = NodePath("AttackPoint:position")
+properties/13/path = NodePath("AnimationComponent/AnimationTree:parameters/conditions/moving")
 properties/13/spawn = true
 properties/13/replication_mode = 1
-properties/14/path = NodePath("AnimationTree:parameters/conditions/projectile_attack")
+properties/14/path = NodePath("AnimationComponent/AnimationTree:parameters/conditions/projectile_attack")
 properties/14/spawn = true
 properties/14/replication_mode = 1
-properties/15/path = NodePath("AnimationTree:parameters/Projectile_Attack/blend_position")
+properties/15/path = NodePath("AnimationComponent/AnimationTree:parameters/Attack/blend_position")
 properties/15/spawn = true
 properties/15/replication_mode = 1
-properties/16/path = NodePath("AnimationTree:parameters/Attack/blend_position")
+properties/16/path = NodePath("AnimationComponent/AnimationTree:parameters/Attack/0/TimeScale/scale")
 properties/16/spawn = true
 properties/16/replication_mode = 1
-properties/17/path = NodePath("AnimationTree:parameters/Attack/0/TimeScale/scale")
+properties/17/path = NodePath("AnimationComponent/AnimationTree:parameters/Attack/1/TimeScale/scale")
 properties/17/spawn = true
 properties/17/replication_mode = 1
-properties/18/path = NodePath("AnimationTree:parameters/Attack/1/TimeScale/scale")
+properties/18/path = NodePath("AnimationComponent/AnimationTree:parameters/Attack/2/TimeScale/scale")
 properties/18/spawn = true
 properties/18/replication_mode = 1
-properties/19/path = NodePath("AnimationTree:parameters/Attack/2/TimeScale/scale")
+properties/19/path = NodePath("AnimationComponent/AnimationTree:parameters/Attack/3/TimeScale/scale")
 properties/19/spawn = true
 properties/19/replication_mode = 1
-properties/20/path = NodePath("AnimationTree:parameters/Attack/3/TimeScale/scale")
+properties/20/path = NodePath("AnimationComponent/AnimationTree:parameters/Idle/blend_position")
 properties/20/spawn = true
 properties/20/replication_mode = 1
-properties/21/path = NodePath("AnimationTree:parameters/Projectile_Attack/0/TimeScale/scale")
+properties/21/path = NodePath("AnimationComponent/AnimationTree:parameters/Projectile_Attack/blend_position")
 properties/21/spawn = true
 properties/21/replication_mode = 1
-properties/22/path = NodePath("AnimationTree:parameters/Projectile_Attack/1/TimeScale/scale")
+properties/22/path = NodePath("AnimationComponent/AnimationTree:parameters/Projectile_Attack/0/TimeScale/scale")
 properties/22/spawn = true
 properties/22/replication_mode = 1
-properties/23/path = NodePath("AnimationTree:parameters/Projectile_Attack/2/TimeScale/scale")
+properties/23/path = NodePath("AnimationComponent/AnimationTree:parameters/Projectile_Attack/1/TimeScale/scale")
 properties/23/spawn = true
 properties/23/replication_mode = 1
-properties/24/path = NodePath("AnimationTree:parameters/Projectile_Attack/3/TimeScale/scale")
+properties/24/path = NodePath("AnimationComponent/AnimationTree:parameters/Projectile_Attack/2/TimeScale/scale")
 properties/24/spawn = true
 properties/24/replication_mode = 1
-properties/25/path = NodePath("MovementComponent:attacking")
+properties/25/path = NodePath("AnimationComponent/AnimationTree:parameters/Projectile_Attack/3/TimeScale/scale")
 properties/25/spawn = true
 properties/25/replication_mode = 1
-properties/26/path = NodePath("Stats:current_weapon")
+properties/26/path = NodePath("AnimationComponent/AnimationTree:parameters/Walk/blend_position")
 properties/26/spawn = true
 properties/26/replication_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mv4ya"]
+shader = ExtResource("4_ft3ls")
+shader_parameter/width = null
+shader_parameter/outline_color = null
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gplr"]
 atlas = ExtResource("5_glm81")
@@ -776,18 +784,168 @@ animations = [{
 radius = 6.0
 height = 26.0
 
+[sub_resource type="Resource" id="Resource_x7l5i"]
+script = ExtResource("10_p6yb0")
+base = 10.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[sub_resource type="Resource" id="Resource_myuu6"]
+script = ExtResource("11_nnflj")
+name = "Sword"
+style = 2
+type = 0
+damage = SubResource("Resource_x7l5i")
+damage_effectiveness = 1.0
+throw_speed = 0.0
+duration = 0.0
+additionnal_behaviours = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_7gh5c"]
+script = ExtResource("10_p6yb0")
+base = 10.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[sub_resource type="Resource" id="Resource_7nlkt"]
+script = ExtResource("11_nnflj")
+name = "Short Bow"
+style = 4
+type = 2
+damage = SubResource("Resource_7gh5c")
+damage_effectiveness = 1.0
+throw_speed = 10.0
+duration = 0.5
+additionnal_behaviours = Array[String]([])
+
+[sub_resource type="Resource" id="Resource_mu8on"]
+script = ExtResource("10_p6yb0")
+base = 10.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[sub_resource type="Resource" id="Resource_jjp2o"]
+script = ExtResource("13_50xgb")
+effect_path = "res://scenes/skills/effects/stun.tscn"
+base_duration = 1.0
+
+[sub_resource type="Resource" id="Resource_ttblq"]
+script = ExtResource("13_50xgb")
+effect_path = "res://scenes/skills/effects/dot.tscn"
+base_duration = 5.0
+
+[sub_resource type="Resource" id="Resource_mo5we"]
+resource_local_to_scene = true
+script = ExtResource("14_kiyuc")
+type = 0
+damage_type = 0
+movement = true
+cooldown = 0.0
+area_of_effect = 5
+scene = "res://scenes/Hns/sword_attack.tscn"
+damage_effectiveness = 1.0
+damage = SubResource("Resource_mu8on")
+weapon_compatibility = Array[int]([0])
+projectiles = 1
+base_duration = 0.0
+projectiles_scallable = false
+behaviours = Array[String](["res://scenes/skills/behaviours/piercing.tscn", "res://scenes/skills/behaviours/attached.tscn", "res://scenes/skills/behaviours/affecting.tscn"])
+throw_speed = 250
+effects = Array[ExtResource("13_50xgb")]([SubResource("Resource_jjp2o"), SubResource("Resource_ttblq")])
+
+[sub_resource type="Resource" id="Resource_mr8wx"]
+script = ExtResource("10_p6yb0")
+base = 50.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[sub_resource type="Resource" id="Resource_g42sk"]
+resource_local_to_scene = true
+script = ExtResource("14_kiyuc")
+type = 0
+damage_type = 1
+movement = false
+cooldown = 0.0
+area_of_effect = 10
+scene = "res://scenes/Hns/projectile_attack.tscn"
+damage_effectiveness = 1.0
+damage = SubResource("Resource_mr8wx")
+weapon_compatibility = Array[int]([2])
+projectiles = 1
+base_duration = 0.0
+projectiles_scallable = true
+behaviours = Array[String](["res://scenes/skills/behaviours/damaging.tscn", "res://scenes/skills/behaviours/projectile.tscn"])
+throw_speed = 0
+effects = Array[ExtResource("13_50xgb")]([])
+
+[sub_resource type="Resource" id="Resource_fpc82"]
+script = ExtResource("10_p6yb0")
+base = 150.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[sub_resource type="Resource" id="Resource_pbpju"]
+resource_local_to_scene = true
+script = ExtResource("14_kiyuc")
+type = 1
+damage_type = 1
+movement = false
+cooldown = 0.0
+area_of_effect = 5
+scene = "res://scenes/Hns/magic_explosion.tscn"
+damage_effectiveness = 0.8
+damage = SubResource("Resource_fpc82")
+weapon_compatibility = Array[int]([0, 1, 2])
+projectiles = 1
+base_duration = 0.0
+projectiles_scallable = false
+behaviours = Array[String](["res://scenes/skills/behaviours/piercing.tscn", "res://scenes/skills/behaviours/floating.tscn", "res://scenes/skills/behaviours/spliting.tscn"])
+throw_speed = 0
+effects = Array[ExtResource("13_50xgb")]([])
+
+[sub_resource type="Resource" id="Resource_uvy21"]
+script = ExtResource("10_p6yb0")
+base = 20.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[sub_resource type="Resource" id="Resource_5vpjy"]
+resource_local_to_scene = true
+script = ExtResource("14_kiyuc")
+type = 0
+damage_type = 0
+movement = false
+cooldown = 0.0
+area_of_effect = 5
+scene = "res://scenes/Hns/projectile_attack.tscn"
+damage_effectiveness = 1.0
+damage = SubResource("Resource_uvy21")
+weapon_compatibility = Array[int]([2])
+projectiles = 1
+base_duration = 0.0
+projectiles_scallable = false
+behaviours = Array[String](["res://scenes/skills/behaviours/projectile.tscn", "res://scenes/skills/behaviours/returning.tscn", "res://scenes/skills/behaviours/piercing.tscn", "res://scenes/skills/behaviours/exploding.tscn"])
+throw_speed = 0
+effects = Array[ExtResource("13_50xgb")]([])
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_32n2p"]
 animation = &"Character/attack_down"
 
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_080ec"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_wxpep"]
-graph_offset = Vector2(-244.676, -25.6368)
+graph_offset = Vector2(-30.2727, 16.0909)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_32n2p")
-nodes/Animation/position = Vector2(80, 40)
+nodes/Animation/position = Vector2(60, 80)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_080ec")
 nodes/TimeScale/position = Vector2(340, 80)
-nodes/output/position = Vector2(560, 100)
+nodes/output/position = Vector2(520, 100)
 node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bxe4e"]
@@ -1018,162 +1176,13 @@ states/Start/position = Vector2(206, 100)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_pkur8")
 states/Walk/position = Vector2(689.22, 100)
 transitions = ["Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_1f3y6"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_f30m7"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_cd33v"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_xw7bp"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_m7a2f"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_epyi1"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_d7d6u"), "Idle", "Projectile_Attack", SubResource("AnimationNodeStateMachineTransition_8ncjh"), "Projectile_Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_4dl63"), "Projectile_Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_q7ci5"), "Walk", "Projectile_Attack", SubResource("AnimationNodeStateMachineTransition_v7l4c")]
-graph_offset = Vector2(141.22, -32)
+graph_offset = Vector2(20.22, -84)
 
-[sub_resource type="Resource" id="Resource_x7l5i"]
-script = ExtResource("10_p6yb0")
-base = 10.0
-added = 0.0
-increased = 0.0
-more = 0.0
-
-[sub_resource type="Resource" id="Resource_myuu6"]
-script = ExtResource("11_nnflj")
-name = "Sword"
-style = 2
-type = 0
-damage = SubResource("Resource_x7l5i")
-damage_effectiveness = 1.0
-throw_speed = 0.0
-duration = 0.0
-additionnal_behaviours = Array[String]([])
-
-[sub_resource type="Resource" id="Resource_7gh5c"]
-script = ExtResource("10_p6yb0")
-base = 10.0
-added = 0.0
-increased = 0.0
-more = 0.0
-
-[sub_resource type="Resource" id="Resource_7nlkt"]
-script = ExtResource("11_nnflj")
-name = "Short Bow"
-style = 4
-type = 2
-damage = SubResource("Resource_7gh5c")
-damage_effectiveness = 1.0
-throw_speed = 10.0
-duration = 0.5
-additionnal_behaviours = Array[String]([])
-
-[sub_resource type="Resource" id="Resource_mu8on"]
-script = ExtResource("10_p6yb0")
-base = 10.0
-added = 0.0
-increased = 0.0
-more = 0.0
-
-[sub_resource type="Resource" id="Resource_jjp2o"]
-script = ExtResource("13_50xgb")
-effect_path = "res://scenes/skills/effects/stun.tscn"
-base_duration = 1.0
-
-[sub_resource type="Resource" id="Resource_ttblq"]
-script = ExtResource("13_50xgb")
-effect_path = "res://scenes/skills/effects/dot.tscn"
-base_duration = 5.0
-
-[sub_resource type="Resource" id="Resource_mo5we"]
-resource_local_to_scene = true
-script = ExtResource("14_kiyuc")
-type = 0
-damage_type = 0
-movement = true
-cooldown = 0.0
-area_of_effect = 5
-scene = "res://scenes/Hns/sword_attack.tscn"
-damage_effectiveness = 1.0
-damage = SubResource("Resource_mu8on")
-weapon_compatibility = Array[int]([0])
-projectiles = 1
-base_duration = 0.0
-projectiles_scallable = false
-behaviours = Array[String](["res://scenes/skills/behaviours/piercing.tscn", "res://scenes/skills/behaviours/attached.tscn", "res://scenes/skills/behaviours/affecting.tscn"])
-throw_speed = 250
-effects = Array[ExtResource("13_50xgb")]([SubResource("Resource_jjp2o"), SubResource("Resource_ttblq")])
-
-[sub_resource type="Resource" id="Resource_mr8wx"]
-script = ExtResource("10_p6yb0")
-base = 50.0
-added = 0.0
-increased = 0.0
-more = 0.0
-
-[sub_resource type="Resource" id="Resource_g42sk"]
-resource_local_to_scene = true
-script = ExtResource("14_kiyuc")
-type = 0
-damage_type = 1
-movement = false
-cooldown = 0.0
-area_of_effect = 10
-scene = "res://scenes/Hns/projectile_attack.tscn"
-damage_effectiveness = 1.0
-damage = SubResource("Resource_mr8wx")
-weapon_compatibility = Array[int]([2])
-projectiles = 1
-base_duration = 0.0
-projectiles_scallable = true
-behaviours = Array[String](["res://scenes/skills/behaviours/damaging.tscn", "res://scenes/skills/behaviours/projectile.tscn"])
-throw_speed = 0
-effects = Array[ExtResource("13_50xgb")]([])
-
-[sub_resource type="Resource" id="Resource_fpc82"]
-script = ExtResource("10_p6yb0")
-base = 150.0
-added = 0.0
-increased = 0.0
-more = 0.0
-
-[sub_resource type="Resource" id="Resource_pbpju"]
-resource_local_to_scene = true
-script = ExtResource("14_kiyuc")
-type = 1
-damage_type = 1
-movement = false
-cooldown = 0.0
-area_of_effect = 5
-scene = "res://scenes/Hns/magic_explosion.tscn"
-damage_effectiveness = 0.8
-damage = SubResource("Resource_fpc82")
-weapon_compatibility = Array[int]([0, 1, 2])
-projectiles = 1
-base_duration = 0.0
-projectiles_scallable = false
-behaviours = Array[String](["res://scenes/skills/behaviours/piercing.tscn", "res://scenes/skills/behaviours/floating.tscn", "res://scenes/skills/behaviours/spliting.tscn"])
-throw_speed = 0
-effects = Array[ExtResource("13_50xgb")]([])
-
-[sub_resource type="Resource" id="Resource_uvy21"]
-script = ExtResource("10_p6yb0")
-base = 20.0
-added = 0.0
-increased = 0.0
-more = 0.0
-
-[sub_resource type="Resource" id="Resource_5vpjy"]
-resource_local_to_scene = true
-script = ExtResource("14_kiyuc")
-type = 0
-damage_type = 0
-movement = false
-cooldown = 0.0
-area_of_effect = 5
-scene = "res://scenes/Hns/projectile_attack.tscn"
-damage_effectiveness = 1.0
-damage = SubResource("Resource_uvy21")
-weapon_compatibility = Array[int]([2])
-projectiles = 1
-base_duration = 0.0
-projectiles_scallable = false
-behaviours = Array[String](["res://scenes/skills/behaviours/projectile.tscn", "res://scenes/skills/behaviours/returning.tscn", "res://scenes/skills/behaviours/piercing.tscn", "res://scenes/skills/behaviours/exploding.tscn"])
-throw_speed = 0
-effects = Array[ExtResource("13_50xgb")]([])
-
-[node name="HnsCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "attack_point", "weapon", "stats", "skills") groups=["player_entity"]]
+[node name="HnsCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "attack_point", "weapon", "stats", "skills", "selection", "animation") groups=["minimap_item", "player_entity"]]
+z_index = 1
 scale = Vector2(2, 2)
-collision_layer = 16
-collision_mask = 12
+collision_layer = 18
+collision_mask = 44
 script = ExtResource("1_smhhb")
 health = NodePath("HealthComponent")
 hitbox = NodePath("Hitbox")
@@ -1184,6 +1193,9 @@ attack_point = NodePath("AttackPoint")
 weapon = NodePath("Weapon")
 stats = NodePath("Stats")
 skills = NodePath("Skills")
+selection = NodePath("SelectionComponent")
+animation = NodePath("AnimationComponent")
+display_name = "Hns"
 
 [node name="NetworkComponent" parent="." instance=ExtResource("1_gnrgf")]
 
@@ -1193,18 +1205,17 @@ replication_config = SubResource("SceneReplicationConfig_wrr6p")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("2_ts8xx")]
 z_index = 1
-position = Vector2(1, -7.015)
+position = Vector2(0, -16)
 scale = Vector2(0.5, 0.5)
-max_health = 10000
 stats = NodePath("../Stats")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 2
 texture_filter = 1
+material = SubResource("ShaderMaterial_mv4ya")
 sprite_frames = SubResource("SpriteFrames_tiqqy")
-animation = &"Walk_up"
+animation = &"Attack_down"
 autoplay = "Idle_side"
-flip_h = true
 
 [node name="Hitbox" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character")]
 position = Vector2(0, -3)
@@ -1213,44 +1224,19 @@ script = ExtResource("4_ytb48")
 health_component = NodePath("../HealthComponent")
 character = NodePath("..")
 
-[node name="MovementComponent" parent="." node_paths=PackedStringArray("body") instance=ExtResource("6_y1jah")]
-acceleration = 50
+[node name="MovementComponent" parent="." node_paths=PackedStringArray("body", "animation") instance=ExtResource("6_y1jah")]
 body = NodePath("..")
+animation = NodePath("../AnimationComponent")
+acceleration = 50
 
 [node name="AttackPoint" type="Node2D" parent="."]
 modulate = Color(0, 0, 0, 1)
 self_modulate = Color(0, 0.52916, 0.606249, 1)
 z_index = 10
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"Character": ExtResource("7_8d44j")
-}
-
-[node name="AnimationTree" type="AnimationTree" parent="."]
-active = false
-tree_root = SubResource("AnimationNodeStateMachine_vqbyg")
-anim_player = NodePath("../AnimationPlayer")
-parameters/conditions/attack = false
-parameters/conditions/idle = false
-parameters/conditions/moving = false
-parameters/conditions/projectile_attack = false
-parameters/Attack/blend_position = Vector2(0, 0)
-parameters/Attack/0/TimeScale/scale = 1.0
-parameters/Attack/1/TimeScale/scale = 1.0
-parameters/Attack/2/TimeScale/scale = 1.0
-parameters/Attack/3/TimeScale/scale = 1.0
-parameters/Idle/blend_position = Vector2(0, 0)
-parameters/Projectile_Attack/blend_position = Vector2(0, 0)
-parameters/Projectile_Attack/0/TimeScale/scale = 1.0
-parameters/Projectile_Attack/1/TimeScale/scale = 1.0
-parameters/Projectile_Attack/2/TimeScale/scale = 1.0
-parameters/Projectile_Attack/3/TimeScale/scale = 1.0
-parameters/Walk/blend_position = Vector2(0, 0)
-
 [node name="Weapon" type="Sprite2D" parent="."]
-position = Vector2(-6, -7)
-rotation = 1.56806
+position = Vector2(4, -6)
+rotation = -1.5708
 texture = ExtResource("8_i0o0w")
 centered = false
 offset = Vector2(-7, -16)
@@ -1260,6 +1246,7 @@ frame = 4
 
 [node name="Stats" type="Node2D" parent="."]
 script = ExtResource("9_mxff3")
+attack_speed = 1.0
 cast_speed = 5.0
 weapons = Array[ExtResource("11_nnflj")]([SubResource("Resource_myuu6"), SubResource("Resource_7nlkt")])
 additionnal_projectiles = 50
@@ -1283,4 +1270,44 @@ character = NodePath("../..")
 skill = SubResource("Resource_5vpjy")
 character = NodePath("../..")
 
-[connection signal="animation_finished" from="AnimationTree" to="MovementComponent" method="_on_animation_tree_animation_finished"]
+[node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("15_opsra")]
+network = NodePath("../NetworkComponent")
+sprites = [NodePath("../Sprite2D")]
+body = NodePath("..")
+has_colored_outline = true
+
+[node name="AnimationComponent" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "animation_tree")]
+script = ExtResource("16_mwkya")
+sprite = NodePath("../Sprite2D")
+animation_tree = NodePath("AnimationTree")
+attack_names = Array[String](["attack", "projectile_attack"])
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationComponent"]
+root_node = NodePath("../..")
+libraries = {
+"Character": ExtResource("7_8d44j")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="AnimationComponent"]
+active = false
+root_node = NodePath("../..")
+tree_root = SubResource("AnimationNodeStateMachine_vqbyg")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/attack = false
+parameters/conditions/idle = false
+parameters/conditions/moving = false
+parameters/conditions/projectile_attack = false
+parameters/Attack/blend_position = Vector2(-0.00295568, 0)
+parameters/Attack/0/TimeScale/scale = 1.0
+parameters/Attack/1/TimeScale/scale = 1.0
+parameters/Attack/2/TimeScale/scale = 1.0
+parameters/Attack/3/TimeScale/scale = 1.0
+parameters/Idle/blend_position = Vector2(0, 0)
+parameters/Projectile_Attack/blend_position = Vector2(0, 0)
+parameters/Projectile_Attack/0/TimeScale/scale = 1.0
+parameters/Projectile_Attack/1/TimeScale/scale = 1.0
+parameters/Projectile_Attack/2/TimeScale/scale = 1.0
+parameters/Projectile_Attack/3/TimeScale/scale = 1.0
+parameters/Walk/blend_position = Vector2(0, 0)
+
+[connection signal="animation_finished" from="AnimationComponent/AnimationTree" to="AnimationComponent" method="_on_animation_tree_animation_finished"]

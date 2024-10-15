@@ -8,6 +8,7 @@ enum layers {
 	level2 = 2,
 }
 const boundary_block_atlas_pos = Vector2i(4, 7)
+
 var main_source = 0
 
 func _ready():
@@ -46,6 +47,6 @@ func get_navigation_path(p_start_position: Vector2, p_target_position: Vector2) 
 	)
 	return path
 
-func _on_child_entered_tree(node):
-	if node.is_in_group("building"):
+func bake_navigation():
+	if not navigation_region.is_baking():
 		navigation_region.bake_navigation_polygon()

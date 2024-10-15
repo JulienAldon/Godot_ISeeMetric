@@ -24,7 +24,7 @@ properties/1/replication_mode = 1
 [sub_resource type="CircleShape2D" id="CircleShape2D_j6ahe"]
 radius = 227.108
 
-[node name="Npc" type="CharacterBody2D" node_paths=PackedStringArray("health", "death", "hitbox", "network", "movement", "sprite", "attack_point", "stats")]
+[node name="Npc" type="CharacterBody2D" node_paths=PackedStringArray("health", "death", "hitbox", "network", "movement", "sprite", "attack_point", "stats") groups=["minimap_item"]]
 collision_mask = 28
 script = ExtResource("1_m06uf")
 health = NodePath("HealthComponent")
@@ -35,6 +35,7 @@ movement = NodePath("StateMachine")
 sprite = NodePath("Sprite2D")
 attack_point = NodePath("AttackPoint")
 stats = NodePath("Stats")
+minimap_icon = "unit"
 
 [node name="NetworkComponent" parent="." instance=ExtResource("2_878sb")]
 

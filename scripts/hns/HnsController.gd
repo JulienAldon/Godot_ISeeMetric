@@ -8,14 +8,15 @@ var selected_skill
 @onready var stats: Node2D = character.stats
 @onready var skills: Array[Node] = character.skills.get_children()
 
+var anim_names = [
+	"Attack",
+	"Attack",
+	"Projectile_Attack"
+]
+
 func _ready():
-	color = player.color
-	player_id = player.name.to_int()
+	super()
 	character.controlled_by = player_id
-	var has_control = player_id == multiplayer.get_unique_id()
-	player.gui.show_player_ui(has_control)
-	camera.enabled = has_control
-	self.visible = has_control
 
 func move(entities):
 	for child in entities:
@@ -23,7 +24,6 @@ func move(entities):
 	if entities.size() > 0 and player_id == multiplayer.get_unique_id():
 		var pos = entities[0].position
 		camera.position = pos
-		player.gui.position = pos
 
 func _physics_process(_delta):
 	move([character])
@@ -41,13 +41,8 @@ func trigger_skill(attack_slot):
 	var weapon = stats.weapons[weapon_index]
 	var animation_duration: float = weapon.get_animation_speed()
 	var new_animation_duration = 1 / stats.get_skill_speed(attack_slot.skill)
-	var animation_scale = 1
-	
-	if new_animation_duration < animation_duration:
-		animation_scale = (animation_duration / new_animation_duration)
 	if attack_slot.can_trigger:
 		if attack_slot.skill.movement:
-			#dash
 			var mouse_dir = (get_global_mouse_position() - character.attack_point.global_position).normalized()
 			character.movement.dash(mouse_dir)
 		stats.set_weapon(weapon_index)
@@ -67,7 +62,7 @@ func trigger_skill(attack_slot):
 			"effects": stats.get_skill_effects(attack_slot.skill),
 		}
 		attack_slot.trigger_skill.rpc_id(1, informations)
-		character.movement.attack(animation_scale, weapon.type)
+		character.animation.set_is_attack(stats.get_skill_speed(attack_slot.skill), (get_global_mouse_position() - character.global_position).normalized() , anim_names[weapon.type])
 		attack_slot.reset_timer()
 
 func _process(_delta):
@@ -78,7 +73,8 @@ func _process(_delta):
 	character.weapon.frame = stats.get_weapon().style
 	if trigger_action and selected_skill:
 		trigger_skill(selected_skill)
-func _unhandled_input(event):
+
+func _unhandled_input(_event):
 	if Input.is_action_pressed("spell_slot_1"):
 		selected_skill = skills[0]
 		trigger_action = true
@@ -100,13 +96,3 @@ func _unhandled_input(event):
 		 Input.is_action_just_released("spell_slot_3") or Input.is_action_just_released("spell_slot_4")):
 		selected_skill = null
 		trigger_action = false
-
-#func _input(_event):
-	#if !player_id == multiplayer.get_unique_id():
-		#return
-	#if Input.is_action_just_pressed("spell_slot_1"):
-		#var attack_slot = $"Skills/1"
-		#attack_slot.trigger_skill.rpc_id(1, character.attack_point.rotation)
-		#character.movement.attack()
-	#elif Input.is_action_pressed("spell_slot_2"):
-		#pass

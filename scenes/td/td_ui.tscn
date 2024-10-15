@@ -1,0 +1,153 @@
+[gd_scene load_steps=19 format=3 uid="uid://cshc8lj0vfu13"]
+
+[ext_resource type="Script" path="res://scripts/td/TdUI.gd" id="1_biwxq"]
+[ext_resource type="PackedScene" uid="uid://7ay25idlrphw" path="res://scenes/multiplayer/minimap.tscn" id="1_gmneq"]
+[ext_resource type="PackedScene" uid="uid://dg3avobuf5qgf" path="res://scenes/Ui/ui_informations.tscn" id="3_mte6v"]
+[ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="4_bcrmc"]
+[ext_resource type="Script" path="res://scripts/Ui/actions/ActionUi.gd" id="4_dl0md"]
+[ext_resource type="PackedScene" uid="uid://ct5uvol3tm24r" path="res://scenes/Ui/ui_action.tscn" id="6_nlrqw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iv7aq"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_15t4b"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bnbdv"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventKey" id="InputEventKey_gif74"]
+device = -1
+keycode = 49
+unicode = 38
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2x8ri"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventKey" id="InputEventKey_rmdal"]
+device = -1
+keycode = 50
+unicode = 233
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gig8t"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventKey" id="InputEventKey_ut6d4"]
+device = -1
+keycode = 51
+unicode = 34
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_27lm2"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventKey" id="InputEventKey_1rqxj"]
+device = -1
+keycode = 52
+unicode = 39
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5q4p8"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventKey" id="InputEventKey_4ndcr"]
+device = -1
+keycode = 53
+unicode = 40
+
+[node name="TdUi" type="CanvasLayer" node_paths=PackedStringArray("name_label", "level", "currency", "minimap", "informations_panel", "action_panel")]
+script = ExtResource("1_biwxq")
+name_label = NodePath("Name")
+level = NodePath("Level")
+currency = NodePath("Currency")
+minimap = NodePath("Minimap")
+informations_panel = NodePath("Informations")
+action_panel = NodePath("Actions")
+
+[node name="Minimap" parent="." instance=ExtResource("1_gmneq")]
+offset_left = 498.0
+offset_top = 261.0
+offset_right = 633.0
+offset_bottom = 352.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_iv7aq")
+
+[node name="Currency" type="Label" parent="."]
+offset_left = 10.0
+offset_top = 62.0
+offset_right = 47.0
+offset_bottom = 85.0
+text = "1000"
+
+[node name="Name" type="Label" parent="."]
+offset_left = 8.0
+offset_top = 3.0
+offset_right = 181.0
+offset_bottom = 29.0
+theme_override_font_sizes/font_size = 18
+text = "NameIsLong (client)"
+
+[node name="Level" type="Label" parent="."]
+offset_left = 9.0
+offset_top = 34.0
+offset_right = 37.0
+offset_bottom = 57.0
+text = "0"
+
+[node name="Informations" parent="." instance=ExtResource("3_mte6v")]
+offset_left = 235.0
+offset_top = 8.0
+offset_right = 404.0
+offset_bottom = 70.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_15t4b")
+
+[node name="Actions" type="PanelContainer" parent="." node_paths=PackedStringArray("action_container")]
+offset_left = 8.0
+offset_top = 311.0
+offset_right = 195.0
+offset_bottom = 351.0
+theme_override_styles/panel = ExtResource("4_bcrmc")
+script = ExtResource("4_dl0md")
+action_container = NodePath("HBoxContainer")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Actions"]
+layout_mode = 2
+
+[node name="UIAction" parent="Actions/HBoxContainer" instance=ExtResource("6_nlrqw")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bnbdv")
+key = SubResource("InputEventKey_gif74")
+
+[node name="UIAction2" parent="Actions/HBoxContainer" instance=ExtResource("6_nlrqw")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2x8ri")
+key = SubResource("InputEventKey_rmdal")
+
+[node name="UIAction3" parent="Actions/HBoxContainer" instance=ExtResource("6_nlrqw")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gig8t")
+key = SubResource("InputEventKey_ut6d4")
+
+[node name="UIAction4" parent="Actions/HBoxContainer" instance=ExtResource("6_nlrqw")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_27lm2")
+key = SubResource("InputEventKey_1rqxj")
+
+[node name="UIAction5" parent="Actions/HBoxContainer" instance=ExtResource("6_nlrqw")]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5q4p8")
+key = SubResource("InputEventKey_4ndcr")

@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4hip7ftfm8ju"]
+
+[ext_resource type="Shader" path="res://dotted_line.gdshader" id="1_wnxox"]
+[ext_resource type="Script" path="res://scripts/game/BuildingSlot.gd" id="2_h37rp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6pd8x"]
+resource_local_to_scene = true
+shader = ExtResource("1_wnxox")
+shader_parameter/color = Color(1, 1, 1, 0.490196)
+shader_parameter/diameter = 1.0
+shader_parameter/thickness = 0.05
+shader_parameter/frequency = 10.0
+shader_parameter/phase = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u2ec7"]
+radius = 36.1248
+
+[node name="BuildingSlot" type="Area2D"]
+z_index = 5
+collision_layer = 2
+collision_mask = 34
+monitorable = false
+script = ExtResource("2_h37rp")
+
+[node name="Delimiter" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6pd8x")
+offset_left = -35.0
+offset_top = -35.0
+offset_right = 36.0
+offset_bottom = 36.0
+mouse_filter = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_u2ec7")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

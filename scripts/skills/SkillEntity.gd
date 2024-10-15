@@ -5,7 +5,7 @@ class_name SkillEntity
 var controlled_by: int = 1
 var invoker_path: NodePath
 var invoker: Node
-
+var target: Node2D
 
 @export var behaviours_container: Node2D
 var behaviours_models
@@ -24,6 +24,7 @@ var is_from_hit: bool
 @export var throw_speed: float = 0
 @export var speed: float = 0
 @export var initial_direction: Vector2
+@export var target_path: NodePath
 var effects
 var mouse_pos: Vector2
 var duration: float
@@ -34,6 +35,8 @@ func _enter_tree():
 		return
 	invoker = get_node(invoker_path)
 	shape = CircleShape2D.new()
+	if target_path:
+		target = get_node(target_path)
 	shape.radius = 9
 	for model in behaviours_models:
 		var behaviour = load(model).instantiate()
@@ -59,7 +62,7 @@ func _process(delta):
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.set_shape(shape)
 	query.collide_with_bodies = true
-	query.collision_mask = 1
+	query.collision_mask = 2
 	query.transform = global_transform
 	var result := get_world_2d().direct_space_state.intersect_shape(query, 1)
 	if result.size() > 0:

@@ -21,5 +21,5 @@ func hit(_body):
 		"behaviours_models": behaviours,
 		"effects": skill_entity.effects,
 	}
-	GameManager.spawn_entity.call_deferred(explosion_scene, informations)
+	GameManager.call_deferred(explosion_scene, informations)
 	

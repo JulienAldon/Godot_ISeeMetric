@@ -17,12 +17,10 @@ func _on_target_detection_body_entered(_body):
 	if is_multiplayer_authority():
 		if _body.is_in_group("player_entity"):
 			target = _body
-			Transitioned.emit(self, "follow")
+			Transitioned.emit("follow")
 			
 func _on_target_detection_body_exited(_body):
 	if is_multiplayer_authority():
 		if _body.is_in_group("player_entity") and _body == target:
-			Transitioned.emit(self, "idle")
+			Transitioned.emit("idle")
 			target = null
-
-

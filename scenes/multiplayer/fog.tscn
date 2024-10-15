@@ -1,13 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://tdxc50r7vig5"]
+[gd_scene load_steps=4 format=3 uid="uid://tdxc50r7vig5"]
 
 [ext_resource type="Script" path="res://scripts/Fog.gd" id="1_s3x8x"]
-[ext_resource type="Texture2D" path="res://assets/Used/Light.png" id="2_jml7o"]
 
-[node name="Fog" type="Node2D" node_paths=PackedStringArray("fog")]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tn204"]
+blend_mode = 3
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_vpgg3"]
+blend_mode = 3
+light_mode = 1
+
+[node name="Fog" type="Node2D" node_paths=PackedStringArray("camera", "viewport", "sprite", "timer")]
 script = ExtResource("1_s3x8x")
-fog = NodePath("Sprite2D")
-fog_dimensions = Vector2(4000, 4000)
-light_texture = ExtResource("2_jml7o")
-light_dimensions = Vector2(100, 100)
+camera = NodePath("SubViewportContainer/SubViewport/Camera2D")
+viewport = NodePath("SubViewportContainer/SubViewport")
+sprite = NodePath("SubViewportContainer/SubViewport/Texture")
+timer = NodePath("Timer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_tn204")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 512.0
+offset_bottom = 512.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
+
+[node name="Explored" type="ColorRect" parent="SubViewportContainer/SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="Texture" type="Sprite2D" parent="SubViewportContainer/SubViewport"]
+material = SubResource("CanvasItemMaterial_vpgg3")

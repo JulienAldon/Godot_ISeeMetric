@@ -3,21 +3,32 @@ extends Node2D
 #@export var death_behaviours: Array
 class_name DeathComponent
 
+@export_group("Dependencies")
+@export var sprite: AnimatedSprite2D
+@export var health: HealthComponent
+@export var body: Entity
+
+@export_category("Configuration")
 @export var experience_yield: int = 20
+
+@export_group("Intern")
 @export var corpse: Sprite2D
-@export var body: CharacterBody2D
 @export var delete_timer: Timer
 @export var corpse_time: int = 30
 
+var is_dead: bool = false
+
 func _ready():
-	delete_timer.wait_time = corpse_time
+	if delete_timer:
+		delete_timer.wait_time = corpse_time
 	
 @rpc("any_peer", "call_local")
 func show_corpse():
 	corpse.show()
-	corpse.flip_h = body.sprite.flip_h
-	body.sprite.hide()
-	body.health.hide()
+	is_dead = true
+	corpse.flip_h = sprite.flip_h
+	sprite.hide()
+	health.hide()
 	body.deactivate_behaviour()
 
 func yield_experience(attacker_id):
@@ -33,7 +44,8 @@ func death(attacker_id):
 
 @rpc("any_peer", "call_local")
 func delete_corpse():
-	body.queue_free()
+	if is_multiplayer_authority():
+		body.call_deferred("queue_free")
 	 
 func _on_timer_timeout():
 	delete_corpse.rpc()

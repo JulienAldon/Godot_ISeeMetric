@@ -111,7 +111,7 @@ _data = {
 }
 
 [node name="MagicExplosion" type="Node2D" node_paths=PackedStringArray("behaviours_container", "animation_player")]
-scale = Vector2(2, 2)
+scale = Vector2(0.1, 0.1)
 script = ExtResource("1_uxfg2")
 behaviours_container = NodePath("Behaviors")
 animation_player = NodePath("AnimationPlayer")
@@ -122,7 +122,6 @@ collision_mask = 17
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_abn4o")
-disabled = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_yqxsv")
@@ -134,14 +133,13 @@ replication_config = SubResource("SceneReplicationConfig_yqxsv")
 [node name="Primary" type="Line2D" parent="Effect"]
 points = PackedVector2Array(-14, -18, 0, -23, 16, -16, 23, -1, 17, 16, 0, 23, -16, 17, -22, 6, -22, -6)
 closed = true
-default_color = Color(1, 1, 1, 0)
+width = 1.0
 
 [node name="Secondary" type="Line2D" parent="Effect"]
-scale = Vector2(4, 4)
+scale = Vector2(0.1, 0.1)
 points = PackedVector2Array(-14, -18, 0, -23, 16, -16, 23, -1, 17, 16, 0, 23, -16, 17, -22, 6, -22, -6)
 closed = true
 width = 2.0
-default_color = Color(1, 1, 1, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

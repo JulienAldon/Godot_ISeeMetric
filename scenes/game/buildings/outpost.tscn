@@ -1,0 +1,232 @@
+[gd_scene load_steps=25 format=3 uid="uid://baxg8wjbqklw5"]
+
+[ext_resource type="Script" path="res://scripts/game/Outpost.gd" id="1_chg77"]
+[ext_resource type="Shader" path="res://unit_outline.gdshader" id="2_67f2r"]
+[ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://components/network/network_component.tscn" id="2_pfug3"]
+[ext_resource type="Texture2D" uid="uid://cy6sgk1o02y3h" path="res://assets/icons/outpost.png" id="2_ptrjo"]
+[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://components/action/action_component.tscn" id="2_upylq"]
+[ext_resource type="Texture2D" uid="uid://boequd8issf1h" path="res://assets/outpost.png" id="3_33l3u"]
+[ext_resource type="PackedScene" uid="uid://uoxwn3d5i7hk" path="res://components/progress/capturing_progress.tscn" id="3_yw4n5"]
+[ext_resource type="Shader" path="res://dotted_line.gdshader" id="4_q3k8o"]
+[ext_resource type="Script" path="res://components/capture/CaptureComponent.gd" id="6_8fmld"]
+[ext_resource type="PackedScene" uid="uid://b4hip7ftfm8ju" path="res://scenes/game/outpost_building_slot.tscn" id="6_hthc8"]
+[ext_resource type="Script" path="res://components/income/IncomeComponent.gd" id="9_iv20g"]
+[ext_resource type="Script" path="res://components/build/BuildComponent.gd" id="9_lkppw"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://components/selection/selection_component.tscn" id="11_urvxy"]
+[ext_resource type="Script" path="res://scripts/game/SlotBuildMode.gd" id="13_3dmra"]
+[ext_resource type="PackedScene" uid="uid://d8gihj7ittof" path="res://components/rally/rally_point_component.tscn" id="16_qebkq"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0o3gs"]
+properties/0/path = NodePath("CaptureComponent:is_reset")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("CaptureComponent:capturing_player")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("CaptureComponent:capture_stage")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("CaptureComponent:previous_owner")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:controlled_by")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oweqg"]
+resource_local_to_scene = true
+shader = ExtResource("2_67f2r")
+shader_parameter/width = 0.0
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5dkx"]
+atlas = ExtResource("3_33l3u")
+region = Rect2(0, 0, 46, 98)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uriw2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d5dkx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8nju"]
+radius = 15.0
+height = 44.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n6t6w"]
+resource_local_to_scene = true
+radius = 200.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2eit3"]
+resource_local_to_scene = true
+shader = ExtResource("4_q3k8o")
+shader_parameter/color = Color(1, 1, 1, 0.32549)
+shader_parameter/diameter = 1.0
+shader_parameter/thickness = 0.009
+shader_parameter/frequency = 100.0
+shader_parameter/phase = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bkqct"]
+resource_local_to_scene = true
+radius = 89.202
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ay440"]
+resource_local_to_scene = true
+shader = ExtResource("4_q3k8o")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/diameter = 1.0
+shader_parameter/thickness = 0.02
+shader_parameter/frequency = 30.0
+shader_parameter/phase = 0.0
+
+[node name="Outpost" type="StaticBody2D" node_paths=PackedStringArray("action_controller", "capture", "income", "build", "effect_shape", "selection", "network", "movement") groups=["building", "minimap_item", "navigation"]]
+collision_layer = 6
+input_pickable = true
+script = ExtResource("1_chg77")
+action_controller = NodePath("ActionComponent")
+capture = NodePath("CaptureComponent")
+income = NodePath("IncomeComponent")
+build = NodePath("BuildComponent")
+effect_shape = NodePath("EffectRange/CollisionShape2D")
+selection = NodePath("SelectionComponent")
+network = NodePath("NetworkComponent")
+movement = NodePath("RallyPointComponent")
+minimap_icon = "outpost"
+display_name = "Outpost"
+str_type = "Outpost"
+icon = ExtResource("2_ptrjo")
+
+[node name="NetworkComponent" parent="." instance=ExtResource("2_pfug3")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+root_path = NodePath("../..")
+replication_config = SubResource("SceneReplicationConfig_0o3gs")
+
+[node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("11_urvxy")]
+network = NodePath("../NetworkComponent")
+sprites = [NodePath("../Sprite2D")]
+body = NodePath("..")
+
+[node name="ActionComponent" parent="." node_paths=PackedStringArray("body", "actions_container") instance=ExtResource("2_upylq")]
+body = NodePath("..")
+actions_container = NodePath("Actions")
+
+[node name="Actions" type="Node2D" parent="ActionComponent"]
+
+[node name="ActionQueue" type="Node2D" parent="ActionComponent"]
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
+y_sort_enabled = true
+material = SubResource("ShaderMaterial_oweqg")
+sprite_frames = SubResource("SpriteFrames_uriw2")
+autoplay = "default"
+offset = Vector2(0, -45)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -17)
+shape = SubResource("CapsuleShape2D_d8nju")
+
+[node name="EffectRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 49
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EffectRange"]
+shape = SubResource("CircleShape2D_n6t6w")
+
+[node name="EffectRangeDelimiter" type="ColorRect" parent="EffectRange"]
+material = SubResource("ShaderMaterial_2eit3")
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+mouse_filter = 2
+
+[node name="CaptureComponent" type="Node2D" parent="." node_paths=PackedStringArray("income", "build", "body", "capturing_progress", "capture_delimiter", "capture_progress")]
+script = ExtResource("6_8fmld")
+income = NodePath("../IncomeComponent")
+build = NodePath("../BuildComponent")
+body = NodePath("..")
+capturing_progress = NodePath("CapturingProgress")
+capture_delimiter = NodePath("CaptureRadius/CaptureDelimiter")
+capture_progress = NodePath("CapturingProgress")
+
+[node name="CaptureRadius" type="Area2D" parent="CaptureComponent"]
+collision_layer = 0
+collision_mask = 17
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CaptureComponent/CaptureRadius"]
+shape = SubResource("CircleShape2D_bkqct")
+
+[node name="CaptureDelimiter" type="ColorRect" parent="CaptureComponent/CaptureRadius"]
+material = SubResource("ShaderMaterial_ay440")
+offset_left = -88.0
+offset_top = -90.0
+offset_right = 89.0
+offset_bottom = 89.0
+mouse_filter = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="CapturingProgress" parent="CaptureComponent" node_paths=PackedStringArray("target") instance=ExtResource("3_yw4n5")]
+visible = false
+offset_left = -30.0
+offset_top = -100.0
+offset_right = 34.0
+offset_bottom = -88.0
+target = NodePath("..")
+
+[node name="IncomeComponent" type="Node2D" parent="." node_paths=PackedStringArray("capture", "currency_timer")]
+script = ExtResource("9_iv20g")
+capture = NodePath("../CaptureComponent")
+currency_timer = NodePath("CurrencyRate")
+
+[node name="CurrencyRate" type="Timer" parent="IncomeComponent"]
+
+[node name="BuildComponent" type="Node2D" parent="." node_paths=PackedStringArray("action_controller", "entity", "build_mode")]
+script = ExtResource("9_lkppw")
+action_controller = NodePath("../ActionComponent")
+entity = NodePath("..")
+build_mode = NodePath("SlotBuildMode")
+
+[node name="SlotBuildMode" type="Node2D" parent="BuildComponent" node_paths=PackedStringArray("buildings_slots")]
+script = ExtResource("13_3dmra")
+buildings_slots = NodePath("BuildingsSlots")
+
+[node name="BuildingsSlots" type="Node2D" parent="BuildComponent/SlotBuildMode"]
+visible = false
+
+[node name="BuildingSlot1" parent="BuildComponent/SlotBuildMode/BuildingsSlots" instance=ExtResource("6_hthc8")]
+position = Vector2(-144, -2)
+
+[node name="BuildingSlot2" parent="BuildComponent/SlotBuildMode/BuildingsSlots" instance=ExtResource("6_hthc8")]
+position = Vector2(-90, -113)
+
+[node name="BuildingSlot3" parent="BuildComponent/SlotBuildMode/BuildingsSlots" instance=ExtResource("6_hthc8")]
+position = Vector2(83, -118)
+
+[node name="BuildingSlot4" parent="BuildComponent/SlotBuildMode/BuildingsSlots" instance=ExtResource("6_hthc8")]
+position = Vector2(141, 0)
+
+[node name="BuildingSlot5" parent="BuildComponent/SlotBuildMode/BuildingsSlots" instance=ExtResource("6_hthc8")]
+position = Vector2(76, 125)
+
+[node name="BuildingSlot6" parent="BuildComponent/SlotBuildMode/BuildingsSlots" instance=ExtResource("6_hthc8")]
+position = Vector2(-82, 120)
+
+[node name="RallyPointComponent" parent="." instance=ExtResource("16_qebkq")]
+is_enabled = false
+
+[connection signal="body_entered" from="EffectRange" to="BuildComponent" method="_on_effect_range_body_entered"]
+[connection signal="body_exited" from="EffectRange" to="BuildComponent" method="_on_effect_range_body_exited"]
+[connection signal="body_entered" from="CaptureComponent/CaptureRadius" to="CaptureComponent" method="_on_capture_radius_body_entered"]
+[connection signal="body_exited" from="CaptureComponent/CaptureRadius" to="CaptureComponent" method="_on_capture_radius_body_exited"]
+[connection signal="timeout" from="IncomeComponent/CurrencyRate" to="IncomeComponent" method="_on_currency_rate_timeout"]

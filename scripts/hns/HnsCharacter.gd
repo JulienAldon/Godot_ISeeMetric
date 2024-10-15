@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Entity
 class_name HnsCharacter
 
 @export var health: HealthComponent
@@ -10,8 +10,8 @@ class_name HnsCharacter
 @export var weapon: Sprite2D
 @export var stats: Node2D
 @export var skills: Node2D
-
-var controlled_by: int
+@export var selection: SelectionComponent
+@export var animation: AnimationComponent
 
 func _ready():
 	if network:

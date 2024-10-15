@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cyl0g6e2yt1sy"]
 
-[ext_resource type="Script" path="res://scripts/Player/PlayerMenu.gd" id="1_c2xhg"]
+[ext_resource type="Script" path="res://scripts/player/PlayerMenu.gd" id="1_fcjc1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_3dpo8"]
 
@@ -9,7 +9,7 @@ offset_right = 342.0
 offset_bottom = 31.0
 theme_override_constants/separation = 16
 alignment = 1
-script = ExtResource("1_c2xhg")
+script = ExtResource("1_fcjc1")
 
 [node name="Color" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(30, 0)

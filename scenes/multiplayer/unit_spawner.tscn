@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" path="res://scripts/UnitSpawner.gd" id="1_m2d1n"]
 
-[node name="UnitSpawner" type="Node" node_paths=PackedStringArray("spawner")]
+[node name="UnitSpawner" type="Node2D" node_paths=PackedStringArray("spawner")]
+y_sort_enabled = true
 script = ExtResource("1_m2d1n")
 spawner = NodePath("MultiplayerSpawner")
 

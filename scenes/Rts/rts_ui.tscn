@@ -1,0 +1,114 @@
+[gd_scene load_steps=10 format=3 uid="uid://cfjgwqiy0a2ov"]
+
+[ext_resource type="Script" path="res://scripts/rts/RtsUi.gd" id="1_o7t14"]
+[ext_resource type="PackedScene" uid="uid://7ay25idlrphw" path="res://scenes/multiplayer/minimap.tscn" id="2_mngvn"]
+[ext_resource type="PackedScene" uid="uid://dg3avobuf5qgf" path="res://scenes/Ui/ui_informations.tscn" id="4_3w7i4"]
+[ext_resource type="PackedScene" uid="uid://4tbd8aqita4l" path="res://scenes/Ui/ui_rts_actions.tscn" id="5_hjow0"]
+[ext_resource type="Texture2D" uid="uid://lty362kk5tql" path="res://assets/icons/icon_remove.svg" id="6_fehvm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1nvg"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pqo43"]
+bg_color = Color(0.254902, 0.356863, 0.631373, 0.74902)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.596078, 0.482353, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3lxjk"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yf87r"]
+resource_local_to_scene = true
+bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.595169, 0.482256, 0, 1)
+
+[node name="RtsUi" type="CanvasLayer" node_paths=PackedStringArray("name_label", "level", "currency", "minimap", "informations_panel", "action_panel")]
+script = ExtResource("1_o7t14")
+name_label = NodePath("Name")
+level = NodePath("Level")
+currency = NodePath("Currency")
+minimap = NodePath("Minimap")
+informations_panel = NodePath("Informations")
+action_panel = NodePath("ActionUI")
+
+[node name="Minimap" parent="." instance=ExtResource("2_mngvn")]
+offset_left = 532.0
+offset_top = 257.0
+offset_right = 632.0
+offset_bottom = 357.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_v1nvg")
+
+[node name="Currency" type="Label" parent="."]
+offset_left = 10.0
+offset_top = 62.0
+offset_right = 47.0
+offset_bottom = 85.0
+text = "1000"
+
+[node name="Name" type="Label" parent="."]
+offset_left = 8.0
+offset_top = 3.0
+offset_right = 181.0
+offset_bottom = 29.0
+theme_override_font_sizes/font_size = 18
+text = "NameIsLong (client)"
+
+[node name="Level" type="Label" parent="."]
+offset_left = 9.0
+offset_top = 34.0
+offset_right = 37.0
+offset_bottom = 57.0
+text = "0"
+
+[node name="Groups" type="HBoxContainer" parent="."]
+visible = false
+offset_left = 536.0
+offset_top = 3.0
+offset_right = 636.0
+offset_bottom = 21.0
+
+[node name="Button" type="Button" parent="Groups"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_pqo43")
+text = "1"
+icon = ExtResource("6_fehvm")
+
+[node name="Button2" type="Button" parent="Groups"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_pqo43")
+text = "1"
+icon = ExtResource("6_fehvm")
+
+[node name="Button3" type="Button" parent="Groups"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+theme_override_styles/normal = SubResource("StyleBoxFlat_pqo43")
+text = "1"
+icon = ExtResource("6_fehvm")
+
+[node name="Informations" parent="." instance=ExtResource("4_3w7i4")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_3lxjk")
+
+[node name="ActionUI" parent="." instance=ExtResource("5_hjow0")]
+theme_override_styles/panel = SubResource("StyleBoxFlat_yf87r")

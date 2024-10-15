@@ -1,0 +1,130 @@
+[gd_scene load_steps=12 format=3 uid="uid://bfeu28281ol6i"]
+
+[ext_resource type="Script" path="res://scripts/skills/SkillEntity.gd" id="1_yxjwu"]
+[ext_resource type="Texture2D" uid="uid://c3ouefc0vudpa" path="res://assets/buildings/projectile_turret-Sheet.png" id="2_tnadj"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7s50i"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("AnimationPlayer:current_animation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecs4k"]
+atlas = ExtResource("2_tnadj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5bhxs"]
+atlas = ExtResource("2_tnadj")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5k4lf"]
+atlas = ExtResource("2_tnadj")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dx7nx"]
+atlas = ExtResource("2_tnadj")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ikbcy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecs4k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5bhxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5k4lf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dx7nx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="Animation" id="Animation_syqgq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_qhcg3"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"default"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(7.45058e-09, 0.133333, 0.266667, 0.4, 0.566667, 0.7, 0.833333, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qwwh8"]
+_data = {
+"RESET": SubResource("Animation_syqgq"),
+"default": SubResource("Animation_qhcg3")
+}
+
+[node name="ProjectileTurret" type="Node2D" node_paths=PackedStringArray("behaviours_container", "animation_player")]
+z_index = 1
+script = ExtResource("1_yxjwu")
+behaviours_container = NodePath("Behaviours")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_7s50i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ikbcy")
+autoplay = "default"
+frame = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qwwh8")
+}
+autoplay = "default"
+
+[node name="Behaviours" type="Node2D" parent="."]

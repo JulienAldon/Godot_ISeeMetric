@@ -9,9 +9,13 @@ class_name Npc
 @export var sprite: Sprite2D
 @export var attack_point: Node2D
 @export var stats: Node2D
+@export var minimap_icon: String
+
 var scene: String
+
 @export var attacker_id: int = 0
 var controlled_by: int
+var is_alive := true
 
 func deactivate_behaviour():
 	hitbox.disabled = true
@@ -26,6 +30,7 @@ func _ready():
 	set_multiplayer_authority(controlled_by)
 
 func dispawn():
+	is_alive = false
 	death.death(attacker_id)
 
 func _process(_delta):

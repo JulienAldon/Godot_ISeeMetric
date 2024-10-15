@@ -2,8 +2,8 @@ extends Node2D
 
 class_name Effect
 
-@export var _name: String
-@export var _description: String
+#@export var _name: String
+#@export var _description: String
 @export var icon: ImageTexture
 @export var duration: float
 var timer: Timer
@@ -21,7 +21,7 @@ func start(_character):
 	timer.start()
 	character = _character
 
-func update(delta):
+func update(_delta):
 	pass
 
 func stop():
