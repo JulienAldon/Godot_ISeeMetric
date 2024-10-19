@@ -9,7 +9,7 @@ var player: PlayerController
 @export var entities: Node2D
 @export var player_sprite: Sprite2D
 @export var texture_rect: TextureRect
-@onready var tilemap = GameManager.get_level_tilemap()
+var tilemap
 
 var map_size: Vector2
 var minimap_reduction_ratio: Vector2
@@ -24,14 +24,14 @@ var map_texture: ImageTexture
 
 func create_minimap_texture():
 	map_size = tilemap.get_used_rect().size
-	var cells = tilemap.get_used_cells(0)
+	var cells = tilemap.get_used_cells()
 	cells.sort()
 	var image: Image = Image.create(int(map_size.x), int(map_size.y), false, Image.FORMAT_RGBA8)
 	for x in range(0, map_size.x):
 		for y in range(0, map_size.y):
 			var color = Color.STEEL_BLUE
 			var cell = cells[map_size.y * x + y]
-			var cell_atlas_pos = tilemap.get_cell_atlas_coords(0, cell)
+			var cell_atlas_pos = tilemap.get_cell_atlas_coords(cell)
 			if cell_atlas_pos != tilemap.boundary_block_atlas_pos:
 				color = Color.WEB_GREEN
 			image.set_pixel(x, y, color)
@@ -39,6 +39,7 @@ func create_minimap_texture():
 	texture_rect.set_texture(map_texture)
 
 func _ready():
+	tilemap = GameManager.get_level_tilemap()
 	create_minimap_texture()
 	
 	map_size = tilemap.get_used_rect().size * 16
@@ -60,7 +61,8 @@ func translate_to_world_pos(pos: Vector2):
 	return ((pos - (size / 2) ) * minimap_reduction_ratio)
 
 func _process(_delta):
-	player_sprite.position = translate_to_minimap_coords(player.camera.global_position) + Vector2((player_sprite.texture.get_size() * player_sprite.scale)/ 2)
+	if is_instance_valid(player):
+		player_sprite.position = translate_to_minimap_coords(player.camera.global_position) + Vector2((player_sprite.texture.get_size() * player_sprite.scale)/ 2)
 
 func _on_gui_input(event):
 	if event is InputEventMouseButton:

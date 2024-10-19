@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://ddkd3htsactdf" path="res://assets/buildings/barracks_destruction.png" id="8_0l63m"]
 [ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://components/selection/selection_component.tscn" id="8_ug3km"]
 [ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://components/action/action_component.tscn" id="11_g61tk"]
-[ext_resource type="PackedScene" uid="uid://c7bi61flkl2h8" path="res://scenes/Rts/actions/unit_production.tscn" id="12_18i6w"]
+[ext_resource type="PackedScene" uid="uid://c7bi61flkl2h8" path="res://scenes/rts/actions/unit_production.tscn" id="12_18i6w"]
 [ext_resource type="Texture2D" uid="uid://cq2jannuhd1mr" path="res://assets/icons/soldier.png" id="13_yjeer"]
 [ext_resource type="Script" path="res://components/BuildPhaseComponent.gd" id="14_0tjq1"]
 [ext_resource type="PackedScene" uid="uid://d8gihj7ittof" path="res://components/rally/rally_point_component.tscn" id="16_siwqb"]

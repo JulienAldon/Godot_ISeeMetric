@@ -56,7 +56,7 @@ func toggle_target_indicator(target):
 
 func command_or_append_unit_action(mouse_pos: Vector2):
 	show_cursor_anim(mouse_pos)
-	var target = calculate_target_entity()
+	var target = calculate_target_entity(func(el): return el.controlled_by != player_id)
 	toggle_target_indicator(target)
 	select_controller.clear_selected()
 	var group_map = select_controller.create_selected_map()
@@ -76,7 +76,7 @@ func show_cursor_anim(pos: Vector2):
 func filter_allies(e):
 	return e.controlled_by != player_id
 
-func calculate_target_entity():
+func calculate_target_entity(filter_func):
 	#var targets = select_entity_area.get_overlapping_bodies()
 	var result
 	var space = get_world_2d().direct_space_state
@@ -92,7 +92,7 @@ func calculate_target_entity():
 	#else:
 	if result.size() <= 0:
 		return null
-	result = result.map(func(el): return el.collider).filter(func(el): return el.controlled_by != player_id)
+	result = result.map(func(el): return el.collider).filter(filter_func)
 	if result.size() <= 0:
 		return null
 	return result[0]
@@ -106,13 +106,22 @@ func _unhandled_input(event):
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			if event.pressed and select_controller.get_selected().size() > 0:
 				command_or_append_unit_action(mouse_pos)
-				queue_redraw()
+				select_controller.queue_redraw()
+		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			var entity = calculate_target_entity(func(el): return el)
+			if entity:
+				player.show_entity_informations(entity, player_id)
+				player.show_entity_actions(entity, player_id)
+			else:
+				player.hide_entity_informations(player_id)
+				player.hide_entity_actions(player_id)
+			
 	if Input.is_action_pressed("spell_slot_4"):
 		GameManager.spawn_character(char_scene, {"position": mouse_pos, "controlled_by": player_id})
 
 func _physics_process(delta):
 	camera_control(delta)
-	queue_redraw()
+	select_controller.queue_redraw()
 
 func _process(_delta):
 	queue_redraw()

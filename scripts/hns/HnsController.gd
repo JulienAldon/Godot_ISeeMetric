@@ -39,7 +39,6 @@ func trigger_skill(attack_slot):
 	if weapon_index == null:
 		return
 	var weapon = stats.weapons[weapon_index]
-	var animation_duration: float = weapon.get_animation_speed()
 	var new_animation_duration = 1 / stats.get_skill_speed(attack_slot.skill)
 	if attack_slot.can_trigger:
 		if attack_slot.skill.movement:

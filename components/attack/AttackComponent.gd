@@ -17,7 +17,7 @@ func _ready():
 	attack_timer.timeout.connect(stop_attack_cooldown)
 	shape.radius = stats.get_range()
 
-func _process(delta):
+func _process(_delta):
 	shape.radius = stats.get_range()
 
 func set_target(_target):

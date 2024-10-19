@@ -23,11 +23,11 @@ var flocked_direction: Vector2
 func colliders_reached_target():
 	for collider in local_units:
 		if is_instance_valid(collider) and movement_group.has(collider.get_instance_id()):
-			if "reached_target" in collider.movement and collider.movement.reached_target(20):
+			if collider.movement.has_method("reached_target") and collider.movement.reached_target(30):
 				stop()
 				reset_state()
 				return
-	if reached_target(20):
+	if reached_target(30):
 		stop()
 		reset_state()
 
@@ -68,9 +68,9 @@ func stop():
 func reset_state():
 	clear_navigation_command()
 
-func get_path_point(point: Vector2, offset: int):
+func get_path_point(point: Vector2, offset: int) -> int:
 	if not path:
-		return Vector2(0, 0)
+		return -1
 	var lowest_distance = path[0].distance_squared_to(point)
 	var lowest_index = 0
 	var index = 0
@@ -115,6 +115,8 @@ func move_toward_target(delta):
 	var group = local_units
 	if reached_target(70, path[current_path_position]):
 		current_path_position = get_path_point(path[current_path_position], 1)
+		if current_path_position == -1:
+			return
 	var next_path = path[current_path_position]
 	var direction = (next_path - body.position)
 	current_direction = direction

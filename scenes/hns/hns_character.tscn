@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://scripts/hns/Stats.gd" id="9_mxff3"]
 [ext_resource type="Script" path="res://scripts/hns/Damage.gd" id="10_p6yb0"]
 [ext_resource type="Script" path="res://scripts/hns/Weapon.gd" id="11_nnflj"]
-[ext_resource type="PackedScene" uid="uid://clpqde20meqmd" path="res://scenes/Hns/skill_slot.tscn" id="12_cq1lr"]
+[ext_resource type="PackedScene" uid="uid://clpqde20meqmd" path="res://scenes/hns/skill_slot.tscn" id="12_cq1lr"]
 [ext_resource type="Script" path="res://scripts/skills/effects/EffectResource.gd" id="13_50xgb"]
 [ext_resource type="Script" path="res://scripts/skills/Skill.gd" id="14_kiyuc"]
 [ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://components/selection/selection_component.tscn" id="15_opsra"]

@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var tilemap: TileMap
+@export var tilemap: TileMapLayer
 @export var spawns: Node2D
 @export var outpost_container: Node2D
 var outposts: Array = []

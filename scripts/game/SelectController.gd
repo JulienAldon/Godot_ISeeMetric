@@ -118,7 +118,6 @@ func create_unit_group(path, click_position, target, group_map):
 	return unit_group
 
 func _draw():
-
 	if selected.size() > 0:
 		if is_instance_valid(selected[0]) and not selected[0] is Building:
 			if "attack" in selected[0] and selected[0].attack.target:
@@ -141,7 +140,7 @@ func _draw():
 					index += 1
 	for elem in selected:
 		if is_instance_valid(elem) and elem is Building and not elem is Outpost:
-			draw_dashed_line(to_local(elem.position), to_local(elem.movement.target_position), Color(11, 11, 11, 0.7), 2, 3)
+			draw_dashed_line(to_local(elem.global_position), to_local(elem.movement.target_position), Color(11, 11, 11, 0.7), 2, 3)
 	if dragging:
 		draw_rect(Rect2(to_local(drag_start), get_local_mouse_position() - to_local(drag_start)), controller.color, false, 2.0)
 	# shaw nb selected

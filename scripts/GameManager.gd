@@ -63,6 +63,7 @@ func get_level_tilemap():
 		return null
 	var level_loaded = node.get_children()
 	if level_loaded.size() <= 0:
+		print("level not loaded")
 		return null
 	return level_loaded[0].get_tilemap()
 
@@ -91,7 +92,7 @@ func remove_entity(path):
 	entity.queue_free()
 
 func get_player_color(player_id):
-	if player_id != 0:
+	if player_id != 0 and player_id in Players.keys():
 		return Players[player_id]["color"]
 	return Color.GRAY
 

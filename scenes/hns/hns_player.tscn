@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/player/PlayerController.gd" id="1_ixk81"]
 [ext_resource type="Script" path="res://scripts/hns/HnsController.gd" id="2_bacit"]
-[ext_resource type="PackedScene" uid="uid://cw2ls3k0cc68i" path="res://scenes/Hns/hns_character.tscn" id="4_0vky4"]
+[ext_resource type="PackedScene" uid="uid://cw2ls3k0cc68i" path="res://scenes/hns/hns_character.tscn" id="4_0vky4"]
 
 [node name="HnsPlayer" type="Node2D" node_paths=PackedStringArray("current_controller", "camera")]
 z_index = 1
@@ -10,7 +10,7 @@ y_sort_enabled = true
 script = ExtResource("1_ixk81")
 current_controller = NodePath("hnsController")
 camera = NodePath("Camera2D")
-ui_scene = "res://scenes/Hns/hns_ui.tscn"
+ui_scene = "res://scenes/hns/hns_ui.tscn"
 
 [node name="hnsController" type="Node2D" parent="." node_paths=PackedStringArray("character", "player", "camera")]
 script = ExtResource("2_bacit")

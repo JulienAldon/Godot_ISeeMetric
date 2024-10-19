@@ -2,7 +2,7 @@
 
 [ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="1_7lsqu"]
 [ext_resource type="Script" path="res://scripts/Ui/actions/ActionUi.gd" id="2_m6ank"]
-[ext_resource type="PackedScene" uid="uid://ct5uvol3tm24r" path="res://scenes/Ui/ui_action.tscn" id="3_bv0gt"]
+[ext_resource type="PackedScene" uid="uid://ct5uvol3tm24r" path="res://scenes/ui/ui_action.tscn" id="3_bv0gt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l48lq"]
 resource_local_to_scene = true

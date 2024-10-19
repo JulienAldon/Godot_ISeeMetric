@@ -1,30 +1,23 @@
-extends Control
+extends Node2D
 
 class_name MultiplayerController
 
 @export var address = '127.0.0.1'
 @export var port = 8910
 var peer
-@export var faction_picker: OptionButton
-@export var player_name_label: LineEdit
-@export var host := Node2D
-@export var join := Node2D
-@export var start := Node2D
-@export var party_panel: Control
-@export var party_creation_panel: Control
-@export var network_messages: MessageQueue
-@export var level: Node
 
+@export var level_container: Node
 @export var maximum_players: int = 4
-@export var player_scene : PackedScene
+
+@export var entities : Node2D
 @export var player_spawner : MultiplayerSpawner
 @export var entity_spawner : MultiplayerSpawner
-
 @export var faction_scenes: Dictionary
-@export var npc_entities: Dictionary
-@export var no_party: Label
 
-@export var unit_spawner: String
+@export var multiplayer_menu: MultiplayerMenu
+@export var unit_spawner_scene: String
+@export var level_scene: String
+
 var is_level_loaded = false
 
 func instantiate_entity(informations: Dictionary):
@@ -42,10 +35,10 @@ func instantiate_player(informations: Dictionary):
 	current_player.set_player_name(informations["name"])
 	current_player.set_player_color(informations["color"])
 	current_player.set_spawn(informations["position"])
-	var unit = load(unit_spawner).instantiate()
+	var unit = load(unit_spawner_scene).instantiate()
 	unit.name = str(informations["id"])
-	$"..".add_child(player_ui)
-	$"..".add_child(unit, true)
+	add_child(player_ui)
+	add_child(unit, true)
 	return current_player
 
 func _enter_tree():
@@ -53,7 +46,7 @@ func _enter_tree():
 	entity_spawner.spawn_function = instantiate_entity
 
 func _ready():
-	$Message.text = ""
+	multiplayer_menu.set_message("")
 	multiplayer.peer_connected.connect(peer_connected)
 	multiplayer.peer_disconnected.connect(peer_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
@@ -61,67 +54,35 @@ func _ready():
 	
 func _process(_delta):
 	if is_level_loaded:
-		self.hide()
+		multiplayer_menu.hide()
 
 # called on server and clients
 func peer_connected(id):
-	network_messages.add_message('Player connected ' + str(id))
+	multiplayer_menu.network_messages.add_message('Player connected ' + str(id))
 
 # called on server and clients
 func peer_disconnected(id):
-	remove_player_menu(id)
+	multiplayer_menu.remove_player_menu(id)
 	GameManager.Players.erase(id)
 	disconnect_player(id)
 	print('Player disconnected ' + str(id))
-	network_messages.add_message('Player disconnected ' + str(id))
+	multiplayer_menu.network_messages.add_message('Player disconnected ' + str(id))
 
 # called only on client
 func connected_to_server():
 	print('Successfully connected to server')
-	$Message.text = "Successfully connected to server."
-	send_player_information.rpc_id(1, player_name_label.text, multiplayer.get_unique_id(), GameManager.factions_attributes[faction_picker.selected].color[0], faction_picker.selected)
+	multiplayer_menu.set_message("Successfully connected to server.")
+	var selected_faction_index: int = multiplayer_menu.get_player_faction()
+	send_player_information.rpc_id(1, multiplayer_menu.get_player_name(), multiplayer.get_unique_id(), GameManager.factions_attributes[selected_faction_index].color[0], selected_faction_index)
 
 # called only on client
 func connection_failed():
 	print('Connection failed')
-	party_panel.visible = false
-	party_creation_panel.visible = true
-
-func check_start_requirements(players):
-	var can_start = false
-	for child in players:
-		if child.get_node('Faction').text == "":
-			can_start = true
-	return can_start
-
-func add_player_menu(player):
-	no_party.visible = false
-	var player_menu = load('res://scenes/player_menu.tscn').instantiate()
-	player_menu.get_node('Name').text = player['name']
-	player_menu.get_node('Color').color = player['color']
-	player_menu.get_node('Faction').text = GameManager.factions_attributes[player['faction']]["name"]
-	player_menu.controller = self
-	player_menu.get_node('Id').text = str(player['id'])
-	$PartyPanel/Players.add_child(player_menu)
-	start.disabled = check_start_requirements($PartyPanel/Players.get_children())
-
-func update_player_menu(player):
-	var player_menu = $PartyPanel/Players.get_children().filter(func(x): return x.get_node('Id').text == str(player['id']))
-	if len(player_menu) > 0:
-		player_menu[0].get_node('Color').color = player['color']
-		player_menu[0].get_node('Faction').text = GameManager.factions_attributes[player['faction']]["name"]
-	start.disabled = check_start_requirements($PartyPanel/Players.get_children())
-	
-func remove_player_menu(id):
-	var player_menu = $PartyPanel/Players.get_children().filter(func(x): return x.get_node('Id').text == str(id))
-	if len(player_menu) > 0:
-		$PartyPanel/Players.remove_child(player_menu[0])
-	if len($PartyPanel/Players.get_children()) <= 0:
-		no_party.visible = true
+	multiplayer_menu.hide_party_panel()
 
 func clear_menu():
 	for i in GameManager.Players:
-		remove_player_menu(GameManager.Players[i].id)
+		multiplayer_menu.remove_player_menu(GameManager.Players[i].id)
 
 func clear_connection():
 	clear_menu()
@@ -131,10 +92,7 @@ func clear_connection():
 	if peer:
 		peer.close()
 		peer = OfflineMultiplayerPeer.new()
-	party_panel.visible = false
-	party_creation_panel.visible = true
-	start.disabled = true
-	faction_picker.selected = -1
+	multiplayer_menu.hide_party_panel()
 
 func disconnect_player(id):
 	var player_id = multiplayer.multiplayer_peer.get_unique_id()
@@ -172,10 +130,10 @@ func send_player_information(_name, id, color, faction):
 			var player_info = {"position": Vector2(0, 0)}
 			player_info.merge(player)
 			player_spawner.spawn(player_info)
-		add_player_menu(player)
+		multiplayer_menu.add_player_menu(player)
 	if GameManager.Players[id].color != color or GameManager.Players[id].faction != faction:
 		GameManager.Players[id] = player
-		update_player_menu(player)
+		multiplayer_menu.update_player_menu(player)
 	if multiplayer.is_server():
 		for i in GameManager.Players:
 			send_player_information.rpc(GameManager.Players[i]["name"], i, GameManager.Players[i]["color"], GameManager.Players[i]["faction"])
@@ -191,66 +149,60 @@ func spawn_players(locations):
 		spawn_index += 1
 
 func start_game():
-	var scene = load('res://scenes/game.tscn')
+	var scene = load(level_scene)
 	# TODO: If not server cannot start game
 	if multiplayer.is_server():
-		change_level.call_deferred(scene)
+		change_level(scene)
 	else:
-		$Message.text = "You are not the host of the party."
+		multiplayer_menu.set_message("You are not the host of the party.")
 
 func change_level(scene: PackedScene):
-	for c in level.get_children():
-		level.remove_child(c)
+	for c in level_container.get_children():
+		level_container.remove_child(c)
 		c.queue_free()
 	var instantiated_scene = scene.instantiate()
-	level.add_child(instantiated_scene)
+	level_container.add_child(instantiated_scene)
 	spawn_players(instantiated_scene.spawns.get_children())
-	#spawn_initial_units(instantiated_scene)
 	is_level_loaded = true
 
 func stop_game():
-	if level.get_children().size() > 0:
-		var multi = $".."
+	if level_container.get_children().size() > 0:
+		var multi = self
 		var node = multi.get_node(str(multiplayer.get_unique_id()))
 		node.call_deferred("queue_free")
 		if multiplayer.is_server():
-			var current_entities = $"../Entities"
-			for child in current_entities.get_children():
+			for child in entities.get_children():
 				child.call_deferred("queue_free")
-			current_entities.call_deferred("queue_free")
+			entities.call_deferred("queue_free")
 		is_level_loaded = false
-		level.call_deferred("queue_free")
-		self.show()
+		level_container.call_deferred("queue_free")
+		multiplayer_menu.show()
 
-func _on_host_button_down():
+func host_game():
 	peer = ENetMultiplayerPeer.new()
 	var error = peer.create_server(port, maximum_players)
 	if error != OK:
-		$Message.text = "Already in a party."
+		multiplayer_menu.set_message("Already in a party.")
 		print('cannot host: ', error)
 		peer = null
 		return
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
 	print("waiting for players")
-	party_panel.visible = true
-	party_creation_panel.visible = false
-	send_player_information(player_name_label.text, multiplayer.get_unique_id(), GameManager.factions_attributes[faction_picker.selected].color[0], faction_picker.selected)
+	multiplayer_menu.show_party_panel()
+	var selected_faction_index: int = multiplayer_menu.get_player_faction()
+	send_player_information(multiplayer_menu.get_player_name(), multiplayer.get_unique_id(), GameManager.factions_attributes[selected_faction_index].color[0], selected_faction_index)
 
-func _on_join_button_down():
+func join_game():
 	if peer is ENetMultiplayerPeer:
 		print("Already in a party.")
-		$Message.text = "Already in a party."
+		multiplayer_menu.set_message("Already in a party.")
 		return
 	peer = ENetMultiplayerPeer.new()
 	peer.create_client(address, port)
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	multiplayer.set_multiplayer_peer(peer)
-	party_creation_panel.visible = false	
-	party_panel.visible = true
-	
-func _on_start_button_down():
-	start_game()
+	multiplayer_menu.show_party_panel()
 
 func _on_level_child_entered_tree(_node):
 	is_level_loaded = true
@@ -258,14 +210,14 @@ func _on_level_child_entered_tree(_node):
 func _on_level_child_exiting_tree(_node):
 	is_level_loaded = false
 
-func _on_faction_picker_item_selected(index):
+func pick_faction(index):
 	var color_index = 0
 	var used_colors = GameManager.Players.values().filter(func(el): return el.faction == index)
 	color_index += used_colors.size()
 	if multiplayer.is_server():
-		send_player_information(player_name_label.text, multiplayer.get_unique_id(), GameManager.factions_attributes[index].color[color_index], index)
+		send_player_information(multiplayer_menu.get_player_name(), multiplayer.get_unique_id(), GameManager.factions_attributes[index].color[color_index], index)
 	else:
-		send_player_information.rpc_id(1, player_name_label.text, multiplayer.get_unique_id(), GameManager.factions_attributes[index].color[color_index], index)
+		send_player_information.rpc_id(1, multiplayer_menu.get_player_name(), multiplayer.get_unique_id(), GameManager.factions_attributes[index].color[color_index], index)
 
 func _notification(what):
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:

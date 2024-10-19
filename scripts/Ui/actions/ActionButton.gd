@@ -11,7 +11,7 @@ class_name ActionButton
 @export var hover_texture: TextureRect
 @export var icon: TextureRect
 
-@export var key: InputEventKey
+@export var key: InputEventAction
 
 var can_start: bool = true
 

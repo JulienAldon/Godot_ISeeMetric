@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/hns/HnsUi.gd" id="1_nynve"]
 [ext_resource type="PackedScene" uid="uid://7ay25idlrphw" path="res://scenes/multiplayer/minimap.tscn" id="2_kv7kr"]
-[ext_resource type="PackedScene" uid="uid://dg3avobuf5qgf" path="res://scenes/Ui/ui_informations.tscn" id="3_t8v6v"]
+[ext_resource type="PackedScene" uid="uid://dg3avobuf5qgf" path="res://scenes/ui/ui_informations.tscn" id="3_t8v6v"]
 [ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="4_nw2y6"]
 [ext_resource type="Script" path="res://scripts/Ui/actions/ActionUi.gd" id="5_kvoby"]
-[ext_resource type="PackedScene" uid="uid://ct5uvol3tm24r" path="res://scenes/Ui/ui_action.tscn" id="6_vy4w8"]
+[ext_resource type="PackedScene" uid="uid://ct5uvol3tm24r" path="res://scenes/ui/ui_action.tscn" id="6_vy4w8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qv1ff"]
 resource_local_to_scene = true

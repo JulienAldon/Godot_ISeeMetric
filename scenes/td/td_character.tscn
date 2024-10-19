@@ -382,6 +382,7 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kkelu"]
 
 [node name="TdCharacter" type="CharacterBody2D" node_paths=PackedStringArray("animation", "sprite", "stats", "movement", "health", "hitbox", "selection", "action_controller", "build") groups=["player_entity"]]
+z_index = 1
 collision_layer = 18
 collision_mask = 44
 script = ExtResource("1_qxb2a")
@@ -406,7 +407,6 @@ position = Vector2(-1, -42)
 stats = NodePath("../Stats")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-z_index = 1
 material = SubResource("ShaderMaterial_fqh87")
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_t88v4")

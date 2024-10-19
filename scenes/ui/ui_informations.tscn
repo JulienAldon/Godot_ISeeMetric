@@ -4,14 +4,14 @@
 [ext_resource type="Script" path="res://scripts/Ui/informations/InformationUi.gd" id="2_51tbf"]
 [ext_resource type="Script" path="res://scripts/Ui/informations/SelectionUnique.gd" id="3_cxaxq"]
 [ext_resource type="Script" path="res://scripts/Ui/informations/UnitUi.gd" id="4_ome7i"]
-[ext_resource type="PackedScene" uid="uid://bwsy8kydswf1j" path="res://scenes/Ui/ui_passives.tscn" id="5_4ex2g"]
+[ext_resource type="PackedScene" uid="uid://bwsy8kydswf1j" path="res://scenes/ui/ui_passives.tscn" id="5_4ex2g"]
 [ext_resource type="Script" path="res://scripts/Ui/informations/BuildingUi.gd" id="6_vxk8t"]
-[ext_resource type="PackedScene" uid="uid://c8tdady5je2ar" path="res://scenes/Ui/queued_action.tscn" id="7_jfhkk"]
+[ext_resource type="PackedScene" uid="uid://c8tdady5je2ar" path="res://scenes/ui/queued_action.tscn" id="7_jfhkk"]
 [ext_resource type="Texture2D" uid="uid://bpsbje7ce7qfn" path="res://assets/ui_progress_bar.png" id="8_wquat"]
 [ext_resource type="Texture2D" uid="uid://bsn5glxg3v41x" path="res://assets/progress_bar.png" id="9_idq7k"]
 [ext_resource type="Script" path="res://components/progress/ProgressBar.gd" id="10_a18q5"]
 [ext_resource type="Script" path="res://scripts/Ui/informations/SelectionMultiple.gd" id="11_8mfhd"]
-[ext_resource type="PackedScene" uid="uid://c76c26bhkdupf" path="res://scenes/Ui/ui_entity.tscn" id="12_e0uwk"]
+[ext_resource type="PackedScene" uid="uid://c76c26bhkdupf" path="res://scenes/ui/ui_entity.tscn" id="12_e0uwk"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_e6fnp"]
 size = Vector2(32, 32)

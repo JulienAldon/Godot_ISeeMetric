@@ -2,7 +2,7 @@ extends MoveController
 
 class_name MoveUnits
 
-var tilemap: TileMap
+var tilemap: TileMapLayer
 
 func _ready():
 	tilemap = GameManager.get_level_tilemap()

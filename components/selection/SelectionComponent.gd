@@ -37,21 +37,6 @@ func set_selected(status):
 	for sprite in sprites:
 		sprite.material.set_shader_parameter('width', 1.0 if selected['status'] else 0.0)
 
-func _unhandled_input(event):
-	#if multiplayer.get_unique_id() != network.controlled_by:
-		#return
-	var multiplayer_id = multiplayer.get_unique_id()
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			if is_mouse_hover:
-				body.show_informations_to(multiplayer_id)
-				body.show_actions_to(multiplayer_id)
-				set_selected(true)
-			else:
-				body.hide_informations_to(multiplayer_id)
-				body.hide_actions_to(multiplayer_id)
-				set_selected(false)
-
 func _on_mouse_entered():
 	is_mouse_hover = true
 	for sprite in sprites:

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://b4qecf23eusp0"]
 
 [ext_resource type="Script" path="res://scripts/player/PlayerController.gd" id="1_ux3el"]
-[ext_resource type="PackedScene" uid="uid://4bbd0jc63doj" path="res://scenes/Rts/actions/build.tscn" id="3_fx0xa"]
+[ext_resource type="PackedScene" uid="uid://4bbd0jc63doj" path="res://scenes/rts/actions/build.tscn" id="3_fx0xa"]
 [ext_resource type="Script" path="res://scripts/rts/RtsController.gd" id="3_h1evf"]
 [ext_resource type="Script" path="res://scripts/game/SelectController.gd" id="3_ogib7"]
 [ext_resource type="Texture2D" uid="uid://d06sm00nfbcm8" path="res://assets/icons/barrack.png" id="4_tx15w"]
@@ -15,7 +15,7 @@ script = ExtResource("1_ux3el")
 outpost_actions = NodePath("OutpostActions")
 current_controller = NodePath("RtsController")
 camera = NodePath("Camera2D")
-ui_scene = "res://scenes/Rts/rts_ui.tscn"
+ui_scene = "res://scenes/rts/rts_ui.tscn"
 metadata/_edit_horizontal_guides_ = []
 
 [node name="RtsController" type="Node2D" parent="." node_paths=PackedStringArray("select_entity_area", "select_controller", "move_controller", "player", "camera")]
@@ -25,7 +25,7 @@ camera_margin = 10
 select_entity_area = NodePath("../EntityDetection")
 cursor_animation_scene = "res://scenes/game/click_animation.tscn"
 select_controller = NodePath("SelectController")
-char_scene = "res://scenes/Rts/Units/rts_character.tscn"
+char_scene = "res://scenes/rts/Units/rts_character.tscn"
 move_controller = NodePath("MoveController")
 player = NodePath("..")
 camera = NodePath("../Camera2D")

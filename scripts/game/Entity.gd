@@ -12,18 +12,6 @@ class_name Entity
 var scene: String
 var attacker_id: int
 
-func show_informations_to(player):
-	GameManager.get_player(player).show_entity_informations(self, player)
-
-func show_actions_to(player):
-	GameManager.get_player(player).show_entity_actions(self, player)
-
-func hide_informations_to(player):
-	GameManager.get_player(player).hide_entity_informations(self, player)
-
-func hide_actions_to(player):
-	GameManager.get_player(player).hide_entity_actions(self, player)
-
 func trigger_action(action):
 	if action is Build:
 		self.build.set_action_build_mode(action)

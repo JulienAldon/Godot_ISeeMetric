@@ -9,10 +9,10 @@ class_name Building
 
 var build_time: float = 0
 
-func get_build_time():
+func get_build_time() -> float:
 	return build_time
 
-func set_build_time(value: float):
+func set_build_time(value: float) -> void:
 	build_time = value
 
 func command_navigation(pos: Vector2, _group, _path: Array) -> void:

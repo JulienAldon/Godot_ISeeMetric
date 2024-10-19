@@ -56,7 +56,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8nju"]
 radius = 15.0
-height = 44.0
+height = 56.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n6t6w"]
 resource_local_to_scene = true
@@ -85,6 +85,8 @@ shader_parameter/frequency = 30.0
 shader_parameter/phase = 0.0
 
 [node name="Outpost" type="StaticBody2D" node_paths=PackedStringArray("action_controller", "capture", "income", "build", "effect_shape", "selection", "network", "movement") groups=["building", "minimap_item", "navigation"]]
+z_index = 1
+y_sort_enabled = true
 collision_layer = 6
 input_pickable = true
 script = ExtResource("1_chg77")
@@ -121,15 +123,14 @@ actions_container = NodePath("Actions")
 [node name="ActionQueue" type="Node2D" parent="ActionComponent"]
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
-z_index = 2
-y_sort_enabled = true
 material = SubResource("ShaderMaterial_oweqg")
+position = Vector2(0, 6)
 sprite_frames = SubResource("SpriteFrames_uriw2")
 autoplay = "default"
 offset = Vector2(0, -45)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -17)
+position = Vector2(0, -18)
 shape = SubResource("CapsuleShape2D_d8nju")
 
 [node name="EffectRange" type="Area2D" parent="."]

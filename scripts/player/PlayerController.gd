@@ -97,23 +97,17 @@ func show_entity_actions(entity, id):
 	if id == entity.controlled_by:
 		gui.show_actions([entity])
 
-func hide_entity_informations(entity, _id):
+func hide_entity_informations(_id):
 	var source = gui.get_informations_source()
 	if source.size() <= 0:
 		return
-	if not is_instance_valid(source[0]) or not is_instance_valid(entity):
-		return
-	if source[0].get_instance_id() == entity.get_instance_id():
-		gui.hide_informations()
+	gui.hide_informations()
 
-func hide_entity_actions(entity, _id):
+func hide_entity_actions(_id):
 	var source = gui.get_actions_source()
 	if source.size() <= 0:
 		return
-	if not is_instance_valid(source[0]) or not is_instance_valid(entity):
-		return
-	if source[0].get_instance_id() == entity.get_instance_id():
-		gui.hide_actions()
+	gui.hide_actions()
 
 func on_experience_changed():
 	if is_multiplayer_authority():
