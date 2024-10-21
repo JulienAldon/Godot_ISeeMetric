@@ -125,6 +125,7 @@ text = "Choose faction"
 
 [node name="FactionPicker" type="OptionButton" parent="PartyPanel/HBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 item_count = 3
 popup/item_0/text = "King"
 popup/item_1/text = "Mercenary"

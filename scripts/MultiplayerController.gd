@@ -18,7 +18,7 @@ var peer
 @export var unit_spawner_scene: String
 @export var level_scene: String
 
-var is_level_loaded = false
+@export var is_level_loaded = false
 
 func instantiate_entity(informations: Dictionary):
 	var current_entity = load(informations['scene']).instantiate()
