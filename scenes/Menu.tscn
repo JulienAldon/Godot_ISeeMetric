@@ -142,6 +142,7 @@ disabled = true
 text = "Start"
 
 [node name="NoParty" type="Label" parent="PartyPanel"]
+visible = false
 layout_mode = 0
 offset_left = 329.0
 offset_top = 141.0

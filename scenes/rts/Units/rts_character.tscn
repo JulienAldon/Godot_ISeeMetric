@@ -58,6 +58,15 @@ properties/10/replication_mode = 1
 radius = 5.0
 height = 16.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8an8w"]
+resource_local_to_scene = true
+shader = ExtResource("7_yclto")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/diameter = 1.0
+shader_parameter/thickness = 0.1
+shader_parameter/frequency = 0.0
+shader_parameter/phase = 0.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_233ta"]
 resource_local_to_scene = true
 shader = ExtResource("1_2eckm")
@@ -151,15 +160,6 @@ animations = [{
 "name": &"Walking",
 "speed": 5.0
 }]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8an8w"]
-resource_local_to_scene = true
-shader = ExtResource("7_yclto")
-shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/diameter = 1.0
-shader_parameter/thickness = 0.1
-shader_parameter/frequency = 0.0
-shader_parameter/phase = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vxh7u"]
 
@@ -495,8 +495,7 @@ root_path = NodePath("../..")
 replication_config = SubResource("SceneReplicationConfig_bcs1j")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("2_i3fgo")]
-z_index = 1
-position = Vector2(0, -13)
+position = Vector2(0, -14)
 stats = NodePath("../Stats")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character")]
@@ -504,14 +503,6 @@ shape = SubResource("CapsuleShape2D_gkunk")
 script = ExtResource("3_0502e")
 health_component = NodePath("../HealthComponent")
 character = NodePath("..")
-
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
-z_index = 2
-texture_filter = 1
-material = SubResource("ShaderMaterial_233ta")
-sprite_frames = SubResource("SpriteFrames_ekf6m")
-animation = &"Idle"
-autoplay = "Idle"
 
 [node name="PlayerMarker" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_8an8w")
@@ -521,14 +512,22 @@ offset_right = 10.0
 offset_bottom = 13.0
 mouse_filter = 2
 
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_233ta")
+sprite_frames = SubResource("SpriteFrames_ekf6m")
+animation = &"Idle"
+autoplay = "Idle"
+
 [node name="NavigationComponent" parent="." node_paths=PackedStringArray("network_component", "body", "sprite") instance=ExtResource("6_1fg38")]
 network_component = NodePath("../NetworkComponent")
 body = NodePath("..")
 detection_range = 30
 sprite = NodePath("../Sprite2D")
+max_separation_distance = 150
 cohesion_weight = 0.0
-separation_weight = 0.2
-alignment_weight = 0.7
+separation_weight = 1.0
+alignment_weight = 1.0
 
 [node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("8_syf8d")]
 network = NodePath("../NetworkComponent")

@@ -39,15 +39,15 @@ shader = ExtResource("2_67f2r")
 shader_parameter/width = 0.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_d5dkx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_5of35"]
 atlas = ExtResource("3_33l3u")
-region = Rect2(0, 0, 46, 98)
+region = Rect2(0, 0, 56, 98)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uriw2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_d5dkx")
+"texture": SubResource("AtlasTexture_5of35")
 }],
 "loop": true,
 "name": &"default",
@@ -55,8 +55,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8nju"]
-radius = 15.0
-height = 56.0
+radius = 20.0
+height = 48.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_n6t6w"]
 resource_local_to_scene = true
@@ -124,16 +124,16 @@ actions_container = NodePath("Actions")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_oweqg")
-position = Vector2(0, 6)
+position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_uriw2")
-autoplay = "default"
 offset = Vector2(0, -45)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -18)
+position = Vector2(0, -25)
 shape = SubResource("CapsuleShape2D_d8nju")
 
 [node name="EffectRange" type="Area2D" parent="."]
+position = Vector2(2, -21)
 collision_layer = 0
 collision_mask = 49
 input_pickable = false
@@ -166,23 +166,23 @@ input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CaptureComponent/CaptureRadius"]
+position = Vector2(0, -17)
 shape = SubResource("CircleShape2D_bkqct")
 
 [node name="CaptureDelimiter" type="ColorRect" parent="CaptureComponent/CaptureRadius"]
 material = SubResource("ShaderMaterial_ay440")
 offset_left = -88.0
-offset_top = -90.0
+offset_top = -107.0
 offset_right = 89.0
-offset_bottom = 89.0
+offset_bottom = 72.0
 mouse_filter = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="CapturingProgress" parent="CaptureComponent" node_paths=PackedStringArray("target") instance=ExtResource("3_yw4n5")]
-visible = false
-offset_left = -30.0
-offset_top = -100.0
-offset_right = 34.0
-offset_bottom = -88.0
+offset_left = -31.0
+offset_top = -110.0
+offset_right = 33.0
+offset_bottom = -98.0
 target = NodePath("..")
 
 [node name="IncomeComponent" type="Node2D" parent="." node_paths=PackedStringArray("capture", "currency_timer")]

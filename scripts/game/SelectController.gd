@@ -126,7 +126,7 @@ func _draw():
 				return
 			var unit = selected[0].movement
 			var path = unit.path
-			var pos = calculate_mean_position(selected.filter(func(el): return not el is Building))
+			var pos = calculate_mean_position(selected.filter(func(el): return is_instance_valid(el) and not el is Building))
 			if path.size() > 0:
 				var index = 0
 				var new_path = path.slice(unit.current_path_position, path.size())

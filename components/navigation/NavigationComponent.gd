@@ -27,9 +27,9 @@ func colliders_reached_target():
 				stop()
 				reset_state()
 				return
-	if reached_target(30):
-		stop()
-		reset_state()
+	#if reached_target(30):
+		#stop()
+		#reset_state()
 
 func reached_target(distance: int = 5, _target_position=self.target_position) -> bool:
 	return body.position.distance_squared_to(_target_position) < distance * 10
@@ -39,7 +39,7 @@ func set_target_position(pos: Vector2):
 
 func set_movement_group(group):
 	movement_group = group
-	local_units = get_local_units(10)
+	#local_units = get_local_units(10)
 
 func set_path(_path, index):
 	path = _path
@@ -49,7 +49,7 @@ func set_path(_path, index):
 
 func get_local_units(max_neighbours: int):
 	var result = []
-	var threshold = 200
+	var threshold = 150
 	for unit in movement_group.values():
 		if not is_instance_valid(unit):
 			continue
@@ -96,35 +96,34 @@ func flock_direction(group, direction):
 		cohesion += unit.position
 		alignment += unit.movement.current_direction
 		var distance = body.position.distance_squared_to(unit.position)
-		if distance < max_separation_distance * 10:
-			if distance == 0:
-				distance = 1
-			separation -= (unit.position - body.position).normalized() * ((max_separation_distance * 10) / distance * speed)
+		if distance <= max_separation_distance:
+			separation += (body.position - unit.position).normalized()
 	cohesion /= group.size()
 	alignment /= group.size()
 	var center_direction = body.position.direction_to(cohesion)
-	var center_speed = speed * body.position.distance_to(cohesion) / detection_range
-	cohesion = center_direction * center_speed
-	return (separation * separation_weight) + (cohesion * cohesion_weight) + (alignment * alignment_weight)
+	#var center_speed = speed * body.position.distance_to(cohesion) / detection_range
+	cohesion = center_direction
+	return (separation * separation_weight) + (center_direction * cohesion_weight) + (alignment * alignment_weight)
 
 func move_toward_target(delta):
 	if path.size() - 1 < current_path_position:
 		return
-	if !local_units or Engine.get_process_frames() % 60 == 0:
-		local_units = get_local_units(10)
+	if !local_units or Engine.get_process_frames() % 4 == 0:
+		local_units = get_local_units(5)
 	var group = local_units
 	if reached_target(70, path[current_path_position]):
 		current_path_position = get_path_point(path[current_path_position], 1)
 		if current_path_position == -1:
 			return
 	var next_path = path[current_path_position]
-	var direction = (next_path - body.position)
+	var direction = (next_path - body.position).normalized()
 	current_direction = direction
-	if !flocked_direction or Engine.get_process_frames() % 10 == 0:
-		flocked_direction = flock_direction(group, direction)
+	#if !flocked_direction or Engine.get_process_frames() % 10 == 0:
+	flocked_direction = flock_direction(group, direction)
 	body.velocity = (direction + flocked_direction).normalized() * speed
 	#body.velocity = (direction).normalized() * speed
 	body.move_and_collide(body.velocity * delta)
+	#if !local_units or Engine.get_process_frames() % 20 == 0:
 	colliders_reached_target()
 
 func has_move_instruction():

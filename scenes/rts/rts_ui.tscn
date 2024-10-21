@@ -51,9 +51,9 @@ informations_panel = NodePath("Informations")
 action_panel = NodePath("ActionUI")
 
 [node name="Minimap" parent="." instance=ExtResource("2_mngvn")]
-offset_left = 532.0
-offset_top = 257.0
-offset_right = 632.0
+offset_left = 499.0
+offset_top = 266.0
+offset_right = 634.0
 offset_bottom = 357.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_v1nvg")
 
