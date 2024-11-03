@@ -37,14 +37,19 @@ func cooldown_finished():
 	
 func _ready():
 	cooldown.timeout.connect(cooldown_finished)
-	var shortcut = Shortcut.new()
-	shortcut.set_events([key])
-	button.set_shortcut(shortcut)
+	if key:
+		var shortcut = Shortcut.new()
+		shortcut.set_events([key])
+		button.set_shortcut(shortcut)
 	
 func _process(_delta):
 	if can_buy():
 		button.disabled = false
+		icon.modulate = Color(1, 1, 1, 1)
+		button.tooltip_text = ""
 	else:
+		icon.modulate = Color(1, 1, 1, 0.3)
+		button.tooltip_text = "Not enough currency"
 		button.disabled = true
 
 	if cooldown.time_left != 0:
@@ -60,9 +65,9 @@ func _on_button_pressed():
 		show_cooldown_background()
 
 func can_buy():
-	if not action:
+	if not is_instance_valid(action):
 		return false
-	return GameManager.get_player(multiplayer.get_unique_id()).currency >= action.cost
+	return GameManager.get_player(multiplayer.get_unique_id()).can_spend_currency(action.cost)
 
 func _on_button_mouse_entered():
 	if can_buy():

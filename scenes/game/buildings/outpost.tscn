@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://baxg8wjbqklw5"]
+[gd_scene load_steps=27 format=3 uid="uid://baxg8wjbqklw5"]
 
 [ext_resource type="Script" path="res://scripts/game/Outpost.gd" id="1_chg77"]
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="2_67f2r"]
@@ -10,9 +10,11 @@
 [ext_resource type="Shader" path="res://dotted_line.gdshader" id="4_q3k8o"]
 [ext_resource type="Script" path="res://components/capture/CaptureComponent.gd" id="6_8fmld"]
 [ext_resource type="PackedScene" uid="uid://b4hip7ftfm8ju" path="res://scenes/game/outpost_building_slot.tscn" id="6_hthc8"]
-[ext_resource type="Script" path="res://components/income/IncomeComponent.gd" id="9_iv20g"]
 [ext_resource type="Script" path="res://components/build/BuildComponent.gd" id="9_lkppw"]
+[ext_resource type="Script" path="res://components/income/OnTimerIncomeComponent.gd" id="11_mxhdd"]
 [ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://components/selection/selection_component.tscn" id="11_urvxy"]
+[ext_resource type="Texture2D" uid="uid://c8kjoj4e0t8af" path="res://assets/icons/resources/gold.png" id="12_0q7rm"]
+[ext_resource type="Script" path="res://scripts/game/ResourceYield.gd" id="12_0w0x3"]
 [ext_resource type="Script" path="res://scripts/game/SlotBuildMode.gd" id="13_3dmra"]
 [ext_resource type="PackedScene" uid="uid://d8gihj7ittof" path="res://components/rally/rally_point_component.tscn" id="16_qebkq"]
 
@@ -39,41 +41,31 @@ shader = ExtResource("2_67f2r")
 shader_parameter/width = 0.0
 shader_parameter/outline_color = Color(1, 1, 1, 1)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_5of35"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_p4y67"]
 atlas = ExtResource("3_33l3u")
-region = Rect2(0, 0, 56, 98)
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uriw2"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_5of35")
+"texture": SubResource("AtlasTexture_p4y67")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d8nju"]
-radius = 20.0
-height = 48.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_n6t6w"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rtvkg"]
 resource_local_to_scene = true
-radius = 200.0
+size = Vector2(52, 44)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2eit3"]
-resource_local_to_scene = true
-shader = ExtResource("4_q3k8o")
-shader_parameter/color = Color(1, 1, 1, 0.32549)
-shader_parameter/diameter = 1.0
-shader_parameter/thickness = 0.009
-shader_parameter/frequency = 100.0
-shader_parameter/phase = 0.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fucdu"]
+size = Vector2(384, 384)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bkqct"]
 resource_local_to_scene = true
-radius = 89.202
+radius = 100.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ay440"]
 resource_local_to_scene = true
@@ -84,9 +76,14 @@ shader_parameter/thickness = 0.02
 shader_parameter/frequency = 30.0
 shader_parameter/phase = 0.0
 
+[sub_resource type="Resource" id="Resource_pf6kq"]
+script = ExtResource("12_0w0x3")
+icon = ExtResource("12_0q7rm")
+value = 10
+type = 0
+
 [node name="Outpost" type="StaticBody2D" node_paths=PackedStringArray("action_controller", "capture", "income", "build", "effect_shape", "selection", "network", "movement") groups=["building", "minimap_item", "navigation"]]
-z_index = 1
-y_sort_enabled = true
+texture_filter = 2
 collision_layer = 6
 input_pickable = true
 script = ExtResource("1_chg77")
@@ -109,10 +106,12 @@ icon = ExtResource("2_ptrjo")
 root_path = NodePath("../..")
 replication_config = SubResource("SceneReplicationConfig_0o3gs")
 
-[node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("11_urvxy")]
+[node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body", "node_shown_on_hover") instance=ExtResource("11_urvxy")]
 network = NodePath("../NetworkComponent")
 sprites = [NodePath("../Sprite2D")]
 body = NodePath("..")
+show_node_on_hover = true
+node_shown_on_hover = [NodePath("../EffectRange/EffectRangeDelimiter")]
 
 [node name="ActionComponent" parent="." node_paths=PackedStringArray("body", "actions_container") instance=ExtResource("2_upylq")]
 body = NodePath("..")
@@ -123,32 +122,39 @@ actions_container = NodePath("Actions")
 [node name="ActionQueue" type="Node2D" parent="ActionComponent"]
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
 material = SubResource("ShaderMaterial_oweqg")
-position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_uriw2")
-offset = Vector2(0, -45)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -25)
-shape = SubResource("CapsuleShape2D_d8nju")
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_rtvkg")
 
 [node name="EffectRange" type="Area2D" parent="."]
-position = Vector2(2, -21)
 collision_layer = 0
 collision_mask = 49
 input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EffectRange"]
-shape = SubResource("CircleShape2D_n6t6w")
+position = Vector2(-1, -1)
+shape = SubResource("RectangleShape2D_fucdu")
 
 [node name="EffectRangeDelimiter" type="ColorRect" parent="EffectRange"]
-material = SubResource("ShaderMaterial_2eit3")
-offset_left = -200.0
-offset_top = -200.0
-offset_right = 200.0
-offset_bottom = 200.0
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -192.0
+offset_right = 192.0
+offset_bottom = 192.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
+color = Color(0.0392157, 0.745098, 1, 0.14902)
 
 [node name="CaptureComponent" type="Node2D" parent="." node_paths=PackedStringArray("income", "build", "body", "capturing_progress", "capture_delimiter", "capture_progress")]
 script = ExtResource("6_8fmld")
@@ -166,29 +172,34 @@ input_pickable = false
 monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CaptureComponent/CaptureRadius"]
-position = Vector2(0, -17)
 shape = SubResource("CircleShape2D_bkqct")
 
 [node name="CaptureDelimiter" type="ColorRect" parent="CaptureComponent/CaptureRadius"]
 material = SubResource("ShaderMaterial_ay440")
-offset_left = -88.0
-offset_top = -107.0
-offset_right = 89.0
-offset_bottom = 72.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="CapturingProgress" parent="CaptureComponent" node_paths=PackedStringArray("target") instance=ExtResource("3_yw4n5")]
-offset_left = -31.0
-offset_top = -110.0
-offset_right = 33.0
-offset_bottom = -98.0
+z_index = 3
+offset_top = -40.0
+offset_bottom = -28.0
 target = NodePath("..")
 
 [node name="IncomeComponent" type="Node2D" parent="." node_paths=PackedStringArray("capture", "currency_timer")]
-script = ExtResource("9_iv20g")
+script = ExtResource("11_mxhdd")
 capture = NodePath("../CaptureComponent")
 currency_timer = NodePath("CurrencyRate")
+income = SubResource("Resource_pf6kq")
 
 [node name="CurrencyRate" type="Timer" parent="IncomeComponent"]
 

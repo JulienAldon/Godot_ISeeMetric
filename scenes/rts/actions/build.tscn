@@ -1,11 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://4bbd0jc63doj"]
+[gd_scene load_steps=4 format=3 uid="uid://4bbd0jc63doj"]
 
 [ext_resource type="Script" path="res://scripts/rts/actions/Build.gd" id="1_axdoj"]
 [ext_resource type="Texture2D" uid="uid://bg1cvfm5gto25" path="res://assets/icons/default.png" id="2_8tx5p"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2oem8"]
+size = Vector2(64, 64)
+
 [node name="Build" type="Node2D" node_paths=PackedStringArray("cooldown", "time")]
 script = ExtResource("1_axdoj")
 building_scene = "res://scenes/game/barracks.tscn"
+build_preview_shape = SubResource("RectangleShape2D_2oem8")
 icon = ExtResource("2_8tx5p")
 cooldown = NodePath("Cooldown")
 time = NodePath("Timer")

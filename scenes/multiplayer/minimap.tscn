@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://7ay25idlrphw"]
+[gd_scene load_steps=8 format=3 uid="uid://7ay25idlrphw"]
 
 [ext_resource type="Script" path="res://scripts/map/Minimap.gd" id="1_0ihho"]
 [ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="1_1b1d1"]
@@ -6,9 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://d184herxftces" path="res://assets/minimap/minimap_icons.png" id="4_nxlhq"]
 [ext_resource type="PackedScene" uid="uid://tdxc50r7vig5" path="res://scenes/multiplayer/fog.tscn" id="5_51htw"]
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l7mtj"]
+blend_mode = 3
+
 [sub_resource type="ImageTexture" id="ImageTexture_n5yhd"]
 
-[node name="Minimap" type="PanelContainer" node_paths=PackedStringArray("outpost_marker", "unit_marker", "entities", "player_sprite", "texture_rect")]
+[node name="Minimap" type="PanelContainer" node_paths=PackedStringArray("outpost_marker", "unit_marker", "entities", "player_sprite", "texture_rect", "fog_rect")]
 clip_contents = true
 offset_right = 135.0
 offset_bottom = 91.0
@@ -21,6 +24,13 @@ unit_marker = NodePath("UnitMarker")
 entities = NodePath("Entities")
 player_sprite = NodePath("Entities/PlayerEntity")
 texture_rect = NodePath("TextureRect")
+fog_rect = NodePath("FogImage")
+
+[node name="FogImage" type="TextureRect" parent="."]
+z_index = 1
+material = SubResource("CanvasItemMaterial_l7mtj")
+layout_mode = 2
+expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2

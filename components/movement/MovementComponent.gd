@@ -84,8 +84,8 @@ func _physics_process(_delta):
 		body.move_and_slide()
 
 func is_any_skill_pressed():
-	return (Input.is_action_pressed("spell_slot_1") or Input.is_action_pressed("spell_slot_3")
-		or Input.is_action_pressed("spell_slot_2") or Input.is_action_pressed("spell_slot_4"))
+	return (Input.is_action_pressed("action_slot_1") or Input.is_action_pressed("action_slot_3")
+		or Input.is_action_pressed("action_slot_2") or Input.is_action_pressed("action_slot_4"))
 
 func is_doing_action():
 	return (doing_action == true)

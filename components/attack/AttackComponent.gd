@@ -40,6 +40,11 @@ func stop_attack_cooldown():
 	attack_timer.stop()
 	can_attack = true
 
+func is_in_range(pos: Vector2):
+	if not is_instance_valid(target):
+		return false
+	return pos.distance_to(target.global_position) < stats.get_range()
+
 func target_in_attack_range():
 	if !target:
 		return false
@@ -49,12 +54,12 @@ func target_in_attack_range():
 
 func apply_damage():
 	if target_in_attack_range():
-		target.hitbox.damage.rpc(5)
+		target.hitbox.damage.rpc(5, network.controlled_by)
 
 func is_attack_possible():
 	if not is_instance_valid(target):
 		return false
-	if not target.is_in_group("player_entity"):
+	if not target.is_in_group("player_entity") and not target.is_in_group("resource"):
 		return false
 	if "death" in target and target.death.is_dead:
 		return false

@@ -32,3 +32,4 @@ func deactivate_behaviour():
 	set_physics_process(false)
 	build_phase.set_process(false)
 	action_controller.set_process(false)
+	super()

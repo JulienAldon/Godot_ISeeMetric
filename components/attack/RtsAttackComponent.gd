@@ -7,8 +7,10 @@ func _ready():
 	nearby_targets = compute_nearby_target()
 
 func apply_damage():
+	if not is_instance_valid(target):
+		return
 	if target_in_attack_range():
-		target.hitbox.damage.rpc(5)
+			target.hitbox.damage.rpc(5)
 
 func set_nearby_targets():
 	nearby_targets = compute_nearby_target()
@@ -24,4 +26,4 @@ func compute_nearby_target():
 	query.collision_mask = 2
 	query.transform = Transform2D(0, global_position)
 	var result = space.intersect_shape(query)
-	return result.map(func(el): return el.collider).filter(func(el): return el.controlled_by != network.controlled_by)
+	return result.map(func(el): return el.collider).filter(func(el): return el.controlled_by != network.controlled_by and not el.is_in_group("resource"))

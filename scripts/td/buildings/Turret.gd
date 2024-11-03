@@ -2,12 +2,13 @@ extends TdBuilding
 
 class_name Turret
 
-@export var hitbox: HitboxComponent
 @export var health: HealthComponent
 @export var death: DeathComponent
 @export var stats: CharacterStats
 @export var sprite: AnimatedSprite2D
 @export var attack: AttackComponent
+@export var action_controller: ActionComponent
+@export var upgrade: UpgradeComponent
 
 func dispawn():
 	if death:
@@ -34,3 +35,4 @@ func deactivate_behaviour():
 	attack.hide()
 	attack.set_process(false)
 	attack.set_physics_process(false)
+	super()

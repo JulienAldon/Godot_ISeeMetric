@@ -4,7 +4,7 @@ class_name PlayerUi
 @export_category("Label")
 @export var name_label: Label
 @export var level: Label
-@export var currency: Label
+@export var currency: CurrencyPanel
 
 @export_category("UiPanel")
 @export var minimap: Minimap
@@ -34,8 +34,8 @@ func show_actions(entities: Array):
 func hide_actions():
 	action_panel.set_source([])
 
-func set_currency(amount):
-	currency.text = str(amount)
+func set_currency(currencies: Dictionary):
+	currency.update_currencies(currencies)
 
 func set_player_name(value):
 	name_label.text = value

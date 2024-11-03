@@ -48,7 +48,6 @@ animations = [{
 }]
 
 [sub_resource type="Animation" id="Animation_syqgq"]
-length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -117,6 +116,7 @@ animation_player = NodePath("AnimationPlayer")
 replication_config = SubResource("SceneReplicationConfig_7s50i")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
 sprite_frames = SubResource("SpriteFrames_ikbcy")
 autoplay = "default"
 frame = 2

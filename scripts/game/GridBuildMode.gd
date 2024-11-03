@@ -11,11 +11,31 @@ var build_preview_last_snapped_position: Vector2
 func position_snapped(pos: Vector2):
 	return (pos/ grid_placement_cell_size).floor() *  grid_placement_cell_size
 
-func show_build_mode():
-	super()
+func find_nearest(pos: Vector2, list: Array):
+	if list.size() <= 0:
+		return null
+	var tmp = list[0]
+	for elem in list:
+		if elem.global_position.distance_squared_to(pos) < tmp.global_position.distance_squared_to(pos):
+			tmp = elem
+	return tmp
+
+func show_build_mode(build_shape: Texture2D):
+	var outpost = find_nearest(global_position , GameManager.get_level_outposts())
+	if outpost:
+		outpost.selection.show_hover_nodes()
+	#grid_placement_cell_size = build_shape.size
+	print(build_shape.get_size())
+	shape.size = build_shape.get_size()
+	build_preview.texture = build_shape
+	#build_preview.scale = build_shape.get_size() / build_preview.get_rect().size
+	super(build_shape)
 
 func hide_build_mode():
 	super()
+	var outpost = find_nearest(global_position , GameManager.get_level_outposts())
+	if outpost:
+		outpost.selection.hide_hover_nodes()
 
 func _input(event):
 	if not is_build_mode_enabled:
@@ -45,7 +65,7 @@ func is_overlapping_entity():
 	var query = PhysicsShapeQueryParameters2D.new()
 	var space = get_world_2d().direct_space_state
 	query.shape = shape
-	query.collision_mask = 2
+	query.collision_mask = pow(2, 3-1) + pow(2, 2-1)
 	query.transform = Transform2D(0, build_preview.global_position)
 	var result = space.intersect_shape(query)
 	return result.size() > 0

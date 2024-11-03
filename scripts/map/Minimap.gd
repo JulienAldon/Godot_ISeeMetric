@@ -9,8 +9,12 @@ var player: PlayerController
 @export var entities: Node2D
 @export var player_sprite: Sprite2D
 @export var texture_rect: TextureRect
-var tilemap
+@export var fog_rect: TextureRect
 
+var tilemap: TileMapLayer
+var fog_system: FogSystem
+
+var fog_img = Image.new()
 var map_size: Vector2
 var minimap_reduction_ratio: Vector2
 var is_hover: bool = false
@@ -33,12 +37,18 @@ func create_minimap_texture():
 			var cell = cells[map_size.y * x + y]
 			var cell_atlas_pos = tilemap.get_cell_atlas_coords(cell)
 			if cell_atlas_pos != tilemap.boundary_block_atlas_pos:
-				color = Color.WEB_GREEN
+				if cell_atlas_pos == tilemap.floor_atlas_pos:
+					color = Color.WEB_GREEN
+				elif cell_atlas_pos == tilemap.wall_floor_atlas_pos:
+					color = Color.FOREST_GREEN
+				else:
+					color = Color.WEB_GREEN
 			image.set_pixel(x, y, color)
 	map_texture = ImageTexture.create_from_image(image)
 	texture_rect.set_texture(map_texture)
 
 func _ready():
+	fog_system = GameManager.get_level_fog()
 	tilemap = GameManager.get_level_tilemap()
 	create_minimap_texture()
 	
@@ -63,6 +73,8 @@ func translate_to_world_pos(pos: Vector2):
 func _process(_delta):
 	if is_instance_valid(player):
 		player_sprite.position = translate_to_minimap_coords(player.camera.global_position) + Vector2((player_sprite.texture.get_size() * player_sprite.scale)/ 2)
+	if is_instance_valid(fog_rect) and is_instance_valid(fog_system):
+		fog_rect.texture = fog_system.texture
 
 func _on_gui_input(event):
 	if event is InputEventMouseButton:

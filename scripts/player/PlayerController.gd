@@ -9,35 +9,64 @@ var gui: PlayerUi
 @export var ui_scene: String
 
 @export_group("Ressources")
+var currencies: Dictionary = {}
 @export var currency: int = 0
-@export var currency_type: GameManager.CurrencyType
 @export var experience: float = 0
 @export var level: int = 0
 @export var max_level: int = 20
 @export var level_threshold: int = 300
 @export var level_scaling: int = 1
-
+	
 var spawn: Vector2
 var color: Color
 var player_id: int
 var player_name: String
+var last_target: Entity
+
+func interact_entity(entity: Entity):
+	if entity.controlled_by == multiplayer.get_unique_id():
+		return
+	if last_target and is_instance_valid(last_target):
+		last_target.selection.set_target_indicator(false)
+	last_target = entity
+	entity.selection.set_target_indicator(true)
+	current_controller.interact_entity(entity)
+
+func stop_interact_entity(entity: Entity):
+	#entity.selection.set_target_indicator(false)
+	current_controller.stop_interact_entity(entity)
+
+func select_entity(entity: Entity):
+	current_controller.select_entity(entity)
+	show_entity_informations(entity, multiplayer.get_unique_id())
 
 func get_outpost_actions():
 	return outpost_actions
 
-func can_spend_currency(amount):
-	return amount <= currency
+func can_spend_currency(costs: Array[ResourceYield]) -> bool:
+	for resource_yield in costs:
+		if not currencies.has(resource_yield.type):
+			return false
+		if resource_yield.value >= currencies[resource_yield.type]:
+			return false
+	return true
 
-func spend_currency(amount):
-	currency -= amount
-	if currency <= 0:
-		currency = 0
-	gui.set_currency(currency)
+func spend_currency(costs: Array[ResourceYield]):
+	for resource_yield in costs:
+		if not currencies.has(resource_yield.type):
+			return
+		currencies[resource_yield.type] -= resource_yield.value
+	gui.set_currency(currencies)
 
 @rpc("call_local", "any_peer")
-func earn_currency(amount):
-	currency += amount
-	gui.set_currency(currency)
+func earn_currency(resource_yield: ResourceYield):
+	if not resource_yield:
+		return
+	if currencies.has(resource_yield.type):
+		currencies[resource_yield.type] += resource_yield.value
+	else:
+		currencies[resource_yield.type] = resource_yield.value
+	gui.set_currency(currencies)
 
 func set_spawn(pos):
 	spawn = pos
@@ -71,7 +100,7 @@ func _ready():
 	gui.show_player_ui(has_control)
 	gui.visible = has_control
 	gui.set_player_name(str(player_name) + suffix)
-	gui.set_currency(currency)
+	gui.set_currency(currencies)
 
 @rpc("any_peer", "call_local")
 func set_experience(value):

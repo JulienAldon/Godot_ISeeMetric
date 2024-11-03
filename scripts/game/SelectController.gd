@@ -139,7 +139,7 @@ func _draw():
 						draw_dashed_line(to_local(first_step), to_local(new_path[index + 1]), Color(11, 11, 11, 0.7), 2, 3)
 					index += 1
 	for elem in selected:
-		if is_instance_valid(elem) and elem is Building and not elem is Outpost:
+		if is_instance_valid(elem) and elem.controlled_by == controller.player_id and elem is Building and not elem is Outpost:
 			draw_dashed_line(to_local(elem.global_position), to_local(elem.movement.target_position), Color(11, 11, 11, 0.7), 2, 3)
 	if dragging:
 		draw_rect(Rect2(to_local(drag_start), get_local_mouse_position() - to_local(drag_start)), controller.color, false, 2.0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://4tbd8aqita4l"]
+[gd_scene load_steps=14 format=3 uid="uid://4tbd8aqita4l"]
 
 [ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="1_7lsqu"]
 [ext_resource type="Script" path="res://scripts/Ui/actions/ActionUi.gd" id="2_m6ank"]
@@ -8,57 +8,36 @@
 resource_local_to_scene = true
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="InputEventKey" id="InputEventKey_mmsi7"]
-device = -1
-keycode = 49
-unicode = 38
+[sub_resource type="InputEventAction" id="InputEventAction_lsa5l"]
+action = &"action_slot_1"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qiuv"]
 resource_local_to_scene = true
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="InputEventKey" id="InputEventKey_8ot17"]
-device = -1
-keycode = 50
-unicode = 233
+[sub_resource type="InputEventAction" id="InputEventAction_e2gn0"]
+action = &"action_slot_2"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x87u"]
 resource_local_to_scene = true
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="InputEventKey" id="InputEventKey_c0b8x"]
-device = -1
-keycode = 51
-unicode = 34
+[sub_resource type="InputEventAction" id="InputEventAction_6f4qd"]
+action = &"action_slot_3"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fqhef"]
 resource_local_to_scene = true
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="InputEventKey" id="InputEventKey_3eid1"]
-device = -1
-keycode = 52
-unicode = 39
+[sub_resource type="InputEventAction" id="InputEventAction_akd8e"]
+action = &"action_slot_4"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pj3p"]
 resource_local_to_scene = true
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aer66"]
-resource_local_to_scene = true
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_04mlm"]
-resource_local_to_scene = true
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jqft"]
-resource_local_to_scene = true
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2v7db"]
-resource_local_to_scene = true
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[sub_resource type="InputEventAction" id="InputEventAction_d48eg"]
+action = &"action_slot_5"
 
 [node name="ActionUI" type="PanelContainer" node_paths=PackedStringArray("action_container")]
 offset_left = 8.0
@@ -89,55 +68,32 @@ visible = false
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_l48lq")
-key = SubResource("InputEventKey_mmsi7")
+key = SubResource("InputEventAction_lsa5l")
 
 [node name="UIAction2" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
 visible = false
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7qiuv")
-key = SubResource("InputEventKey_8ot17")
+key = SubResource("InputEventAction_e2gn0")
 
 [node name="UIAction3" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
 visible = false
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5x87u")
-key = SubResource("InputEventKey_c0b8x")
+key = SubResource("InputEventAction_6f4qd")
 
 [node name="UIAction4" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
 visible = false
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fqhef")
-key = SubResource("InputEventKey_3eid1")
+key = SubResource("InputEventAction_akd8e")
 
 [node name="UIAction5" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
 visible = false
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7pj3p")
-
-[node name="UIAction6" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
-visible = false
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_aer66")
-
-[node name="UIAction7" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
-visible = false
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_04mlm")
-
-[node name="UIAction8" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
-visible = false
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1jqft")
-
-[node name="UIAction9" parent="MarginContainer/GridContainer" instance=ExtResource("3_bv0gt")]
-visible = false
-custom_minimum_size = Vector2(25, 25)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_2v7db")
+key = SubResource("InputEventAction_d48eg")

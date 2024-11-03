@@ -3,16 +3,13 @@ class_name RtsController
 
 @export var camera_margin := 30
 @export var camera_speed := 800
-@export var select_entity_area: Area2D
 @export var cursor_animation_scene: String
 
 @export var select_controller: SelectController
 @onready var center_offset: Vector2 = (Vector2(get_viewport().size) / camera.get_zoom()) / 2
 
-var last_target
-
 func minimap_command_action(pos: Vector2):
-	command_or_append_unit_action(pos)
+	command_or_append_unit_action(pos, null)
 
 func minimap_command_position(pos: Vector2):
 	player.position = pos
@@ -45,19 +42,19 @@ func camera_control(delta):
 		queue_redraw()
 	player.position += movement * camera.get_zoom() * delta
 
-func toggle_target_indicator(target):
-	if not target and last_target and is_instance_valid(last_target):
-		last_target.selection.set_target_indicator(false)
-	if target:
-		target.selection.set_target_indicator(true)
-		if last_target and last_target != target:
-			last_target.selection.set_target_indicator(false)
-	last_target = target
+func interact_entity(entity):
+	var mouse_pos = get_global_mouse_position()
+	if select_controller.get_selected().size() > 0:
+		command_or_append_unit_action(mouse_pos, entity)
+		select_controller.queue_redraw()
 
-func command_or_append_unit_action(mouse_pos: Vector2):
+func command_or_append_unit_action(mouse_pos: Vector2, entity):
 	show_cursor_anim(mouse_pos)
-	var target = calculate_target_entity(func(el): return el.controlled_by != player_id)
-	toggle_target_indicator(target)
+	var target: Entity
+	if entity and entity.controlled_by != multiplayer.get_unique_id():
+		target = entity
+	else:
+		target = null
 	select_controller.clear_selected()
 	var group_map = select_controller.create_selected_map()
 	if Input.is_key_pressed(KEY_SHIFT):
@@ -75,27 +72,6 @@ func show_cursor_anim(pos: Vector2):
 
 func filter_allies(e):
 	return e.controlled_by != player_id
-
-func calculate_target_entity(filter_func):
-	#var targets = select_entity_area.get_overlapping_bodies()
-	var result
-	var space = get_world_2d().direct_space_state
-	var query = PhysicsShapeQueryParameters2D.new()
-	var shape = CircleShape2D.new()
-	shape.radius = 30
-	query.shape = shape
-	query.collision_mask = 2
-	query.transform = Transform2D(0, get_global_mouse_position())
-	result = space.intersect_shape(query)
-	#if filter_function:
-		#result = space.intersect_shape(query, 1000).filter(filter_function)
-	#else:
-	if result.size() <= 0:
-		return null
-	result = result.map(func(el): return el.collider).filter(filter_func)
-	if result.size() <= 0:
-		return null
-	return result[0]
 	
 @export var char_scene: String = ""
 
@@ -105,18 +81,18 @@ func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			if event.pressed and select_controller.get_selected().size() > 0:
-				command_or_append_unit_action(mouse_pos)
+				command_or_append_unit_action(mouse_pos, null)
 				select_controller.queue_redraw()
-		elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			var entity = calculate_target_entity(func(el): return el)
-			if entity:
-				player.show_entity_informations(entity, player_id)
-				player.show_entity_actions(entity, player_id)
-			else:
-				player.hide_entity_informations(player_id)
-				player.hide_entity_actions(player_id)
+		#elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			##var entity = calculate_target_entity(func(el): return el)
+			#if entity:
+				#player.show_entity_informations(entity, player_id)
+				#player.show_entity_actions(entity, player_id)
+			#else:
+				#player.hide_entity_informations(player_id)
+				#player.hide_entity_actions(player_id)
 			
-	if Input.is_action_pressed("spell_slot_4"):
+	if Input.is_action_pressed("action_slot_4"):
 		GameManager.spawn_character(char_scene, {"position": mouse_pos, "controlled_by": player_id})
 
 func _physics_process(delta):
@@ -125,7 +101,6 @@ func _physics_process(delta):
 
 func _process(_delta):
 	queue_redraw()
-	select_entity_area.position = to_local(get_global_mouse_position())
 
 var mouse_in_window = true
 

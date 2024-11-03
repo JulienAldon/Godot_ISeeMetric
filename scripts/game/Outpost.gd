@@ -10,7 +10,7 @@ class_name Outpost
 @export var effect_shape: CollisionShape2D
 
 func get_area_effect_range():
-	return effect_shape.shape.radius
+	return effect_shape.shape
 
 func _ready():
 	super()

@@ -1,13 +1,19 @@
 extends CollisionShape2D
 class_name HitboxComponent
+
 @export var health_component: HealthComponent
-var current_effects: Array[Effect] = []
 @export var character: Node2D
+@export var animation: AnimationComponent 
+
+var current_effects: Array[Effect] = []
 
 @rpc("any_peer", "call_local")
-func damage(_damage: int):
+func damage(_damage: int, attacker_id):
 	if health_component:
 		health_component.damage(_damage)
+		character.attacker_id = attacker_id
+		if animation:
+			animation.set_is_hit()
 
 @rpc("any_peer", "call_local")
 func control():

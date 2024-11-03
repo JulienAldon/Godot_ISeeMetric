@@ -7,7 +7,7 @@ class_name Entity
 @export var display_name: String
 @export var str_type: String
 @export var icon: CompressedTexture2D
-
+@export var vision_range: int = 200
 @export var controlled_by: int = 1
 var scene: String
 var attacker_id: int
@@ -20,4 +20,4 @@ func trigger_action(action):
 		var player = GameManager.get_player(multiplayer.get_unique_id())
 		if self.action_controller.can_queue_action() and player.can_spend_currency(action.cost):
 			player.spend_currency(action.cost)
-			self.action_controller.queue_action(action, position + Vector2(0, 30))
+			self.action_controller.queue_action(action, global_position + Vector2(0, 30))

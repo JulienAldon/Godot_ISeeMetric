@@ -6,6 +6,7 @@ class_name Build
 
 var controlled_by: int
 var build_pos: Vector2
+@export var build_preview_texture: Texture2D
 
 func start(pos, player_id):
 	controlled_by = player_id

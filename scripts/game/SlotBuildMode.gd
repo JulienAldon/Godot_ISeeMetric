@@ -10,8 +10,8 @@ func _ready():
 	for elem in buildings_slots.get_children():
 		elem.SlotSelected.connect(build_slot_selected)
 
-func show_build_mode():
-	super()
+func show_build_mode(build_shape: Texture2D):
+	super(build_shape)
 	buildings_slots.show()
 	
 func hide_build_mode():

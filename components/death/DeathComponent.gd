@@ -4,7 +4,7 @@ extends Node2D
 class_name DeathComponent
 
 @export_group("Dependencies")
-@export var sprite: AnimatedSprite2D
+@export var sprite: Node2D
 @export var health: HealthComponent
 @export var body: Entity
 
@@ -20,13 +20,14 @@ var is_dead: bool = false
 
 func _ready():
 	if delete_timer:
+		delete_timer.timeout.connect(_on_timer_timeout)
 		delete_timer.wait_time = corpse_time
 	
 @rpc("any_peer", "call_local")
 func show_corpse():
 	corpse.show()
 	is_dead = true
-	corpse.flip_h = sprite.flip_h
+	#corpse.flip_h = sprite.flip_h
 	sprite.hide()
 	health.hide()
 	body.deactivate_behaviour()

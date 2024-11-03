@@ -46,6 +46,14 @@ func set_path(_path, index):
 	current_path_position = 0
 	if path.size() - 1 > index:
 		current_path_position = index
+	path.append(target_position)
+	var tmp = path[0]
+	
+	for elem in path:
+		if tmp.distance_to(elem) < 1:
+			path.erase(elem)
+		else:
+			tmp = elem
 
 func get_local_units(max_neighbours: int):
 	var result = []
@@ -63,7 +71,6 @@ func get_local_units(max_neighbours: int):
 func stop():
 	target_position = body.position
 	body.animation.set_is_idle()
-	body.attack.reset_target()
 	
 func reset_state():
 	clear_navigation_command()
@@ -91,6 +98,8 @@ func flock_direction(group, direction):
 	var cohesion = Vector2(0,0)
 	var alignment = direction
 	for unit in group:
+		if not is_instance_valid(unit):
+			continue
 		if unit == self.body or not "current_direction" in unit.movement:
 			continue
 		cohesion += unit.position
@@ -111,7 +120,7 @@ func move_toward_target(delta):
 	if !local_units or Engine.get_process_frames() % 4 == 0:
 		local_units = get_local_units(5)
 	var group = local_units
-	if reached_target(70, path[current_path_position]):
+	if reached_target(20, path[current_path_position]):
 		current_path_position = get_path_point(path[current_path_position], 1)
 		if current_path_position == -1:
 			return
@@ -125,6 +134,7 @@ func move_toward_target(delta):
 	body.move_and_collide(body.velocity * delta)
 	#if !local_units or Engine.get_process_frames() % 20 == 0:
 	colliders_reached_target()
+	
 
 func has_move_instruction():
 	return path.size() > 0

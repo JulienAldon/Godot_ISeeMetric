@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://cyjhmi6tj0xyo"]
+
+[ext_resource type="Script" path="res://scripts/Ui/informations/CurrencyUi.gd" id="1_pshdf"]
+[ext_resource type="Texture2D" uid="uid://cvjubghb3hspv" path="res://assets/icons/resource_down.png" id="2_1n0b6"]
+[ext_resource type="Texture2D" uid="uid://byupv4stib2w8" path="res://assets/icons/resources/wood.png" id="2_gsitf"]
+[ext_resource type="Texture2D" uid="uid://ynobhuku08yo" path="res://assets/icons/resource_up.png" id="3_6k4eo"]
+[ext_resource type="Texture2D" uid="uid://bcwphy31uuu48" path="res://assets/icons/resource_idle.png" id="3_v7a7y"]
+
+[node name="CurrencyUi" type="HBoxContainer" node_paths=PackedStringArray("icon_texture", "currency_label", "status_indicator")]
+size_flags_vertical = 4
+script = ExtResource("1_pshdf")
+status_indicators = {
+0: ExtResource("2_1n0b6"),
+1: ExtResource("3_v7a7y")
+}
+icon_texture = NodePath("Icon")
+currency_label = NodePath("MarginContainer/Currency")
+status_indicator = NodePath("MarginContainer/StatusIndicator")
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("2_gsitf")
+expand_mode = 1
+
+[node name="MarginContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = -8
+alignment = 2
+
+[node name="Currency" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "1000"
+
+[node name="StatusIndicator" type="TextureRect" parent="MarginContainer"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("3_6k4eo")
+expand_mode = 1

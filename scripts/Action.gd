@@ -5,7 +5,7 @@ class_name Action
 @export var icon: CompressedTexture2D
 @export var cooldown: Timer
 @export var time: Timer
-@export var cost: int
+@export var cost: Array[ResourceYield]
 @export var description: String
 var start_position: Vector2
 

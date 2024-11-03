@@ -28,8 +28,9 @@ func get_current_action() -> Action:
 func start_action():
 	current_action = action_queue[0]
 	current_pos = action_position[0]
-	current_action.start(current_pos, multiplayer.get_unique_id())
 	current_action.ActionFinished.connect(finish_action)
+	current_action.start(current_pos, multiplayer.get_unique_id())
+	print("action started")
 	can_trigger_action = false
 
 func can_queue_action():
@@ -41,6 +42,7 @@ func queue_action(action: Action, pos: Vector2):
 		action_position.append(pos)
 
 func finish_action():
+	print("action finished", action_queue)
 	can_trigger_action = true
 	current_action.ActionFinished.disconnect(finish_action)
 	dequeue_action()

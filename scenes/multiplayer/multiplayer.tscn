@@ -10,6 +10,7 @@
 
 [node name="Multiplayer" type="Node2D" node_paths=PackedStringArray("level_container", "entities", "player_spawner", "entity_spawner", "multiplayer_menu")]
 y_sort_enabled = true
+texture_filter = 2
 script = ExtResource("1_ehst3")
 address = "localhost"
 level_container = NodePath("Level")

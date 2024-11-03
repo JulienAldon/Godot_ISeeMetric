@@ -20,6 +20,12 @@ func reset():
 		health = stats.max_health
 	HealthChanged.emit()
 
+func change_max_health(value):
+	var health_gap = abs(max_health - value)
+	max_health = value
+	health += health_gap
+	HealthChanged.emit()
+
 func damage(value: float):
 	health -= value
 	HealthChanged.emit()

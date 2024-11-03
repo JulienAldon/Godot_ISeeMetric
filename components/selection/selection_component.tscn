@@ -10,5 +10,6 @@ target_cursor = NodePath("Sprite2D")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 modulate = Color(1, 0.352119, 0.528336, 1)
+z_index = 5
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_wmana")

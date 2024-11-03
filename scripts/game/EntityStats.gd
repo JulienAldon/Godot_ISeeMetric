@@ -2,6 +2,8 @@ extends Node2D
 
 class_name CharacterStats
 
+@export var health: HealthComponent
+
 @export var attack_speed: float = 3
 @export var cast_speed: float = 3
 @export var base_range: float = 100
@@ -10,10 +12,12 @@ class_name CharacterStats
 @export var current_weapon: int = 0
 @export var additionnal_projectiles: int = 1
 @export var additionnal_duration: int = 0
-@export var added_physical_damage_sources := []
-@export var added_magic_damage_sources := []
 @export var max_health := 1000
 @export var move_speed := 40
+
+@export var added_physical_damage_sources := []
+@export var added_magic_damage_sources := []
+
 @export var additionnal_behaviours : Array[String] = []
 @export var additionnal_effects : Array[EffectResource] = []
 #@export var added_lighting_damage_sources := []
@@ -184,3 +188,12 @@ func get_compatible_weapon(skill: Skill):
 			return index
 		index += 1
 	return null
+
+func add_stats(stats: Array):
+	for stat in stats:
+		if self[stat.name] is Array:
+			self[stat.name].append(stat.value)
+		else:
+			self[stat.name] += stat.value
+		if stat.name == "max_health":
+			health.change_max_health(max_health)

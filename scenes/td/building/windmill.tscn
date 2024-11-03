@@ -1,0 +1,341 @@
+[gd_scene load_steps=28 format=3 uid="uid://deqj7jv2gkugs"]
+
+[ext_resource type="Script" path="res://scripts/td/buildings/Windmill.gd" id="1_622jx"]
+[ext_resource type="Texture2D" uid="uid://dxudhfnuucocm" path="res://assets/buildings/windmill.png" id="1_sai4a"]
+[ext_resource type="Texture2D" uid="uid://dsn1ijxjlidku" path="res://assets/buildings/mill_assets.png" id="2_5nfsc"]
+[ext_resource type="Texture2D" uid="uid://qvk6yrhs8p6u" path="res://assets/icons/buildings/windmill.png" id="2_pxeuc"]
+[ext_resource type="Shader" path="res://unit_outline.gdshader" id="4_1dej2"]
+[ext_resource type="Script" path="res://components/hitbox/HitboxComponent.gd" id="4_1elfb"]
+[ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://components/network/network_component.tscn" id="5_nfskt"]
+[ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://components/health/health_component.tscn" id="6_2lh4h"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://components/selection/selection_component.tscn" id="7_57wrl"]
+[ext_resource type="Script" path="res://scripts/game/EntityStats.gd" id="8_4lcsh"]
+[ext_resource type="PackedScene" uid="uid://b17vgvl5v7hpa" path="res://components/death/death_component.tscn" id="9_5x21d"]
+[ext_resource type="Texture2D" uid="uid://5qj7ik3tp6vd" path="res://assets/buildings/windmill_destroyed.png" id="10_c0uua"]
+[ext_resource type="PackedScene" uid="uid://cxrcptlbws3jo" path="res://scenes/td/building/building_actions.tscn" id="10_okrin"]
+[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://components/action/action_component.tscn" id="14_cthwn"]
+[ext_resource type="Script" path="res://scripts/td/actions/RemoveBuilding.gd" id="15_g8ml6"]
+[ext_resource type="Texture2D" uid="uid://bjd8p7m0fgmci" path="res://assets/icons/action/delete_building.png" id="16_0ukud"]
+[ext_resource type="Script" path="res://components/spawn/SpawnResourceComponent.gd" id="17_2b82k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c8pog"]
+resource_local_to_scene = true
+shader = ExtResource("4_1dej2")
+shader_parameter/width = null
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pmh5"]
+atlas = ExtResource("1_sai4a")
+region = Rect2(0, 0, 64, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dj03l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pmh5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_mwuyx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/NodeSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/BladeSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.5708]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprites/BladeSprite2:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.14159]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprites/BladeSprite3:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1.5708]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprites/BladeSprite4:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_r6vsl"]
+resource_name = "idle"
+length = 8.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/NodeSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.06667, 4.26667, 6.16667, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 3.14159, 6.28319, 9.42478, 12.5664]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/BladeSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2.06667, 4.26667, 6.16667, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.5708, 4.71239, 7.85398, 10.9956, 14.1372]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprites/BladeSprite2:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2.06667, 4.26667, 6.16667, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [3.14159, 6.28319, 9.42478, 12.5664, 15.708]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprites/BladeSprite3:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 2.06667, 4.26667, 6.16667, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [-1.5708, 1.5708, 4.71239, 7.85398, 10.9956]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprites/BladeSprite4:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 2.06667, 4.26667, 6.16667, 8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 3.14159, 6.28319, 9.42478, 12.5664]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e8wnx"]
+_data = {
+"RESET": SubResource("Animation_mwuyx"),
+"idle": SubResource("Animation_r6vsl")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ptst5"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_avauv"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1apkk"]
+size = Vector2(150, 150)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_krwcu"]
+size = Vector2(32, 32)
+
+[node name="Windmill" type="StaticBody2D" node_paths=PackedStringArray("sprite", "health", "death", "action_controller", "effect", "action_panel", "hitbox", "selection", "network") groups=["building", "navigation", "player_entity"]]
+collision_layer = 38
+collision_mask = 0
+input_pickable = true
+script = ExtResource("1_622jx")
+sprite = NodePath("Sprites/AnimatedSprite2D")
+health = NodePath("HealthComponent")
+death = NodePath("DeathComponent")
+action_controller = NodePath("ActionComponent")
+effect = NodePath("SpawnResource")
+action_panel = NodePath("BuildingActions")
+hitbox = NodePath("HitboxComponent")
+selection = NodePath("SelectionComponent")
+network = NodePath("NetworkComponent")
+display_name = "WindMill"
+str_type = "windmill"
+icon = ExtResource("2_pxeuc")
+
+[node name="NetworkComponent" parent="." instance=ExtResource("5_nfskt")]
+
+[node name="Sprites" type="Node2D" parent="."]
+z_index = 2
+
+[node name="EffectRange" type="ColorRect" parent="Sprites"]
+custom_minimum_size = Vector2(150, 150)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -75.0
+offset_right = 75.0
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.85, 0.414942, 0.1445, 0.235294)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sprites"]
+material = SubResource("ShaderMaterial_c8pog")
+position = Vector2(0, -22)
+sprite_frames = SubResource("SpriteFrames_dj03l")
+
+[node name="NodeSprite" type="Sprite2D" parent="Sprites"]
+position = Vector2(-0.999969, -43)
+texture = ExtResource("2_5nfsc")
+hframes = 2
+frame = 1
+
+[node name="BladeSprite" type="Sprite2D" parent="Sprites"]
+position = Vector2(-0.999939, -43)
+rotation = 1.5708
+texture = ExtResource("2_5nfsc")
+offset = Vector2(0, -36)
+hframes = 2
+
+[node name="BladeSprite2" type="Sprite2D" parent="Sprites"]
+position = Vector2(-0.999939, -43)
+rotation = 3.14159
+texture = ExtResource("2_5nfsc")
+offset = Vector2(0, -36)
+hframes = 2
+
+[node name="BladeSprite3" type="Sprite2D" parent="Sprites"]
+position = Vector2(-0.999939, -43)
+rotation = -1.5708
+texture = ExtResource("2_5nfsc")
+offset = Vector2(0, -36)
+hframes = 2
+
+[node name="BladeSprite4" type="Sprite2D" parent="Sprites"]
+position = Vector2(-0.999939, -43)
+texture = ExtResource("2_5nfsc")
+offset = Vector2(0, -36)
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_e8wnx")
+}
+autoplay = "idle"
+
+[node name="HitboxComponent" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character")]
+shape = SubResource("RectangleShape2D_ptst5")
+script = ExtResource("4_1elfb")
+health_component = NodePath("../HealthComponent")
+character = NodePath("..")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("6_2lh4h")]
+z_index = 3
+position = Vector2(-1, -3)
+scale = Vector2(2, 2)
+stats = NodePath("../CharacterStats")
+
+[node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("7_57wrl")]
+network = NodePath("../NetworkComponent")
+sprites = [NodePath("../Sprites/AnimatedSprite2D")]
+body = NodePath("..")
+
+[node name="CharacterStats" type="Node2D" parent="."]
+script = ExtResource("8_4lcsh")
+max_health = 500
+
+[node name="BuildingActions" parent="." instance=ExtResource("10_okrin")]
+z_index = 3
+offset_left = -42.0
+offset_top = -61.0
+offset_right = 41.0
+offset_bottom = -36.0
+
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("sprite", "health", "body", "corpse", "delete_timer") instance=ExtResource("9_5x21d")]
+sprite = NodePath("../Sprites")
+health = NodePath("../HealthComponent")
+body = NodePath("..")
+corpse = NodePath("Corpse")
+delete_timer = NodePath("Timer")
+corpse_time = 5
+
+[node name="Corpse" type="Sprite2D" parent="DeathComponent"]
+visible = false
+position = Vector2(0, -22)
+texture = ExtResource("10_c0uua")
+
+[node name="Timer" type="Timer" parent="DeathComponent"]
+
+[node name="ActionComponent" parent="." node_paths=PackedStringArray("body", "actions_container") instance=ExtResource("14_cthwn")]
+body = NodePath("..")
+actions_container = NodePath(".")
+
+[node name="RemoveBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("cooldown", "time")]
+script = ExtResource("15_g8ml6")
+shape = SubResource("RectangleShape2D_avauv")
+title = "Remove Windmill"
+icon = ExtResource("16_0ukud")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+description = "Delete this building"
+
+[node name="Timer" type="Timer" parent="ActionComponent/RemoveBuilding"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/RemoveBuilding"]
+wait_time = 0.2
+
+[node name="SpawnResource" type="Node2D" parent="." node_paths=PackedStringArray("network", "spawn_timer")]
+script = ExtResource("17_2b82k")
+network = NodePath("../NetworkComponent")
+resource_scene = "res://scenes/game/wheat.tscn"
+effect_shape = SubResource("RectangleShape2D_1apkk")
+spawned_entity_shape = SubResource("RectangleShape2D_krwcu")
+spawn_timer = NodePath("SpawnTimer")
+
+[node name="SpawnTimer" type="Timer" parent="SpawnResource"]

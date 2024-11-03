@@ -9,4 +9,4 @@ func move(entities, input_axis):
 		child.movement.set_input_axis(input_axis)
 	if entities.size() > 0:
 		var pos = entities[0].position
-		camera.position = pos
+		camera.position = lerp(camera.position, pos, 0.2)

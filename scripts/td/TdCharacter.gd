@@ -11,8 +11,4 @@ class_name TdCharacter
 @export var selection: SelectionComponent
 @export var action_controller: ActionComponent
 @export var build: BuildComponent
-
-func hide_actions_to(_player):
-	pass
-	#if player != multiplayer.get_unique_id():
-		#GameManager.get_player(player).hide_entity_actions(self, player)
+@export var attack: CollectComponent

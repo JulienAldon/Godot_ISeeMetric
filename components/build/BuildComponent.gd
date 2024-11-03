@@ -17,7 +17,7 @@ func _ready():
 
 # Enter build mode status
 func set_action_build_mode(action: Build):
-	build_mode.show_build_mode()
+	build_mode.show_build_mode(action.build_preview_texture)
 	build_action = action
 
 # Queue action after build mode has targeted a position
@@ -37,8 +37,7 @@ func build_position_selected(pos: Vector2):
 func destroy_buildings(capturing_player: int):
 	for building in buildings:
 		if building.controlled_by != capturing_player:
-			building.attacker_id = capturing_player
-			building.hitbox.damage.rpc(building.health.max_health)
+			building.hitbox.damage.rpc(building.health.max_health, capturing_player)
 
 func _on_effect_range_body_entered(body):
 	if body.is_in_group("building") and body != entity:

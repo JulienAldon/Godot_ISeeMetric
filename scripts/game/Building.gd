@@ -20,6 +20,9 @@ func command_navigation(pos: Vector2, _group, _path: Array) -> void:
 	movement.path = _path
 	movement.target_position = pos
 
+func deactivate_behaviour():
+	GameManager.get_level_tilemap().bake_navigation()
+
 func _ready():
 	if network:
 		network.set_authority(controlled_by)

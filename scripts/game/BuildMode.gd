@@ -6,7 +6,7 @@ var is_build_mode_enabled: bool = false
 
 signal PositionConfirmed
 
-func show_build_mode():
+func show_build_mode(_build_shape: Texture2D):
 	is_build_mode_enabled = true
 
 func hide_build_mode():

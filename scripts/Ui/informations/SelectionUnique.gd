@@ -17,7 +17,7 @@ func update_informations(selection: Node2D):
 	self.show()
 	entity = selection
 	icon.texture = entity.icon
-	if entity.is_in_group("building") and "action_controller" in entity:
+	if entity is Building and "action_controller" in entity and entity is not TdBuilding:
 		building_container.set_informations(entity)
 		building_container.show()
 		unit_container.hide()

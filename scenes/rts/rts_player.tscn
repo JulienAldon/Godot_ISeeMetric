@@ -1,14 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://b4qecf23eusp0"]
+[gd_scene load_steps=10 format=3 uid="uid://b4qecf23eusp0"]
 
 [ext_resource type="Script" path="res://scripts/player/PlayerController.gd" id="1_ux3el"]
 [ext_resource type="PackedScene" uid="uid://4bbd0jc63doj" path="res://scenes/rts/actions/build.tscn" id="3_fx0xa"]
 [ext_resource type="Script" path="res://scripts/rts/RtsController.gd" id="3_h1evf"]
 [ext_resource type="Script" path="res://scripts/game/SelectController.gd" id="3_ogib7"]
-[ext_resource type="Texture2D" uid="uid://d06sm00nfbcm8" path="res://assets/icons/barrack.png" id="4_tx15w"]
+[ext_resource type="Texture2D" uid="uid://d06sm00nfbcm8" path="res://assets/icons/buildings/barrack.png" id="4_tx15w"]
 [ext_resource type="Script" path="res://scripts/game/MoveUnits.gd" id="4_xh5ra"]
+[ext_resource type="Texture2D" uid="uid://c8kjoj4e0t8af" path="res://assets/icons/resources/gold.png" id="7_7vaaa"]
+[ext_resource type="Script" path="res://scripts/game/ResourceYield.gd" id="7_moujk"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_q66si"]
-radius = 9.43398
+[sub_resource type="Resource" id="Resource_on2xr"]
+script = ExtResource("7_moujk")
+icon = ExtResource("7_7vaaa")
+value = 0
+type = 0
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("outpost_actions", "current_controller", "camera")]
 script = ExtResource("1_ux3el")
@@ -18,11 +23,11 @@ camera = NodePath("Camera2D")
 ui_scene = "res://scenes/rts/rts_ui.tscn"
 metadata/_edit_horizontal_guides_ = []
 
-[node name="RtsController" type="Node2D" parent="." node_paths=PackedStringArray("select_entity_area", "select_controller", "move_controller", "player", "camera")]
+[node name="RtsController" type="Node2D" parent="." node_paths=PackedStringArray("select_controller", "move_controller", "player", "camera")]
 z_index = 1
 script = ExtResource("3_h1evf")
 camera_margin = 10
-select_entity_area = NodePath("../EntityDetection")
+camera_speed = 300
 cursor_animation_scene = "res://scenes/game/click_animation.tscn"
 select_controller = NodePath("SelectController")
 char_scene = "res://scenes/rts/Units/rts_character.tscn"
@@ -39,20 +44,16 @@ script = ExtResource("4_xh5ra")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 anchor_mode = 0
-position_smoothing_enabled = true
+process_callback = 0
 position_smoothing_speed = 20.0
-
-[node name="EntityDetection" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 49
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityDetection"]
-shape = SubResource("CircleShape2D_q66si")
-debug_color = Color(0.791588, 0.419872, 0.227158, 0.42)
+drag_left_margin = 0.1
+drag_top_margin = 0.1
+drag_right_margin = 0.1
+drag_bottom_margin = 0.1
 
 [node name="OutpostActions" type="Node2D" parent="."]
 
 [node name="Build" parent="OutpostActions" instance=ExtResource("3_fx0xa")]
 building_scene = "res://scenes/game/buildings/barracks.tscn"
 icon = ExtResource("4_tx15w")
+cost = Array[ExtResource("7_moujk")]([SubResource("Resource_on2xr")])

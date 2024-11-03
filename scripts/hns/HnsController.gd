@@ -74,16 +74,16 @@ func _process(_delta):
 		trigger_skill(selected_skill)
 
 func _unhandled_input(_event):
-	if Input.is_action_pressed("spell_slot_1"):
+	if Input.is_action_pressed("action_slot_1"):
 		selected_skill = skills[0]
 		trigger_action = true
-	elif Input.is_action_pressed("spell_slot_2"):
+	elif Input.is_action_pressed("action_slot_2"):
 		selected_skill = skills[1]
 		trigger_action = true
-	elif Input.is_action_pressed("spell_slot_3"):
+	elif Input.is_action_pressed("action_slot_3"):
 		selected_skill = skills[2]
 		trigger_action = true
-	elif Input.is_action_pressed("spell_slot_4"):
+	elif Input.is_action_pressed("action_slot_4"):
 		selected_skill = skills[3]
 		trigger_action = true
 	else:
@@ -91,7 +91,7 @@ func _unhandled_input(_event):
 		trigger_action = false
 	input_axis.x = Input.get_axis("Left", "Right")
 	input_axis.y = Input.get_axis("Top", "Bottom")
-	if (Input.is_action_just_released("spell_slot_1") or Input.is_action_just_released("spell_slot_2") or
-		 Input.is_action_just_released("spell_slot_3") or Input.is_action_just_released("spell_slot_4")):
+	if (Input.is_action_just_released("action_slot_1") or Input.is_action_just_released("action_slot_2") or
+		 Input.is_action_just_released("action_slot_3") or Input.is_action_just_released("action_slot_4")):
 		selected_skill = null
 		trigger_action = false

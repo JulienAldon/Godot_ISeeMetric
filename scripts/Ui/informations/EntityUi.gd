@@ -26,7 +26,7 @@ func calculate_color(value):
 	return Color.DARK_RED
 
 func _process(_delta):
-	if entity and is_instance_valid(entity):
+	if entity and is_instance_valid(entity) and GameManager.Players.has(entity.controlled_by):
 		#icon.texture = entity.icon
 		#if "health" in entity:
 			#theme.border_color = calculate_color(entity.health.health)

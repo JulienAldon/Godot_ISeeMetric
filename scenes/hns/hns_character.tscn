@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://b16xsdnqifpbm" path="res://components/movement/movement_component.tscn" id="6_y1jah"]
 [ext_resource type="AnimationLibrary" uid="uid://byvp3cu6vr10u" path="res://animations/Character.res" id="7_8d44j"]
 [ext_resource type="Texture2D" uid="uid://bwlgjbs01xayb" path="res://assets/Prototype_Character/weapons.png" id="8_i0o0w"]
-[ext_resource type="Script" path="res://scripts/hns/Stats.gd" id="9_mxff3"]
+[ext_resource type="Script" path="res://scripts/game/EntityStats.gd" id="9_mxff3"]
 [ext_resource type="Script" path="res://scripts/hns/Damage.gd" id="10_p6yb0"]
 [ext_resource type="Script" path="res://scripts/hns/Weapon.gd" id="11_nnflj"]
 [ext_resource type="PackedScene" uid="uid://clpqde20meqmd" path="res://scenes/hns/skill_slot.tscn" id="12_cq1lr"]

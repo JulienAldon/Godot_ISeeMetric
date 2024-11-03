@@ -68,7 +68,7 @@ func _process(delta):
 	if result.size() > 0:
 		_on_area_2d_body_entered(result[0].collider)
 		
-	if not animation_player.is_playing():
+	if not animation_player.is_playing() or ("death" in target and target.death.is_dead):
 		queue_free()
 	if behaviours.size() > 0:
 		for behaviour in behaviours:

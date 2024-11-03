@@ -58,6 +58,7 @@ expand_icon = true
 one_shot = true
 
 [node name="Icon" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.454902)
 custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 size_flags_horizontal = 4

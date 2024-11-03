@@ -36,149 +36,69 @@ size = Vector2(32, 32)
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_po21r"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7o3ke"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c8ygu"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3d3k7"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_058yv"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ul8js"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iam1p"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dkrtx"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5htjq"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ys882"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6w2wn"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8xji0"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2tm63"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ex2vg"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5lxwm"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rt45x"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ihd3"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6kjv"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlcnt"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cxx35"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e6o75"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o2il2"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x87yu"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gaitw"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2esch"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wh41q"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m2jwy"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1kshd"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1t8bx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1d0ce"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sunwx"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ui2wn"]
 resource_local_to_scene = true
 bg_color = Color(0.0470588, 0.0705882, 0.105882, 0.517647)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.595169, 0.482256, 0, 1)
 
 [node name="Informations" type="PanelContainer" node_paths=PackedStringArray("selection_unique", "selection_multiple")]
 clip_contents = true
@@ -209,10 +129,12 @@ layout_mode = 2
 size_flags_vertical = 4
 
 [node name="EntityIcon" type="TextureRect" parent="SelectionUnique/HBoxContainer/EntityStatus"]
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = SubResource("PlaceholderTexture2D_e6fnp")
+expand_mode = 1
 
 [node name="Life" type="Label" parent="SelectionUnique/HBoxContainer/EntityStatus"]
 layout_mode = 2
@@ -301,8 +223,8 @@ size_flags_vertical = 8
 nine_patch_stretch = true
 texture_under = ExtResource("8_wquat")
 texture_progress = ExtResource("9_idq7k")
-tint_under = Color(0.596078, 0.482353, 0, 1)
-tint_progress = Color(0.176471, 0.219608, 0.690196, 1)
+tint_under = Color(0, 0, 0, 0.388235)
+tint_progress = Color(0.208039, 0.490914, 0.61698, 0.819608)
 script = ExtResource("10_a18q5")
 target = NodePath("../../..")
 watched_property = "production_progress"
@@ -328,6 +250,7 @@ layout_mode = 2
 queue_number = 5
 
 [node name="SelectionMultiple" type="CenterContainer" parent="." node_paths=PackedStringArray("selection_panel")]
+visible = false
 clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -344,64 +267,64 @@ columns = 8
 
 [node name="UiEntity" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_po21r")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7o3ke")
 
 [node name="UiEntity2" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_c8ygu")
+theme_override_styles/panel = SubResource("StyleBoxFlat_3d3k7")
 
 [node name="UiEntity3" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_058yv")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ul8js")
 
 [node name="UiEntity4" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_iam1p")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dkrtx")
 
 [node name="UiEntity5" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5htjq")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ys882")
 
 [node name="UiEntity6" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_6w2wn")
+theme_override_styles/panel = SubResource("StyleBoxFlat_8xji0")
 
 [node name="UiEntity7" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_2tm63")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ex2vg")
 
 [node name="UiEntity8" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_5lxwm")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rt45x")
 
 [node name="UiEntity9" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1ihd3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_l6kjv")
 
 [node name="UiEntity10" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_qlcnt")
+theme_override_styles/panel = SubResource("StyleBoxFlat_cxx35")
 
 [node name="UiEntity11" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_e6o75")
+theme_override_styles/panel = SubResource("StyleBoxFlat_o2il2")
 
 [node name="UiEntity12" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_x87yu")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gaitw")
 
 [node name="UiEntity13" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_2esch")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wh41q")
 
 [node name="UiEntity14" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_m2jwy")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1kshd")
 
 [node name="UiEntity15" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_1t8bx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_1d0ce")
 
 [node name="UiEntity16" parent="SelectionMultiple/Grid" instance=ExtResource("12_e0uwk")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_sunwx")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ui2wn")

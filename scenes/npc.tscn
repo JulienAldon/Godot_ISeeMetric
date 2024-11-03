@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://components/behaviour/StateMachine.gd" id="6_wj5g1"]
 [ext_resource type="Script" path="res://components/behaviour/NpcIdle.gd" id="7_gfcsn"]
 [ext_resource type="Script" path="res://components/behaviour/NpcFollow.gd" id="8_sb2vl"]
-[ext_resource type="Script" path="res://scripts/hns/Stats.gd" id="9_73t3t"]
+[ext_resource type="Script" path="res://scripts/game/EntityStats.gd" id="9_73t3t"]
 [ext_resource type="Script" path="res://components/death/DeathComponent.gd" id="10_jioyp"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f76ci"]

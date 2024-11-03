@@ -8,6 +8,8 @@ enum layers {
 	level2 = 2,
 }
 const boundary_block_atlas_pos = Vector2i(4, 7)
+const floor_atlas_pos = Vector2i(2, 6)
+const wall_floor_atlas_pos = Vector2i(2, 2)
 
 var main_source = 0
 

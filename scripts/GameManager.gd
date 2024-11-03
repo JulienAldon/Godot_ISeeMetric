@@ -6,7 +6,9 @@ enum Entity {
 enum CurrencyType {
 	Gold,
 	Faith,
-	Materials,
+	Wood,
+	Stone,
+	Wheat
 }
 
 var Players = {}
@@ -57,6 +59,15 @@ func get_level_outposts():
 		return null
 	return level_loaded[0].get_outposts()
 
+func get_level_fog():
+	var node = get_node_or_null("/root/Multiplayer/Level")
+	if !node:
+		return null
+	var level_loaded = node.get_children()
+	if level_loaded.size() <= 0:
+		return null
+	return level_loaded[0].get_fog()
+
 func get_level_tilemap():
 	var node = get_node_or_null("/root/Multiplayer/Level")
 	if !node:
@@ -71,7 +82,7 @@ func spawn_entity(scene: String, informations: Dictionary):
 	if not multiplayer.is_server():
 		return
 	var info = informations
-	var multi = get_node_or_null("/root/Multiplayer/Control")
+	var multi = get_node_or_null("/root/Multiplayer")
 	if !multi:
 		return null
 	info.merge({"scene": scene})
