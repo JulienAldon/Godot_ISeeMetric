@@ -20,5 +20,4 @@ func add_upgrade_tier():
 	current_tier += 1
 	if current_tier >= 3:
 		pass
-		#disable action button
 	stats.add_stats(upgrades_per_tier[current_tier])

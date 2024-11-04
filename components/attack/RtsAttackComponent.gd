@@ -10,7 +10,7 @@ func apply_damage():
 	if not is_instance_valid(target):
 		return
 	if target_in_attack_range():
-			target.hitbox.damage.rpc(5)
+		attack_style.apply_damage(target, network.controlled_by)
 
 func set_nearby_targets():
 	nearby_targets = compute_nearby_target()

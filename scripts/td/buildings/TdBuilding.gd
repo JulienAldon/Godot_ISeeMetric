@@ -46,6 +46,5 @@ func trigger_action(action):
 	if self.action_controller:
 		var player = GameManager.get_player(multiplayer.get_unique_id())
 		if self.action_controller.can_queue_action() and player.can_spend_currency(action.cost):
-			print("trigger_action entity")
 			player.spend_currency(action.cost)
 			self.action_controller.queue_action(action, global_position)

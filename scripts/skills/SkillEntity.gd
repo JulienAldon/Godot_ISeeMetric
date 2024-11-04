@@ -13,6 +13,7 @@ var behaviours: Array[SkillBehaviour]
 
 var scene: String
 
+@export var animation_tree: AnimationTree
 @export var animation_player: AnimationPlayer
 
 var is_from_hit: bool
@@ -29,6 +30,8 @@ var effects
 var mouse_pos: Vector2
 var duration: float
 var shape: CircleShape2D
+
+var body_hit: Node2D
 
 func _enter_tree():
 	if not multiplayer.is_server():
@@ -49,12 +52,10 @@ func _ready():
 		if behaviours.size() > 0:
 			for behaviour in behaviours:
 				behaviour.enter()
-	if not animation_player:
-		return
-	animation_player.speed_scale = animation_speed
-	if duration > 0:
-		var anim = animation_player.get_animation(animation_player.current_animation)
-		anim.length = duration
+	animation_tree["parameters/idle/TimeScale/scale"] = animation_speed
+	#if duration > 0:
+		#var anim = animation_player.get_animation(animation_player.current_animation)
+		#anim.length = duration
 
 func _process(delta):
 	if !multiplayer.is_server():
@@ -65,24 +66,23 @@ func _process(delta):
 	query.collision_mask = 2
 	query.transform = global_transform
 	var result := get_world_2d().direct_space_state.intersect_shape(query, 1)
-	if result.size() > 0:
-		_on_area_2d_body_entered(result[0].collider)
-		
-	if not animation_player.is_playing() or ("death" in target and target.death.is_dead):
-		queue_free()
+	if result.size() > 0 and result[0].collider.controlled_by != controlled_by:
+		animation_tree["parameters/conditions/hit"] = true
+		body_hit = result[0].collider
 	if behaviours.size() > 0:
 		for behaviour in behaviours:
 			behaviour.update(delta)
+	if not animation_player.is_playing() or ("death" in target and target.death.is_dead):
+		queue_free()
 
 func _physics_process(delta):
 	if behaviours.size() > 0:
 		for behaviour in behaviours:
 			behaviour.physics_update(delta)
 
-func _on_area_2d_body_entered(body):
-	if body.controlled_by == controlled_by and body.is_in_group("player_entity"):
-		return
+func _hit_body():
+	if body_hit.controlled_by == controlled_by:
+		return	
 	if multiplayer.is_server():
-		if behaviours.size() > 0:
-			for behaviour in behaviours:
-				behaviour.hit(body)
+		for behaviour in behaviours:
+			behaviour.hit(body_hit)

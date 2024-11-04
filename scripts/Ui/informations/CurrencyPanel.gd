@@ -11,7 +11,8 @@ func _ready():
 
 func update_currencies(currencies: Dictionary):
 	for currency_ui in currencies_ui:
-		if currencies.has(currency_ui.type):
-			currency_ui.set_currency(currencies[currency_ui.type])
+		var currency_type: GameManager.CurrencyType = currency_ui.get_currency_type()
+		if currencies.has(currency_type):
+			currency_ui.set_currency(currencies[currency_type])
 		else:
 			currency_ui.set_currency(0)

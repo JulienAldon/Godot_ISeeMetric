@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bxh73akmlo0fu"]
+[gd_scene load_steps=30 format=3 uid="uid://bxh73akmlo0fu"]
 
 [ext_resource type="Script" path="res://components/hitbox/HitboxComponent.gd" id="1_rmd40"]
 [ext_resource type="Script" path="res://scripts/game/Tree.gd" id="1_vud0p"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://components/health/health_component.tscn" id="9_mlkxj"]
 [ext_resource type="Script" path="res://components/animation/AnimationComponent.gd" id="10_yqfft"]
 [ext_resource type="PackedScene" uid="uid://dtpakrxno6dna" path="res://components/income/on_death_income_component.tscn" id="11_56ui3"]
+[ext_resource type="Texture2D" uid="uid://byupv4stib2w8" path="res://assets/icons/resources/wood.png" id="12_yor58"]
+[ext_resource type="Script" path="res://scripts/game/ResourceYield.gd" id="13_sxrbg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_66qw1"]
 size = Vector2(13, 22)
@@ -131,6 +133,12 @@ states/idle/node = SubResource("AnimationNodeAnimation_cfrrp")
 states/idle/position = Vector2(316, 120)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_cb81v"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_a57gg"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_egslp")]
 
+[sub_resource type="Resource" id="Resource_vh2u8"]
+script = ExtResource("13_sxrbg")
+icon = ExtResource("12_yor58")
+value = 20
+type = 2
+
 [node name="Tree" type="StaticBody2D" node_paths=PackedStringArray("death", "hitbox", "network", "health", "selection", "income") groups=["navigation", "resource"]]
 collision_layer = 78
 collision_mask = 0
@@ -207,3 +215,4 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/hit = false
 
 [node name="IncomeComponent" parent="." instance=ExtResource("11_56ui3")]
+income = SubResource("Resource_vh2u8")

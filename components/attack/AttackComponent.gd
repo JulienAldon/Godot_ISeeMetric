@@ -3,6 +3,7 @@ class_name AttackComponent
 
 @export var stats: CharacterStats
 @export var network: NetworkComponent
+@export var attack_style: AttackStyle
 
 @export var attack_timer: Timer
 @export var shape: Shape2D

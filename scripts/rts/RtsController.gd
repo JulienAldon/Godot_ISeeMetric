@@ -79,6 +79,8 @@ func _unhandled_input(event):
 	select_controller.selection_control(event)
 	var mouse_pos = get_global_mouse_position()
 	if event is InputEventMouseButton:
+		if event.is_pressed():
+			player.reset_state()
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			if event.pressed and select_controller.get_selected().size() > 0:
 				command_or_append_unit_action(mouse_pos, null)

@@ -4,7 +4,7 @@ class_name CurrencyUi
 
 @export_category("Configuration")
 @export var icon: Texture2D
-@export var type: GameManager.CurrencyType
+@export var currency_type: GameManager.CurrencyType
 	
 @export_category("Intern")
 @export var status_indicators: Dictionary
@@ -14,6 +14,9 @@ class_name CurrencyUi
 
 func _ready():
 	icon_texture.texture = icon
+
+func get_currency_type() -> GameManager.CurrencyType:
+	return currency_type
 
 func set_currency(amount: int):
 	currency_label.text = str(amount)

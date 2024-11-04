@@ -7,6 +7,7 @@ class_name GridBuildMode
 @export var shape: Shape2D
 var is_cell_occupied: bool = false
 var build_preview_last_snapped_position: Vector2
+var current_outpost_highlight: Node2D
 
 func position_snapped(pos: Vector2):
 	return (pos/ grid_placement_cell_size).floor() *  grid_placement_cell_size
@@ -23,12 +24,10 @@ func find_nearest(pos: Vector2, list: Array):
 func show_build_mode(build_shape: Texture2D):
 	var outpost = find_nearest(global_position , GameManager.get_level_outposts())
 	if outpost:
+		current_outpost_highlight = outpost
 		outpost.selection.show_hover_nodes()
-	#grid_placement_cell_size = build_shape.size
-	print(build_shape.get_size())
 	shape.size = build_shape.get_size()
 	build_preview.texture = build_shape
-	#build_preview.scale = build_shape.get_size() / build_preview.get_rect().size
 	super(build_shape)
 
 func hide_build_mode():
@@ -37,6 +36,11 @@ func hide_build_mode():
 	if outpost:
 		outpost.selection.hide_hover_nodes()
 
+func disable_build_mode():
+	if is_instance_valid(current_outpost_highlight):
+		current_outpost_highlight.selection.hide_hover_nodes()
+	is_build_mode_enabled = false
+
 func _input(event):
 	if not is_build_mode_enabled:
 		return
@@ -44,7 +48,9 @@ func _input(event):
 		if event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT and not is_cell_occupied:
 			PositionConfirmed.emit(position_snapped(get_global_mouse_position()))
 		elif not is_cell_occupied:
-			is_build_mode_enabled = false
+			disable_build_mode()
+	if Input.is_action_just_pressed("escape"):
+		disable_build_mode()
 
 func _process(_delta):
 	if is_build_mode_enabled:

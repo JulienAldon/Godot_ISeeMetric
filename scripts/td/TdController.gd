@@ -62,9 +62,10 @@ func _unhandled_input(event):
 	input_axis.x = Input.get_axis("Left", "Right")
 	input_axis.y = Input.get_axis("Top", "Bottom")
 	if event is InputEventMouseButton and event.is_pressed():
-		if is_instance_valid(character.attack.target):
-			character.attack.target.selection.set_target_indicator(false)
-			character.attack.set_target(null)
+		player.reset_state()
+		#if is_instance_valid(character.attack.target):
+			#character.attack.target.selection.set_target_indicator(false)
+			#character.attack.set_target(null)
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			player.hide_entity_informations(player_id)
 			if is_instance_valid(last_select):

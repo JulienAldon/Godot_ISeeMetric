@@ -16,12 +16,13 @@ var currencies: Dictionary = {}
 @export var max_level: int = 20
 @export var level_threshold: int = 300
 @export var level_scaling: int = 1
-	
+
 var spawn: Vector2
 var color: Color
 var player_id: int
 var player_name: String
 var last_target: Entity
+var last_select: Entity
 
 func interact_entity(entity: Entity):
 	if entity.controlled_by == multiplayer.get_unique_id():
@@ -36,7 +37,14 @@ func stop_interact_entity(entity: Entity):
 	#entity.selection.set_target_indicator(false)
 	current_controller.stop_interact_entity(entity)
 
+func reset_state():
+	if is_instance_valid(last_target):
+		last_target.selection.set_target_indicator(false)
+	if is_instance_valid(last_select):
+		hide_entity_informations(player_id)
+
 func select_entity(entity: Entity):
+	last_select = entity
 	current_controller.select_entity(entity)
 	show_entity_informations(entity, multiplayer.get_unique_id())
 
@@ -59,13 +67,11 @@ func spend_currency(costs: Array[ResourceYield]):
 	gui.set_currency(currencies)
 
 @rpc("call_local", "any_peer")
-func earn_currency(resource_yield: ResourceYield):
-	if not resource_yield:
-		return
-	if currencies.has(resource_yield.type):
-		currencies[resource_yield.type] += resource_yield.value
+func earn_currency(value: int, type: GameManager.CurrencyType):
+	if currencies.has(type):
+		currencies[type] += value
 	else:
-		currencies[resource_yield.type] = resource_yield.value
+		currencies[type] = value
 	gui.set_currency(currencies)
 
 func set_spawn(pos):

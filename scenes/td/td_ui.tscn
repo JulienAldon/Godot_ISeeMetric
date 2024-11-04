@@ -81,17 +81,17 @@ size_flags_vertical = 4
 [node name="Wood" parent="Currencies/HBoxContainer" instance=ExtResource("5_tt2vm")]
 layout_mode = 2
 icon = ExtResource("3_o11r2")
-type = 2
+currency_type = 2
 
 [node name="Stone" parent="Currencies/HBoxContainer" instance=ExtResource("5_tt2vm")]
 layout_mode = 2
 icon = ExtResource("4_1cdtq")
-type = 3
+currency_type = 3
 
 [node name="Wheat" parent="Currencies/HBoxContainer" instance=ExtResource("5_tt2vm")]
 layout_mode = 2
 icon = ExtResource("5_4k3fe")
-type = 4
+currency_type = 4
 
 [node name="Minimap" parent="." instance=ExtResource("1_gmneq")]
 offset_left = 498.0

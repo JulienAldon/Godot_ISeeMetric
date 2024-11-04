@@ -8,9 +8,12 @@ class_name HitboxComponent
 var current_effects: Array[Effect] = []
 
 @rpc("any_peer", "call_local")
-func damage(_damage: int, attacker_id):
+func damage(_damage: int, attacker_id: int):
 	if health_component:
-		health_component.damage(_damage)
+		var damage_amount = _damage
+		if "stats" in character:
+			damage_amount = character.stats.calculate_hit_damage(_damage)
+		health_component.damage(damage_amount)
 		character.attacker_id = attacker_id
 		if animation:
 			animation.set_is_hit()

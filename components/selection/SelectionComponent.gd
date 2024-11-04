@@ -79,4 +79,6 @@ func _on_mouse_exited():
 	if not selected["status"]:
 		for sprite in sprites:
 			sprite.material.set_shader_parameter('width', 0)
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		return
 	GameManager.get_player(multiplayer.get_unique_id()).stop_interact_entity(body)

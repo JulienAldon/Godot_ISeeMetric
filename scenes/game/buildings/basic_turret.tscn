@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://ctnb0adqyubor"]
+[gd_scene load_steps=41 format=3 uid="uid://ctnb0adqyubor"]
 
 [ext_resource type="Script" path="res://scripts/td/buildings/Turret.gd" id="1_ri0pb"]
 [ext_resource type="Texture2D" uid="uid://cnqwaelhsga7d" path="res://assets/icons/buildings/basic_turret.png" id="2_ein1a"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://scripts/hns/Damage.gd" id="12_csvuu"]
 [ext_resource type="Script" path="res://scripts/skills/effects/EffectResource.gd" id="12_sbd1q"]
 [ext_resource type="Script" path="res://scripts/skills/Skill.gd" id="13_fpjik"]
+[ext_resource type="Script" path="res://components/attack/ProjectileAttackStyle.gd" id="15_mgp6e"]
 [ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://components/action/action_component.tscn" id="16_khc68"]
 [ext_resource type="Script" path="res://scripts/td/actions/RemoveBuilding.gd" id="17_hma3m"]
 [ext_resource type="Texture2D" uid="uid://bjd8p7m0fgmci" path="res://assets/icons/action/delete_building.png" id="18_36dea"]
@@ -53,31 +54,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="Resource" id="Resource_eeyvp"]
-script = ExtResource("12_csvuu")
-base = 100.0
-added = 0.0
-increased = 0.0
-more = 0.0
-
-[sub_resource type="Resource" id="Resource_5t2j5"]
-script = ExtResource("13_fpjik")
-type = 0
-damage_type = 0
-movement = true
-cooldown = 0.0
-area_of_effect = 5
-scene = "res://scenes/td/building/projectile_turret.tscn"
-damage_effectiveness = 1.0
-damage = SubResource("Resource_eeyvp")
-weapon_compatibility = Array[int]([])
-projectiles = 1
-base_duration = 5.0
-projectiles_scallable = false
-behaviours = Array[String](["res://scenes/skills/behaviours/following.tscn", "res://scenes/skills/behaviours/damaging.tscn"])
-throw_speed = 400
-effects = Array[ExtResource("12_sbd1q")]([])
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_spvwe"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2eori"]
@@ -91,6 +67,32 @@ shader_parameter/diameter = 1.0
 shader_parameter/thickness = 0.009
 shader_parameter/frequency = 100.0
 shader_parameter/phase = 0.0
+
+[sub_resource type="Resource" id="Resource_v2oy8"]
+resource_local_to_scene = true
+script = ExtResource("12_csvuu")
+base = 200.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[sub_resource type="Resource" id="Resource_17icf"]
+script = ExtResource("13_fpjik")
+type = 0
+damage_type = 0
+movement = false
+cooldown = 0.0
+area_of_effect = 5
+scene = "res://scenes/td/building/projectile_turret.tscn"
+damage_effectiveness = 1.0
+damage = SubResource("Resource_v2oy8")
+weapon_compatibility = Array[int]([])
+projectiles = 0
+base_duration = 0.0
+projectiles_scallable = false
+behaviours = Array[String](["res://scenes/skills/behaviours/projectile.tscn", "res://scenes/skills/behaviours/following.tscn", "res://scenes/skills/behaviours/damaging.tscn"])
+throw_speed = 500
+effects = Array[ExtResource("12_sbd1q")]([])
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nawp3"]
 size = Vector2(32, 32)
@@ -188,15 +190,15 @@ cast_speed = 0.0
 base_range = 200.0
 max_health = 500
 move_speed = 0
+armor = 150
 
-[node name="TurretAttack" type="Node2D" parent="." node_paths=PackedStringArray("attack_point", "collision", "range_delimiter", "stats", "network", "attack_timer")]
+[node name="TurretAttack" type="Node2D" parent="." node_paths=PackedStringArray("collision", "range_delimiter", "stats", "network", "attack_style", "attack_timer")]
 script = ExtResource("12_7xkv7")
-attack_point = NodePath("AttackPoint")
-skill = SubResource("Resource_5t2j5")
 collision = NodePath("TargetDetection/CollisionShape2D")
 range_delimiter = NodePath("TargetDetection/TextureRect")
 stats = NodePath("../CharacterStats")
 network = NodePath("../NetworkComponent")
+attack_style = NodePath("ProjectileAttackStyle")
 attack_timer = NodePath("AttackTimer")
 shape = SubResource("CircleShape2D_spvwe")
 
@@ -229,8 +231,14 @@ mouse_filter = 2
 
 [node name="AttackTimer" type="Timer" parent="TurretAttack"]
 
-[node name="AttackPoint" type="Node2D" parent="TurretAttack"]
-position = Vector2(0, -16)
+[node name="ProjectileAttackStyle" type="Node2D" parent="TurretAttack" node_paths=PackedStringArray("attack_point", "stats")]
+script = ExtResource("15_mgp6e")
+attack_point = NodePath("AttackPoint")
+skill = SubResource("Resource_17icf")
+stats = NodePath("../../CharacterStats")
+
+[node name="AttackPoint" type="Node2D" parent="TurretAttack/ProjectileAttackStyle"]
+position = Vector2(-2, -41)
 
 [node name="ActionComponent" parent="." node_paths=PackedStringArray("body", "actions_container") instance=ExtResource("16_khc68")]
 body = NodePath("..")

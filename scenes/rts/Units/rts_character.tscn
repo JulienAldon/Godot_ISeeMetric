@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://bfvtfiwo5a8bd"]
+[gd_scene load_steps=81 format=3 uid="uid://bfvtfiwo5a8bd"]
 
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="1_2eckm"]
 [ext_resource type="Script" path="res://scripts/rts/Units/RtsCharacter.gd" id="1_5ashi"]
@@ -14,8 +14,12 @@
 [ext_resource type="Script" path="res://scripts/game/EntityStats.gd" id="11_kf7f8"]
 [ext_resource type="Script" path="res://components/attack/RtsAttackComponent.gd" id="11_t3uyx"]
 [ext_resource type="Script" path="res://components/animation/AnimationComponent.gd" id="12_as0c8"]
+[ext_resource type="Script" path="res://components/attack/ProjectileAttackStyle.gd" id="12_qgbwh"]
 [ext_resource type="Script" path="res://components/behaviour/StateMachine.gd" id="13_7nc3a"]
+[ext_resource type="Script" path="res://scripts/hns/Damage.gd" id="13_k58gx"]
+[ext_resource type="Script" path="res://scripts/skills/effects/EffectResource.gd" id="14_d18y3"]
 [ext_resource type="Script" path="res://components/behaviour/RtsIdle.gd" id="14_iyhls"]
+[ext_resource type="Script" path="res://scripts/skills/Skill.gd" id="15_prfgm"]
 [ext_resource type="Script" path="res://components/behaviour/RtsMove.gd" id="15_ww7pl"]
 [ext_resource type="Script" path="res://components/behaviour/RtsAttack.gd" id="16_dwua1"]
 
@@ -177,6 +181,31 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vxh7u"]
 resource_local_to_scene = true
+
+[sub_resource type="Resource" id="Resource_7g4wu"]
+script = ExtResource("13_k58gx")
+base = 10.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[sub_resource type="Resource" id="Resource_ag06w"]
+script = ExtResource("15_prfgm")
+type = 0
+damage_type = 0
+movement = false
+cooldown = 0.0
+area_of_effect = 5
+scene = "res://scenes/rts/Units/unit_projectile.tscn"
+damage_effectiveness = 1.0
+damage = SubResource("Resource_7g4wu")
+weapon_compatibility = Array[int]([])
+projectiles = 0
+base_duration = 0.0
+projectiles_scallable = false
+behaviours = Array[String](["res://scenes/skills/behaviours/projectile.tscn", "res://scenes/skills/behaviours/following.tscn", "res://scenes/skills/behaviours/damaging.tscn"])
+throw_speed = 50
+effects = Array[ExtResource("14_d18y3")]([])
 
 [sub_resource type="Animation" id="Animation_lk06j"]
 length = 0.001
@@ -601,14 +630,23 @@ sprites = [NodePath("../Sprite2D")]
 body = NodePath("..")
 has_colored_outline = true
 
-[node name="AttackComponent" type="Node2D" parent="." node_paths=PackedStringArray("stats", "network", "attack_timer")]
+[node name="AttackComponent" type="Node2D" parent="." node_paths=PackedStringArray("stats", "network", "attack_style", "attack_timer")]
 script = ExtResource("11_t3uyx")
 stats = NodePath("../Stats")
 network = NodePath("../NetworkComponent")
+attack_style = NodePath("ProjectileAttackStyle")
 attack_timer = NodePath("AttackRate")
 shape = SubResource("CircleShape2D_vxh7u")
 
 [node name="AttackRate" type="Timer" parent="AttackComponent"]
+
+[node name="ProjectileAttackStyle" type="Node2D" parent="AttackComponent" node_paths=PackedStringArray("attack_point", "stats")]
+script = ExtResource("12_qgbwh")
+attack_point = NodePath("AttackPoint")
+skill = SubResource("Resource_ag06w")
+stats = NodePath("../../Stats")
+
+[node name="AttackPoint" type="Node2D" parent="AttackComponent/ProjectileAttackStyle"]
 
 [node name="DeathComponent" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "health", "body", "corpse", "delete_timer")]
 script = ExtResource("10_yroxq")
@@ -630,7 +668,6 @@ wait_time = 0.5
 
 [node name="Stats" type="Node2D" parent="."]
 script = ExtResource("11_kf7f8")
-attack_speed = 10.0
 cast_speed = 5.0
 additionnal_projectiles = 0
 max_health = 500

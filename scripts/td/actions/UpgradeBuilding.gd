@@ -26,11 +26,11 @@ func upgrade_building():
 	ActionFinished.emit()
 	time.stop()
 
-func get_overlapping_building(pos: Vector2, player_id: int):
+func get_overlapping_building(_pos: Vector2, _player_id: int):
 	var query = PhysicsShapeQueryParameters2D.new()
 	var space = get_world_2d().direct_space_state
 	query.shape = shape
 	query.collision_mask = 2
-	query.transform = Transform2D(0, pos)
+	query.transform = Transform2D(0, _pos)
 	var result = space.intersect_shape(query)
-	return result.map(func(el): return el.collider).filter(func(el): return el.controlled_by == player_id and el is TdBuilding)
+	return result.map(func(el): return el.collider).filter(func(el): return el.controlled_by == _player_id and el is TdBuilding)

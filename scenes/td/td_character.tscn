@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=3 uid="uid://c5l2uj10dkdvv"]
+[gd_scene load_steps=110 format=3 uid="uid://c5l2uj10dkdvv"]
 
 [ext_resource type="Texture2D" uid="uid://bpdtcgodfaxhk" path="res://assets/Prototype_Character/farmer-Sheet.png" id="1_hek0a"]
 [ext_resource type="Script" path="res://scripts/td/TdCharacter.gd" id="1_qxb2a"]
@@ -25,6 +25,7 @@
 [ext_resource type="Script" path="res://components/collect/CollectComponent.gd" id="18_a522l"]
 [ext_resource type="Texture2D" uid="uid://q2i8l25wbq8q" path="res://assets/icons/buildings/basic_module.png" id="18_t36sl"]
 [ext_resource type="Texture2D" uid="uid://dhf3on5ar35bw" path="res://assets/buildings/basic_module_construction.png" id="18_w7ai1"]
+[ext_resource type="Script" path="res://components/attack/InstantAttackStyle.gd" id="26_e411n"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kad1q"]
 properties/0/path = NodePath("../HealthComponent:health")
@@ -613,11 +614,12 @@ size = Vector2(16, 16)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_avhgp"]
 
-[node name="TdCharacter" type="CharacterBody2D" node_paths=PackedStringArray("animation", "sprite", "stats", "movement", "health", "hitbox", "selection", "action_controller", "build", "attack") groups=["player_entity"]]
+[node name="TdCharacter" type="CharacterBody2D" node_paths=PackedStringArray("network", "animation", "sprite", "stats", "movement", "health", "hitbox", "selection", "action_controller", "build", "attack") groups=["player_entity"]]
 collision_layer = 18
 collision_mask = 44
 input_pickable = true
 script = ExtResource("1_qxb2a")
+network = NodePath("NetworkComponent")
 animation = NodePath("AnimationComponent")
 sprite = NodePath("AnimatedSprite2D")
 stats = NodePath("Stats")
@@ -781,11 +783,16 @@ modulate = Color(0.53, 0.953, 1, 0.396078)
 z_index = 5
 texture = ExtResource("17_cxfbk")
 
-[node name="CollectComponent" type="Node2D" parent="." node_paths=PackedStringArray("stats", "network", "attack_timer")]
+[node name="CollectComponent" type="Node2D" parent="." node_paths=PackedStringArray("stats", "network", "attack_style", "attack_timer")]
 script = ExtResource("18_a522l")
 stats = NodePath("../Stats")
 network = NodePath("../NetworkComponent")
+attack_style = NodePath("InstantAttackStyle")
 attack_timer = NodePath("Timer")
 shape = SubResource("CircleShape2D_avhgp")
 
 [node name="Timer" type="Timer" parent="CollectComponent"]
+
+[node name="InstantAttackStyle" type="Node2D" parent="CollectComponent" node_paths=PackedStringArray("stats")]
+script = ExtResource("26_e411n")
+stats = NodePath("../../Stats")

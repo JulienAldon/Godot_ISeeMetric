@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://bs5181k63jx1w"]
+[gd_scene load_steps=13 format=4 uid="uid://bs5181k63jx1w"]
 
 [ext_resource type="Script" path="res://scripts/SceneManager.gd" id="1_s0nne"]
 [ext_resource type="Script" path="res://scripts/map/Tilemap.gd" id="3_uxxc1"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://baxg8wjbqklw5" path="res://scenes/game/buildings/outpost.tscn" id="4_wj8vg"]
 [ext_resource type="Script" path="res://scripts/Fog.gd" id="6_wibjr"]
 [ext_resource type="PackedScene" uid="uid://deqj7jv2gkugs" path="res://scenes/td/building/windmill.tscn" id="7_bn4lg"]
+[ext_resource type="PackedScene" uid="uid://crm0ttdvjehor" path="res://scenes/game/stone.tscn" id="8_1bvey"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a1h70"]
 resource_local_to_scene = true
@@ -821,6 +822,60 @@ position = Vector2(305, 357)
 
 [node name="Tree50" parent="Resources" instance=ExtResource("4_k0pf0")]
 position = Vector2(348, 337)
+
+[node name="Stone" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-521, -398)
+
+[node name="Stone2" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-503, -421)
+
+[node name="Stone3" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-432, -397)
+
+[node name="Stone4" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-331, -434)
+
+[node name="Stone5" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-423, -455)
+
+[node name="Stone6" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-964, -86)
+
+[node name="Stone7" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-940, -73)
+
+[node name="Stone8" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-968, -61)
+
+[node name="Stone9" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-535, -484)
+
+[node name="Stone10" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-507, -485)
+
+[node name="Stone11" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-516, -465)
+
+[node name="Stone12" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(152, -618)
+
+[node name="Stone13" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(191, -560)
+
+[node name="Stone14" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-195, -555)
+
+[node name="Stone15" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-92, -638)
+
+[node name="Stone16" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(149, -689)
+
+[node name="Stone17" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(-60, -272)
+
+[node name="Stone18" parent="Resources" instance=ExtResource("8_1bvey")]
+position = Vector2(52, -253)
 
 [node name="Fog" type="Sprite2D" parent="." node_paths=PackedStringArray("tilemap_layer")]
 z_index = 10

@@ -38,6 +38,14 @@ class_name CharacterStats
 #@export var more_cold_damage_sources := []
 #@export var more_lighting_damage_sources := []
 
+@export var armor: int = 0
+
+func calculate_hit_damage(damage: int) -> int:
+	return ceil(damage * float(float(100) / float(100 + get_armor())))
+
+func get_armor() -> int:
+	return armor
+
 func get_max_health():
 	return max_health
 

@@ -21,7 +21,6 @@ var action_queue: Array[Node]
 var currency_text = {
 	GameManager.CurrencyType.Gold: "Gold",
 	GameManager.CurrencyType.Faith: "Faith",
-	GameManager.CurrencyType.Materials: "Materials",
 }
 
 func assign_outpost_informations():

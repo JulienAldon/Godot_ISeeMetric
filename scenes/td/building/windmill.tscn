@@ -339,3 +339,4 @@ spawned_entity_shape = SubResource("RectangleShape2D_krwcu")
 spawn_timer = NodePath("SpawnTimer")
 
 [node name="SpawnTimer" type="Timer" parent="SpawnResource"]
+wait_time = 5.0

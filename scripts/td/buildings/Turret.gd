@@ -23,7 +23,6 @@ func _process(delta):
 	if attack.has_target():
 		attack.set_target(attack.get_target())
 		if attack.is_attack_possible():
-			#pass
 			attack.attack_target()
 
 func deactivate_behaviour():
