@@ -73,9 +73,11 @@ func set_source(_selection: Array):
 func trigger_action(action: Action):
 	if not self.is_open:
 		return
+	if not is_instance_valid(entity_action):
+		return
 	if selection.size() <= 0:
 		return
-	var entities = selection.filter(func(el): return is_instance_valid(el) && is_instance_valid(entity_action) && el.str_type == entity_action.str_type)
+	var entities = selection.filter(func(el): return is_instance_valid(el) && el.str_type == entity_action.str_type)
 	for entity in entities:
 		var act = entity.action_controller.get_possible_actions().filter(func(el): return el.title == action.title)
 		entity.trigger_action(act[0])

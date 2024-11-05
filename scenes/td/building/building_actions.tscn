@@ -3,15 +3,15 @@
 [ext_resource type="Script" path="res://scripts/Ui/actions/FloatingActionPanel.gd" id="1_1ifyj"]
 [ext_resource type="PackedScene" uid="uid://ct5uvol3tm24r" path="res://scenes/ui/ui_action.tscn" id="2_oryy8"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ad0ss"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ktd5"]
 resource_local_to_scene = true
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u4tap"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wbq02"]
 resource_local_to_scene = true
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hn1bt"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qmm6i"]
 resource_local_to_scene = true
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
@@ -30,12 +30,12 @@ layout_mode = 2
 
 [node name="UIAction" parent="HBoxContainer" instance=ExtResource("2_oryy8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_ad0ss")
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ktd5")
 
 [node name="UIAction2" parent="HBoxContainer" instance=ExtResource("2_oryy8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_u4tap")
+theme_override_styles/panel = SubResource("StyleBoxFlat_wbq02")
 
 [node name="UIAction3" parent="HBoxContainer" instance=ExtResource("2_oryy8")]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_hn1bt")
+theme_override_styles/panel = SubResource("StyleBoxFlat_qmm6i")

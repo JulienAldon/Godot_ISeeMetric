@@ -5,7 +5,7 @@ class_name AttackComponent
 @export var stats: CharacterStats
 @export var network: NetworkComponent
 @export var attack_style: AttackStyle
-@export var range_shape: Shape2D
+var range_shape: Shape2D = CircleShape2D.new()
 
 @export_category("Configuration")
 @export var attack_timer: Timer
@@ -13,7 +13,7 @@ class_name AttackComponent
 var target: Node2D
 var can_attack: bool = true
 var attack_move: bool = false
-var nearby_targets: Array[Node2D] = []
+var nearby_targets: Array = []
 
 func _ready():
 	attack_timer.wait_time = 1 / stats.attack_speed
@@ -72,3 +72,12 @@ func attack_target() -> void:
 	attack_timer.wait_time = 1 / stats.attack_speed
 	attack_timer.start()
 	can_attack = false
+
+func compute_nearby_target() -> Array:
+	var query = PhysicsShapeQueryParameters2D.new()
+	var space = get_world_2d().direct_space_state
+	query.shape = range_shape
+	query.collision_mask = 2
+	query.transform = Transform2D(0, global_position)
+	var result = space.intersect_shape(query)
+	return result.map(func(el): return el.collider)

@@ -24,6 +24,14 @@ var player_name: String
 var last_target: Entity
 var last_select: Entity
 
+var outposts: Array[Node]
+
+func get_owned_outpost() -> Array[Node]:
+	return outposts.filter(func(el): return is_instance_valid(el) and el.controlled_by == player_id)
+
+func can_queue_action(action: Action) -> bool:
+	return can_spend_currency(action.cost) and current_controller.can_queue_action(action)
+
 func get_player_offset() -> Vector2:
 	return current_controller.get_player_offset()
 
@@ -37,7 +45,6 @@ func interact_entity(entity: Entity):
 	current_controller.interact_entity(entity)
 
 func stop_interact_entity(entity: Entity):
-	#entity.selection.set_target_indicator(false)
 	current_controller.stop_interact_entity(entity)
 
 func reset_state():
@@ -110,6 +117,7 @@ func _ready():
 	gui.visible = has_control
 	gui.set_player_name(str(player_name) + suffix)
 	gui.set_currency(currencies)
+	outposts = GameManager.get_level_outposts()
 
 @rpc("any_peer", "call_local")
 func set_experience(value):

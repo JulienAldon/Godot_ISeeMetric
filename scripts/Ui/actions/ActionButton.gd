@@ -10,7 +10,6 @@ class_name ActionButton
 @export var button: Button
 @export var hover_texture: TextureRect
 @export var icon: TextureRect
-
 @export var key: InputEventAction
 
 var can_start: bool = true
@@ -29,9 +28,8 @@ func set_action_icon(_action: Action):
 	self.show()
 	action = _action
 	icon.texture = _action.icon
-	button.tooltip_text = _action.description
 	cooldown.wait_time = _action.cooldown.wait_time
-
+	
 func cooldown_finished():
 	can_start = true
 	
@@ -41,15 +39,19 @@ func _ready():
 		var shortcut = Shortcut.new()
 		shortcut.set_events([key])
 		button.set_shortcut(shortcut)
-	
+
+#func get_cost_tooltip(action):
+	#var text:
+	#for cost in action.cost:
+
 func _process(_delta):
 	if can_buy():
 		button.disabled = false
 		icon.modulate = Color(1, 1, 1, 1)
-		button.tooltip_text = ""
+		#button.tooltip_text = action.description
 	else:
 		icon.modulate = Color(1, 1, 1, 0.3)
-		button.tooltip_text = "Not enough currency"
+		#button.tooltip_text = "Not enough currency"
 		button.disabled = true
 
 	if cooldown.time_left != 0:
@@ -67,7 +69,8 @@ func _on_button_pressed():
 func can_buy():
 	if not is_instance_valid(action):
 		return false
-	return GameManager.get_player(multiplayer.get_unique_id()).can_spend_currency(action.cost)
+	var player = GameManager.get_player(multiplayer.get_unique_id())
+	return player.can_queue_action(action)
 
 func _on_button_mouse_entered():
 	if can_buy():

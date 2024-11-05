@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c6rpdqb17327o"]
+[gd_scene load_steps=21 format=3 uid="uid://c6rpdqb17327o"]
 
 [ext_resource type="Script" path="res://scripts/td/buildings/Module.gd" id="1_bn7lv"]
 [ext_resource type="PackedScene" uid="uid://cxrcptlbws3jo" path="res://scenes/td/building/building_actions.tscn" id="2_8odok"]
@@ -39,9 +39,6 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwgbt"]
 size = Vector2(40, 40)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wpb2u"]
-size = Vector2(32, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7th70"]
 size = Vector2(150, 150)
@@ -115,9 +112,9 @@ texture = ExtResource("12_d8f5k")
 body = NodePath("..")
 actions_container = NodePath(".")
 
-[node name="RemoveBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("cooldown", "time")]
+[node name="RemoveBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("building", "cooldown", "time")]
 script = ExtResource("12_5b3yh")
-shape = SubResource("RectangleShape2D_wpb2u")
+building = NodePath("../..")
 title = "Remove Module"
 icon = ExtResource("13_bh0vm")
 cooldown = NodePath("Cooldown")

@@ -10,7 +10,6 @@ class_name SpawnResourceComponent
 @export var max_entity_spawn: int = 10
 @export var spawn_timer: Timer
 var can_spawn: bool = true
-var spawn_rate: float = 0.5
 var entities: Array
 
 func _ready():
@@ -21,7 +20,6 @@ func _ready():
 
 func start_effect():
 	spawn_timer.start()
-	spawn_timer.wait_time = spawn_rate
 
 func stop_effect():
 	spawn_timer.stop()

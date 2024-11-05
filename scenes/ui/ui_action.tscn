@@ -1,7 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://ct5uvol3tm24r"]
+[gd_scene load_steps=10 format=3 uid="uid://ct5uvol3tm24r"]
 
 [ext_resource type="Script" path="res://scripts/Ui/actions/ActionButton.gd" id="1_odi3s"]
 [ext_resource type="Texture2D" uid="uid://bg1cvfm5gto25" path="res://assets/icons/default.png" id="2_mot27"]
+[ext_resource type="Script" path="res://components/tooltip/Tooltip.gd" id="3_7andd"]
+[ext_resource type="PackedScene" uid="uid://c6t0dkbpc17p2" path="res://scenes/ui/ActionTooltip.tscn" id="4_3x0gb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j2c48"]
 resource_local_to_scene = true
@@ -43,16 +45,20 @@ layout_mode = 2
 texture = SubResource("GradientTexture1D_7cd3x")
 expand_mode = 1
 
-[node name="Button" type="Button" parent="."]
+[node name="Button" type="Button" parent="." node_paths=PackedStringArray("action_ui")]
 custom_minimum_size = Vector2(17, 17)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+tooltip_text = "Test tooltip"
 focus_mode = 0
 mouse_default_cursor_shape = 2
 flat = true
 icon_alignment = 1
 expand_icon = true
+script = ExtResource("3_7andd")
+tooltip = ExtResource("4_3x0gb")
+action_ui = NodePath("..")
 
 [node name="Cooldown" type="Timer" parent="."]
 one_shot = true

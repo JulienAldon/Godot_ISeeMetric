@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=3 uid="uid://c5l2uj10dkdvv"]
+[gd_scene load_steps=109 format=3 uid="uid://c5l2uj10dkdvv"]
 
 [ext_resource type="Texture2D" uid="uid://bpdtcgodfaxhk" path="res://assets/Prototype_Character/farmer-Sheet.png" id="1_hek0a"]
 [ext_resource type="Script" path="res://scripts/td/TdCharacter.gd" id="1_qxb2a"]
@@ -612,8 +612,6 @@ type = 2
 resource_local_to_scene = true
 size = Vector2(16, 16)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_avhgp"]
-
 [node name="TdCharacter" type="CharacterBody2D" node_paths=PackedStringArray("network", "animation", "sprite", "stats", "movement", "health", "hitbox", "selection", "action_controller", "build", "attack") groups=["player_entity"]]
 collision_layer = 18
 collision_mask = 44
@@ -789,7 +787,6 @@ stats = NodePath("../Stats")
 network = NodePath("../NetworkComponent")
 attack_style = NodePath("InstantAttackStyle")
 attack_timer = NodePath("Timer")
-shape = SubResource("CircleShape2D_avhgp")
 
 [node name="Timer" type="Timer" parent="CollectComponent"]
 

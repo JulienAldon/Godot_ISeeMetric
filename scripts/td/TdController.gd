@@ -3,16 +3,34 @@ extends Controller
 class_name TdController
 
 @export var character: TdCharacter
-var input_axis = Vector2(0, 0)
-
 @export var mouse_shape: Shape2D
+@export var max_buildings_per_outpost: int = 6
 
+var input_axis = Vector2(0, 0)
 var last_select: Entity
+
+var owned_buildings: Array[TdBuilding]
+var max_buildings: int
 
 func _ready():
 	super()
+	max_buildings = player.get_owned_outpost().size() * max_buildings_per_outpost
 	character.controlled_by = player_id
 	player.show_entities_actions([character], player_id)
+
+func add_building(building: TdBuilding):
+	owned_buildings.append(building)
+
+func remove_building(building: TdBuilding):
+	owned_buildings.erase(building)
+
+func can_queue_action(action: Action):
+	var can_queue: bool = true
+	if action is Build:
+		can_queue = owned_buildings.size() < max_buildings
+	if action is UpgradeBuilding:
+		can_queue = action.building.upgrade.can_upgrade()
+	return can_queue
 
 func select_entity(entity: Entity):
 	if is_instance_valid(last_select):
@@ -32,6 +50,9 @@ func _process(_delta):
 		return
 	if player.get_displayed_action().size() <= 0:
 		player.show_entities_actions([character], player_id)
+	
+	max_buildings = player.get_owned_outpost().size() * max_buildings_per_outpost
+	player.gui.set_building_count(owned_buildings.size(), max_buildings)
 	
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		if character.attack.is_attack_possible() and character.attack.is_in_range(character.global_position):

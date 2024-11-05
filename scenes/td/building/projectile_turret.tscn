@@ -28,9 +28,6 @@ animations = [{
 
 [sub_resource type="Animation" id="Animation_syqgq"]
 
-[sub_resource type="Animation" id="Animation_qhcg3"]
-resource_name = "default"
-
 [sub_resource type="Animation" id="Animation_35th6"]
 resource_name = "hit"
 length = 0.1
@@ -48,6 +45,9 @@ tracks/0/keys = {
 "method": &"_hit_body"
 }]
 }
+
+[sub_resource type="Animation" id="Animation_qhcg3"]
+resource_name = "default"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qwwh8"]
 _data = {
@@ -96,10 +96,11 @@ states/idle/node = SubResource("AnimationNodeBlendTree_ryq68")
 states/idle/position = Vector2(347, 105)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_sqtav"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_kyi6j")]
 
-[node name="ProjectileTurret" type="Node2D" node_paths=PackedStringArray("behaviours_container", "animation_player")]
+[node name="ProjectileTurret" type="Node2D" node_paths=PackedStringArray("behaviours_container", "animation_tree", "animation_player")]
 z_index = 1
 script = ExtResource("1_yxjwu")
 behaviours_container = NodePath("Behaviours")
+animation_tree = NodePath("AnimationTree")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

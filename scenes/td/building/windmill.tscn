@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://deqj7jv2gkugs"]
+[gd_scene load_steps=27 format=3 uid="uid://deqj7jv2gkugs"]
 
 [ext_resource type="Script" path="res://scripts/td/buildings/Windmill.gd" id="1_622jx"]
 [ext_resource type="Texture2D" uid="uid://dxudhfnuucocm" path="res://assets/buildings/windmill.png" id="1_sai4a"]
@@ -176,9 +176,6 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ptst5"]
 size = Vector2(32, 32)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_avauv"]
-size = Vector2(32, 32)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1apkk"]
 size = Vector2(150, 150)
 
@@ -315,9 +312,9 @@ texture = ExtResource("10_c0uua")
 body = NodePath("..")
 actions_container = NodePath(".")
 
-[node name="RemoveBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("cooldown", "time")]
+[node name="RemoveBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("building", "cooldown", "time")]
 script = ExtResource("15_g8ml6")
-shape = SubResource("RectangleShape2D_avauv")
+building = NodePath("../..")
 title = "Remove Windmill"
 icon = ExtResource("16_0ukud")
 cooldown = NodePath("Cooldown")
@@ -339,4 +336,3 @@ spawned_entity_shape = SubResource("RectangleShape2D_krwcu")
 spawn_timer = NodePath("SpawnTimer")
 
 [node name="SpawnTimer" type="Timer" parent="SpawnResource"]
-wait_time = 5.0

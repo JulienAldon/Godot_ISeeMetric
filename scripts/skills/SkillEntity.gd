@@ -12,11 +12,11 @@ var behaviours_models
 var behaviours: Array[SkillBehaviour]
 
 var scene: String
-
+@export_category("Dependencies")
 @export var animation_tree: AnimationTree
 @export var animation_player: AnimationPlayer
 
-var is_from_hit: bool
+@export_category("Spawn import")
 @export var damage: float
 @export var animation_duration: float
 @export var ref: Vector2
@@ -26,6 +26,7 @@ var is_from_hit: bool
 @export var speed: float = 0
 @export var initial_direction: Vector2
 @export var target_path: NodePath
+
 var effects
 var mouse_pos: Vector2
 var duration: float
@@ -48,18 +49,16 @@ func _enter_tree():
 		behaviours.append(behaviour)
 
 func _ready():
-	if multiplayer.is_server():
-		if behaviours.size() > 0:
-			for behaviour in behaviours:
-				behaviour.enter()
+	if not multiplayer.is_server():
+		return
+	for behaviour in behaviours:
+		behaviour.enter()
 	animation_tree["parameters/idle/TimeScale/scale"] = animation_speed
 	#if duration > 0:
 		#var anim = animation_player.get_animation(animation_player.current_animation)
 		#anim.length = duration
 
-func _process(delta):
-	if !multiplayer.is_server():
-		return
+func check_collision():
 	var query := PhysicsShapeQueryParameters2D.new()
 	query.set_shape(shape)
 	query.collide_with_bodies = true
@@ -69,16 +68,19 @@ func _process(delta):
 	if result.size() > 0 and result[0].collider.controlled_by != controlled_by:
 		animation_tree["parameters/conditions/hit"] = true
 		body_hit = result[0].collider
-	if behaviours.size() > 0:
-		for behaviour in behaviours:
-			behaviour.update(delta)
+
+func _process(delta):
+	if !multiplayer.is_server():
+		return
+	check_collision()
+	for behaviour in behaviours:
+		behaviour.update(delta)
 	if not animation_player.is_playing() or ("death" in target and target.death.is_dead):
 		queue_free()
 
 func _physics_process(delta):
-	if behaviours.size() > 0:
-		for behaviour in behaviours:
-			behaviour.physics_update(delta)
+	for behaviour in behaviours:
+		behaviour.physics_update(delta)
 
 func _hit_body():
 	if body_hit.controlled_by == controlled_by:

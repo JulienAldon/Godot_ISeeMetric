@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=3 uid="uid://bfvtfiwo5a8bd"]
+[gd_scene load_steps=80 format=3 uid="uid://bfvtfiwo5a8bd"]
 
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="1_2eckm"]
 [ext_resource type="Script" path="res://scripts/rts/Units/RtsCharacter.gd" id="1_5ashi"]
@@ -178,9 +178,6 @@ animations = [{
 "name": &"Walking",
 "speed": 5.0
 }]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_vxh7u"]
-resource_local_to_scene = true
 
 [sub_resource type="Resource" id="Resource_7g4wu"]
 script = ExtResource("13_k58gx")
@@ -636,7 +633,6 @@ stats = NodePath("../Stats")
 network = NodePath("../NetworkComponent")
 attack_style = NodePath("ProjectileAttackStyle")
 attack_timer = NodePath("AttackRate")
-shape = SubResource("CircleShape2D_vxh7u")
 
 [node name="AttackRate" type="Timer" parent="AttackComponent"]
 

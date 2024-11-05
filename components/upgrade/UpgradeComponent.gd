@@ -14,6 +14,9 @@ var current_tier: int
 @export var stats: CharacterStats
 @export var upgrades_per_tier: Dictionary
 
+func can_upgrade():
+	return current_tier < 3
+
 func add_upgrade_tier():
 	if current_tier >= 3:
 		return

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://ctnb0adqyubor"]
+[gd_scene load_steps=38 format=3 uid="uid://ctnb0adqyubor"]
 
 [ext_resource type="Script" path="res://scripts/td/buildings/Turret.gd" id="1_ri0pb"]
 [ext_resource type="Texture2D" uid="uid://cnqwaelhsga7d" path="res://assets/icons/buildings/basic_turret.png" id="2_ein1a"]
@@ -54,8 +54,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_spvwe"]
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_2eori"]
 resource_local_to_scene = true
 radius = 100.0
@@ -93,13 +91,6 @@ projectiles_scallable = false
 behaviours = Array[String](["res://scenes/skills/behaviours/projectile.tscn", "res://scenes/skills/behaviours/following.tscn", "res://scenes/skills/behaviours/damaging.tscn"])
 throw_speed = 500
 effects = Array[ExtResource("12_sbd1q")]([])
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nawp3"]
-size = Vector2(32, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0tu48"]
-resource_local_to_scene = true
-size = Vector2(32, 32)
 
 [sub_resource type="Resource" id="Resource_iakck"]
 script = ExtResource("23_ddsxj")
@@ -200,12 +191,11 @@ stats = NodePath("../CharacterStats")
 network = NodePath("../NetworkComponent")
 attack_style = NodePath("ProjectileAttackStyle")
 attack_timer = NodePath("AttackTimer")
-shape = SubResource("CircleShape2D_spvwe")
 
 [node name="TargetDetection" type="Area2D" parent="TurretAttack"]
 position = Vector2(0, 3)
 collision_layer = 0
-collision_mask = 49
+collision_mask = 113
 input_pickable = false
 monitorable = false
 
@@ -244,9 +234,10 @@ position = Vector2(-2, -41)
 body = NodePath("..")
 actions_container = NodePath(".")
 
-[node name="RemoveBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("cooldown", "time")]
+[node name="RemoveBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("building", "cooldown", "time")]
 script = ExtResource("17_hma3m")
-shape = SubResource("RectangleShape2D_nawp3")
+building = NodePath("../..")
+title = "Remove Building"
 icon = ExtResource("18_36dea")
 cooldown = NodePath("Cooldown")
 time = NodePath("Timer")
@@ -258,9 +249,9 @@ wait_time = 0.1
 [node name="Cooldown" type="Timer" parent="ActionComponent/RemoveBuilding"]
 wait_time = 0.2
 
-[node name="UpgradeBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("cooldown", "time")]
+[node name="UpgradeBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("building", "cooldown", "time")]
 script = ExtResource("21_ungkl")
-shape = SubResource("RectangleShape2D_0tu48")
+building = NodePath("../..")
 title = "Upgrade turret"
 icon = ExtResource("22_nv2mx")
 cooldown = NodePath("Cooldown")

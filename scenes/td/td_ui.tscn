@@ -55,8 +55,9 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [sub_resource type="InputEventAction" id="InputEventAction_pu4p0"]
 action = &"action_slot_5"
 
-[node name="TdUi" type="CanvasLayer" node_paths=PackedStringArray("name_label", "level", "currency", "minimap", "informations_panel", "action_panel")]
+[node name="TdUi" type="CanvasLayer" node_paths=PackedStringArray("nb_buildings", "name_label", "level", "currency", "minimap", "informations_panel", "action_panel")]
 script = ExtResource("1_biwxq")
+nb_buildings = NodePath("NbBuilding")
 name_label = NodePath("Name")
 level = NodePath("Level")
 currency = NodePath("Currencies")
@@ -158,3 +159,13 @@ key = SubResource("InputEventAction_qbjw3")
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sa28c")
 key = SubResource("InputEventAction_pu4p0")
+
+[node name="NbBuilding" type="Label" parent="."]
+offset_left = 183.0
+offset_top = 298.0
+offset_right = 215.0
+offset_bottom = 321.0
+tooltip_text = "0/6"
+mouse_filter = 0
+text = "0/6
+"

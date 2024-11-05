@@ -13,13 +13,21 @@ class_name CurrencyUi
 @export var status_indicator: TextureRect
 
 func _ready():
-	icon_texture.texture = icon
+	if not icon_texture.texture:
+		icon_texture.texture = icon
 
 func get_currency_type() -> GameManager.CurrencyType:
 	return currency_type
 
+func set_currency_type(value: GameManager.CurrencyType):
+	currency_type = value
+
+func set_icon(icon: Texture2D):
+	icon_texture.texture = icon
+
 func set_currency(amount: int):
 	currency_label.text = str(amount)
+	tooltip_text = str(amount)
 
 func set_status_indicator(value: int):
 	if not status_indicators.has(value):

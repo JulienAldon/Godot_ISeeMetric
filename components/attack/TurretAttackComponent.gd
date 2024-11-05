@@ -16,12 +16,9 @@ func _process(_delta) -> void:
 	range_delimiter.scale = Vector2(stats.get_range() / 100, stats.get_range() / 100)
 	range_delimiter.position = Vector2(-stats.get_range(), -stats.get_range())
 	collision.shape.radius = stats.get_range()
-	
-func _on_target_detection_body_entered(body) -> void:
-	if body.controlled_by == network.controlled_by:
-		return
-	if "hitbox" in body:
-		nearby_targets.append(body)
+	if Engine.get_process_frames() % 20 == 0:
+		nearby_targets = compute_nearby_target()
 
-func _on_target_detection_body_exited(body) -> void:
-	nearby_targets.erase(body)
+func compute_nearby_target() -> Array:
+	var res = super()
+	return res.filter(func(el): return el.controlled_by != network.controlled_by and el is not Outpost)

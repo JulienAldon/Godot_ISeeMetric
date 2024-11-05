@@ -10,6 +10,19 @@ var in_outpost_range: bool = false
 var health_lost = 50
 var current_rime: float = 0
 
+var player: Node2D
+
+func _enter_tree():
+	player = GameManager.get_player(controlled_by)
+	if not player:
+		return
+	player.current_controller.add_building(self)
+
+func _exit_tree():
+	if not player:
+		return
+	player.current_controller.remove_building(self)
+
 func is_in_outpost_range():
 	var outposts = GameManager.get_level_outposts()
 	for outpost in outposts:
@@ -44,7 +57,8 @@ func trigger_action(action):
 		self.build.set_action_build_mode(action)
 		return
 	if self.action_controller:
-		var player = GameManager.get_player(multiplayer.get_unique_id())
-		if self.action_controller.can_queue_action() and player.can_spend_currency(action.cost):
+		if not player.current_controller.can_queue_action(action):
+			return
+		if self.action_controller.can_queue_action():
 			player.spend_currency(action.cost)
 			self.action_controller.queue_action(action, global_position)

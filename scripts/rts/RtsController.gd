@@ -74,6 +74,10 @@ func filter_allies(e):
 	
 @export var char_scene: String = ""
 
+func can_queue_action(action: Action):
+	var can_queue: bool = true
+	return can_queue
+
 func _unhandled_input(event):
 	select_controller.selection_control(event)
 	var mouse_pos = get_global_mouse_position()
