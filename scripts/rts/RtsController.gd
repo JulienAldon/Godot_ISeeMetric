@@ -4,9 +4,7 @@ class_name RtsController
 @export var camera_margin := 30
 @export var camera_speed := 800
 @export var cursor_animation_scene: String
-
 @export var select_controller: SelectController
-@onready var center_offset: Vector2 = (Vector2(get_viewport().size) / camera.get_zoom()) / 2
 
 func minimap_command_action(pos: Vector2):
 	command_or_append_unit_action(pos, null)
@@ -15,6 +13,7 @@ func minimap_command_position(pos: Vector2):
 	player.position = pos
 
 func _ready():
+	center_offset = (Vector2(get_viewport_rect().size)) / 2
 	color = player.color
 	player.position -= center_offset
 	super()

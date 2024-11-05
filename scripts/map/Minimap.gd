@@ -72,7 +72,8 @@ func translate_to_world_pos(pos: Vector2):
 
 func _process(_delta):
 	if is_instance_valid(player):
-		player_sprite.position = translate_to_minimap_coords(player.camera.global_position) + Vector2((player_sprite.texture.get_size() * player_sprite.scale)/ 2)
+		print(player_sprite.position)
+		player_sprite.position = translate_to_minimap_coords(player.camera.global_position + player.get_player_offset())
 	if is_instance_valid(fog_rect) and is_instance_valid(fog_system):
 		fog_rect.texture = fog_system.texture
 

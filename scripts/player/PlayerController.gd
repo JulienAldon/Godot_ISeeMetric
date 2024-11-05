@@ -24,6 +24,9 @@ var player_name: String
 var last_target: Entity
 var last_select: Entity
 
+func get_player_offset() -> Vector2:
+	return current_controller.get_player_offset()
+
 func interact_entity(entity: Entity):
 	if entity.controlled_by == multiplayer.get_unique_id():
 		return

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://baxg8wjbqklw5" path="res://scenes/game/buildings/outpost.tscn" id="4_wj8vg"]
 [ext_resource type="Script" path="res://scripts/Fog.gd" id="6_wibjr"]
 [ext_resource type="PackedScene" uid="uid://deqj7jv2gkugs" path="res://scenes/td/building/windmill.tscn" id="7_bn4lg"]
-[ext_resource type="PackedScene" uid="uid://crm0ttdvjehor" path="res://scenes/game/stone.tscn" id="8_1bvey"]
+[ext_resource type="PackedScene" path="res://scenes/game/stone.tscn" id="8_1bvey"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a1h70"]
 resource_local_to_scene = true

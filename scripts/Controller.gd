@@ -7,8 +7,13 @@ class_name Controller
 @export var color: Color
 @export var player_id: int
 
+var center_offset: Vector2 = Vector2(0, 0)
+
 func _ready():
 	player_id = player.name.to_int()
+
+func get_player_offset() -> Vector2:
+	return center_offset
 
 func minimap_command_position(_pos: Vector2):
 	pass
