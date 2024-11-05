@@ -2,8 +2,11 @@ extends Node
 
 class_name AnimationComponent
 
+@export_category("Dependencies")
 @export var sprite: AnimatedSprite2D
 @export var animation_tree: AnimationTree
+
+@export_category("Configuration")
 @export var attack_names: Array[String]
 
 var attacking = false

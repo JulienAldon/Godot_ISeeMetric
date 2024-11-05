@@ -2,9 +2,11 @@ extends Node2D
 
 class_name ActionComponent
 
+@export_category("Dependencies")
 @export var body: Node2D
-
 @export var actions_container: Node2D
+
+@export_category("Configuration")
 @export var max_queue_size: int = 5
 
 var current_action: Action

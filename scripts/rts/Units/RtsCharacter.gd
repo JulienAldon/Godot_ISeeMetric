@@ -61,7 +61,7 @@ func _process(_delta):
 		return
 	if health.health <= 0:
 		dispawn()
-	if attack.target_in_attack_range():
+	if attack.is_target_in_attack_range():
 		behaviours.on_transition("attack")
 	elif movement.has_move_instruction():
 		behaviours.on_transition("move")

@@ -6,7 +6,7 @@ const LightTexture = preload("res://assets/Light.png")
 @export var tilemap_layer: TileMapLayer
 @export var fog_color: Color
 
-const GRID_SIZE = 16
+const GRID_SIZE: float = 16
 
 var fog_image = Image.new()
 var fog_texture = ImageTexture.new()
