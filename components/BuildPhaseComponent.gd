@@ -34,3 +34,5 @@ func _process(delta):
 		return
 	if is_building:
 		health.heal.rpc(health.max_health / (build_time / delta))
+		if health.health >= health.max_health:
+			health.reset()

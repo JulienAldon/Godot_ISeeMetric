@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bvp2o6337esre"]
+[gd_scene load_steps=26 format=3 uid="uid://bvp2o6337esre"]
 
 [ext_resource type="Script" path="res://scripts/rts/buildings/Barracks.gd" id="1_hc7ny"]
 [ext_resource type="Texture2D" uid="uid://dnhvgt5e4ws2w" path="res://assets/buildings/barracks_construction.png" id="1_q32yy"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://c7bi61flkl2h8" path="res://scenes/rts/actions/unit_production.tscn" id="12_18i6w"]
 [ext_resource type="Texture2D" uid="uid://cq2jannuhd1mr" path="res://assets/icons/soldier.png" id="13_yjeer"]
 [ext_resource type="Script" path="res://components/BuildPhaseComponent.gd" id="14_0tjq1"]
+[ext_resource type="Script" path="res://scripts/game/ResourceYield.gd" id="14_aih8e"]
 [ext_resource type="PackedScene" uid="uid://d8gihj7ittof" path="res://components/rally/rally_point_component.tscn" id="16_siwqb"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vvj5i"]
@@ -149,8 +150,10 @@ actions_container = NodePath("Actions")
 [node name="Actions" type="Node2D" parent="ActionComponent"]
 
 [node name="UnitProduction" parent="ActionComponent/Actions" node_paths=PackedStringArray("rally_point") instance=ExtResource("12_18i6w")]
+unit_scene = "res://scenes/rts/Units/rts_character.tscn"
 rally_point = NodePath("../../../RallyPointComponent")
 icon = ExtResource("13_yjeer")
+cost = Array[ExtResource("14_aih8e")]([])
 
 [node name="BuildingPhaseComponent" type="Node2D" parent="." node_paths=PackedStringArray("health", "sprite", "building", "building_sprite", "build_timer")]
 script = ExtResource("14_0tjq1")
