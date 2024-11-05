@@ -58,7 +58,7 @@ func can_spend_currency(costs: Array[ResourceYield]) -> bool:
 	for resource_yield in costs:
 		if not currencies.has(resource_yield.type):
 			return false
-		if resource_yield.value >= currencies[resource_yield.type]:
+		if resource_yield.value > currencies[resource_yield.type]:
 			return false
 	return true
 
