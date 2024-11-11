@@ -15,3 +15,6 @@ func physics_update(_delta: float):
 
 func hit(_body):
 	pass
+
+func stop():
+	pass

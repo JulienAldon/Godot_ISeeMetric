@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=3 uid="uid://c5l2uj10dkdvv"]
+[gd_scene load_steps=116 format=3 uid="uid://c5l2uj10dkdvv"]
 
 [ext_resource type="Texture2D" uid="uid://bpdtcgodfaxhk" path="res://assets/Prototype_Character/farmer-Sheet.png" id="1_hek0a"]
 [ext_resource type="Script" path="res://scripts/td/TdCharacter.gd" id="1_qxb2a"]
@@ -26,6 +26,9 @@
 [ext_resource type="Texture2D" uid="uid://q2i8l25wbq8q" path="res://assets/icons/buildings/basic_module.png" id="18_t36sl"]
 [ext_resource type="Texture2D" uid="uid://dhf3on5ar35bw" path="res://assets/buildings/basic_module_construction.png" id="18_w7ai1"]
 [ext_resource type="Script" path="res://components/attack/InstantAttackStyle.gd" id="26_e411n"]
+[ext_resource type="Script" path="res://scripts/hns/Damage.gd" id="26_w1q36"]
+[ext_resource type="Script" path="res://scripts/skills/effects/EffectResource.gd" id="27_bm7hh"]
+[ext_resource type="Script" path="res://scripts/skills/Skill.gd" id="28_cpdrh"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kad1q"]
 properties/0/path = NodePath("../HealthComponent:health")
@@ -612,6 +615,60 @@ type = 2
 resource_local_to_scene = true
 size = Vector2(16, 16)
 
+[sub_resource type="Resource" id="Resource_nil8q"]
+script = ExtResource("26_w1q36")
+base = 50.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[sub_resource type="Resource" id="Resource_pp77n"]
+resource_local_to_scene = true
+script = ExtResource("28_cpdrh")
+id = ""
+type = 0
+damage_type = 0
+movement = false
+cooldown = 0.0
+area_of_effect = 0
+scene = ""
+damage_effectiveness = -1.0
+damage = SubResource("Resource_nil8q")
+weapon_compatibility = Array[int]([])
+projectiles = 0
+base_duration = 0.0
+projectiles_scallable = false
+behaviours = Array[String]([])
+throw_speed = 0
+effects = Array[ExtResource("27_bm7hh")]([])
+
+[sub_resource type="Resource" id="Resource_cwb5f"]
+script = ExtResource("26_w1q36")
+base = 25.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[sub_resource type="Resource" id="Resource_hgdkv"]
+resource_local_to_scene = true
+script = ExtResource("28_cpdrh")
+id = ""
+type = 0
+damage_type = 0
+movement = false
+cooldown = 0.0
+area_of_effect = 0
+scene = ""
+damage_effectiveness = 1.0
+damage = SubResource("Resource_cwb5f")
+weapon_compatibility = Array[int]([])
+projectiles = 0
+base_duration = 0.0
+projectiles_scallable = false
+behaviours = Array[String]([])
+throw_speed = 0
+effects = Array[ExtResource("27_bm7hh")]([])
+
 [node name="TdCharacter" type="CharacterBody2D" node_paths=PackedStringArray("network", "animation", "sprite", "stats", "movement", "health", "hitbox", "selection", "action_controller", "build", "attack") groups=["player_entity"]]
 collision_layer = 18
 collision_mask = 44
@@ -713,7 +770,7 @@ actions_container = NodePath(".")
 
 [node name="BuildTurret" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("cooldown", "time")]
 script = ExtResource("13_61wp2")
-building_scene = "res://scenes/game/buildings/basic_turret.tscn"
+building_scene = "res://scenes/td/building/turret.tscn"
 build_preview_texture = ExtResource("14_c1gwi")
 title = "Turret"
 icon = ExtResource("14_ym3ic")
@@ -783,6 +840,8 @@ texture = ExtResource("17_cxfbk")
 
 [node name="CollectComponent" type="Node2D" parent="." node_paths=PackedStringArray("stats", "network", "attack_style", "attack_timer")]
 script = ExtResource("18_a522l")
+repair_skill = SubResource("Resource_pp77n")
+attack_skill = SubResource("Resource_hgdkv")
 stats = NodePath("../Stats")
 network = NodePath("../NetworkComponent")
 attack_style = NodePath("InstantAttackStyle")

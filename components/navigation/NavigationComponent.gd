@@ -48,7 +48,7 @@ func set_path(_path, index):
 		current_path_position = index
 	path.append(target_position)
 	var tmp = path[0]
-	
+
 	for elem in path:
 		if tmp.distance_to(elem) < 1:
 			path.erase(elem)

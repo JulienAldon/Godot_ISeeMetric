@@ -7,11 +7,10 @@ class_name UnitInformationUi
 
 var passives_ui: Array = []
 
-# TODO: passive management : a passive ability is affecting the way an entity interacts with its environment
 func show_passives(passives: Array):
 	var index = 0
 	for passive_ui in passives_ui:
-		if passives.size() - 1 > index:
+		if passives.size() > index:
 			passive_ui.set_informations(passives[index])
 			passive_ui.show()
 		else:

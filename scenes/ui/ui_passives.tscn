@@ -1,21 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://bwsy8kydswf1j"]
+[gd_scene load_steps=2 format=3 uid="uid://bwsy8kydswf1j"]
 
 [ext_resource type="Script" path="res://scripts/Ui/informations/PassiveUi.gd" id="1_iyjui"]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0yshi"]
-resource_local_to_scene = true
-size = Vector2(32, 32)
-
-[node name="Passives" type="TextureRect"]
-visible = false
-texture = SubResource("PlaceholderTexture2D_0yshi")
+[node name="Passives" type="TextureRect" node_paths=PackedStringArray("stacks")]
+custom_minimum_size = Vector2(16, 16)
 script = ExtResource("1_iyjui")
+stacks = NodePath("nbStacks")
 
 [node name="nbStacks" type="Label" parent="."]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 7.0
-offset_right = 16.0
-offset_bottom = 16.0
+offset_top = -1.0
+offset_right = 7.0
+offset_bottom = 8.0
 theme_override_font_sizes/font_size = 6
 text = "10"

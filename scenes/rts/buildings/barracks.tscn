@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bvp2o6337esre"]
+[gd_scene load_steps=28 format=3 uid="uid://bvp2o6337esre"]
 
 [ext_resource type="Script" path="res://scripts/rts/buildings/Barracks.gd" id="1_hc7ny"]
 [ext_resource type="Texture2D" uid="uid://dnhvgt5e4ws2w" path="res://assets/buildings/barracks_construction.png" id="1_q32yy"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cq2jannuhd1mr" path="res://assets/icons/soldier.png" id="13_yjeer"]
 [ext_resource type="Script" path="res://components/BuildPhaseComponent.gd" id="14_0tjq1"]
 [ext_resource type="Script" path="res://scripts/game/ResourceYield.gd" id="14_aih8e"]
+[ext_resource type="Texture2D" uid="uid://c8kjoj4e0t8af" path="res://assets/icons/resources/gold.png" id="15_iys7s"]
 [ext_resource type="PackedScene" uid="uid://d8gihj7ittof" path="res://components/rally/rally_point_component.tscn" id="16_siwqb"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vvj5i"]
@@ -53,6 +54,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uwesk"]
 resource_local_to_scene = true
 size = Vector2(32, 11.3333)
+
+[sub_resource type="Resource" id="Resource_i64ia"]
+script = ExtResource("14_aih8e")
+icon = ExtResource("15_iys7s")
+value = 10
+type = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0mur6"]
 resource_local_to_scene = true
@@ -154,6 +161,12 @@ unit_scene = "res://scenes/rts/Units/rts_character.tscn"
 rally_point = NodePath("../../../RallyPointComponent")
 icon = ExtResource("13_yjeer")
 cost = Array[ExtResource("14_aih8e")]([])
+
+[node name="BomberProduction" parent="ActionComponent/Actions" node_paths=PackedStringArray("rally_point") instance=ExtResource("12_18i6w")]
+unit_scene = "res://scenes/rts/units/bomber.tscn"
+rally_point = NodePath("../../../RallyPointComponent")
+title = "Produce a Bomber"
+cost = Array[ExtResource("14_aih8e")]([SubResource("Resource_i64ia")])
 
 [node name="BuildingPhaseComponent" type="Node2D" parent="." node_paths=PackedStringArray("health", "sprite", "building", "building_sprite", "build_timer")]
 script = ExtResource("14_0tjq1")

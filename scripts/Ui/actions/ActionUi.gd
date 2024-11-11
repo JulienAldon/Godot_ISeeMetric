@@ -80,4 +80,6 @@ func trigger_action(action: Action):
 	var entities = selection.filter(func(el): return is_instance_valid(el) && el.str_type == entity_action.str_type)
 	for entity in entities:
 		var act = entity.action_controller.get_possible_actions().filter(func(el): return el.title == action.title)
+		if act.size() <= 0:
+			continue
 		entity.trigger_action(act[0])

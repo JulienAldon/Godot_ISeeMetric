@@ -42,6 +42,8 @@ func camera_control(delta):
 	player.position += movement * camera.get_zoom() * delta
 
 func interact_entity(entity):
+	if entity.controlled_by == player_id:
+		return
 	var mouse_pos = get_global_mouse_position()
 	if select_controller.get_selected().size() > 0:
 		command_or_append_unit_action(mouse_pos, entity)
@@ -62,7 +64,7 @@ func command_or_append_unit_action(mouse_pos: Vector2, entity):
 		var attack_move = false
 		if Input.is_key_pressed(KEY_CTRL):
 			attack_move = true
-		move_controller.command_movement(mouse_pos, target, attack_move, group_map)
+		move_controller.command_movement(mouse_pos, target, attack_move or target, group_map)
 
 func show_cursor_anim(pos: Vector2):
 	var anim = load(cursor_animation_scene).instantiate()
@@ -73,8 +75,10 @@ func filter_allies(e):
 	return e.controlled_by != player_id
 	
 @export var char_scene: String = ""
+@export var char_scene_2: String = ""
+@export var char_scene_3: String = ""
 
-func can_queue_action(action: Action):
+func can_queue_action(_action: Action):
 	var can_queue: bool = true
 	return can_queue
 
@@ -99,6 +103,11 @@ func _unhandled_input(event):
 			
 	if Input.is_action_pressed("action_slot_4"):
 		GameManager.spawn_character(char_scene, {"position": mouse_pos, "controlled_by": player_id})
+	if Input.is_action_pressed("action_slot_3"):
+		GameManager.spawn_character(char_scene_2, {"position": mouse_pos, "controlled_by": player_id})
+	if Input.is_action_pressed("action_slot_2"):
+		GameManager.spawn_character(char_scene_3, {"position": mouse_pos, "controlled_by": player_id})	
+	
 
 func _physics_process(delta):
 	camera_control(delta)

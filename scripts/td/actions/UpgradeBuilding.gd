@@ -3,13 +3,12 @@ extends Action
 class_name UpgradeBuilding
 #@export var shape: Shape2D
 @export var building: Building
-
+@export var upgrade_effect: EffectResource
 var pos: Vector2
 var player_id: int
 
 func _ready():
 	time.timeout.connect(upgrade_building)
-
 
 func start(_pos: Vector2, _player_id: int):
 	pos = _pos
@@ -20,8 +19,7 @@ func upgrade_building():
 	if not building:
 		ActionFinished.emit()
 		return
-	if "upgrade" in building:
-		building.upgrade.add_upgrade_tier()
+	building.hitbox.apply_effect.rpc(upgrade_effect["effect_path"], upgrade_effect["base_duration"])
 
 	ActionFinished.emit()
 	time.stop()

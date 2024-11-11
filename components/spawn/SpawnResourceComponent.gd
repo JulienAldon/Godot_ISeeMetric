@@ -54,4 +54,4 @@ func _spawn_cooldown_finish():
 		"position": find_point_in_effect_range(),
 		"controlled_by": 0,
 	}
-	GameManager.spawn_entity(resource_scene, informations)
+	GameManager.spawn_entity(resource_scene, resource_scene, informations)

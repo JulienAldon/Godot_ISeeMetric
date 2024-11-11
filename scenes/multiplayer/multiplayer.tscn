@@ -1,14 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5pnpbxbv7s4y"]
+[gd_scene load_steps=13 format=3 uid="uid://b5pnpbxbv7s4y"]
 
 [ext_resource type="PackedScene" uid="uid://hy5mfuk4bsut" path="res://scenes/Menu.tscn" id="1_bjl1e"]
 [ext_resource type="Script" path="res://scripts/MultiplayerController.gd" id="1_ehst3"]
 [ext_resource type="PackedScene" uid="uid://b4qecf23eusp0" path="res://scenes/rts/rts_player.tscn" id="2_q2hfg"]
 [ext_resource type="PackedScene" uid="uid://cfoshfln0a0vf" path="res://scenes/hns/hns_player.tscn" id="3_51nfn"]
 [ext_resource type="PackedScene" uid="uid://dri5pxn8lbno0" path="res://scenes/td/td_player.tscn" id="4_ev1oq"]
+[ext_resource type="Script" path="res://scripts/game/Pooling.gd" id="6_off82"]
+[ext_resource type="Script" path="res://scripts/skills/Skill.gd" id="7_w6w35"]
+[ext_resource type="Resource" uid="uid://b3l4kenqh1let" path="res://resources/skills/td_turret_skill.tres" id="8_ro0pj"]
+[ext_resource type="Resource" uid="uid://dy8sshgc57vj8" path="res://resources/skills/rts_marauder_skill.tres" id="9_yg6f5"]
+[ext_resource type="Resource" uid="uid://c4pmsspbvdy7f" path="res://resources/skills/rts_bomber_skill.tres" id="10_7yh7g"]
+[ext_resource type="Resource" uid="uid://bmfhd63v3n5rv" path="res://resources/skills/rts_raider_skill.tres" id="11_veons"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3igut"]
 
-[node name="Multiplayer" type="Node2D" node_paths=PackedStringArray("level_container", "entities", "player_spawner", "entity_spawner", "multiplayer_menu")]
+[node name="Multiplayer" type="Node2D" node_paths=PackedStringArray("level_container", "entities", "player_spawner", "multiplayer_menu")]
 y_sort_enabled = true
 texture_filter = 2
 script = ExtResource("1_ehst3")
@@ -16,7 +22,6 @@ address = "localhost"
 level_container = NodePath("Level")
 entities = NodePath("Entities")
 player_spawner = NodePath("PlayerSpawner")
-entity_spawner = NodePath("EntitySpawner")
 faction_scenes = {
 0: ExtResource("2_q2hfg"),
 1: ExtResource("3_51nfn"),
@@ -45,8 +50,11 @@ y_sort_enabled = true
 [node name="EntitySpawner" type="MultiplayerSpawner" parent="."]
 spawn_path = NodePath("../Entities")
 
-[node name="Entities" type="Node2D" parent="."]
-y_sort_enabled = true
+[node name="Entities" type="Node2D" parent="." node_paths=PackedStringArray("entity_spawner")]
+script = ExtResource("6_off82")
+scenes = Array[ExtResource("7_w6w35")]([ExtResource("8_ro0pj"), ExtResource("9_yg6f5"), ExtResource("10_7yh7g"), ExtResource("11_veons")])
+scenes_to_spawn = 50
+entity_spawner = NodePath("../EntitySpawner")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_3igut")

@@ -6,7 +6,6 @@ func physics_update(delta):
 			or (is_instance_valid(skill_entity.target) 
 			and "death" in skill_entity.target 
 			and skill_entity.target.death.is_dead)):
-			skill_entity.queue_free()
+			skill_entity.stop()
 			return
-		if visible:
-			skill_entity.position += skill_entity.position.direction_to(skill_entity.target.global_position) * (skill_entity.throw_speed + skill_entity.speed) * delta
+		skill_entity.position += skill_entity.position.direction_to(skill_entity.target.global_position) * (skill_entity.throw_speed + skill_entity.speed) * delta

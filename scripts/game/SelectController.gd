@@ -106,7 +106,8 @@ func selection_control(event):
 func create_selected_map():
 	var group_map = {}
 	for unit in selected:
-		group_map[unit.get_instance_id()] = unit
+		if is_instance_valid(unit):
+			group_map[unit.get_instance_id()] = unit
 	return group_map
 
 func create_unit_group(path, click_position, target, group_map):

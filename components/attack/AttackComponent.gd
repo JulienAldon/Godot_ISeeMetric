@@ -10,10 +10,17 @@ var range_shape: Shape2D = CircleShape2D.new()
 @export_category("Configuration")
 @export var attack_timer: Timer
 
+var focus_filter: Callable = func(el): return el
+
 var target: Node2D
 var can_attack: bool = true
 var attack_move: bool = false
+var force_move: bool = false
+
 var nearby_targets: Array = []
+
+func set_focus_filter(filter: Callable):
+	focus_filter = filter
 
 func _ready():
 	attack_timer.wait_time = 1 / stats.attack_speed
@@ -37,11 +44,17 @@ func has_target() -> bool:
 func get_target() -> Node2D:
 	if nearby_targets.size() <= 0:
 		return null
-	return nearby_targets[0]
+	var filtered = nearby_targets.filter(focus_filter)
+	if filtered.size() <= 0:
+		return null
+	return filtered[randi_range(0, filtered.size() - 1)]
 
 func stop_attack_cooldown() -> void:
 	attack_timer.stop()
 	can_attack = true
+
+func stop_attack():
+	pass
 
 func is_in_range(pos: Vector2) -> bool:
 	if not is_instance_valid(target):

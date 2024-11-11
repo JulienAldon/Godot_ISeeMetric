@@ -28,6 +28,10 @@ func change_max_health(value):
 
 func damage(value: float):
 	health -= value
+	if health < 0:
+		health = 0
+	elif health > max_health:
+		health = max_health
 	HealthChanged.emit()
 	return health
 

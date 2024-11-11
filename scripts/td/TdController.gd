@@ -35,7 +35,7 @@ func can_queue_action(action: Action):
 func select_entity(entity: Entity):
 	if is_instance_valid(last_select):
 		last_select.action_panel.set_source([])
-	if entity is TdBuilding:
+	if entity is TdBuilding and entity.controlled_by == player_id:
 		entity.action_panel.set_source([entity])
 		last_select = entity
 
@@ -70,11 +70,19 @@ func _physics_process(_delta):
 		move_controller.move([character], input_axis)
 
 func interact_entity(entity):
-	if not is_instance_valid(entity) or not entity.is_in_group("resource"):
+	if not is_instance_valid(entity):
 		return
-	player.show_entity_informations(entity, player_id)
-	
-	character.attack.set_target(entity)
+	if entity.is_in_group("resource"):
+		player.show_entity_informations(entity, player_id)
+		character.attack.set_repair_mode(false)
+		character.attack.set_target(entity)
+	elif entity.controlled_by == player_id:
+		if entity is TdBuilding:
+			character.attack.set_repair_mode(true)
+			character.attack.set_target(entity)
+
+func repair_entity():
+	pass
 
 func stop_interact_entity(_entity):
 	character.attack.set_target(null)

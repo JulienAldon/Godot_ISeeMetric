@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://bs5181k63jx1w"]
+[gd_scene load_steps=12 format=4 uid="uid://bs5181k63jx1w"]
 
 [ext_resource type="Script" path="res://scripts/SceneManager.gd" id="1_s0nne"]
 [ext_resource type="Script" path="res://scripts/map/Tilemap.gd" id="3_uxxc1"]
@@ -6,8 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dncj4udq87xwq" path="res://assets/forest_.png" id="4_mhxb3"]
 [ext_resource type="PackedScene" uid="uid://baxg8wjbqklw5" path="res://scenes/game/buildings/outpost.tscn" id="4_wj8vg"]
 [ext_resource type="Script" path="res://scripts/Fog.gd" id="6_wibjr"]
-[ext_resource type="PackedScene" uid="uid://deqj7jv2gkugs" path="res://scenes/td/building/windmill.tscn" id="7_bn4lg"]
-[ext_resource type="PackedScene" path="res://scenes/game/stone.tscn" id="8_1bvey"]
+[ext_resource type="PackedScene" uid="uid://crm0ttdvjehor" path="res://scenes/game/stone.tscn" id="8_1bvey"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_a1h70"]
 resource_local_to_scene = true
@@ -883,6 +882,3 @@ material = SubResource("CanvasItemMaterial_ns2y3")
 script = ExtResource("6_wibjr")
 tilemap_layer = NodePath("../Navigation/Ground")
 fog_color = Color(0.762404, 0.762404, 0.762403, 0.360784)
-
-[node name="Windmill" parent="." instance=ExtResource("7_bn4lg")]
-position = Vector2(-730, -422)

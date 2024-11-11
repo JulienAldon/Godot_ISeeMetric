@@ -22,8 +22,8 @@ func get_currency_type() -> GameManager.CurrencyType:
 func set_currency_type(value: GameManager.CurrencyType):
 	currency_type = value
 
-func set_icon(icon: Texture2D):
-	icon_texture.texture = icon
+func set_icon(_icon: Texture2D):
+	icon_texture.texture = _icon
 
 func set_currency(amount: int):
 	currency_label.text = str(amount)

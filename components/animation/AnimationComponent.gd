@@ -5,7 +5,7 @@ class_name AnimationComponent
 @export_category("Dependencies")
 @export var sprite: AnimatedSprite2D
 @export var animation_tree: AnimationTree
-
+@export var attack_controller: AttackComponent
 @export_category("Configuration")
 @export var attack_names: Array[String]
 
@@ -65,6 +65,8 @@ func set_is_attack(attack_speed, direction, anim_name):
 
 func stop_attack(attack_types: Array[String]):
 	attacking = false
+	if attack_controller:
+		attack_controller.stop_attack()
 	for attack in attack_types:
 		animation_tree["parameters/conditions/"+attack] = false
 

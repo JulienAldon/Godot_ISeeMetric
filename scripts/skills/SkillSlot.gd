@@ -53,7 +53,7 @@ func trigger_skill(informations: Dictionary):
 		informations["position"] = informations["position"] - point_pos
 		informations["initial_direction"] = flip - point_pos
 		informations["rotation"] = (flip - point_pos).angle()
-		GameManager.spawn_entity(skill.scene, informations)
+		GameManager.spawn_entity(skill.scene, skill.id, informations)
 		await get_tree().physics_frame
 
 func calculate_placement_points(circle: float, radius: int, number: int) -> Array[Vector2]:

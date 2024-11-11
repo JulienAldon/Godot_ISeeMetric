@@ -36,8 +36,6 @@ func get_player_offset() -> Vector2:
 	return current_controller.get_player_offset()
 
 func interact_entity(entity: Entity):
-	if entity.controlled_by == multiplayer.get_unique_id():
-		return
 	if last_target and is_instance_valid(last_target):
 		last_target.selection.set_target_indicator(false)
 	last_target = entity

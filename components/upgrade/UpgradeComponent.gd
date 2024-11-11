@@ -11,16 +11,18 @@ enum UpgradeTiers {
 
 var current_tier: int
 
+@export var max_tier: int
+@export var action_controller: ActionComponent
 @export var stats: CharacterStats
 @export var upgrades_per_tier: Dictionary
 
 func can_upgrade():
-	return current_tier < 3
+	return current_tier < max_tier
 
-func add_upgrade_tier():
-	if current_tier >= 3:
-		return
+func get_upgrade_tier() -> Array:
+	if current_tier >= max_tier:
+		return []
 	current_tier += 1
-	if current_tier >= 3:
-		pass
-	stats.add_stats(upgrades_per_tier[current_tier])
+	if current_tier > max_tier:
+		return []
+	return upgrades_per_tier[current_tier]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dg3avobuf5qgf"]
+[gd_scene load_steps=36 format=3 uid="uid://dg3avobuf5qgf"]
 
 [ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="1_xtib4"]
 [ext_resource type="Script" path="res://scripts/Ui/informations/InformationUi.gd" id="2_51tbf"]
@@ -16,23 +16,27 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_e6fnp"]
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_v255x"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yca6x"]
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c4sjr"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_572ve"]
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pgngf"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vc8by"]
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3m3wj"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5rkkw"]
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_fb1u5"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lnqce"]
+resource_local_to_scene = true
+size = Vector2(32, 32)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kq45r"]
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
@@ -112,7 +116,6 @@ selection_unique = NodePath("SelectionUnique")
 selection_multiple = NodePath("SelectionMultiple")
 
 [node name="SelectionUnique" type="CenterContainer" parent="." node_paths=PackedStringArray("icon", "health", "unit_container", "building_container")]
-visible = false
 layout_mode = 2
 script = ExtResource("3_cxaxq")
 icon = NodePath("HBoxContainer/EntityStatus/EntityIcon")
@@ -143,7 +146,6 @@ text = "100/100"
 horizontal_alignment = 1
 
 [node name="UnitInformations" type="VBoxContainer" parent="SelectionUnique/HBoxContainer" node_paths=PackedStringArray("title", "passives_container")]
-visible = false
 layout_mode = 2
 theme_override_constants/separation = 4
 script = ExtResource("4_ome7i")
@@ -162,29 +164,34 @@ size_flags_vertical = 3
 columns = 5
 
 [node name="Passives" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
-visible = true
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_v255x")
+texture = SubResource("PlaceholderTexture2D_yca6x")
+expand_mode = 1
+
+[node name="Passives6" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_572ve")
+expand_mode = 1
 
 [node name="Passives2" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
-visible = true
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_c4sjr")
+texture = SubResource("PlaceholderTexture2D_vc8by")
+expand_mode = 1
 
 [node name="Passives3" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
-visible = true
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_pgngf")
+texture = SubResource("PlaceholderTexture2D_5rkkw")
+expand_mode = 1
 
 [node name="Passives4" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
-visible = true
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_3m3wj")
+texture = SubResource("PlaceholderTexture2D_lnqce")
+expand_mode = 1
 
 [node name="Passives5" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
-visible = true
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_fb1u5")
+texture = SubResource("PlaceholderTexture2D_kq45r")
+expand_mode = 1
 
 [node name="BuildingInformations" type="VBoxContainer" parent="SelectionUnique/HBoxContainer" node_paths=PackedStringArray("production_queue", "production_container", "current_queued_action", "name_label")]
 visible = false

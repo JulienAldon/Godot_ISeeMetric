@@ -1,0 +1,234 @@
+[gd_scene load_steps=23 format=3 uid="uid://cjefrxc6pn02q"]
+
+[ext_resource type="Script" path="res://scripts/skills/SkillEntity.gd" id="1_su85q"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_go0aw"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Effects/GPUParticles2D:emitting")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("AnimationTree:active")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:visible")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("Effects:scale")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
+[sub_resource type="Animation" id="Animation_hw80y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Effects/GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Effects/secondary:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_7r1s3"]
+resource_name = "hit"
+length = 0.1
+
+[sub_resource type="Animation" id="Animation_bctk4"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Effects/GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0666667, 0.133333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Effects/secondary:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.166667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"stop"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0x6vt"]
+_data = {
+"RESET": SubResource("Animation_hw80y"),
+"hit": SubResource("Animation_7r1s3"),
+"idle": SubResource("Animation_bctk4")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8x74v"]
+animation = &"hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fp6ey"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_wubwh"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_iqac2"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_fp6ey")
+nodes/Animation/position = Vector2(0, 100)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_wubwh")
+nodes/TimeScale/position = Vector2(158, 131)
+nodes/output/position = Vector2(360, 140)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qsybr"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c4ivx"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h2pc2"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_la66a"]
+states/End/position = Vector2(817, 92)
+states/Start/position = Vector2(165, 92)
+states/hit/node = SubResource("AnimationNodeAnimation_8x74v")
+states/hit/position = Vector2(600, 92)
+states/idle/node = SubResource("AnimationNodeBlendTree_iqac2")
+states/idle/position = Vector2(362, 98)
+transitions = ["hit", "End", SubResource("AnimationNodeStateMachineTransition_qsybr"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_c4ivx"), "idle", "hit", SubResource("AnimationNodeStateMachineTransition_h2pc2")]
+
+[sub_resource type="Gradient" id="Gradient_m73jc"]
+offsets = PackedFloat32Array(0, 0.929167)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5tsil"]
+gradient = SubResource("Gradient_m73jc")
+
+[sub_resource type="Gradient" id="Gradient_i42oo"]
+colors = PackedColorArray(1, 0.67451, 0.294118, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_m3uw3"]
+gradient = SubResource("Gradient_i42oo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_setvx"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+radial_velocity_min = 30.0
+radial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+damping_min = 150.0
+damping_max = 200.0
+scale_min = 5.0
+scale_max = 15.0
+color = Color(1, 0.67451, 0.294118, 1)
+color_ramp = SubResource("GradientTexture1D_m3uw3")
+color_initial_ramp = SubResource("GradientTexture1D_5tsil")
+hue_variation_min = -0.1
+hue_variation_max = 0.1
+
+[sub_resource type="Curve" id="Curve_87287"]
+_data = [Vector2(0.0261194, 1), 0.0, 0.0, 0, 0, Vector2(0.981343, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5j43m"]
+curve = SubResource("Curve_87287")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_m1lrt"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+radial_velocity_min = 32.0
+radial_velocity_max = 60.0
+gravity = Vector3(0, 50, 0)
+scale_min = 2.0
+scale_max = 3.0
+color = Color(0.5, 0.5, 0.5, 0.627451)
+alpha_curve = SubResource("CurveTexture_5j43m")
+
+[node name="BomberProjectile" type="Node2D" node_paths=PackedStringArray("behaviours_container", "animation_tree", "animation_player", "scallable_effect")]
+script = ExtResource("1_su85q")
+behaviours_container = NodePath("Behaviours")
+animation_tree = NodePath("AnimationTree")
+animation_player = NodePath("AnimationPlayer")
+scallable_effect = NodePath("Effects")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_go0aw")
+
+[node name="Behaviours" type="Node2D" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0x6vt")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+active = false
+tree_root = SubResource("AnimationNodeStateMachine_la66a")
+anim_player = NodePath("../AnimationPlayer")
+parameters/idle/TimeScale/scale = 1.0
+
+[node name="Effects" type="Node2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Effects"]
+scale = Vector2(0.3, 0.3)
+emitting = false
+amount = 300
+process_material = SubResource("ParticleProcessMaterial_setvx")
+lifetime = 0.5
+one_shot = true
+speed_scale = 2.0
+explosiveness = 0.5
+randomness = 1.0
+
+[node name="secondary" type="GPUParticles2D" parent="Effects"]
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_m1lrt")
+lifetime = 0.5
+explosiveness = 1.0
+trail_enabled = true
+trail_lifetime = 0.2
+trail_sections = 16

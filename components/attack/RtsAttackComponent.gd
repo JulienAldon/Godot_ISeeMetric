@@ -19,6 +19,12 @@ func reset_target() -> void:
 	nearby_targets = compute_nearby_target()
 	set_target(null)
 
+func stop_attack():
+	apply_damage()
+
+func attack_target():
+	super()
+
 func compute_nearby_target() -> Array:
 	var res = super()
 	return res.filter(func(el): return el.controlled_by != network.controlled_by and not el.is_in_group("resource"))

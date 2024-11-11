@@ -11,7 +11,7 @@ var current_effects: Array[Effect] = []
 func damage(_damage: int, attacker_id: int):
 	if health_component:
 		var damage_amount = _damage
-		if "stats" in character:
+		if "stats" in character and _damage > 0:
 			damage_amount = character.stats.calculate_hit_damage(_damage)
 		health_component.damage(damage_amount)
 		character.attacker_id = attacker_id
@@ -32,6 +32,9 @@ func apply_effect(effect_path: String, duration: float):
 	add_child(effect)
 	effect.start(character)
 	current_effects.append(effect)
+
+func get_effects():
+	return current_effects
 
 func _process(delta):
 	if not is_multiplayer_authority():

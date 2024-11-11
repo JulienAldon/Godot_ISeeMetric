@@ -37,5 +37,6 @@ func hit(_body):
 		"mouse_pos": skill_entity.mouse_pos,
 		"behaviours_models": behaviours,
 		"effects": skill_entity.effects,
+		"entity_id": skill_entity.entity_id
 	}
-	GameManager.spawn_entity.call_deferred(skill_entity.scene, informations)
+	GameManager.spawn_entity.call_deferred(skill_entity.scene,skill_entity.entity_id, informations)

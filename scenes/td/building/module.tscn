@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6rpdqb17327o"]
+[gd_scene load_steps=34 format=3 uid="uid://c6rpdqb17327o"]
 
 [ext_resource type="Script" path="res://scripts/td/buildings/Module.gd" id="1_bn7lv"]
 [ext_resource type="PackedScene" uid="uid://cxrcptlbws3jo" path="res://scenes/td/building/building_actions.tscn" id="2_8odok"]
@@ -15,6 +15,12 @@
 [ext_resource type="Script" path="res://scripts/td/actions/RemoveBuilding.gd" id="12_5b3yh"]
 [ext_resource type="Texture2D" uid="uid://be1fkpcexfama" path="res://assets/buildings/basic_module_destroyed.png" id="12_d8f5k"]
 [ext_resource type="Texture2D" uid="uid://bjd8p7m0fgmci" path="res://assets/icons/action/delete_building.png" id="13_bh0vm"]
+[ext_resource type="Script" path="res://scripts/td/actions/UpgradeBuilding.gd" id="16_kmb5k"]
+[ext_resource type="Texture2D" uid="uid://cvhilbk74ltjs" path="res://assets/icons/action/upgrade_range.png" id="17_wufj3"]
+[ext_resource type="Script" path="res://scripts/game/ResourceYield.gd" id="18_tuvpq"]
+[ext_resource type="Texture2D" uid="uid://ceq7po73aanm4" path="res://assets/icons/resources/rock.png" id="19_4ylq7"]
+[ext_resource type="Script" path="res://components/upgrade/UpgradeComponent.gd" id="19_7su3k"]
+[ext_resource type="Script" path="res://scripts/game/Stat.gd" id="20_f3irk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0ucsn"]
 resource_local_to_scene = true
@@ -40,10 +46,52 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gwgbt"]
 size = Vector2(40, 40)
 
+[sub_resource type="Resource" id="Resource_qy2wx"]
+script = ExtResource("18_tuvpq")
+icon = ExtResource("19_4ylq7")
+value = 50
+type = 3
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7th70"]
 size = Vector2(150, 150)
 
-[node name="Module" type="StaticBody2D" node_paths=PackedStringArray("sprite", "health", "death", "action_controller", "action_panel", "hitbox", "selection", "network") groups=["building", "navigation", "player_entity"]]
+[sub_resource type="Resource" id="Resource_jgasi"]
+script = ExtResource("20_f3irk")
+display_name = ""
+name = "base_range"
+value = 100.0
+
+[sub_resource type="Resource" id="Resource_2tdox"]
+script = ExtResource("20_f3irk")
+display_name = ""
+name = "max_health"
+value = 100.0
+
+[sub_resource type="Resource" id="Resource_mvj00"]
+script = ExtResource("20_f3irk")
+display_name = ""
+name = "base_range"
+value = 100.0
+
+[sub_resource type="Resource" id="Resource_8hhxm"]
+script = ExtResource("20_f3irk")
+display_name = ""
+name = "max_health"
+value = 100.0
+
+[sub_resource type="Resource" id="Resource_fbblq"]
+script = ExtResource("20_f3irk")
+display_name = ""
+name = "base_range"
+value = 100.0
+
+[sub_resource type="Resource" id="Resource_le8jg"]
+script = ExtResource("20_f3irk")
+display_name = ""
+name = "max_health"
+value = 100.0
+
+[node name="Module" type="StaticBody2D" node_paths=PackedStringArray("sprite", "health", "death", "action_controller", "upgrade", "action_panel", "hitbox", "selection", "network") groups=["building", "navigation", "player_entity"]]
 collision_layer = 38
 collision_mask = 0
 input_pickable = true
@@ -52,6 +100,7 @@ sprite = NodePath("AnimatedSprite2D")
 health = NodePath("HealthComponent")
 death = NodePath("DeathComponent")
 action_controller = NodePath("ActionComponent")
+upgrade = NodePath("UpgradeComponent")
 action_panel = NodePath("BuildingActions")
 hitbox = NodePath("HitboxComponent")
 selection = NodePath("SelectionComponent")
@@ -90,8 +139,9 @@ body = NodePath("..")
 show_node_on_hover = true
 node_shown_on_hover = [NodePath("../EffectRange/ColorRect")]
 
-[node name="CharacterStats" type="Node2D" parent="."]
+[node name="CharacterStats" type="Node2D" parent="." node_paths=PackedStringArray("health")]
 script = ExtResource("9_b3bry")
+health = NodePath("../HealthComponent")
 max_health = 500
 
 [node name="DeathComponent" parent="." node_paths=PackedStringArray("sprite", "health", "body", "corpse", "delete_timer") instance=ExtResource("10_phna6")]
@@ -127,6 +177,22 @@ wait_time = 0.1
 [node name="Cooldown" type="Timer" parent="ActionComponent/RemoveBuilding"]
 wait_time = 0.2
 
+[node name="UpgradeBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("building", "cooldown", "time")]
+script = ExtResource("16_kmb5k")
+building = NodePath("../..")
+title = "Upgrade module"
+icon = ExtResource("17_wufj3")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+cost = Array[ExtResource("18_tuvpq")]([SubResource("Resource_qy2wx")])
+description = "Upgrade module to next rank"
+
+[node name="Timer" type="Timer" parent="ActionComponent/UpgradeBuilding"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/UpgradeBuilding"]
+wait_time = 0.1
+
 [node name="EffectRange" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 0
@@ -152,3 +218,14 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 color = Color(0.04, 0.744, 1, 0.14902)
+
+[node name="UpgradeComponent" type="Node2D" parent="." node_paths=PackedStringArray("action_controller", "stats")]
+script = ExtResource("19_7su3k")
+action_controller = NodePath("../ActionComponent")
+stats = NodePath("../CharacterStats")
+upgrades_per_tier = {
+0: [],
+1: [SubResource("Resource_jgasi"), SubResource("Resource_2tdox")],
+2: [SubResource("Resource_mvj00"), SubResource("Resource_8hhxm")],
+3: [SubResource("Resource_fbblq"), SubResource("Resource_le8jg")]
+}

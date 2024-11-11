@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://ctnb0adqyubor"]
+[gd_scene load_steps=41 format=3 uid="uid://ctnb0adqyubor"]
 
 [ext_resource type="Script" path="res://scripts/td/buildings/Turret.gd" id="1_ri0pb"]
 [ext_resource type="Texture2D" uid="uid://cnqwaelhsga7d" path="res://assets/icons/buildings/basic_turret.png" id="2_ein1a"]
@@ -14,10 +14,9 @@
 [ext_resource type="Shader" path="res://dotted_line.gdshader" id="9_8b8ru"]
 [ext_resource type="Texture2D" uid="uid://br4i6fpqm0l8g" path="res://assets/buildings/basic_turret_destroyed.png" id="9_n23d5"]
 [ext_resource type="Script" path="res://components/attack/TurretAttackComponent.gd" id="12_7xkv7"]
-[ext_resource type="Script" path="res://scripts/hns/Damage.gd" id="12_csvuu"]
 [ext_resource type="Script" path="res://scripts/skills/effects/EffectResource.gd" id="12_sbd1q"]
-[ext_resource type="Script" path="res://scripts/skills/Skill.gd" id="13_fpjik"]
 [ext_resource type="Script" path="res://components/attack/ProjectileAttackStyle.gd" id="15_mgp6e"]
+[ext_resource type="Resource" uid="uid://b3l4kenqh1let" path="res://resources/skills/td_turret_skill.tres" id="16_gwjnc"]
 [ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://components/action/action_component.tscn" id="16_khc68"]
 [ext_resource type="Script" path="res://scripts/td/actions/RemoveBuilding.gd" id="17_hma3m"]
 [ext_resource type="Texture2D" uid="uid://bjd8p7m0fgmci" path="res://assets/icons/action/delete_building.png" id="18_36dea"]
@@ -27,6 +26,11 @@
 [ext_resource type="Texture2D" uid="uid://cvhilbk74ltjs" path="res://assets/icons/action/upgrade_range.png" id="22_nv2mx"]
 [ext_resource type="Script" path="res://scripts/game/ResourceYield.gd" id="23_ddsxj"]
 [ext_resource type="Texture2D" uid="uid://ceq7po73aanm4" path="res://assets/icons/resources/rock.png" id="24_xxmlo"]
+[ext_resource type="Script" path="res://scripts/td/actions/ChangeModeBuilding.gd" id="26_gy6wf"]
+[ext_resource type="Script" path="res://scripts/td/actions/ResourceFocusMode.gd" id="27_s82si"]
+[ext_resource type="Texture2D" uid="uid://c7mtkqf0j3orc" path="res://assets/icons/action/resource_mode.png" id="28_fnau6"]
+[ext_resource type="Script" path="res://scripts/td/actions/UnitFocusMode.gd" id="28_ta1gv"]
+[ext_resource type="Texture2D" uid="uid://cj5okiwqf0da" path="res://assets/icons/action/unit_mode.png" id="30_xgpfo"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_efagi"]
 
@@ -66,36 +70,15 @@ shader_parameter/thickness = 0.009
 shader_parameter/frequency = 100.0
 shader_parameter/phase = 0.0
 
-[sub_resource type="Resource" id="Resource_v2oy8"]
-resource_local_to_scene = true
-script = ExtResource("12_csvuu")
-base = 200.0
-added = 0.0
-increased = 0.0
-more = 0.0
-
-[sub_resource type="Resource" id="Resource_17icf"]
-script = ExtResource("13_fpjik")
-type = 0
-damage_type = 0
-movement = false
-cooldown = 0.0
-area_of_effect = 5
-scene = "res://scenes/td/building/projectile_turret.tscn"
-damage_effectiveness = 1.0
-damage = SubResource("Resource_v2oy8")
-weapon_compatibility = Array[int]([])
-projectiles = 0
+[sub_resource type="Resource" id="Resource_u80qx"]
+script = ExtResource("12_sbd1q")
+effect_path = "res://scenes/game/effects/upgrade_effect.tscn"
 base_duration = 0.0
-projectiles_scallable = false
-behaviours = Array[String](["res://scenes/skills/behaviours/projectile.tscn", "res://scenes/skills/behaviours/following.tscn", "res://scenes/skills/behaviours/damaging.tscn"])
-throw_speed = 500
-effects = Array[ExtResource("12_sbd1q")]([])
 
 [sub_resource type="Resource" id="Resource_iakck"]
 script = ExtResource("23_ddsxj")
 icon = ExtResource("24_xxmlo")
-value = 10
+value = 0
 type = 3
 
 [node name="BasicTurret" type="StaticBody2D" node_paths=PackedStringArray("health", "death", "stats", "sprite", "attack", "action_controller", "upgrade", "action_panel", "hitbox", "selection", "network") groups=["building", "navigation", "player_entity"]]
@@ -221,10 +204,11 @@ mouse_filter = 2
 
 [node name="AttackTimer" type="Timer" parent="TurretAttack"]
 
-[node name="ProjectileAttackStyle" type="Node2D" parent="TurretAttack" node_paths=PackedStringArray("attack_point", "stats")]
+[node name="ProjectileAttackStyle" type="Node2D" parent="TurretAttack" node_paths=PackedStringArray("body", "attack_point", "stats")]
 script = ExtResource("15_mgp6e")
+body = NodePath("../..")
 attack_point = NodePath("AttackPoint")
-skill = SubResource("Resource_17icf")
+skill = ExtResource("16_gwjnc")
 stats = NodePath("../../CharacterStats")
 
 [node name="AttackPoint" type="Node2D" parent="TurretAttack/ProjectileAttackStyle"]
@@ -252,12 +236,13 @@ wait_time = 0.2
 [node name="UpgradeBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("building", "cooldown", "time")]
 script = ExtResource("21_ungkl")
 building = NodePath("../..")
+upgrade_effect = SubResource("Resource_u80qx")
 title = "Upgrade turret"
 icon = ExtResource("22_nv2mx")
 cooldown = NodePath("Cooldown")
 time = NodePath("Timer")
 cost = Array[ExtResource("23_ddsxj")]([SubResource("Resource_iakck")])
-description = "Upgrade turret stats"
+description = "Upgrade turret to next tier"
 
 [node name="Timer" type="Timer" parent="ActionComponent/UpgradeBuilding"]
 wait_time = 0.1
@@ -265,10 +250,55 @@ wait_time = 0.1
 [node name="Cooldown" type="Timer" parent="ActionComponent/UpgradeBuilding"]
 wait_time = 0.1
 
+[node name="ChangeModeBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("possible_mode", "building_ui", "cooldown", "time")]
+script = ExtResource("26_gy6wf")
+possible_mode = [NodePath("UnitFocusMode"), NodePath("ResourceFocusMode")]
+building_ui = NodePath("../../BuildingActions")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="ActionComponent/ChangeModeBuilding"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/ChangeModeBuilding"]
+wait_time = 0.1
+
+[node name="ResourceFocusMode" type="Node2D" parent="ActionComponent/ChangeModeBuilding" node_paths=PackedStringArray("attack", "cooldown", "time")]
+script = ExtResource("27_s82si")
+attack = NodePath("../../../TurretAttack")
+title = "Resource Mode (Cycle)"
+icon = ExtResource("28_fnau6")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+description = "Turret collect resources for you."
+
+[node name="Timer" type="Timer" parent="ActionComponent/ChangeModeBuilding/ResourceFocusMode"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/ChangeModeBuilding/ResourceFocusMode"]
+wait_time = 0.1
+
+[node name="UnitFocusMode" type="Node2D" parent="ActionComponent/ChangeModeBuilding" node_paths=PackedStringArray("attack", "cooldown", "time")]
+script = ExtResource("28_ta1gv")
+attack = NodePath("../../../TurretAttack")
+title = "Attack Mode (Cycle)"
+icon = ExtResource("30_xgpfo")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+description = "Turret focus units and buildings."
+
+[node name="Timer" type="Timer" parent="ActionComponent/ChangeModeBuilding/UnitFocusMode"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/ChangeModeBuilding/UnitFocusMode"]
+wait_time = 0.1
+
 [node name="ModeComponent" type="Node2D" parent="."]
 script = ExtResource("21_medap")
 
-[node name="UpgradeComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("22_jamu8")]
+[node name="UpgradeComponent" parent="." node_paths=PackedStringArray("action_controller", "stats") instance=ExtResource("22_jamu8")]
+max_tier = 3
+action_controller = NodePath("../ActionComponent")
 stats = NodePath("../CharacterStats")
 
 [connection signal="body_entered" from="TurretAttack/TargetDetection" to="TurretAttack" method="_on_target_detection_body_entered"]

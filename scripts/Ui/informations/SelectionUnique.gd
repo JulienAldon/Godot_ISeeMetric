@@ -21,13 +21,15 @@ func update_informations(selection: Node2D):
 		building_container.set_informations(entity)
 		building_container.show()
 		unit_container.hide()
-	else:
-		unit_container.set_informations(selection.display_name, [])
+	elif "hitbox" in entity:
+		unit_container.set_informations(entity.display_name, entity.hitbox.get_effects())
 		building_container.hide()
 		unit_container.show()
 	
 func _process(_delta):
 	if entity and is_instance_valid(entity):
+		if "hitbox" in entity:
+			unit_container.set_informations(entity.display_name, entity.hitbox.get_effects())
 		if "health" in entity:
 			health.show()
 			health.text = str(floor(entity.health.health)) + "/" +str(entity.health.max_health)

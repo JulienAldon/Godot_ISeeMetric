@@ -69,8 +69,8 @@ func _on_button_pressed():
 func can_buy():
 	if not is_instance_valid(action):
 		return false
-	var player = GameManager.get_player(multiplayer.get_unique_id())
-	return player.can_queue_action(action)
+	var _player = GameManager.get_player(multiplayer.get_unique_id())
+	return _player.can_queue_action(action)
 
 func _on_button_mouse_entered():
 	if can_buy():

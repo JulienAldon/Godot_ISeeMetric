@@ -34,7 +34,7 @@ func set_source(_selection: Array):
 	if actions.size() <= 0:
 		saved_actions = []
 		return
-	saved_actions = actions	
+	saved_actions = actions
 	show_ui_actions(actions)
 
 func trigger_action(action: Action):

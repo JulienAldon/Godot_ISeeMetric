@@ -11,80 +11,113 @@ var target: Node2D
 var behaviours_models
 var behaviours: Array[SkillBehaviour]
 
+var entity_id: String
 var scene: String
 @export_category("Dependencies")
 @export var animation_tree: AnimationTree
 @export var animation_player: AnimationPlayer
+@export var scallable_effect: Node2D
+@export var effect_base_radius: float = 32
+@export var shape: Shape2D = CircleShape2D.new()
 
+var shape_offset: Vector2 = Vector2(0, 0)
 @export_category("Spawn import")
-@export var damage: float
-@export var animation_duration: float
-@export var ref: Vector2
-@export var invoker_pos: Vector2
-@export var animation_speed: float
-@export var throw_speed: float = 0
-@export var speed: float = 0
-@export var initial_direction: Vector2
-@export var target_path: NodePath
+var damage: float
+var animation_duration: float
+var ref: Vector2
+var invoker_pos: Vector2
+var animation_speed: float
+var throw_speed: float = 0
+var speed: float
+var initial_direction: Vector2
+var target_path: NodePath
 
 var effects
 var mouse_pos: Vector2
 var duration: float
-var shape: CircleShape2D
+var query: PhysicsShapeQueryParameters2D
+var radius: float = 10
 
-var body_hit: Node2D
+func set_area_of_effect(value):
+	if shape is CircleShape2D:
+		shape.radius = value
+	elif shape is RectangleShape2D:
+		shape.set_size(Vector2(value, shape.size.y))
+		shape_offset = Vector2(-shape.size.x/2, shape.size.y/2).rotated(rotation)
 
-func _enter_tree():
-	if not multiplayer.is_server():
-		return
-	invoker = get_node(invoker_path)
-	shape = CircleShape2D.new()
-	if target_path:
-		target = get_node(target_path)
-	shape.radius = 9
+func _ready():
+	set_process(false)
+	set_physics_process(false)
 	for model in behaviours_models:
 		var behaviour = load(model).instantiate()
 		behaviour.skill_entity = self
 		behaviours_container.add_child(behaviour)
 		behaviours.append(behaviour)
+	set_area_of_effect(radius)
+	query = PhysicsShapeQueryParameters2D.new()
+	configure()
 
-func _ready():
-	if not multiplayer.is_server():
-		return
+func start():
 	for behaviour in behaviours:
 		behaviour.enter()
 	animation_tree["parameters/idle/TimeScale/scale"] = animation_speed
-	#if duration > 0:
-		#var anim = animation_player.get_animation(animation_player.current_animation)
-		#anim.length = duration
+	if "parameters/conditions/hit" in animation_tree:
+		animation_tree["parameters/conditions/hit"] = false
+	visible = true
+	animation_tree.set_active(true)
+	set_process(true)
+	set_physics_process(true)
+
+func configure():
+	if not multiplayer.is_server():
+		return
+	if invoker_path:
+		invoker = get_node(invoker_path)
+	if target_path:
+		target = get_node(target_path)
+	set_area_of_effect(radius)
+	if scallable_effect:
+		scallable_effect.scale = Vector2(radius / effect_base_radius, radius / effect_base_radius)
 
 func check_collision():
-	var query := PhysicsShapeQueryParameters2D.new()
 	query.set_shape(shape)
 	query.collide_with_bodies = true
 	query.collision_mask = 2
-	query.transform = global_transform
-	var result := get_world_2d().direct_space_state.intersect_shape(query, 1)
-	if result.size() > 0 and result[0].collider.controlled_by != controlled_by:
-		animation_tree["parameters/conditions/hit"] = true
-		body_hit = result[0].collider
+	var transfo = Transform2D(transform)
+	transfo.origin = transform.origin - shape_offset
+	query.transform = transfo
+	var result := get_world_2d().direct_space_state.intersect_shape(query, 100)
+	var hit_condition = result.size() > 0 and result[0].collider.controlled_by != controlled_by
+	if hit_condition:
+		_hit_body(result.map(func(el): return el.collider))
+		if "parameters/conditions/hit" in animation_tree:
+			animation_tree["parameters/conditions/hit"] = true
+			stop()
 
 func _process(delta):
-	if !multiplayer.is_server():
+	if not multiplayer.is_server():
 		return
-	check_collision()
+	if Engine.get_process_frames() % 20 == 0:
+		check_collision()
 	for behaviour in behaviours:
 		behaviour.update(delta)
-	if not animation_player.is_playing() or ("death" in target and target.death.is_dead):
-		queue_free()
 
+func stop():
+	visible = false
+	if "parameters/conditions/hit" in animation_tree:
+		animation_tree["parameters/conditions/hit"] = false
+	animation_tree.set_active(false)
+	for behaviour in behaviours:
+		behaviour.stop()
+	set_process(false)
+	set_physics_process(false)
+	
 func _physics_process(delta):
 	for behaviour in behaviours:
 		behaviour.physics_update(delta)
 
-func _hit_body():
-	if body_hit.controlled_by == controlled_by:
-		return	
+func _hit_body(body_hit):
+	var hit = body_hit.filter(func(el): return el.controlled_by != controlled_by)
 	if multiplayer.is_server():
 		for behaviour in behaviours:
-			behaviour.hit(body_hit)
+			behaviour.hit(hit)

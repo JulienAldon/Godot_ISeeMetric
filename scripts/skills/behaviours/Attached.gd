@@ -2,9 +2,6 @@ extends SkillBehaviour
 
 class_name AttachedBehaviour
 
-func enter():
-	skill_entity.global_position = skill_entity.position
-
 func physics_update(_delta):
 	if multiplayer.is_server():
 		if skill_entity.speed == 0:

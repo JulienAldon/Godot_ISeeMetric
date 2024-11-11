@@ -4,6 +4,7 @@ extends TdBuilding
 @export var health: HealthComponent
 @export var death: DeathComponent
 @export var action_controller: ActionComponent
+@export var upgrade: UpgradeComponent
 
 func dispawn():
 	if death:

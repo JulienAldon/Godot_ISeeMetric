@@ -12,6 +12,7 @@ class_name RtsCharacter
 @export var stats: Node2D
 @export var animation: AnimationComponent
 @export var behaviours: StateMachine
+@export var action_controller: ActionComponent
 
 @export var player_marker: ColorRect
 

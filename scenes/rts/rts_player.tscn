@@ -30,7 +30,9 @@ camera_margin = 10
 camera_speed = 300
 cursor_animation_scene = "res://scenes/game/click_animation.tscn"
 select_controller = NodePath("SelectController")
-char_scene = "res://scenes/rts/Units/rts_character.tscn"
+char_scene = "res://scenes/rts/units/bomber.tscn"
+char_scene_2 = "res://scenes/rts/units/rts_character.tscn"
+char_scene_3 = "res://scenes/rts/units/raider.tscn"
 move_controller = NodePath("MoveController")
 player = NodePath("..")
 camera = NodePath("../Camera2D")
@@ -54,6 +56,6 @@ drag_bottom_margin = 0.1
 [node name="OutpostActions" type="Node2D" parent="."]
 
 [node name="Build" parent="OutpostActions" instance=ExtResource("3_fx0xa")]
-building_scene = "res://scenes/game/buildings/barracks.tscn"
+building_scene = "res://scenes/rts/buildings/barracks.tscn"
 icon = ExtResource("4_tx15w")
 cost = Array[ExtResource("7_moujk")]([SubResource("Resource_on2xr")])

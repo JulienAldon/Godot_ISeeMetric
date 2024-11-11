@@ -11,7 +11,6 @@ var peer
 
 @export var entities : Node2D
 @export var player_spawner : MultiplayerSpawner
-@export var entity_spawner : MultiplayerSpawner
 @export var faction_scenes: Dictionary
 
 @export var multiplayer_menu: MultiplayerMenu
@@ -43,7 +42,6 @@ func instantiate_player(informations: Dictionary):
 
 func _enter_tree():
 	player_spawner.spawn_function = instantiate_player
-	entity_spawner.spawn_function = instantiate_entity
 
 func _ready():
 	multiplayer_menu.set_message("")
@@ -153,6 +151,7 @@ func start_game():
 	# TODO: If not server cannot start game
 	if multiplayer.is_server():
 		change_level(scene)
+		entities.spawn_initial_scenes()
 	else:
 		multiplayer_menu.set_message("You are not the host of the party.")
 
