@@ -52,13 +52,13 @@ func trigger_skill(attack_slot):
 			"rotation": character.attack_point.rotation,
 			"animation_speed": 1,
 			"damage": stats.calculate_skill_damage(attack_slot.skill).calculate(),
-			"ref": player.position,
 			"invoker_path": character.get_path(),
 			"throw_speed": stats.get_skill_throw_speed(attack_slot.skill),
 			"duration": stats.get_skill_duration(attack_slot.skill),
 			"mouse_pos": get_global_mouse_position(),
 			"behaviours_models": stats.get_skill_behaviours(attack_slot.skill),
 			"effects": stats.get_skill_effects(attack_slot.skill),
+			"damage_type": attack_slot.skill.damage_type
 		}
 		attack_slot.trigger_skill.rpc_id(1, informations)
 		character.animation.set_is_attack(stats.get_skill_speed(attack_slot.skill), (get_global_mouse_position() - character.global_position).normalized() , anim_names[weapon.type])

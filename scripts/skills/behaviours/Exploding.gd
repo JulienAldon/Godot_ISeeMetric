@@ -12,7 +12,6 @@ func hit(_body):
 		"rotation": skill_entity.rotation,
 		"animation_speed": skill_entity.animation_speed,
 		"damage": skill_entity.damage,
-		"ref": skill_entity.global_position,
 		"invoker_path": skill_entity.get_path(),
 		"throw_speed": skill_entity.throw_speed,
 		"initial_direction": skill_entity.initial_direction,
@@ -20,6 +19,7 @@ func hit(_body):
 		"mouse_pos": get_global_mouse_position(),
 		"behaviours_models": behaviours,
 		"effects": skill_entity.effects,
+		"damage_type": skill_entity.damage_type
 	}
 	GameManager.call_deferred(explosion_scene, informations)
 	

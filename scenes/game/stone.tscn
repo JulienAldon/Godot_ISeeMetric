@@ -132,17 +132,17 @@ _data = {
 "idle": SubResource("Animation_18rvn")
 }
 
-[node name="Stone" type="StaticBody2D" node_paths=PackedStringArray("death", "hitbox", "network", "health", "selection", "income") groups=["resource"]]
+[node name="Stone" type="StaticBody2D" node_paths=PackedStringArray("network", "death", "health", "selection", "income", "hitbox") groups=["resource"]]
 collision_layer = 2
 collision_mask = 0
 input_pickable = true
 script = ExtResource("1_eqrmy")
-death = NodePath("DeathComponent")
-hitbox = NodePath("HitboxComponent")
 network = NodePath("NetworkComponent")
+death = NodePath("DeathComponent")
 health = NodePath("HealthComponent")
 selection = NodePath("SelectionComponent")
 income = NodePath("IncomeComponent")
+hitbox = NodePath("HitboxComponent")
 display_name = "Rock"
 str_type = "rock"
 icon = ExtResource("2_vuqx1")
@@ -158,6 +158,7 @@ offset = Vector2(-1, -2)
 sprite = NodePath("../AnimatedSprite2D")
 health = NodePath("../HealthComponent")
 body = NodePath("..")
+free_on_death = false
 corpse = NodePath("Corpse")
 delete_timer = NodePath("Timer")
 corpse_time = 5

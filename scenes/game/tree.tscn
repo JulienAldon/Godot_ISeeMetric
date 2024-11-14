@@ -139,17 +139,17 @@ icon = ExtResource("12_yor58")
 value = 20
 type = 2
 
-[node name="Tree" type="StaticBody2D" node_paths=PackedStringArray("death", "hitbox", "network", "health", "selection", "income") groups=["navigation", "resource"]]
+[node name="Tree" type="StaticBody2D" node_paths=PackedStringArray("network", "death", "health", "selection", "income", "hitbox") groups=["navigation", "resource"]]
 collision_layer = 78
 collision_mask = 0
 input_pickable = true
 script = ExtResource("1_vud0p")
-death = NodePath("DeathComponent")
-hitbox = NodePath("HitboxComponent")
 network = NodePath("NetworkComponent")
+death = NodePath("DeathComponent")
 health = NodePath("HealthComponent")
 selection = NodePath("SelectionComponent")
 income = NodePath("IncomeComponent")
+hitbox = NodePath("HitboxComponent")
 display_name = "Tree"
 str_type = "Tree"
 icon = ExtResource("2_sbgn4")
@@ -182,6 +182,7 @@ body = NodePath("..")
 sprite = NodePath("../AnimatedSprite2D")
 health = NodePath("../HealthComponent")
 body = NodePath("..")
+free_on_death = false
 corpse = NodePath("Corpse")
 delete_timer = NodePath("Timer")
 

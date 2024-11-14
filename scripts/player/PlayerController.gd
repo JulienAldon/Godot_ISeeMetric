@@ -39,8 +39,17 @@ func interact_entity(entity: Entity):
 	if last_target and is_instance_valid(last_target):
 		last_target.selection.set_target_indicator(false)
 	last_target = entity
-	entity.selection.set_target_indicator(true)
+	if entity.controlled_by != player_id:
+		entity.selection.set_target_indicator(true)
 	current_controller.interact_entity(entity)
+
+func mass_select_entity(entities: Array):
+	current_controller.mass_select_entity(entities)
+
+func select_entity(entity: Entity):
+	last_select = entity
+	current_controller.select_entity(entity)
+	show_entity_informations(entity, multiplayer.get_unique_id())
 
 func stop_interact_entity(entity: Entity):
 	current_controller.stop_interact_entity(entity)
@@ -50,11 +59,6 @@ func reset_state():
 		last_target.selection.set_target_indicator(false)
 	if is_instance_valid(last_select):
 		hide_entity_informations(player_id)
-
-func select_entity(entity: Entity):
-	last_select = entity
-	current_controller.select_entity(entity)
-	show_entity_informations(entity, multiplayer.get_unique_id())
 
 func get_outpost_actions():
 	return outpost_actions

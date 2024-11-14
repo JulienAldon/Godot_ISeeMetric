@@ -12,7 +12,7 @@ var dragging = false
 func get_selected():
 	return selected
 
-func clear_selected():
+func sanitize_selected():
 	for unit in selected:
 		if not is_instance_valid(unit) or ("death" in unit and unit.death.is_dead):
 			selected.erase(unit)
@@ -24,11 +24,6 @@ func set_start_dragging(pos):
 func set_stop_dragging(stop, space, filter_func):
 	dragging = false
 	set_selected(compute_selected_units(drag_start, stop, space, filter_func))
-	if selected.size() > 0:
-		pass
-		controller.player.show_entities_informations(selected, controller.player_id)
-		controller.player.show_entities_actions(selected, controller.player_id)
-	set_selected_units(true)
 
 func set_selected_units(status):
 	for unit in selected:
@@ -38,6 +33,10 @@ func set_selected_units(status):
 
 func set_selected(value):
 	selected = value
+	if selected.size() > 0:
+		controller.player.show_entities_informations(selected, controller.player_id)
+		controller.player.show_entities_actions(selected, controller.player_id)
+	set_selected_units(true)
 
 func find_nearest(points: Dictionary, pos: Vector2, distance: int):
 	for point in points:
@@ -49,6 +48,8 @@ func find_nearest(points: Dictionary, pos: Vector2, distance: int):
 func reset_selection():
 	set_selected_units(false)
 	set_selected([])
+	controller.player.hide_entity_informations(controller.player_id)
+	controller.player.hide_entity_actions(controller.player_id)
 
 func get_nearest_target(pos):
 	var target_entity = compute_selected_units(

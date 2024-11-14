@@ -90,6 +90,8 @@ text = "1"
 icon = ExtResource("6_fehvm")
 
 [node name="Informations" parent="." instance=ExtResource("4_3w7i4")]
+offset_left = 234.0
+offset_right = 403.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_uroea")
 
 [node name="ActionUI" parent="." instance=ExtResource("5_hjow0")]

@@ -13,7 +13,6 @@ more = 0.0
 
 [resource]
 script = ExtResource("3_lqpqy")
-id = "rts_marauder_skill"
 type = 0
 damage_type = 0
 movement = false
@@ -27,5 +26,5 @@ projectiles = 0
 base_duration = 0.0
 projectiles_scallable = false
 behaviours = Array[String](["res://scenes/skills/behaviours/projectile.tscn", "res://scenes/skills/behaviours/following.tscn", "res://scenes/skills/behaviours/damaging.tscn"])
-throw_speed = 50
+throw_speed = 200
 effects = Array[ExtResource("2_qf6p8")]([])

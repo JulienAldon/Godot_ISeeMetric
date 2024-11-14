@@ -37,7 +37,7 @@ func build_position_selected(pos: Vector2):
 func destroy_buildings(capturing_player: int):
 	for building in buildings:
 		if building.controlled_by != capturing_player:
-			building.hitbox.damage.rpc(building.health.max_health, capturing_player)
+			building.hitbox.damage.rpc(building.health.max_health, Skill.DamageType.none, capturing_player)
 
 func _on_effect_range_body_entered(body):
 	if body.is_in_group("building") and body != entity:

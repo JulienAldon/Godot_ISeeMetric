@@ -21,11 +21,18 @@ func minimap_command_position(_pos: Vector2):
 func minimap_command_action(_pos: Vector2):
 	pass
 
+# Right click interaction
 func interact_entity(_entity: Entity):
 	pass
 
+# Remove _entity from selection
 func stop_interact_entity(_entity: Entity):
 	pass
 
+# Add _entity to selection
 func select_entity(_entity: Entity):
+	pass
+
+# Add all entities to selection
+func mass_select_entity(entities: Array):
 	pass

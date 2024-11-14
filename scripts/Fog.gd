@@ -62,7 +62,7 @@ func update_fog_units():
 			other_authority_units.append(unit)
 	
 	for unit in other_authority_units:
-		if is_in_range(positions, unit.global_position):
+		if is_in_range(positions, unit.global_position) and unit.is_active:
 			unit.show()
 		else:
 			unit.hide()

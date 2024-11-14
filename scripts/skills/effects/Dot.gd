@@ -7,6 +7,6 @@ var trigger_timer: float
 
 func update(delta):
 	if trigger_timer >= dot_tick_time:
-		character.hitbox.damage.rpc(10, character.controlled_by)
+		character.hitbox.damage.rpc(10, Skill.DamageType.none, character.controlled_by)
 		trigger_timer = 0
 	trigger_timer += delta

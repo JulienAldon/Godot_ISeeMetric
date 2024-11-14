@@ -78,7 +78,7 @@ func get_level_tilemap():
 		return null
 	return level_loaded[0].get_tilemap()
 
-func spawn_entity(scene: String, entity_id: String, informations: Dictionary):
+func spawn_entity(scene: String, informations: Dictionary):
 	if not multiplayer.is_server():
 		return
 	var info = informations
@@ -86,7 +86,7 @@ func spawn_entity(scene: String, entity_id: String, informations: Dictionary):
 	if !entity_spawner:
 		return null
 	info.merge({"scene": scene})
-	entity_spawner.show_or_spawn(entity_id, info)
+	entity_spawner.show_or_spawn(scene, info)
 
 func spawn_character(scene, info):
 	var spawner = get_node_or_null("/root/Multiplayer/"+str(info["controlled_by"]))

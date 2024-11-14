@@ -39,9 +39,16 @@ class_name CharacterStats
 #@export var more_lighting_damage_sources := []
 
 @export var armor: int = 0
+@export var magic_resist: int = 0
 
-func calculate_hit_damage(damage: int) -> int:
-	return ceil(damage * float(float(100) / float(100 + get_armor())))
+func calculate_hit_damage(damage: int, damage_type: Skill.DamageType) -> int:
+	if damage_type == Skill.DamageType.none:
+		return damage
+	var mitigations = [get_armor(), get_magic_resist()]
+	return ceil(damage * float(float(100) / float(100 + mitigations[int(damage_type-1)])))
+
+func get_magic_resist() -> int:
+	return magic_resist
 
 func get_armor() -> int:
 	return armor

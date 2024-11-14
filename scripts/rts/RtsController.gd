@@ -49,6 +49,16 @@ func interact_entity(entity):
 		command_or_append_unit_action(mouse_pos, entity)
 		select_controller.queue_redraw()
 
+func select_entity(entity: Entity):
+	select_controller.reset_selection()
+	if entity.is_in_group("rts_unit"):
+		select_controller.set_selected([entity])
+
+func mass_select_entity(entities: Array):
+	select_controller.reset_selection()
+	if not false in entities.map(func(el): return el.is_in_group("rts_unit")):
+		select_controller.set_selected(entities)
+
 func command_or_append_unit_action(mouse_pos: Vector2, entity):
 	show_cursor_anim(mouse_pos)
 	var target: Entity
@@ -56,7 +66,7 @@ func command_or_append_unit_action(mouse_pos: Vector2, entity):
 		target = entity
 	else:
 		target = null
-	select_controller.clear_selected()
+	select_controller.sanitize_selected()
 	var group_map = select_controller.create_selected_map()
 	if Input.is_key_pressed(KEY_SHIFT):
 		move_controller.append_movement(mouse_pos, group_map)
@@ -92,14 +102,6 @@ func _unhandled_input(event):
 			if event.pressed and select_controller.get_selected().size() > 0:
 				command_or_append_unit_action(mouse_pos, null)
 				select_controller.queue_redraw()
-		#elif event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			##var entity = calculate_target_entity(func(el): return el)
-			#if entity:
-				#player.show_entity_informations(entity, player_id)
-				#player.show_entity_actions(entity, player_id)
-			#else:
-				#player.hide_entity_informations(player_id)
-				#player.hide_entity_actions(player_id)
 			
 	if Input.is_action_pressed("action_slot_4"):
 		GameManager.spawn_character(char_scene, {"position": mouse_pos, "controlled_by": player_id})

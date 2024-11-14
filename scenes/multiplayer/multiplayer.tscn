@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b5pnpbxbv7s4y"]
+[gd_scene load_steps=17 format=3 uid="uid://b5pnpbxbv7s4y"]
 
 [ext_resource type="PackedScene" uid="uid://hy5mfuk4bsut" path="res://scenes/Menu.tscn" id="1_bjl1e"]
 [ext_resource type="Script" path="res://scripts/MultiplayerController.gd" id="1_ehst3"]
@@ -11,6 +11,61 @@
 [ext_resource type="Resource" uid="uid://dy8sshgc57vj8" path="res://resources/skills/rts_marauder_skill.tres" id="9_yg6f5"]
 [ext_resource type="Resource" uid="uid://c4pmsspbvdy7f" path="res://resources/skills/rts_bomber_skill.tres" id="10_7yh7g"]
 [ext_resource type="Resource" uid="uid://bmfhd63v3n5rv" path="res://resources/skills/rts_raider_skill.tres" id="11_veons"]
+[ext_resource type="Script" path="res://scripts/skills/effects/EffectResource.gd" id="12_156mo"]
+
+[sub_resource type="Resource" id="Resource_wo2bf"]
+script = ExtResource("7_w6w35")
+id = "res://scenes/game/tree.tscn"
+type = 0
+damage_type = 0
+movement = false
+cooldown = 0.0
+area_of_effect = 0
+scene = "res://scenes/game/tree.tscn"
+damage_effectiveness = 0.0
+weapon_compatibility = Array[int]([])
+projectiles = 0
+base_duration = 0.0
+projectiles_scallable = false
+behaviours = Array[String]([])
+throw_speed = 0
+effects = Array[ExtResource("12_156mo")]([])
+
+[sub_resource type="Resource" id="Resource_n66i8"]
+script = ExtResource("7_w6w35")
+id = "res://scenes/game/wheat.tscn"
+type = 0
+damage_type = 0
+movement = false
+cooldown = 0.0
+area_of_effect = 0
+scene = "res://scenes/game/wheat.tscn"
+damage_effectiveness = 0.0
+weapon_compatibility = Array[int]([])
+projectiles = 0
+base_duration = 0.0
+projectiles_scallable = false
+behaviours = Array[String]([])
+throw_speed = 0
+effects = Array[ExtResource("12_156mo")]([])
+
+[sub_resource type="Resource" id="Resource_n63pg"]
+script = ExtResource("7_w6w35")
+id = "res://scenes/game/stone.tscn"
+type = 0
+damage_type = 0
+movement = false
+cooldown = 0.0
+area_of_effect = 0
+scene = "res://scenes/game/stone.tscn"
+damage_effectiveness = 0.0
+weapon_compatibility = Array[int]([])
+projectiles = 0
+base_duration = 0.0
+projectiles_scallable = false
+behaviours = Array[String]([])
+throw_speed = 0
+effects = Array[ExtResource("12_156mo")]([])
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3igut"]
 
@@ -52,7 +107,7 @@ spawn_path = NodePath("../Entities")
 
 [node name="Entities" type="Node2D" parent="." node_paths=PackedStringArray("entity_spawner")]
 script = ExtResource("6_off82")
-scenes = Array[ExtResource("7_w6w35")]([ExtResource("8_ro0pj"), ExtResource("9_yg6f5"), ExtResource("10_7yh7g"), ExtResource("11_veons")])
+scenes = Array[ExtResource("7_w6w35")]([ExtResource("8_ro0pj"), ExtResource("9_yg6f5"), ExtResource("10_7yh7g"), ExtResource("11_veons"), SubResource("Resource_wo2bf"), SubResource("Resource_n66i8"), SubResource("Resource_n63pg")])
 scenes_to_spawn = 50
 entity_spawner = NodePath("../EntitySpawner")
 

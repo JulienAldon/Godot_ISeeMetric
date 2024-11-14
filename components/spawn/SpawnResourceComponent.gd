@@ -3,7 +3,7 @@ extends Node2D
 class_name SpawnResourceComponent
 
 @export var network: NetworkComponent
-@export var resource_scene: String
+@export var resource_scenes: Dictionary
 
 @export var effect_shape: Shape2D
 @export var spawned_entity_shape: Shape2D
@@ -11,6 +11,7 @@ class_name SpawnResourceComponent
 @export var spawn_timer: Timer
 var can_spawn: bool = true
 var entities: Array
+var current_scene: GameManager.CurrencyType = GameManager.CurrencyType.Wheat
 
 func _ready():
 	if not is_multiplayer_authority():
@@ -45,13 +46,17 @@ func is_overlapping_entity(shape: Shape2D, pos: Vector2, filter_func = null, max
 		return result.size() > max_entity
 	return result.filter(filter_func).size() > max_entity
 
+@rpc("call_local", "any_peer")
+func spawn_resource(informations):
+	GameManager.spawn_entity(resource_scenes[current_scene], informations)
+
 func _spawn_cooldown_finish():
 	if not can_spawn:
 		return
-	if is_overlapping_entity(effect_shape, global_position, func(el): return el.collider is Wheat, max_entity_spawn - 1):
+	if is_overlapping_entity(effect_shape, global_position, func(el): return el.collider is ResourceEntity, max_entity_spawn - 1):
 		return
 	var informations = {
 		"position": find_point_in_effect_range(),
 		"controlled_by": 0,
 	}
-	GameManager.spawn_entity(resource_scene, resource_scene, informations)
+	spawn_resource.rpc_id(1, informations)

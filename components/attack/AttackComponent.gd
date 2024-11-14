@@ -70,7 +70,8 @@ func is_target_in_attack_range() -> bool:
 
 func apply_damage() -> void:
 	if is_target_in_attack_range():
-		target.hitbox.damage.rpc(5, network.controlled_by)
+		var damage_type = Skill.DamageType.none
+		target.hitbox.damage.rpc(5, damage_type, network.controlled_by)
 
 func is_attack_possible() -> bool:
 	if not is_instance_valid(target):

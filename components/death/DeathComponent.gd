@@ -10,6 +10,7 @@ class_name DeathComponent
 
 @export_category("Configuration")
 @export var experience_yield: int = 20
+@export var free_on_death: bool = true
 
 @export_group("Intern")
 @export var corpse: Sprite2D
@@ -22,12 +23,18 @@ func _ready():
 	if delete_timer:
 		delete_timer.timeout.connect(_on_timer_timeout)
 		delete_timer.wait_time = corpse_time
-	
+
+func respawn():
+	corpse.hide()
+	is_dead = false
+	health.heal(health.max_health)
+	sprite.show()
+	health.show()
+
 @rpc("any_peer", "call_local")
 func show_corpse():
 	corpse.show()
 	is_dead = true
-	#corpse.flip_h = sprite.flip_h
 	sprite.hide()
 	health.hide()
 	body.deactivate_behaviour()
@@ -49,5 +56,7 @@ func delete_corpse():
 		body.call_deferred("queue_free")
 	 
 func _on_timer_timeout():
-	delete_corpse.rpc()
-	#call_deferred("queue_free")
+	if free_on_death:
+		delete_corpse.rpc()
+	else:
+		body.hide()

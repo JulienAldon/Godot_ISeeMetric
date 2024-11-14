@@ -1,8 +1,7 @@
-extends Node2D
+extends Entity
 
 class_name SkillEntity
 
-var controlled_by: int = 1
 var invoker_path: NodePath
 var invoker: Node
 var target: Node2D
@@ -12,7 +11,7 @@ var behaviours_models
 var behaviours: Array[SkillBehaviour]
 
 var entity_id: String
-var scene: String
+
 @export_category("Dependencies")
 @export var animation_tree: AnimationTree
 @export var animation_player: AnimationPlayer
@@ -21,11 +20,9 @@ var scene: String
 @export var shape: Shape2D = CircleShape2D.new()
 
 var shape_offset: Vector2 = Vector2(0, 0)
-@export_category("Spawn import")
 var damage: float
+var damage_type: float
 var animation_duration: float
-var ref: Vector2
-var invoker_pos: Vector2
 var animation_speed: float
 var throw_speed: float = 0
 var speed: float
@@ -46,6 +43,7 @@ func set_area_of_effect(value):
 		shape_offset = Vector2(-shape.size.x/2, shape.size.y/2).rotated(rotation)
 
 func _ready():
+	is_active = false
 	set_process(false)
 	set_physics_process(false)
 	for model in behaviours_models:
@@ -64,6 +62,7 @@ func start():
 	if "parameters/conditions/hit" in animation_tree:
 		animation_tree["parameters/conditions/hit"] = false
 	visible = true
+	is_active = true
 	animation_tree.set_active(true)
 	set_process(true)
 	set_physics_process(true)
@@ -75,6 +74,8 @@ func configure():
 		invoker = get_node(invoker_path)
 	if target_path:
 		target = get_node(target_path)
+	if throw_speed:
+		speed = throw_speed
 	set_area_of_effect(radius)
 	if scallable_effect:
 		scallable_effect.scale = Vector2(radius / effect_base_radius, radius / effect_base_radius)
@@ -103,6 +104,7 @@ func _process(delta):
 		behaviour.update(delta)
 
 func stop():
+	is_active = false
 	visible = false
 	if "parameters/conditions/hit" in animation_tree:
 		animation_tree["parameters/conditions/hit"] = false

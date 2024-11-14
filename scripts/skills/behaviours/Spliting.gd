@@ -29,7 +29,6 @@ func hit(_body):
 		"rotation": (skill_entity.initial_direction + random_offset).angle(),
 		"animation_speed": skill_entity.animation_speed,
 		"damage": skill_entity.damage,
-		"ref": skill_entity.global_position,
 		"invoker_path": skill_entity.get_path(),
 		"throw_speed": throw_speed,
 		"initial_direction": skill_entity.initial_direction + random_offset,
@@ -37,6 +36,6 @@ func hit(_body):
 		"mouse_pos": skill_entity.mouse_pos,
 		"behaviours_models": behaviours,
 		"effects": skill_entity.effects,
-		"entity_id": skill_entity.entity_id
+		"damage_type": skill_entity.damage_type
 	}
-	GameManager.spawn_entity.call_deferred(skill_entity.scene,skill_entity.entity_id, informations)
+	GameManager.spawn_entity.call_deferred(skill_entity.scene, informations)

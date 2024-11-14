@@ -21,21 +21,36 @@ var is_mouse_hover: bool = false
 func _ready():
 	body.mouse_entered.connect(_on_mouse_entered)
 	body.mouse_exited.connect(_on_mouse_exited)
-	body.input_event.connect(_body_input_event)
+	#body.input_event.connect(_body_input_event)
 	
 	if has_colored_outline:
 		for sprite in sprites:
 			sprite.material.set_shader_parameter('outline_color', GameManager.Players[network.controlled_by].color)
-	
-func _body_input_event(_viewport, event, _shape_idx):
-	if event is InputEventMouseButton:
-		if event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
+
+func get_visible_entity() -> Array:
+	var query = PhysicsShapeQueryParameters2D.new()
+	var space = get_world_2d().direct_space_state
+	var shape = RectangleShape2D.new()
+	shape.size = get_viewport_rect().size
+	query.shape = shape
+	query.collision_mask = 2
+	query.transform = Transform2D(0, body.global_position)
+	var result = space.intersect_shape(query, 100)
+	return result.map(func(el): return el.collider)
+
+func _input(event):
+	if event is InputEventMouseButton and is_mouse_hover:
+		if event.double_click:
+			var similar_entities = get_visible_entity().filter(func(el): return el.str_type == body.str_type)
+			GameManager.get_player(multiplayer.get_unique_id()).mass_select_entity(similar_entities)
+		elif event.is_pressed() and event.button_index == MOUSE_BUTTON_RIGHT:
+			print("azeaze")
 			GameManager.get_player(multiplayer.get_unique_id()).interact_entity(body)
-			_viewport.set_input_as_handled()
 		elif event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
 			set_target_indicator(false)
+			print("aze")
 			GameManager.get_player(multiplayer.get_unique_id()).select_entity(body)
-			_viewport.set_input_as_handled()
+		get_viewport().set_input_as_handled()
 
 #func _input(event):
 	#if event is InputEventMouseButton:

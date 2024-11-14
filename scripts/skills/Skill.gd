@@ -5,6 +5,7 @@ class_name Skill
 enum DamageType {
 	physical,
 	magic,
+	none,
 	#fire,
 	#cold,
 	#lightning,
@@ -14,7 +15,6 @@ enum SkillType {
 	Spell
 }
 
-@export var id: String
 @export var type: SkillType
 @export var damage_type: DamageType
 @export var movement: bool = false

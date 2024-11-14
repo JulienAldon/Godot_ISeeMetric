@@ -10,7 +10,7 @@ func instantiate_entity(informations: Dictionary):
 	var current_entity = load(informations['scene']).instantiate()
 	for key in informations.keys():
 		current_entity[key] = informations[key]
-	objects_pool[informations['entity_id']].append(current_entity)
+	objects_pool[informations['scene']].append(current_entity)
 	return current_entity
 
 func _enter_tree():
@@ -19,15 +19,18 @@ func _enter_tree():
 func spawn_initial_scenes():
 	for skill in scenes:
 		for _i in range(0, scenes_to_spawn):
-			entity_spawner.spawn({"scene": skill.scene, "visible": false, "behaviours_models": skill.behaviours, "entity_id": skill.id})
+			var info = {"scene": skill.scene, "visible": false, "spawned_in_editor": false}
+			if skill.behaviours.size() > 0:
+				info.merge({"behaviours_models": skill.behaviours})
+			entity_spawner.spawn(info)
 
 func get_first_available_object(objects: Array):
 	for object in objects:
-		if object.visible == false:
+		if object.is_active == false:
 			return object
 
-func show_or_spawn(entity_id, informations):
-	var object = get_first_available_object(objects_pool[entity_id])
+func show_or_spawn(scene, informations):
+	var object = get_first_available_object(objects_pool[scene])
 	if object:
 		for key in informations.keys():
 			object[key] = informations[key]
@@ -38,4 +41,4 @@ func _ready():
 	if not multiplayer.is_server():
 		return
 	for skill in scenes:
-		objects_pool[skill.id] = []
+		objects_pool[skill.scene] = []

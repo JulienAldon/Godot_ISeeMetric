@@ -14,7 +14,6 @@ more = 0.0
 
 [resource]
 script = ExtResource("3_gbls8")
-id = "rts_marauder_skill"
 type = 0
 damage_type = 0
 movement = false

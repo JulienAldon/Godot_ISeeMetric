@@ -13,7 +13,6 @@ more = 0.0
 
 [resource]
 script = ExtResource("3_g62hs")
-id = "rts_raider_skill"
 type = 0
 damage_type = 0
 movement = false

@@ -596,7 +596,7 @@ _data = {
 [sub_resource type="Resource" id="Resource_ej6ej"]
 script = ExtResource("16_ynrf6")
 icon = ExtResource("17_cyh0i")
-value = 10
+value = 0
 type = 2
 
 [sub_resource type="Resource" id="Resource_i17bd"]
@@ -625,7 +625,6 @@ more = 0.0
 [sub_resource type="Resource" id="Resource_pp77n"]
 resource_local_to_scene = true
 script = ExtResource("28_cpdrh")
-id = ""
 type = 0
 damage_type = 0
 movement = false
@@ -652,7 +651,6 @@ more = 0.0
 [sub_resource type="Resource" id="Resource_hgdkv"]
 resource_local_to_scene = true
 script = ExtResource("28_cpdrh")
-id = ""
 type = 0
 damage_type = 0
 movement = false

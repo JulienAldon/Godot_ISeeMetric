@@ -18,6 +18,21 @@ properties/3/path = NodePath("AnimationTree:active")
 properties/3/spawn = true
 properties/3/replication_mode = 1
 
+[sub_resource type="Animation" id="Animation_snp2u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_5vgp2"]
 resource_name = "idle"
 tracks/0/type = "value"
@@ -45,21 +60,6 @@ tracks/1/keys = {
 "args": [],
 "method": &"stop"
 }]
-}
-
-[sub_resource type="Animation" id="Animation_snp2u"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles2D:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_av8rb"]
@@ -109,12 +109,11 @@ scale_min = 5.0
 scale_max = 15.0
 color_ramp = SubResource("GradientTexture1D_6w2al")
 
-[node name="RaiderProjectile" type="Node2D" node_paths=PackedStringArray("behaviours_container", "animation_tree", "animation_player", "scallable_effect")]
+[node name="RaiderProjectile" type="Node2D" node_paths=PackedStringArray("behaviours_container", "animation_tree", "animation_player")]
 script = ExtResource("1_32nh2")
 behaviours_container = NodePath("Behaviours")
 animation_tree = NodePath("AnimationTree")
 animation_player = NodePath("AnimationPlayer")
-scallable_effect = NodePath("")
 shape = SubResource("RectangleShape2D_grjp0")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

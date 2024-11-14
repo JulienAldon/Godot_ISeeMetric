@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://deqj7jv2gkugs"]
+[gd_scene load_steps=32 format=3 uid="uid://deqj7jv2gkugs"]
 
 [ext_resource type="Script" path="res://scripts/td/buildings/Windmill.gd" id="1_622jx"]
 [ext_resource type="Texture2D" uid="uid://dxudhfnuucocm" path="res://assets/buildings/windmill.png" id="1_sai4a"]
@@ -17,6 +17,11 @@
 [ext_resource type="Script" path="res://scripts/td/actions/RemoveBuilding.gd" id="15_g8ml6"]
 [ext_resource type="Texture2D" uid="uid://bjd8p7m0fgmci" path="res://assets/icons/action/delete_building.png" id="16_0ukud"]
 [ext_resource type="Script" path="res://components/spawn/SpawnResourceComponent.gd" id="17_2b82k"]
+[ext_resource type="Script" path="res://scripts/td/actions/ChangeModeBuilding.gd" id="17_afbee"]
+[ext_resource type="Script" path="res://scripts/td/actions/SpawnTypeChangeMode.gd" id="18_sckin"]
+[ext_resource type="Texture2D" uid="uid://b6a3uanemf4fc" path="res://assets/icons/resources/wheat_collected.png" id="19_rkeot"]
+[ext_resource type="Texture2D" uid="uid://ceq7po73aanm4" path="res://assets/icons/resources/rock.png" id="20_fdgvx"]
+[ext_resource type="Texture2D" uid="uid://byupv4stib2w8" path="res://assets/icons/resources/wood.png" id="21_a7kw8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c8pog"]
 resource_local_to_scene = true
@@ -206,6 +211,7 @@ icon = ExtResource("2_pxeuc")
 z_index = 2
 
 [node name="EffectRange" type="ColorRect" parent="Sprites"]
+z_index = -1
 custom_minimum_size = Vector2(150, 150)
 anchors_preset = 8
 anchor_left = 0.5
@@ -327,10 +333,72 @@ wait_time = 0.1
 [node name="Cooldown" type="Timer" parent="ActionComponent/RemoveBuilding"]
 wait_time = 0.2
 
+[node name="ChangeModeBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("possible_mode", "building_ui", "cooldown", "time")]
+script = ExtResource("17_afbee")
+possible_mode = [NodePath("SpawnWheatMode"), NodePath("SpawnStoneMode"), NodePath("SpawnTreeMode")]
+building_ui = NodePath("../../BuildingActions")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="ActionComponent/ChangeModeBuilding"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/ChangeModeBuilding"]
+wait_time = 0.1
+
+[node name="SpawnWheatMode" type="Node2D" parent="ActionComponent/ChangeModeBuilding" node_paths=PackedStringArray("resource_spawner", "cooldown", "time")]
+script = ExtResource("18_sckin")
+resource_spawner = NodePath("../../../SpawnResource")
+resource = 4
+title = "Wheat mode"
+icon = ExtResource("19_rkeot")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="ActionComponent/ChangeModeBuilding/SpawnWheatMode"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/ChangeModeBuilding/SpawnWheatMode"]
+wait_time = 0.1
+
+[node name="SpawnStoneMode" type="Node2D" parent="ActionComponent/ChangeModeBuilding" node_paths=PackedStringArray("resource_spawner", "cooldown", "time")]
+script = ExtResource("18_sckin")
+resource_spawner = NodePath("../../../SpawnResource")
+resource = 3
+title = "Stone mode"
+icon = ExtResource("20_fdgvx")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="ActionComponent/ChangeModeBuilding/SpawnStoneMode"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/ChangeModeBuilding/SpawnStoneMode"]
+wait_time = 0.1
+
+[node name="SpawnTreeMode" type="Node2D" parent="ActionComponent/ChangeModeBuilding" node_paths=PackedStringArray("resource_spawner", "cooldown", "time")]
+script = ExtResource("18_sckin")
+resource_spawner = NodePath("../../../SpawnResource")
+resource = 2
+title = "Tree mode"
+icon = ExtResource("21_a7kw8")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="ActionComponent/ChangeModeBuilding/SpawnTreeMode"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/ChangeModeBuilding/SpawnTreeMode"]
+wait_time = 0.1
+
 [node name="SpawnResource" type="Node2D" parent="." node_paths=PackedStringArray("network", "spawn_timer")]
 script = ExtResource("17_2b82k")
 network = NodePath("../NetworkComponent")
-resource_scene = "res://scenes/game/wheat.tscn"
+resource_scenes = {
+2: "res://scenes/game/tree.tscn",
+3: "res://scenes/game/stone.tscn",
+4: "res://scenes/game/wheat.tscn"
+}
 effect_shape = SubResource("RectangleShape2D_1apkk")
 spawned_entity_shape = SubResource("RectangleShape2D_krwcu")
 spawn_timer = NodePath("SpawnTimer")

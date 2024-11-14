@@ -41,12 +41,13 @@ func _ready():
 func take_damage_tick(delta):
 	current_rime += delta
 	if current_rime >= time_before_damage:
-		self.hitbox.damage.rpc(health_lost, controlled_by)
+		self.hitbox.damage.rpc(health_lost, Skill.DamageType.none, controlled_by)
 		current_rime = 0
 
 func _process(delta):
-	if not in_outpost_range:
-		take_damage_tick(delta)
+	pass
+	#if not in_outpost_range:
+		#take_damage_tick(delta)
 
 func deactivate_behaviour():
 	action_panel.hide()

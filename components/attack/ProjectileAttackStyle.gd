@@ -8,7 +8,7 @@ class_name ProjectileAttackStyle
 
 @rpc("call_local", "any_peer")
 func trigger_skill(scene, informations):
-	GameManager.spawn_entity(scene, skill.id, informations)
+	GameManager.spawn_entity(scene, informations)
 
 func apply_damage(target: Node2D, controlled_by: int):
 	var informations = {
@@ -19,14 +19,13 @@ func apply_damage(target: Node2D, controlled_by: int):
 		"rotation": (target.global_position - attack_point.global_position).angle(),
 		"animation_speed": 1,
 		"damage": stats.calculate_skill_damage(skill).calculate(),
-		"ref": attack_point.global_position,
 		"invoker_path": body.get_path(),
 		"throw_speed": stats.get_skill_throw_speed(skill),
 		"duration": stats.get_skill_duration(skill),
 		"mouse_pos": target.position,
 		"behaviours_models": stats.get_skill_behaviours(skill),
 		"effects": stats.get_skill_effects(skill),
-		"entity_id": skill.id,
-		"radius": skill.area_of_effect
+		"radius": skill.area_of_effect,
+		"damage_type": skill.damage_type
 	}
 	trigger_skill.rpc_id(1, skill.scene, informations)
