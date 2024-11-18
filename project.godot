@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Root_like"
-run/main_scene="res://scenes/multiplayer/multiplayer.tscn"
+run/main_scene="res://scenes/ui/informations/multiplayer.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-GameManager="*res://scripts/GameManager.gd"
+GameManager="*res://scripts/game_manager.gd"
 
 [debug]
 

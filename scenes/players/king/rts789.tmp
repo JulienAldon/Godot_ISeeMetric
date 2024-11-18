@@ -1,0 +1,62 @@
+[gd_scene load_steps=11 format=3 uid="uid://b4qecf23eusp0"]
+
+[ext_resource type="Script" path="res://scenes/players/player_controller.gd" id="1_ux3el"]
+[ext_resource type="PackedScene" uid="uid://cfjgwqiy0a2ov" path="res://scenes/players/king/ui/rts_ui.tscn" id="2_1ix23"]
+[ext_resource type="Script" path="res://scenes/players/king/rts_controller.gd" id="2_n2iaw"]
+[ext_resource type="Script" path="res://scenes/players/controllers/select/select.gd" id="3_8ow7i"]
+[ext_resource type="PackedScene" uid="uid://4bbd0jc63doj" path="res://scenes/entity/actions/build/build.tscn" id="3_fx0xa"]
+[ext_resource type="Texture2D" uid="uid://d06sm00nfbcm8" path="res://scenes/entity/icons/buildings/barrack.png" id="4_tx15w"]
+[ext_resource type="Script" path="res://scenes/players/controllers/move/move_units.gd" id="4_xh5ra"]
+[ext_resource type="Texture2D" uid="uid://c8kjoj4e0t8af" path="res://scenes/entity/icons/resources/gold.png" id="7_7vaaa"]
+[ext_resource type="Script" path="res://scripts/resources/yield.gd" id="7_moujk"]
+
+[sub_resource type="Resource" id="Resource_on2xr"]
+script = ExtResource("7_moujk")
+icon = ExtResource("7_7vaaa")
+value = 0
+type = 0
+
+[node name="Player" type="Node2D" node_paths=PackedStringArray("outpost_actions", "current_controller", "camera")]
+script = ExtResource("1_ux3el")
+outpost_actions = NodePath("OutpostActions")
+current_controller = NodePath("RtsController")
+camera = NodePath("Camera2D")
+ui_scene = ExtResource("2_1ix23")
+metadata/_edit_horizontal_guides_ = []
+
+[node name="RtsController" type="Node2D" parent="." node_paths=PackedStringArray("select_controller", "move_controller", "player", "camera")]
+z_index = 1
+script = ExtResource("2_n2iaw")
+camera_margin = 10
+camera_speed = 300
+cursor_animation_scene = "res://scenes/ui/cursors/click_animation.tscn"
+select_controller = NodePath("SelectController")
+char_scene = "res://scenes/entity/units/bomber/bomber.tscn"
+char_scene_2 = "res://scenes/entity/units/rts_character.tscn"
+char_scene_3 = "res://scenes/entity/units/raider/raider.tscn"
+move_controller = NodePath("MoveController")
+player = NodePath("..")
+camera = NodePath("../Camera2D")
+
+[node name="SelectController" type="Node2D" parent="RtsController" node_paths=PackedStringArray("controller")]
+script = ExtResource("3_8ow7i")
+controller = NodePath("..")
+
+[node name="MoveController" type="Node2D" parent="RtsController"]
+script = ExtResource("4_xh5ra")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+process_callback = 0
+position_smoothing_speed = 20.0
+drag_left_margin = 0.1
+drag_top_margin = 0.1
+drag_right_margin = 0.1
+drag_bottom_margin = 0.1
+
+[node name="OutpostActions" type="Node2D" parent="."]
+
+[node name="Build" parent="OutpostActions" instance=ExtResource("3_fx0xa")]
+building_scene = "res://scenes/rts/buildings/barracks.tscn"
+icon = ExtResource("4_tx15w")
+cost = Array[ExtResource("7_moujk")]([SubResource("Resource_on2xr")])

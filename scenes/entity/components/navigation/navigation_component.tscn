@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckia2wdtsnvks"]
+
+[ext_resource type="Script" path="res://scenes/entity/components/navigation/navigation_component.gd" id="1_vmpja"]
+
+[node name="NavigationComponent" type="Node2D"]
+script = ExtResource("1_vmpja")

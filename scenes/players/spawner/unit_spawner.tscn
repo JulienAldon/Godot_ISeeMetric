@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2x6sdog8fqmo"]
+
+[ext_resource type="Script" path="res://scenes/players/spawner/unit_spawner.gd" id="1_m2d1n"]
+
+[node name="UnitSpawner" type="Node2D" node_paths=PackedStringArray("spawner")]
+y_sort_enabled = true
+script = ExtResource("1_m2d1n")
+spawner = NodePath("MultiplayerSpawner")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("..")

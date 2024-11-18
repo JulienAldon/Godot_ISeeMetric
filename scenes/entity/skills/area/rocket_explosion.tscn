@@ -1,0 +1,183 @@
+[gd_scene load_steps=23 format=3 uid="uid://cd87f5bepefn6"]
+
+[ext_resource type="Script" path="res://scenes/entity/skills/skill.gd" id="1_uud2t"]
+[ext_resource type="Texture2D" uid="uid://mhvj63kc3dah" path="res://scenes/levels/fog/Light.png" id="2_owhjw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bgrr0"]
+radius = 32.0
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_08s0y"]
+
+[sub_resource type="Animation" id="Animation_jvpfx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Effect/GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Effect/GPUParticles2D2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_jx2xc"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Effect/GPUParticles2D:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Effect/GPUParticles2D2:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3gqxx"]
+_data = {
+"RESET": SubResource("Animation_jvpfx"),
+"idle": SubResource("Animation_jx2xc")
+}
+
+[sub_resource type="Curve" id="Curve_7lfsr"]
+_data = [Vector2(0.0429687, 0.957655), 0.0, 0.0, 0, 0, Vector2(0.988281, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3voeg"]
+curve = SubResource("Curve_7lfsr")
+
+[sub_resource type="Gradient" id="Gradient_2u34v"]
+offsets = PackedFloat32Array(0, 0.302632, 0.758772)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0.953333, 0.44, 1, 0.66, 0.176, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dnnap"]
+gradient = SubResource("Gradient_2u34v")
+
+[sub_resource type="Curve" id="Curve_g3ekn"]
+_data = [Vector2(0.0351563, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.174267), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_3m16d"]
+curve_y = SubResource("Curve_g3ekn")
+
+[sub_resource type="Curve" id="Curve_yu27f"]
+_data = [Vector2(0.015625, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.0154722), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_8tlww"]
+curve = SubResource("Curve_yu27f")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3lobi"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 60.0
+initial_velocity_min = 50.0
+initial_velocity_max = 120.0
+directional_velocity_min = -32.0
+directional_velocity_max = -10.0
+directional_velocity_curve = SubResource("CurveXYZTexture_3m16d")
+gravity = Vector3(0, 98, 0)
+damping_min = 50.0
+damping_max = 60.0
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_8tlww")
+color_ramp = SubResource("GradientTexture1D_dnnap")
+alpha_curve = SubResource("CurveTexture_3voeg")
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_6ryhe"]
+
+[sub_resource type="Curve" id="Curve_6petw"]
+_data = [Vector2(0.0195313, 1), 0.0, 0.0, 0, 0, Vector2(0.597656, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_tqp7c"]
+curve = SubResource("Curve_6petw")
+
+[sub_resource type="Gradient" id="Gradient_85e1i"]
+offsets = PackedFloat32Array(0.197368, 0.491228)
+colors = PackedColorArray(1, 1, 1, 1, 0.17, 0.17, 0.17, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_tn8st"]
+gradient = SubResource("Gradient_85e1i")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f28so"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 180.0
+initial_velocity_min = 32.26
+initial_velocity_max = 56.45
+angular_velocity_min = -49.32
+angular_velocity_max = 29.59
+gravity = Vector3(0, 0, 0)
+color_ramp = SubResource("GradientTexture1D_tn8st")
+alpha_curve = SubResource("CurveTexture_tqp7c")
+
+[node name="RangeTurretProjectile" type="Node2D" node_paths=PackedStringArray("behaviours_container", "animation_tree", "animation_player", "scallable_effect")]
+script = ExtResource("1_uud2t")
+behaviours_container = NodePath("Behaviours")
+animation_tree = NodePath("AnimationTree")
+animation_player = NodePath("AnimationPlayer")
+scallable_effect = NodePath("Effect")
+shape = SubResource("CircleShape2D_bgrr0")
+
+[node name="Behaviours" type="Node2D" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_08s0y")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3gqxx")
+}
+
+[node name="Effect" type="Node2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Effect"]
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_3lobi")
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+trail_enabled = true
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="Effect"]
+material = SubResource("CanvasItemMaterial_6ryhe")
+emitting = false
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_f28so")
+texture = ExtResource("2_owhjw")
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0

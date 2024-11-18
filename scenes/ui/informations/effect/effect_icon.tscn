@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwsy8kydswf1j"]
+
+[ext_resource type="Script" path="res://scenes/ui/informations/effect/effect_icon.gd" id="1_pmobh"]
+
+[node name="Passives" type="TextureRect" node_paths=PackedStringArray("stacks")]
+custom_minimum_size = Vector2(16, 16)
+script = ExtResource("1_pmobh")
+stacks = NodePath("nbStacks")
+
+[node name="nbStacks" type="Label" parent="."]
+layout_mode = 0
+offset_top = -1.0
+offset_right = 7.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 6
+text = "10"

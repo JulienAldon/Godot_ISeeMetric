@@ -1,0 +1,230 @@
+[gd_scene load_steps=32 format=3 uid="uid://cgfjh8oenup0n"]
+
+[ext_resource type="Script" path="res://scenes/entity/resources/wheat/Wheat.gd" id="1_ytv1w"]
+[ext_resource type="Texture2D" uid="uid://crg3rogjk5a0d" path="res://scenes/entity/icons/buildings/wheat.png" id="2_mbcuu"]
+[ext_resource type="PackedScene" uid="uid://b17vgvl5v7hpa" path="res://scenes/entity/components/death/death_component.tscn" id="3_ptx3n"]
+[ext_resource type="Texture2D" uid="uid://cg6c38s2w7e7v" path="res://scenes/entity/resources/wheat/wheat_destroyed.png" id="4_s8ykp"]
+[ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="5_cxduu"]
+[ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="6_ij5ab"]
+[ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="7_mfb17"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="8_gltm4"]
+[ext_resource type="Shader" path="res://unit_outline.gdshader" id="9_mdlo3"]
+[ext_resource type="Texture2D" uid="uid://dbmetj6n20oc2" path="res://scenes/entity/resources/wheat/wheat.png" id="10_s2pwl"]
+[ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="11_y54dr"]
+[ext_resource type="PackedScene" uid="uid://dtpakrxno6dna" path="res://scenes/entity/components/income/on_death_income_component.tscn" id="12_ymu8q"]
+[ext_resource type="Texture2D" uid="uid://b6a3uanemf4fc" path="res://scenes/entity/icons/resources/wheat_collected.png" id="13_kjs56"]
+[ext_resource type="Script" path="res://scripts/resources/yield.gd" id="14_nmve7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cbim5"]
+size = Vector2(27, 28)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_cie6h"]
+properties/0/path = NodePath("..:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("../AnimationComponent/AnimationTree:parameters/conditions/hit")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("../AnimatedSprite2D:visible")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("../DeathComponent/Corpse:visible")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ibwul"]
+resource_local_to_scene = true
+shader = ExtResource("9_mdlo3")
+shader_parameter/width = null
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xmnd"]
+atlas = ExtResource("10_s2pwl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wquq6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xmnd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_5lpon"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../AnimatedSprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_t3kre"]
+resource_name = "death"
+
+[sub_resource type="Animation" id="Animation_cuaby"]
+resource_name = "hit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 1.4), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../AnimatedSprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -8), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_px0l2"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dddfi"]
+_data = {
+"RESET": SubResource("Animation_5lpon"),
+"death": SubResource("Animation_t3kre"),
+"hit": SubResource("Animation_cuaby"),
+"idle": SubResource("Animation_px0l2")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5i6rl"]
+animation = &"hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yo5gq"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ehoqh"]
+advance_mode = 2
+advance_condition = &"hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5cqfi"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1pxeb"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_obkar"]
+states/hit/node = SubResource("AnimationNodeAnimation_5i6rl")
+states/hit/position = Vector2(506, 68)
+states/idle/node = SubResource("AnimationNodeAnimation_yo5gq")
+states/idle/position = Vector2(389, 113)
+transitions = ["idle", "hit", SubResource("AnimationNodeStateMachineTransition_ehoqh"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_5cqfi"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_1pxeb")]
+
+[sub_resource type="Resource" id="Resource_cna5e"]
+script = ExtResource("14_nmve7")
+icon = ExtResource("13_kjs56")
+value = 5
+type = 4
+
+[node name="Wheat" type="StaticBody2D" node_paths=PackedStringArray("network", "death", "health", "selection", "income", "hitbox") groups=["building", "resource"]]
+collision_layer = 2
+collision_mask = 0
+input_pickable = true
+script = ExtResource("1_ytv1w")
+network = NodePath("NetworkComponent")
+death = NodePath("DeathComponent")
+health = NodePath("HealthComponent")
+selection = NodePath("SelectionComponent")
+income = NodePath("IncomeComponent")
+hitbox = NodePath("HitboxComponent")
+display_name = "Wheat"
+str_type = "wheat"
+icon = ExtResource("2_mbcuu")
+vision_range = 50
+
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("sprite", "health", "body", "corpse", "delete_timer") instance=ExtResource("3_ptx3n")]
+sprite = NodePath("../AnimatedSprite2D")
+health = NodePath("../HealthComponent")
+body = NodePath("..")
+free_on_death = false
+corpse = NodePath("Corpse")
+delete_timer = NodePath("Timer")
+corpse_time = 3
+
+[node name="Timer" type="Timer" parent="DeathComponent"]
+
+[node name="Corpse" type="Sprite2D" parent="DeathComponent"]
+visible = false
+texture = ExtResource("4_s8ykp")
+
+[node name="HealthComponent" parent="." instance=ExtResource("5_cxduu")]
+visible = false
+z_index = 3
+
+[node name="HitboxComponent" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character", "animation")]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_cbim5")
+script = ExtResource("6_ij5ab")
+health_component = NodePath("../HealthComponent")
+character = NodePath("..")
+animation = NodePath("../AnimationComponent")
+
+[node name="NetworkComponent" parent="." instance=ExtResource("7_mfb17")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+replication_config = SubResource("SceneReplicationConfig_cie6h")
+
+[node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("8_gltm4")]
+network = NodePath("../NetworkComponent")
+sprites = [NodePath("../AnimatedSprite2D")]
+body = NodePath("..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
+material = SubResource("ShaderMaterial_ibwul")
+sprite_frames = SubResource("SpriteFrames_wquq6")
+
+[node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("sprite", "animation_tree")]
+script = ExtResource("11_y54dr")
+sprite = NodePath("../AnimatedSprite2D")
+animation_tree = NodePath("AnimationTree")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationComponent"]
+libraries = {
+"": SubResource("AnimationLibrary_dddfi")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="AnimationComponent"]
+tree_root = SubResource("AnimationNodeStateMachine_obkar")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/hit = false
+
+[node name="IncomeComponent" parent="." node_paths=PackedStringArray("animation") instance=ExtResource("12_ymu8q")]
+animation = NodePath("../AnimationComponent")
+income = SubResource("Resource_cna5e")

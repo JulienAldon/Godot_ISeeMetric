@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://tdxc50r7vig5"]
+
+[ext_resource type="Script" path="res://scenes/levels/fog/fog.gd" id="1_vlnmu"]
+[ext_resource type="Texture2D" uid="uid://mhvj63kc3dah" path="res://scenes/levels/fog/Light.png" id="2_ennvl"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ns2y3"]
+blend_mode = 3
+light_mode = 2
+
+[node name="Fog" type="Sprite2D"]
+z_index = 10
+material = SubResource("CanvasItemMaterial_ns2y3")
+script = ExtResource("1_vlnmu")
+LightTexture = ExtResource("2_ennvl")
+fog_color = Color(0.762404, 0.762404, 0.762403, 0.360784)

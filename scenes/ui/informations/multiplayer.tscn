@@ -1,0 +1,67 @@
+[gd_scene load_steps=18 format=3 uid="uid://b5pnpbxbv7s4y"]
+
+[ext_resource type="PackedScene" uid="uid://hy5mfuk4bsut" path="res://scenes/ui/menu/menu.tscn" id="1_bjl1e"]
+[ext_resource type="Script" path="res://scripts/multiplayer_controller.gd" id="1_ehst3"]
+[ext_resource type="PackedScene" uid="uid://b4qecf23eusp0" path="res://scenes/players/king/rts_player.tscn" id="2_q2hfg"]
+[ext_resource type="PackedScene" uid="uid://cfoshfln0a0vf" path="res://scenes/players/mercenary/hns_player.tscn" id="3_51nfn"]
+[ext_resource type="PackedScene" uid="uid://dri5pxn8lbno0" path="res://scenes/players/farmer/td_player.tscn" id="4_ev1oq"]
+[ext_resource type="PackedScene" uid="uid://b2x6sdog8fqmo" path="res://scenes/players/spawner/unit_spawner.tscn" id="5_0nylf"]
+[ext_resource type="PackedScene" uid="uid://bs5181k63jx1w" path="res://scenes/levels/game.tscn" id="5_q6m80"]
+[ext_resource type="Script" path="res://scripts/pooling.gd" id="6_off82"]
+[ext_resource type="Script" path="res://scripts/resources/skill.gd" id="7_w6w35"]
+[ext_resource type="Resource" uid="uid://b3l4kenqh1let" path="res://scenes/entity/buildings/turret/turret_skill.tres" id="8_ro0pj"]
+[ext_resource type="Resource" uid="uid://dy8sshgc57vj8" path="res://scenes/entity/units/marauder/marauder_skill.tres" id="9_yg6f5"]
+[ext_resource type="Resource" uid="uid://c4pmsspbvdy7f" path="res://scenes/entity/units/bomber/bomber_skill.tres" id="10_7yh7g"]
+[ext_resource type="Resource" uid="uid://bmfhd63v3n5rv" path="res://scenes/entity/units/raider/raider_skill.tres" id="11_veons"]
+[ext_resource type="Resource" uid="uid://dixgs7eqqjk8k" path="res://scenes/entity/resources/wood/spawn_tree_skill.tres" id="14_8ewng"]
+[ext_resource type="Resource" uid="uid://b1ifgeyebdoii" path="res://scenes/entity/resources/wheat/spawn_wheat_skill.tres" id="15_yvm1v"]
+[ext_resource type="Resource" uid="uid://do4rnm6l8145h" path="res://scenes/entity/resources/stone/spawn_stone_skill.tres" id="16_e2qqf"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3igut"]
+
+[node name="Multiplayer" type="Node2D" node_paths=PackedStringArray("level_container", "entities", "player_spawner", "multiplayer_menu")]
+y_sort_enabled = true
+texture_filter = 2
+script = ExtResource("1_ehst3")
+address = "localhost"
+level_container = NodePath("Level")
+entities = NodePath("Entities")
+player_spawner = NodePath("PlayerSpawner")
+faction_scenes = {
+0: ExtResource("2_q2hfg"),
+1: ExtResource("3_51nfn"),
+2: ExtResource("4_ev1oq")
+}
+multiplayer_menu = NodePath("Menu")
+unit_spawner_scene = ExtResource("5_0nylf")
+level_scene = ExtResource("5_q6m80")
+
+[node name="Menu" parent="." node_paths=PackedStringArray("controller") instance=ExtResource("1_bjl1e")]
+controller = NodePath("..")
+
+[node name="LevelSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Level")
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Network")
+
+[node name="Level" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Network" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="EntitySpawner" type="MultiplayerSpawner" parent="."]
+spawn_path = NodePath("../Entities")
+
+[node name="Entities" type="Node2D" parent="." node_paths=PackedStringArray("entity_spawner")]
+script = ExtResource("6_off82")
+scenes = Array[ExtResource("7_w6w35")]([ExtResource("8_ro0pj"), ExtResource("9_yg6f5"), ExtResource("10_7yh7g"), ExtResource("11_veons"), ExtResource("14_8ewng"), ExtResource("15_yvm1v"), ExtResource("16_e2qqf")])
+scenes_to_spawn = 50
+entity_spawner = NodePath("../EntitySpawner")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_3igut")
+
+[connection signal="child_entered_tree" from="Level" to="." method="_on_level_child_entered_tree"]
+[connection signal="child_exiting_tree" from="Level" to="." method="_on_level_child_exiting_tree"]

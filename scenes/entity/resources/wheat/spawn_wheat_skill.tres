@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="SkillResource" load_steps=3 format=3 uid="uid://b1ifgeyebdoii"]
+
+[ext_resource type="Script" path="res://scripts/resources/effect.gd" id="1_ucyit"]
+[ext_resource type="Script" path="res://scripts/resources/skill.gd" id="2_6atf2"]
+
+[resource]
+script = ExtResource("2_6atf2")
+type = 2
+damage_type = 0
+movement = false
+cooldown = 0.0
+area_of_effect = 0
+scene = "res://scenes/entity/resources/wheat/wheat.tscn"
+damage_effectiveness = 1.0
+weapon_compatibility = Array[int]([])
+projectiles = 0
+base_duration = 0.0
+projectiles_scallable = false
+behaviours = Array[String]([])
+throw_speed = 0
+effects = Array[ExtResource("1_ucyit")]([])

@@ -1,0 +1,203 @@
+[gd_scene load_steps=28 format=3 uid="uid://crm0ttdvjehor"]
+
+[ext_resource type="Script" path="res://scenes/entity/resources/stone/stone.gd" id="1_eqrmy"]
+[ext_resource type="Texture2D" uid="uid://c3iven3jvfm4i" path="res://scenes/entity/resources/stone/rock.png" id="2_pastw"]
+[ext_resource type="Texture2D" uid="uid://ceq7po73aanm4" path="res://scenes/entity/icons/resources/rock.png" id="2_vuqx1"]
+[ext_resource type="Shader" path="res://unit_outline.gdshader" id="3_ognnt"]
+[ext_resource type="PackedScene" uid="uid://b17vgvl5v7hpa" path="res://scenes/entity/components/death/death_component.tscn" id="3_wnkmi"]
+[ext_resource type="PackedScene" uid="uid://dtpakrxno6dna" path="res://scenes/entity/components/income/on_death_income_component.tscn" id="4_f54qt"]
+[ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="5_dg5qh"]
+[ext_resource type="Script" path="res://scripts/resources/yield.gd" id="6_8ap6h"]
+[ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="6_8qq2x"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="7_w1461"]
+[ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="8_7g312"]
+[ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="9_kubju"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_41r57"]
+resource_local_to_scene = true
+shader = ExtResource("3_ognnt")
+shader_parameter/width = null
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbq4b"]
+atlas = ExtResource("2_pastw")
+region = Rect2(0, 0, 23, 22)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pa0w0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbq4b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_oh0i6"]
+script = ExtResource("6_8ap6h")
+icon = ExtResource("2_vuqx1")
+value = 10
+type = 3
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vaa80"]
+radius = 11.0
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4q0ew"]
+animation = &"hit"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_csvqw"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pref1"]
+advance_mode = 2
+advance_condition = &"hit"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_651t0"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nc1al"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_q1sx3"]
+states/hit/node = SubResource("AnimationNodeAnimation_4q0ew")
+states/hit/position = Vector2(516, 106)
+states/idle/node = SubResource("AnimationNodeAnimation_csvqw")
+states/idle/position = Vector2(326, 47)
+transitions = ["idle", "hit", SubResource("AnimationNodeStateMachineTransition_pref1"), "hit", "idle", SubResource("AnimationNodeStateMachineTransition_651t0"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_nc1al")]
+
+[sub_resource type="Animation" id="Animation_hbjfb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../AnimatedSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_jbh8o"]
+resource_name = "hit"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../AnimatedSprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 1.1), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_18rvn"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4wafb"]
+_data = {
+"RESET": SubResource("Animation_hbjfb"),
+"hit": SubResource("Animation_jbh8o"),
+"idle": SubResource("Animation_18rvn")
+}
+
+[node name="Stone" type="StaticBody2D" node_paths=PackedStringArray("network", "death", "health", "selection", "income", "hitbox") groups=["resource"]]
+collision_layer = 2
+collision_mask = 0
+input_pickable = true
+script = ExtResource("1_eqrmy")
+network = NodePath("NetworkComponent")
+death = NodePath("DeathComponent")
+health = NodePath("HealthComponent")
+selection = NodePath("SelectionComponent")
+income = NodePath("IncomeComponent")
+hitbox = NodePath("HitboxComponent")
+display_name = "Rock"
+str_type = "rock"
+icon = ExtResource("2_vuqx1")
+vision_range = 50
+controlled_by = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_41r57")
+sprite_frames = SubResource("SpriteFrames_pa0w0")
+offset = Vector2(-1, -2)
+
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("sprite", "health", "body", "corpse", "delete_timer") instance=ExtResource("3_wnkmi")]
+sprite = NodePath("../AnimatedSprite2D")
+health = NodePath("../HealthComponent")
+body = NodePath("..")
+free_on_death = false
+corpse = NodePath("Corpse")
+delete_timer = NodePath("Timer")
+corpse_time = 5
+
+[node name="Corpse" type="Sprite2D" parent="DeathComponent"]
+
+[node name="Timer" type="Timer" parent="DeathComponent"]
+
+[node name="IncomeComponent" parent="." instance=ExtResource("4_f54qt")]
+income = SubResource("Resource_oh0i6")
+
+[node name="NetworkComponent" parent="." instance=ExtResource("5_dg5qh")]
+
+[node name="HealthComponent" parent="." instance=ExtResource("6_8qq2x")]
+visible = false
+
+[node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("7_w1461")]
+network = NodePath("../NetworkComponent")
+sprites = [NodePath("../AnimatedSprite2D")]
+body = NodePath("..")
+
+[node name="HitboxComponent" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character", "animation")]
+shape = SubResource("CircleShape2D_vaa80")
+script = ExtResource("8_7g312")
+health_component = NodePath("../HealthComponent")
+character = NodePath("..")
+animation = NodePath("../AnimationComponent")
+
+[node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("sprite", "animation_tree")]
+script = ExtResource("9_kubju")
+sprite = NodePath("../AnimatedSprite2D")
+animation_tree = NodePath("AnimationTree")
+
+[node name="AnimationTree" type="AnimationTree" parent="AnimationComponent"]
+tree_root = SubResource("AnimationNodeStateMachine_q1sx3")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/hit = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationComponent"]
+libraries = {
+"": SubResource("AnimationLibrary_4wafb")
+}

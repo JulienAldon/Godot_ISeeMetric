@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="SkillResource" load_steps=5 format=3 uid="uid://bmfhd63v3n5rv"]
+
+[ext_resource type="Script" path="res://scripts/resources/damage.gd" id="1_q2o7l"]
+[ext_resource type="Script" path="res://scripts/resources/effect.gd" id="2_c4q8s"]
+[ext_resource type="Script" path="res://scripts/resources/skill.gd" id="3_g62hs"]
+
+[sub_resource type="Resource" id="Resource_51axo"]
+script = ExtResource("1_q2o7l")
+base = 15.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[resource]
+script = ExtResource("3_g62hs")
+type = 0
+damage_type = 0
+movement = false
+cooldown = 0.0
+area_of_effect = 150
+scene = "res://scenes/entity/skills/area/fire_throw.tscn"
+damage_effectiveness = 1.0
+damage = SubResource("Resource_51axo")
+weapon_compatibility = Array[int]([])
+projectiles = 0
+base_duration = 0.5
+projectiles_scallable = false
+behaviours = Array[String](["res://scenes/entity/skills/behaviours/piercing/piercing.tscn"])
+throw_speed = 0
+effects = Array[ExtResource("2_c4q8s")]([])

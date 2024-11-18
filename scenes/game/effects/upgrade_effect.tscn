@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://gdatqsynqdo2"]
-
-[ext_resource type="Script" path="res://scripts/td/buildings/effects/UpgradeEffect.gd" id="1_0a8ga"]
-[ext_resource type="Texture2D" uid="uid://cvhilbk74ltjs" path="res://assets/icons/action/upgrade_range.png" id="2_f5dda"]
-
-[node name="UpgradeEffect" type="Node2D"]
-script = ExtResource("1_0a8ga")
-icon = ExtResource("2_f5dda")

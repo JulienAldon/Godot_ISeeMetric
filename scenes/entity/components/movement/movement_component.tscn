@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b16xsdnqifpbm"]
+
+[ext_resource type="Script" path="res://scenes/entity/components/movement/movement_component.gd" id="1_tg8gq"]
+
+[node name="MovementComponent" type="Node2D" node_paths=PackedStringArray("dash_timer", "dash_cooldown")]
+script = ExtResource("1_tg8gq")
+dash_timer = NodePath("DashTimer")
+dash_cooldown = NodePath("DashCooldown")
+
+[node name="DashTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="DashCooldown" type="Timer" parent="."]
+wait_time = 0.001
+one_shot = true

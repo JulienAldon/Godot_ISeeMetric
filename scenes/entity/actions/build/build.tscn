@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://4bbd0jc63doj"]
+
+[ext_resource type="Script" path="res://scenes/entity/actions/build/Build.gd" id="1_axdoj"]
+[ext_resource type="Texture2D" uid="uid://bg1cvfm5gto25" path="res://scenes/entity/icons/default.png" id="2_8tx5p"]
+
+[node name="Build" type="Node2D" node_paths=PackedStringArray("cooldown", "time")]
+script = ExtResource("1_axdoj")
+building_scene = "res://scenes/game/barracks.tscn"
+icon = ExtResource("2_8tx5p")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+description = "build a barrack"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="Cooldown" type="Timer" parent="."]
+wait_time = 0.1

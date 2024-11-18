@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://hd5jy0jptrs6"]
-
-[ext_resource type="Script" path="res://scripts/skills/behaviours/ApplyingEffect.gd" id="1_w3lno"]
-
-[node name="Affecting" type="Node2D"]
-script = ExtResource("1_w3lno")

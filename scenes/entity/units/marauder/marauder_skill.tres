@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="SkillResource" load_steps=5 format=3 uid="uid://dy8sshgc57vj8"]
+
+[ext_resource type="Script" path="res://scripts/resources/damage.gd" id="1_5rery"]
+[ext_resource type="Script" path="res://scripts/resources/effect.gd" id="2_8yk00"]
+[ext_resource type="Script" path="res://scripts/resources/skill.gd" id="3_oe8k8"]
+
+[sub_resource type="Resource" id="Resource_7g4wu"]
+script = ExtResource("1_5rery")
+base = 10.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[resource]
+script = ExtResource("3_oe8k8")
+type = 0
+damage_type = 0
+movement = false
+cooldown = 0.0
+area_of_effect = 5
+scene = "res://scenes/entity/skills/projectiles/unit_projectile.tscn"
+damage_effectiveness = 1.0
+damage = SubResource("Resource_7g4wu")
+weapon_compatibility = Array[int]([])
+projectiles = 0
+base_duration = 0.0
+projectiles_scallable = false
+behaviours = Array[String](["res://scenes/entity/skills/behaviours/projectile/projectile.tscn", "res://scenes/entity/skills/behaviours/following/following.tscn", "res://scenes/entity/skills/behaviours/despawning/despawning.tscn"])
+throw_speed = 200
+effects = Array[ExtResource("2_8yk00")]([])

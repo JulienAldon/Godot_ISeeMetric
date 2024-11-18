@@ -1,0 +1,99 @@
+[gd_scene load_steps=14 format=3 uid="uid://4tbd8aqita4l"]
+
+[ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="1_c2ddv"]
+[ext_resource type="Script" path="res://scenes/ui/actions/panel/action_panel.gd" id="2_whtjj"]
+[ext_resource type="PackedScene" uid="uid://ct5uvol3tm24r" path="res://scenes/ui/actions/button/action_button.tscn" id="3_6pv57"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l48lq"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventAction" id="InputEventAction_lsa5l"]
+action = &"action_slot_1"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7qiuv"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventAction" id="InputEventAction_e2gn0"]
+action = &"action_slot_2"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5x87u"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventAction" id="InputEventAction_6f4qd"]
+action = &"action_slot_3"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fqhef"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventAction" id="InputEventAction_akd8e"]
+action = &"action_slot_4"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7pj3p"]
+resource_local_to_scene = true
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="InputEventAction" id="InputEventAction_d48eg"]
+action = &"action_slot_5"
+
+[node name="ActionUI" type="PanelContainer" node_paths=PackedStringArray("action_container")]
+offset_left = 8.0
+offset_top = 257.0
+offset_right = 108.0
+offset_bottom = 357.0
+theme_override_styles/panel = ExtResource("1_c2ddv")
+script = ExtResource("2_whtjj")
+action_container = NodePath("MarginContainer/GridContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 3
+
+[node name="UIAction1" parent="MarginContainer/GridContainer" instance=ExtResource("3_6pv57")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l48lq")
+key = SubResource("InputEventAction_lsa5l")
+
+[node name="UIAction2" parent="MarginContainer/GridContainer" instance=ExtResource("3_6pv57")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7qiuv")
+key = SubResource("InputEventAction_e2gn0")
+
+[node name="UIAction3" parent="MarginContainer/GridContainer" instance=ExtResource("3_6pv57")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5x87u")
+key = SubResource("InputEventAction_6f4qd")
+
+[node name="UIAction4" parent="MarginContainer/GridContainer" instance=ExtResource("3_6pv57")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fqhef")
+key = SubResource("InputEventAction_akd8e")
+
+[node name="UIAction5" parent="MarginContainer/GridContainer" instance=ExtResource("3_6pv57")]
+visible = false
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7pj3p")
+key = SubResource("InputEventAction_d48eg")

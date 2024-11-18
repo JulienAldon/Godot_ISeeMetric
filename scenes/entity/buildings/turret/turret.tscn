@@ -1,0 +1,305 @@
+[gd_scene load_steps=41 format=3 uid="uid://ctnb0adqyubor"]
+
+[ext_resource type="Script" path="res://scenes/entity/buildings/turret/turret.gd" id="1_ri0pb"]
+[ext_resource type="Texture2D" uid="uid://cnqwaelhsga7d" path="res://scenes/entity/icons/buildings/basic_turret.png" id="2_ein1a"]
+[ext_resource type="Script" path="res://scenes/entity/components/network/NetworkComponent.gd" id="3_kaibr"]
+[ext_resource type="Shader" path="res://unit_outline.gdshader" id="3_p1jxy"]
+[ext_resource type="PackedScene" uid="uid://cxrcptlbws3jo" path="res://scenes/ui/actions/building/building_actions.tscn" id="3_qp0ej"]
+[ext_resource type="Texture2D" uid="uid://cs54qsfec242e" path="res://scenes/entity/buildings/turret/basic_turret.png" id="5_0xd2a"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="5_ksn7y"]
+[ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="6_tod5c"]
+[ext_resource type="PackedScene" uid="uid://b17vgvl5v7hpa" path="res://scenes/entity/components/death/death_component.tscn" id="7_0ymch"]
+[ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="7_a3ta3"]
+[ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="8_t2hus"]
+[ext_resource type="Shader" path="res://dotted_line.gdshader" id="9_8b8ru"]
+[ext_resource type="Texture2D" uid="uid://br4i6fpqm0l8g" path="res://scenes/entity/buildings/turret/basic_turret_destroyed.png" id="9_n23d5"]
+[ext_resource type="Script" path="res://scenes/entity/components/attack/turret_attack_component.gd" id="12_7xkv7"]
+[ext_resource type="Script" path="res://scripts/resources/effect.gd" id="12_sbd1q"]
+[ext_resource type="Script" path="res://scenes/entity/components/attack/ProjectileAttackStyle.gd" id="15_mgp6e"]
+[ext_resource type="Resource" uid="uid://b3l4kenqh1let" path="res://scenes/entity/buildings/turret/turret_skill.tres" id="16_gwjnc"]
+[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_handler.tscn" id="16_khc68"]
+[ext_resource type="Script" path="res://scenes/entity/actions/deconstruct/deconstruct_building.gd" id="17_hma3m"]
+[ext_resource type="Texture2D" uid="uid://bjd8p7m0fgmci" path="res://scenes/entity/icons/action/delete_building.png" id="18_36dea"]
+[ext_resource type="Script" path="res://scenes/entity/components/mode/mode_component.gd" id="21_medap"]
+[ext_resource type="Script" path="res://scenes/entity/actions/UpgradeBuilding.gd" id="21_ungkl"]
+[ext_resource type="PackedScene" uid="uid://03xyjps61uqo" path="res://scenes/entity/components/upgrade/upgrade_component.tscn" id="22_jamu8"]
+[ext_resource type="Texture2D" uid="uid://cvhilbk74ltjs" path="res://scenes/entity/icons/action/upgrade_range.png" id="22_nv2mx"]
+[ext_resource type="Script" path="res://scripts/resources/yield.gd" id="23_ddsxj"]
+[ext_resource type="Texture2D" uid="uid://ceq7po73aanm4" path="res://scenes/entity/icons/resources/rock.png" id="24_xxmlo"]
+[ext_resource type="Script" path="res://scenes/entity/actions/modes/change_mode.gd" id="26_gy6wf"]
+[ext_resource type="Script" path="res://scenes/entity/actions/modes/focus/resource_focus.gd" id="27_s82si"]
+[ext_resource type="Texture2D" uid="uid://c7mtkqf0j3orc" path="res://scenes/entity/icons/action/resource_mode.png" id="28_fnau6"]
+[ext_resource type="Script" path="res://scenes/entity/actions/modes/focus/unit_focus.gd" id="28_ta1gv"]
+[ext_resource type="Texture2D" uid="uid://cj5okiwqf0da" path="res://scenes/entity/icons/action/unit_mode.png" id="30_xgpfo"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_efagi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e2fsx"]
+size = Vector2(32, 32)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2tojv"]
+resource_local_to_scene = true
+shader = ExtResource("3_p1jxy")
+shader_parameter/width = null
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8rbg"]
+atlas = ExtResource("5_0xd2a")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_520pi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q8rbg")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2eori"]
+resource_local_to_scene = true
+radius = 100.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1q2f7"]
+shader = ExtResource("9_8b8ru")
+shader_parameter/color = Color(1, 1, 1, 0.129412)
+shader_parameter/diameter = 1.0
+shader_parameter/thickness = 0.009
+shader_parameter/frequency = 100.0
+shader_parameter/phase = 0.0
+
+[sub_resource type="Resource" id="Resource_u80qx"]
+script = ExtResource("12_sbd1q")
+effect_path = "res://scenes/game/effects/upgrade_effect.tscn"
+base_duration = 0.0
+
+[sub_resource type="Resource" id="Resource_iakck"]
+script = ExtResource("23_ddsxj")
+icon = ExtResource("24_xxmlo")
+value = 0
+type = 3
+
+[node name="BasicTurret" type="StaticBody2D" node_paths=PackedStringArray("health", "death", "stats", "sprite", "attack", "action_controller", "upgrade", "action_panel", "hitbox", "selection", "network") groups=["building", "navigation", "player_entity"]]
+texture_filter = 2
+collision_layer = 38
+collision_mask = 8
+input_pickable = true
+script = ExtResource("1_ri0pb")
+health = NodePath("HealthComponent")
+death = NodePath("DeathComponent")
+stats = NodePath("CharacterStats")
+sprite = NodePath("AnimatedSprite2D")
+attack = NodePath("TurretAttack")
+action_controller = NodePath("ActionComponent")
+upgrade = NodePath("UpgradeComponent")
+action_panel = NodePath("BuildingActions")
+hitbox = NodePath("HitboxComponent")
+selection = NodePath("SelectionComponent")
+network = NodePath("NetworkComponent")
+display_name = "Basic Turret"
+str_type = "Turret"
+icon = ExtResource("2_ein1a")
+
+[node name="BuildingActions" parent="." instance=ExtResource("3_qp0ej")]
+z_index = 3
+offset_left = -42.0
+offset_top = -61.0
+offset_right = 41.0
+offset_bottom = -36.0
+
+[node name="NetworkComponent" type="Node2D" parent="."]
+script = ExtResource("3_kaibr")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+replication_config = SubResource("SceneReplicationConfig_efagi")
+
+[node name="HitboxComponent" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character")]
+shape = SubResource("RectangleShape2D_e2fsx")
+script = ExtResource("7_a3ta3")
+health_component = NodePath("../HealthComponent")
+character = NodePath("..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 2
+material = SubResource("ShaderMaterial_2tojv")
+position = Vector2(-1, -6)
+sprite_frames = SubResource("SpriteFrames_520pi")
+autoplay = "default"
+frame_progress = 1.0
+
+[node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body", "node_shown_on_hover") instance=ExtResource("5_ksn7y")]
+network = NodePath("../NetworkComponent")
+sprites = [NodePath("../AnimatedSprite2D")]
+body = NodePath("..")
+show_node_on_hover = true
+node_shown_on_hover = [NodePath("../TurretAttack/TargetDetection/TextureRect")]
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("6_tod5c")]
+z_index = 3
+position = Vector2(-1, 6)
+scale = Vector2(2, 2)
+stats = NodePath("../CharacterStats")
+
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("sprite", "health", "body", "corpse", "delete_timer") instance=ExtResource("7_0ymch")]
+sprite = NodePath("../AnimatedSprite2D")
+health = NodePath("../HealthComponent")
+body = NodePath("..")
+corpse = NodePath("Sprite2D")
+delete_timer = NodePath("CorpseTimer")
+corpse_time = 5
+
+[node name="CorpseTimer" type="Timer" parent="DeathComponent"]
+
+[node name="Sprite2D" type="Sprite2D" parent="DeathComponent"]
+visible = false
+position = Vector2(-1, -6)
+texture = ExtResource("9_n23d5")
+
+[node name="CharacterStats" type="Node2D" parent="." node_paths=PackedStringArray("health")]
+script = ExtResource("8_t2hus")
+health = NodePath("../HealthComponent")
+cast_speed = 0.0
+base_range = 200.0
+max_health = 500
+move_speed = 0
+armor = 150
+
+[node name="TurretAttack" type="Node2D" parent="." node_paths=PackedStringArray("collision", "range_delimiter", "stats", "network", "attack_style", "attack_timer")]
+script = ExtResource("12_7xkv7")
+collision = NodePath("TargetDetection/CollisionShape2D")
+range_delimiter = NodePath("TargetDetection/TextureRect")
+stats = NodePath("../CharacterStats")
+network = NodePath("../NetworkComponent")
+attack_style = NodePath("ProjectileAttackStyle")
+attack_timer = NodePath("AttackTimer")
+
+[node name="TargetDetection" type="Area2D" parent="TurretAttack"]
+position = Vector2(0, 3)
+collision_layer = 0
+collision_mask = 113
+input_pickable = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TurretAttack/TargetDetection"]
+shape = SubResource("CircleShape2D_2eori")
+
+[node name="TextureRect" type="ColorRect" parent="TurretAttack/TargetDetection"]
+material = SubResource("ShaderMaterial_1q2f7")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="AttackTimer" type="Timer" parent="TurretAttack"]
+
+[node name="ProjectileAttackStyle" type="Node2D" parent="TurretAttack" node_paths=PackedStringArray("body", "attack_point", "stats")]
+script = ExtResource("15_mgp6e")
+skill = ExtResource("16_gwjnc")
+body = NodePath("../..")
+attack_point = NodePath("AttackPoint")
+stats = NodePath("../../CharacterStats")
+
+[node name="AttackPoint" type="Node2D" parent="TurretAttack/ProjectileAttackStyle"]
+position = Vector2(-2, -41)
+
+[node name="ActionComponent" parent="." node_paths=PackedStringArray("body", "actions_container") instance=ExtResource("16_khc68")]
+body = NodePath("..")
+actions_container = NodePath(".")
+
+[node name="RemoveBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("building", "cooldown", "time")]
+script = ExtResource("17_hma3m")
+building = NodePath("../..")
+title = "Remove Building"
+icon = ExtResource("18_36dea")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+description = "Delete this building"
+
+[node name="Timer" type="Timer" parent="ActionComponent/RemoveBuilding"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/RemoveBuilding"]
+wait_time = 0.2
+
+[node name="UpgradeBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("building", "cooldown", "time")]
+script = ExtResource("21_ungkl")
+building = NodePath("../..")
+upgrade_effect = SubResource("Resource_u80qx")
+title = "Upgrade turret"
+icon = ExtResource("22_nv2mx")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+cost = Array[ExtResource("23_ddsxj")]([SubResource("Resource_iakck")])
+description = "Upgrade turret to next tier"
+
+[node name="Timer" type="Timer" parent="ActionComponent/UpgradeBuilding"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/UpgradeBuilding"]
+wait_time = 0.1
+
+[node name="ChangeModeBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("possible_mode", "building_ui", "cooldown", "time")]
+script = ExtResource("26_gy6wf")
+possible_mode = [NodePath("UnitFocusMode"), NodePath("ResourceFocusMode")]
+building_ui = NodePath("../../BuildingActions")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="ActionComponent/ChangeModeBuilding"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/ChangeModeBuilding"]
+wait_time = 0.1
+
+[node name="ResourceFocusMode" type="Node2D" parent="ActionComponent/ChangeModeBuilding" node_paths=PackedStringArray("attack", "cooldown", "time")]
+script = ExtResource("27_s82si")
+attack = NodePath("../../../TurretAttack")
+title = "Resource Mode (Cycle)"
+icon = ExtResource("28_fnau6")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+description = "Turret collect resources for you."
+
+[node name="Timer" type="Timer" parent="ActionComponent/ChangeModeBuilding/ResourceFocusMode"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/ChangeModeBuilding/ResourceFocusMode"]
+wait_time = 0.1
+
+[node name="UnitFocusMode" type="Node2D" parent="ActionComponent/ChangeModeBuilding" node_paths=PackedStringArray("attack", "cooldown", "time")]
+script = ExtResource("28_ta1gv")
+attack = NodePath("../../../TurretAttack")
+title = "Attack Mode (Cycle)"
+icon = ExtResource("30_xgpfo")
+cooldown = NodePath("Cooldown")
+time = NodePath("Timer")
+description = "Turret focus units and buildings."
+
+[node name="Timer" type="Timer" parent="ActionComponent/ChangeModeBuilding/UnitFocusMode"]
+wait_time = 0.1
+
+[node name="Cooldown" type="Timer" parent="ActionComponent/ChangeModeBuilding/UnitFocusMode"]
+wait_time = 0.1
+
+[node name="ModeComponent" type="Node2D" parent="."]
+script = ExtResource("21_medap")
+
+[node name="UpgradeComponent" parent="." node_paths=PackedStringArray("action_controller", "stats") instance=ExtResource("22_jamu8")]
+max_tier = 3
+action_controller = NodePath("../ActionComponent")
+stats = NodePath("../CharacterStats")
+
+[connection signal="body_entered" from="TurretAttack/TargetDetection" to="TurretAttack" method="_on_target_detection_body_entered"]
+[connection signal="body_exited" from="TurretAttack/TargetDetection" to="TurretAttack" method="_on_target_detection_body_exited"]

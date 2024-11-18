@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://c76c26bhkdupf"]
+
+[ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="1_hxvjg"]
+[ext_resource type="Script" path="res://scenes/ui/informations/entity/entity_icon.gd" id="2_4qj1u"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lqacc"]
+size = Vector2(32, 32)
+
+[node name="UiEntity" type="PanelContainer" node_paths=PackedStringArray("icon", "nb")]
+theme_override_styles/panel = ExtResource("1_hxvjg")
+script = ExtResource("2_4qj1u")
+icon = NodePath("Icon")
+nb = NodePath("Nb")
+
+[node name="Icon" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_lqacc")
+expand_mode = 1
+
+[node name="Nb" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 7
+text = "00"
+horizontal_alignment = 2
+vertical_alignment = 2

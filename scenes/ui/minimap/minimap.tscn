@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://7ay25idlrphw"]
+
+[ext_resource type="Script" path="res://scenes/ui/minimap/minimap.gd" id="1_0ihho"]
+[ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="1_1b1d1"]
+[ext_resource type="Texture2D" uid="uid://da8ke31t1flvn" path="res://scenes/ui/minimap/minimap_marker.png" id="2_1ds26"]
+[ext_resource type="Texture2D" uid="uid://d184herxftces" path="res://scenes/ui/minimap/minimap_icons.png" id="4_nxlhq"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l7mtj"]
+blend_mode = 3
+
+[sub_resource type="ImageTexture" id="ImageTexture_n5yhd"]
+
+[node name="Minimap" type="PanelContainer" node_paths=PackedStringArray("outpost_marker", "unit_marker", "entities", "player_sprite", "texture_rect", "fog_rect")]
+clip_contents = true
+offset_right = 135.0
+offset_bottom = 91.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = ExtResource("1_1b1d1")
+script = ExtResource("1_0ihho")
+outpost_marker = NodePath("OutpostMarker")
+unit_marker = NodePath("UnitMarker")
+entities = NodePath("Entities")
+player_sprite = NodePath("Entities/PlayerEntity")
+texture_rect = NodePath("TextureRect")
+fog_rect = NodePath("FogImage")
+
+[node name="FogImage" type="TextureRect" parent="."]
+z_index = 1
+material = SubResource("CanvasItemMaterial_l7mtj")
+layout_mode = 2
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = SubResource("ImageTexture_n5yhd")
+expand_mode = 1
+
+[node name="UnitMarker" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("4_nxlhq")
+hframes = 4
+vframes = 2
+frame = 2
+
+[node name="OutpostMarker" type="Sprite2D" parent="."]
+visible = false
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("4_nxlhq")
+hframes = 4
+vframes = 2
+
+[node name="Entities" type="Node2D" parent="."]
+
+[node name="PlayerEntity" type="Sprite2D" parent="Entities"]
+position = Vector2(1.90735e-06, 3.8147e-06)
+texture = ExtResource("2_1ds26")
+
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfoshfln0a0vf"]
+
+[ext_resource type="Script" path="res://scenes/players/player_controller.gd" id="1_im1vq"]
+[ext_resource type="PackedScene" uid="uid://ddfg6quknmxd2" path="res://scenes/players/mercenary/ui/hns_ui.tscn" id="2_1txdl"]
+[ext_resource type="Script" path="res://scenes/players/mercenary/hns_controller.gd" id="3_6e0hm"]
+[ext_resource type="PackedScene" uid="uid://cw2ls3k0cc68i" path="res://scenes/entity/units/hns_character/hns_character.tscn" id="4_51pto"]
+
+[node name="HnsPlayer" type="Node2D" node_paths=PackedStringArray("current_controller", "camera")]
+z_index = 1
+y_sort_enabled = true
+script = ExtResource("1_im1vq")
+current_controller = NodePath("hnsController")
+camera = NodePath("Camera2D")
+ui_scene = ExtResource("2_1txdl")
+
+[node name="hnsController" type="Node2D" parent="." node_paths=PackedStringArray("character", "player", "camera")]
+script = ExtResource("3_6e0hm")
+character = NodePath("../HnsCharacter")
+player = NodePath("..")
+camera = NodePath("../Camera2D")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="HnsCharacter" parent="." instance=ExtResource("4_51pto")]

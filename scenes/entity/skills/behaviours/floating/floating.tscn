@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://y4r227gq2j67"]
+
+[ext_resource type="Script" path="res://scenes/entity/skills/behaviours/floating/floating.gd" id="1_x1aaw"]
+
+[node name="Floating" type="Node2D"]
+script = ExtResource("1_x1aaw")

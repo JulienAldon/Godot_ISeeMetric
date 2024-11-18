@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="SkillResource" load_steps=5 format=3 uid="uid://c4pmsspbvdy7f"]
+
+[ext_resource type="Script" path="res://scripts/resources/damage.gd" id="1_gsuc2"]
+[ext_resource type="Script" path="res://scripts/resources/effect.gd" id="2_27od5"]
+[ext_resource type="Script" path="res://scripts/resources/skill.gd" id="3_1frrq"]
+
+[sub_resource type="Resource" id="Resource_afgho"]
+script = ExtResource("1_gsuc2")
+base = 150.0
+added = 0.0
+increased = 0.0
+more = 0.0
+
+[resource]
+script = ExtResource("3_1frrq")
+type = 0
+damage_type = 1
+movement = false
+cooldown = 0.0
+area_of_effect = 50
+scene = "res://scenes/entity/skills/area/bomb_explosion.tscn"
+damage_effectiveness = 1.0
+damage = SubResource("Resource_afgho")
+weapon_compatibility = Array[int]([])
+projectiles = 0
+base_duration = 1.0
+projectiles_scallable = false
+behaviours = Array[String](["res://scenes/entity/skills/behaviours/piercing/piercing.tscn", "res://scenes/entity/skills/behaviours/sacrificing/sacrificing.tscn"])
+throw_speed = 0
+effects = Array[ExtResource("2_27od5")]([])
