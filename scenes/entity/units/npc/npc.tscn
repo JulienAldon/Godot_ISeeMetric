@@ -5,11 +5,11 @@
 [ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="3_amf1k"]
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="4_8dl4f"]
 [ext_resource type="Texture2D" uid="uid://6yh35k0xuhlr" path="res://scenes/entity/units/rts_character.png" id="5_wa4yi"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/StateMachine.gd" id="6_wj5g1"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/NpcIdle.gd" id="7_gfcsn"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/NpcFollow.gd" id="8_sb2vl"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/state_machine.gd" id="6_wj5g1"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/npc_idle.gd" id="7_gfcsn"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/npc_follow.gd" id="8_sb2vl"]
 [ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="9_73t3t"]
-[ext_resource type="Script" path="res://scenes/entity/components/death/DeathComponent.gd" id="10_jioyp"]
+[ext_resource type="Script" path="res://scenes/entity/components/death/death_component.gd" id="10_jioyp"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_f76ci"]
 properties/0/path = NodePath("..:position")

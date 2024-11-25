@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://4bbd0jc63doj"]
 
-[ext_resource type="Script" path="res://scenes/entity/actions/build/Build.gd" id="1_axdoj"]
+[ext_resource type="Script" path="res://scenes/entity/actions/build/build.gd" id="1_axdoj"]
 [ext_resource type="Texture2D" uid="uid://bg1cvfm5gto25" path="res://scenes/entity/icons/units/default.png" id="2_8tx5p"]
 
 [node name="Build" type="Node2D" node_paths=PackedStringArray("cooldown", "time")]

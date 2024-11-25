@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://c6rpdqb17327o"]
+[gd_scene load_steps=35 format=3 uid="uid://c6rpdqb17327o"]
 
 [ext_resource type="Script" path="res://scenes/entity/buildings/module/module.gd" id="1_bn7lv"]
 [ext_resource type="PackedScene" uid="uid://cxrcptlbws3jo" path="res://scenes/ui/actions/building/building_actions.tscn" id="2_8odok"]
@@ -15,12 +15,14 @@
 [ext_resource type="Script" path="res://scenes/entity/actions/deconstruct/deconstruct_building.gd" id="12_5b3yh"]
 [ext_resource type="Texture2D" uid="uid://be1fkpcexfama" path="res://scenes/entity/buildings/module/basic_module_destroyed.png" id="12_d8f5k"]
 [ext_resource type="Texture2D" uid="uid://bjd8p7m0fgmci" path="res://scenes/entity/icons/action/delete_building.png" id="13_bh0vm"]
-[ext_resource type="Script" path="res://scenes/entity/actions/UpgradeBuilding.gd" id="16_kmb5k"]
+[ext_resource type="Script" path="res://scenes/entity/actions/upgrade_building.gd" id="16_kmb5k"]
 [ext_resource type="Texture2D" uid="uid://cvhilbk74ltjs" path="res://scenes/entity/icons/action/upgrade_range.png" id="17_wufj3"]
 [ext_resource type="Script" path="res://scripts/resources/yield.gd" id="18_tuvpq"]
 [ext_resource type="Texture2D" uid="uid://ceq7po73aanm4" path="res://scenes/entity/icons/resources/rock.png" id="19_4ylq7"]
 [ext_resource type="Script" path="res://scenes/entity/components/upgrade/upgrade_component.gd" id="19_7su3k"]
 [ext_resource type="Script" path="res://scripts/resources/stat.gd" id="20_f3irk"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vihiq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0ucsn"]
 resource_local_to_scene = true
@@ -110,6 +112,9 @@ str_type = "module"
 icon = ExtResource("2_ikse0")
 
 [node name="NetworkComponent" parent="." instance=ExtResource("7_8ntal")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+replication_config = SubResource("SceneReplicationConfig_vihiq")
 
 [node name="BuildingActions" parent="." instance=ExtResource("2_8odok")]
 z_index = 3
@@ -229,3 +234,5 @@ upgrades_per_tier = {
 2: [SubResource("Resource_mvj00"), SubResource("Resource_8hhxm")],
 3: [SubResource("Resource_fbblq"), SubResource("Resource_le8jg")]
 }
+
+[node name="NetworkComponent2" parent="." instance=ExtResource("7_8ntal")]

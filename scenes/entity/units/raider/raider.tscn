@@ -7,20 +7,43 @@
 [ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="4_qgd4l"]
 [ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="5_ib5sq"]
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="6_8mvne"]
-[ext_resource type="Script" path="res://scenes/entity/components/death/DeathComponent.gd" id="6_luvw4"]
+[ext_resource type="Script" path="res://scenes/entity/components/death/death_component.gd" id="6_luvw4"]
 [ext_resource type="Shader" path="res://dotted_line.gdshader" id="7_k2tkd"]
 [ext_resource type="Texture2D" uid="uid://c80fultdkea4k" path="res://scenes/entity/units/raider/raider.png" id="7_xwmd7"]
 [ext_resource type="Script" path="res://scenes/entity/components/attack/rts_attack_component.gd" id="8_o6oaa"]
-[ext_resource type="Script" path="res://scenes/entity/components/attack/ProjectileAttackStyle.gd" id="9_q60fh"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/StateMachine.gd" id="10_cf7hh"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsIdle.gd" id="11_shexb"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsAttack.gd" id="12_f7fgl"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsMove.gd" id="13_3ysbc"]
+[ext_resource type="Script" path="res://scenes/entity/components/attack/projectile_attack_style.gd" id="9_q60fh"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/state_machine.gd" id="10_cf7hh"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_idle.gd" id="11_shexb"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_attack.gd" id="12_f7fgl"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_move.gd" id="13_3ysbc"]
 [ext_resource type="Resource" uid="uid://bmfhd63v3n5rv" path="res://scenes/entity/units/raider/raider_skill.tres" id="13_hbbdk"]
 [ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_component.tscn" id="15_0mix5"]
 [ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="16_e4yp4"]
 [ext_resource type="PackedScene" uid="uid://ckia2wdtsnvks" path="res://scenes/entity/components/navigation/navigation_component.tscn" id="17_qo8e1"]
 [ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="23_3br36"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0egws"]
+properties/0/path = NodePath("..:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("../AnimatedSprite2D:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("../AnimationComponent/AnimationTree:parameters/conditions/attack")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("../AnimationComponent/AnimationTree:parameters/conditions/idle")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("../AnimationComponent/AnimationTree:parameters/conditions/moving")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("../AnimationComponent/AnimationTree:parameters/Attack/blend_position")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("../AnimationComponent/AnimationTree:parameters/Walk/blend_position")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g3mhs"]
 radius = 18.0
@@ -1178,32 +1201,9 @@ states/Walk/position = Vector2(667, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_icgyj"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_mdy0i"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_bousr"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_k6hoj"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_icfsq"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_a5q10"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_2ed1l")]
 graph_offset = Vector2(30, -14)
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_0egws"]
-properties/0/path = NodePath("..:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("../AnimatedSprite2D:flip_h")
-properties/1/spawn = true
-properties/1/replication_mode = 1
-properties/2/path = NodePath("../AnimationComponent/AnimationTree:parameters/conditions/attack")
-properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("../AnimationComponent/AnimationTree:parameters/conditions/idle")
-properties/3/spawn = true
-properties/3/replication_mode = 1
-properties/4/path = NodePath("../AnimationComponent/AnimationTree:parameters/conditions/moving")
-properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath("../AnimationComponent/AnimationTree:parameters/Attack/blend_position")
-properties/5/spawn = true
-properties/5/replication_mode = 1
-properties/6/path = NodePath("../AnimationComponent/AnimationTree:parameters/Walk/blend_position")
-properties/6/spawn = true
-properties/6/replication_mode = 1
-
 [node name="Raider" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death", "stats", "animation", "behaviours", "action_controller", "player_marker") groups=["player_entity", "rts_unit"]]
 collision_layer = 3
-collision_mask = 4
+collision_mask = 12
 input_pickable = true
 script = ExtResource("1_7efhl")
 health = NodePath("HealthComponent")
@@ -1222,6 +1222,11 @@ player_marker = NodePath("PlayerMarker")
 display_name = "Raider"
 str_type = "raider"
 icon = ExtResource("2_k436u")
+
+[node name="NetworkComponent" parent="." instance=ExtResource("16_e4yp4")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+replication_config = SubResource("SceneReplicationConfig_0egws")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("2_3sspx")]
 position = Vector2(0, -12)
@@ -1353,11 +1358,6 @@ body = NodePath("../..")
 [node name="ActionComponent" parent="." node_paths=PackedStringArray("body", "actions_container") instance=ExtResource("15_0mix5")]
 body = NodePath("..")
 actions_container = NodePath(".")
-
-[node name="NetworkComponent" parent="." instance=ExtResource("16_e4yp4")]
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
-replication_config = SubResource("SceneReplicationConfig_0egws")
 
 [node name="NavigationComponent" parent="." node_paths=PackedStringArray("network_component", "body", "sprite") instance=ExtResource("17_qo8e1")]
 network_component = NodePath("../NetworkComponent")

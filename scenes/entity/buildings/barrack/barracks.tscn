@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://bvp2o6337esre"]
 
-[ext_resource type="Script" path="res://scenes/entity/buildings/barrack/barracks.gd" id="1_hc7ny"]
+[ext_resource type="Script" path="res://scenes/entity/buildings/barrack/Barracks.gd" id="1_hc7ny"]
 [ext_resource type="Texture2D" uid="uid://dnhvgt5e4ws2w" path="res://scenes/entity/buildings/barrack/barracks_construction.png" id="1_q32yy"]
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="1_wxhxh"]
 [ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="2_1o1h0"]

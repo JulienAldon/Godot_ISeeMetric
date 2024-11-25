@@ -12,7 +12,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://cy3r14fu7srgp" path="res://scenes/entity/units/td_character/td_character.res" id="8_xjo07"]
 [ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="11_ess74"]
 [ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_component.tscn" id="12_8menw"]
-[ext_resource type="Script" path="res://scenes/entity/actions/build/Build.gd" id="13_61wp2"]
+[ext_resource type="Script" path="res://scenes/entity/actions/build/build.gd" id="13_61wp2"]
 [ext_resource type="Texture2D" uid="uid://c8u5pd8olagq0" path="res://scenes/entity/buildings/turret/basic_turret_construction.png" id="14_c1gwi"]
 [ext_resource type="Texture2D" uid="uid://cnqwaelhsga7d" path="res://scenes/entity/icons/buildings/basic_turret.png" id="14_ym3ic"]
 [ext_resource type="Script" path="res://scenes/entity/components/build/build_component.gd" id="15_cs28k"]
@@ -22,10 +22,10 @@
 [ext_resource type="Script" path="res://scripts/resources/yield.gd" id="16_ynrf6"]
 [ext_resource type="Texture2D" uid="uid://xfwbg73xmgh0" path="res://scenes/entity/actions/modes/build/buid_preview.png" id="17_cxfbk"]
 [ext_resource type="Texture2D" uid="uid://byupv4stib2w8" path="res://scenes/entity/icons/resources/wood.png" id="17_cyh0i"]
-[ext_resource type="Script" path="res://scenes/entity/components/collect/CollectComponent.gd" id="18_a522l"]
+[ext_resource type="Script" path="res://scenes/entity/components/collect/collect_component.gd" id="18_a522l"]
 [ext_resource type="Texture2D" uid="uid://q2i8l25wbq8q" path="res://scenes/entity/icons/buildings/basic_module.png" id="18_t36sl"]
 [ext_resource type="Texture2D" uid="uid://dhf3on5ar35bw" path="res://scenes/entity/buildings/module/basic_module_construction.png" id="18_w7ai1"]
-[ext_resource type="Script" path="res://scenes/entity/components/attack/InstantAttackStyle.gd" id="26_e411n"]
+[ext_resource type="Script" path="res://scenes/entity/components/attack/instant_attack_style.gd" id="26_e411n"]
 [ext_resource type="Script" path="res://scripts/resources/damage.gd" id="26_w1q36"]
 [ext_resource type="Script" path="res://scripts/resources/effect.gd" id="27_bm7hh"]
 [ext_resource type="Script" path="res://scripts/resources/skill.gd" id="28_cpdrh"]
@@ -313,7 +313,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i26fe"]
 radius = 7.0
-height = 26.0
+height = 24.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4p650"]
 animation = &"td_character/action_down"
@@ -585,7 +585,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [Vector2(1.5, 1.5)]
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rmh0h"]
@@ -669,7 +669,7 @@ effects = Array[ExtResource("27_bm7hh")]([])
 
 [node name="TdCharacter" type="CharacterBody2D" node_paths=PackedStringArray("network", "animation", "sprite", "stats", "movement", "health", "hitbox", "selection", "action_controller", "build", "attack") groups=["player_entity"]]
 collision_layer = 18
-collision_mask = 44
+collision_mask = 12
 input_pickable = true
 script = ExtResource("1_qxb2a")
 network = NodePath("NetworkComponent")
@@ -693,21 +693,20 @@ replication_config = SubResource("SceneReplicationConfig_kad1q")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("3_xoh8g")]
 z_index = 1
-position = Vector2(0, -34)
+position = Vector2(0, -29)
 stats = NodePath("../Stats")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 2
 texture_filter = 1
 material = SubResource("ShaderMaterial_fqh87")
-scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_t88v4")
 animation = &"Idle_up"
 autoplay = "Idle_down"
 offset = Vector2(0, -10)
 
 [node name="HitboxComponent" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character", "animation")]
-position = Vector2(1, -13)
+position = Vector2(0, -10)
 shape = SubResource("CapsuleShape2D_i26fe")
 script = ExtResource("6_8pju3")
 health_component = NodePath("../HealthComponent")

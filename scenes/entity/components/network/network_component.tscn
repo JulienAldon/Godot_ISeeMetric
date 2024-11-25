@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://3l1kpsyqp8xw"]
 
-[ext_resource type="Script" path="res://scenes/entity/components/network/NetworkComponent.gd" id="1_mpxxg"]
+[ext_resource type="Script" path="res://scenes/entity/components/network/network_component.gd" id="1_mpxxg"]
 
 [node name="NetworkComponent" type="Node2D"]
 script = ExtResource("1_mpxxg")

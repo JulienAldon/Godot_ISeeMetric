@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://boequd8issf1h" path="res://scenes/entity/buildings/outpost/outpost.png" id="3_33l3u"]
 [ext_resource type="PackedScene" uid="uid://uoxwn3d5i7hk" path="res://scenes/entity/components/progress/capturing_progress.tscn" id="3_yw4n5"]
 [ext_resource type="Shader" path="res://dotted_line.gdshader" id="4_q3k8o"]
-[ext_resource type="Script" path="res://scenes/entity/components/capture/CaptureComponent.gd" id="6_8fmld"]
+[ext_resource type="Script" path="res://scenes/entity/components/capture/capture_component.gd" id="6_8fmld"]
 [ext_resource type="PackedScene" uid="uid://b4hip7ftfm8ju" path="res://scenes/entity/buildings/outpost/slot/outpost_building_slot.tscn" id="6_hthc8"]
 [ext_resource type="Script" path="res://scenes/entity/components/build/build_component.gd" id="9_lkppw"]
 [ext_resource type="Script" path="res://scenes/entity/components/income/on_timer_income_component.gd" id="11_mxhdd"]

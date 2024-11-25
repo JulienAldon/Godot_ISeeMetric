@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dsey6ufxmgge7" path="res://scenes/entity/components/capture/healthbarUnder.png" id="1_ujddh"]
 [ext_resource type="Texture2D" uid="uid://bsn5glxg3v41x" path="res://scenes/entity/components/capture/progress_bar.png" id="2_ysls0"]
-[ext_resource type="Script" path="res://scenes/entity/components/progress/ProgressBar.gd" id="3_ix53t"]
+[ext_resource type="Script" path="res://scenes/entity/components/progress/progress_bar.gd" id="3_ix53t"]
 
 [node name="CapturingProgress" type="TextureProgressBar"]
 offset_left = -32.0

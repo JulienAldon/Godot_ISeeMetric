@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c8tdady5je2ar" path="res://scenes/ui/actions/queue/queued_action.tscn" id="7_jfhkk"]
 [ext_resource type="Texture2D" uid="uid://bpsbje7ce7qfn" path="res://scenes/ui/informations/queue/ui_progress_bar.png" id="8_wquat"]
 [ext_resource type="Texture2D" uid="uid://bsn5glxg3v41x" path="res://scenes/entity/components/capture/progress_bar.png" id="9_idq7k"]
-[ext_resource type="Script" path="res://scenes/entity/components/progress/ProgressBar.gd" id="10_a18q5"]
+[ext_resource type="Script" path="res://scenes/entity/components/progress/progress_bar.gd" id="10_a18q5"]
 [ext_resource type="Script" path="res://scenes/ui/informations/SelectionMultiple.gd" id="11_8mfhd"]
 [ext_resource type="PackedScene" uid="uid://c76c26bhkdupf" path="res://scenes/ui/informations/entity/entity_icon.tscn" id="12_e0uwk"]
 

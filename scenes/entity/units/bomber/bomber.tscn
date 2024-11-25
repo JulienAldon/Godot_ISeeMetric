@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="5_isfe6"]
 [ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_component.tscn" id="6_gjt6e"]
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="7_djhly"]
-[ext_resource type="Script" path="res://scenes/entity/actions/attack/Attack.gd" id="7_f3blu"]
+[ext_resource type="Script" path="res://scenes/entity/actions/attack/attack.gd" id="7_f3blu"]
 [ext_resource type="Shader" path="res://dotted_line.gdshader" id="7_l2ntr"]
 [ext_resource type="Texture2D" uid="uid://653p6v8uw5or" path="res://scenes/entity/units/bomber/bomber.png" id="7_slmdo"]
 [ext_resource type="Texture2D" uid="uid://bjd8p7m0fgmci" path="res://scenes/entity/icons/action/delete_building.png" id="8_5yu67"]
@@ -19,16 +19,13 @@
 [ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="10_iffmp"]
 [ext_resource type="Script" path="res://scenes/entity/components/attack/rts_attack_component.gd" id="10_xtcv8"]
 [ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="11_conv2"]
-[ext_resource type="Script" path="res://scenes/entity/components/attack/ProjectileAttackStyle.gd" id="11_dfma3"]
+[ext_resource type="Script" path="res://scenes/entity/components/attack/projectile_attack_style.gd" id="11_dfma3"]
 [ext_resource type="Resource" uid="uid://c4pmsspbvdy7f" path="res://scenes/entity/units/bomber/bomber_skill.tres" id="14_dfq2n"]
 [ext_resource type="AnimationLibrary" uid="uid://dahcaivapiqxl" path="res://scenes/entity/units/bomber/bomber.res" id="16_sxb3x"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/StateMachine.gd" id="19_7ydl2"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsAttack.gd" id="20_4rwvn"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsIdle.gd" id="21_cf6h7"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsMove.gd" id="22_28f8m"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_gyvjc"]
-radius = 12.0
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/state_machine.gd" id="19_7ydl2"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_attack.gd" id="20_4rwvn"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_idle.gd" id="21_cf6h7"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_move.gd" id="22_28f8m"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4w5lx"]
 properties/0/path = NodePath("..:position")
@@ -52,6 +49,9 @@ properties/5/replication_mode = 1
 properties/6/path = NodePath("../AnimationComponent/AnimationTree:parameters/Attack/blend_position")
 properties/6/spawn = true
 properties/6/replication_mode = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gyvjc"]
+radius = 12.0
 
 [sub_resource type="Resource" id="Resource_n4d3p"]
 script = ExtResource("9_0avr5")
@@ -491,7 +491,7 @@ graph_offset = Vector2(4, -45)
 
 [node name="Bomber" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death", "stats", "animation", "behaviours", "action_controller", "player_marker") groups=["player_entity", "rts_unit"]]
 collision_layer = 3
-collision_mask = 4
+collision_mask = 12
 input_pickable = true
 script = ExtResource("1_hmqd5")
 health = NodePath("HealthComponent")
@@ -511,6 +511,11 @@ display_name = "Bomber"
 str_type = "bomber"
 icon = ExtResource("2_8vmb6")
 
+[node name="NetworkComponent" parent="." instance=ExtResource("4_n2hq3")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+replication_config = SubResource("SceneReplicationConfig_4w5lx")
+
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("2_as0jb")]
 position = Vector2(0, -16)
 stats = NodePath("../CharacterStats")
@@ -521,11 +526,6 @@ script = ExtResource("3_tuhee")
 health_component = NodePath("../HealthComponent")
 character = NodePath("..")
 animation = NodePath("../AnimationComponent")
-
-[node name="NetworkComponent" parent="." instance=ExtResource("4_n2hq3")]
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
-replication_config = SubResource("SceneReplicationConfig_4w5lx")
 
 [node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("5_isfe6")]
 network = NodePath("../NetworkComponent")

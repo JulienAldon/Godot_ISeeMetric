@@ -11,15 +11,15 @@
 [ext_resource type="PackedScene" uid="uid://ckia2wdtsnvks" path="res://scenes/entity/components/navigation/navigation_component.tscn" id="9_18csj"]
 [ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="10_kssli"]
 [ext_resource type="Script" path="res://scenes/entity/components/attack/rts_attack_component.gd" id="11_dn2x6"]
-[ext_resource type="Script" path="res://scenes/entity/components/attack/ProjectileAttackStyle.gd" id="12_v1hvk"]
+[ext_resource type="Script" path="res://scenes/entity/components/attack/projectile_attack_style.gd" id="12_v1hvk"]
 [ext_resource type="Resource" uid="uid://dy8sshgc57vj8" path="res://scenes/entity/units/marauder/marauder_skill.tres" id="13_rye4n"]
-[ext_resource type="Script" path="res://scenes/entity/components/death/DeathComponent.gd" id="14_gm1pv"]
+[ext_resource type="Script" path="res://scenes/entity/components/death/death_component.gd" id="14_gm1pv"]
 [ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="15_at01u"]
 [ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="16_2hnw1"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/StateMachine.gd" id="17_xcrrb"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsIdle.gd" id="18_qcgsk"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsMove.gd" id="19_vgx70"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsAttack.gd" id="20_n2t6y"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/state_machine.gd" id="17_xcrrb"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_idle.gd" id="18_qcgsk"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_move.gd" id="19_vgx70"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_attack.gd" id="20_n2t6y"]
 [ext_resource type="Script" path="res://scenes/entity/components/action/action_component.gd" id="21_gbgah"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bcs1j"]
@@ -521,7 +521,7 @@ graph_offset = Vector2(-118, -79)
 
 [node name="RtsCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death", "stats", "animation", "behaviours", "action_controller", "player_marker") groups=["player_entity", "rts_unit"]]
 collision_layer = 3
-collision_mask = 44
+collision_mask = 12
 input_pickable = true
 script = ExtResource("1_osq3d")
 health = NodePath("HealthComponent")
