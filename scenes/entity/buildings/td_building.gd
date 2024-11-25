@@ -62,4 +62,4 @@ func trigger_action(action):
 			return
 		if self.action_controller.can_queue_action():
 			player.spend_currency(action.cost)
-			self.action_controller.queue_action(action, global_position)
+			self.action_controller.add_queue_action(action, global_position)

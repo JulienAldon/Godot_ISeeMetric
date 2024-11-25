@@ -28,7 +28,7 @@ func build_position_selected(pos: Vector2):
 	if action_controller.can_queue_action():
 		var player = GameManager.get_player(multiplayer.get_unique_id())
 		player.spend_currency(build_action.cost)
-		action_controller.queue_action(build_action, pos)
+		action_controller.add_queue_action(build_action, pos)
 	else:
 		build_mode.reset_build_state()
 	build_mode.hide_build_mode()
