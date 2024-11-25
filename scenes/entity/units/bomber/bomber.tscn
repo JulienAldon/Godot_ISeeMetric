@@ -1,11 +1,12 @@
-[gd_scene load_steps=97 format=3 uid="uid://b588k7xlnh6im"]
+[gd_scene load_steps=98 format=3 uid="uid://b588k7xlnh6im"]
 
 [ext_resource type="Script" path="res://scenes/entity/units/rts_character.gd" id="1_hmqd5"]
+[ext_resource type="Texture2D" uid="uid://ds0f4m1tswy4g" path="res://scenes/entity/icons/units/bomber.png" id="2_8vmb6"]
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="2_as0jb"]
 [ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="3_tuhee"]
 [ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="4_n2hq3"]
-[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="5_isfe6"]
-[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_handler.tscn" id="6_gjt6e"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="5_isfe6"]
+[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_component.tscn" id="6_gjt6e"]
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="7_djhly"]
 [ext_resource type="Script" path="res://scenes/entity/actions/attack/Attack.gd" id="7_f3blu"]
 [ext_resource type="Shader" path="res://dotted_line.gdshader" id="7_l2ntr"]
@@ -16,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://ckia2wdtsnvks" path="res://scenes/entity/components/navigation/navigation_component.tscn" id="9_d2ryi"]
 [ext_resource type="Texture2D" uid="uid://c8kjoj4e0t8af" path="res://scenes/entity/icons/resources/gold.png" id="10_dtpso"]
 [ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="10_iffmp"]
-[ext_resource type="Script" path="res://scenes/entity/components/attack/RtsAttackComponent.gd" id="10_xtcv8"]
+[ext_resource type="Script" path="res://scenes/entity/components/attack/rts_attack_component.gd" id="10_xtcv8"]
 [ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="11_conv2"]
 [ext_resource type="Script" path="res://scenes/entity/components/attack/ProjectileAttackStyle.gd" id="11_dfma3"]
 [ext_resource type="Resource" uid="uid://c4pmsspbvdy7f" path="res://scenes/entity/units/bomber/bomber_skill.tres" id="14_dfq2n"]
@@ -508,6 +509,7 @@ action_controller = NodePath("ActionComponent")
 player_marker = NodePath("PlayerMarker")
 display_name = "Bomber"
 str_type = "bomber"
+icon = ExtResource("2_8vmb6")
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("2_as0jb")]
 position = Vector2(0, -16)
@@ -596,9 +598,9 @@ attack_timer = NodePath("Timer")
 
 [node name="ProjectileAttackStyle" type="Node2D" parent="RtsAttackComponent" node_paths=PackedStringArray("body", "attack_point", "stats")]
 script = ExtResource("11_dfma3")
-skill = ExtResource("14_dfq2n")
 body = NodePath("../..")
 attack_point = NodePath("AttackPoint")
+skill = ExtResource("14_dfq2n")
 stats = NodePath("../../CharacterStats")
 
 [node name="AttackPoint" type="Node2D" parent="RtsAttackComponent/ProjectileAttackStyle"]

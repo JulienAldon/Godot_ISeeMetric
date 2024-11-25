@@ -21,6 +21,10 @@ var local_units: Array = []
 var flocked_direction: Vector2
 
 func colliders_reached_target():
+	if local_units.size() <= 0:
+		if reached_target(30):
+			stop()
+			reset_state()
 	for collider in local_units:
 		if is_instance_valid(collider) and movement_group.has(collider.get_instance_id()):
 			if collider.movement.has_method("reached_target") and collider.movement.reached_target(30):

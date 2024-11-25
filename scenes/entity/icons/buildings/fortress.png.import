@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cq2jannuhd1mr"
-path="res://.godot/imported/soldier.png-c7d18f1c6ef9a8be0d00204547011c45.ctex"
+uid="uid://heevtjpcfxtb"
+path="res://.godot/imported/fortress.png-f491cd8c73d53b045509ae53210c617d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/entity/icons/soldier.png"
-dest_files=["res://.godot/imported/soldier.png-c7d18f1c6ef9a8be0d00204547011c45.ctex"]
+source_file="res://scenes/entity/icons/buildings/fortress.png"
+dest_files=["res://.godot/imported/fortress.png-f491cd8c73d53b045509ae53210c617d.ctex"]
 
 [params]
 

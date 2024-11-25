@@ -7,7 +7,7 @@ class_name Turret
 @export var stats: CharacterStats
 @export var sprite: AnimatedSprite2D
 @export var attack: AttackComponent
-@export var action_controller: ActionHandler
+@export var action_controller: ActionComponent
 @export var upgrade: UpgradeComponent
 
 func dispawn():

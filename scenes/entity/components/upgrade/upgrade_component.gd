@@ -12,7 +12,7 @@ enum UpgradeTiers {
 var current_tier: int
 
 @export var max_tier: int
-@export var action_controller: ActionHandler
+@export var action_controller: ActionComponent
 @export var stats: CharacterStats
 @export var upgrades_per_tier: Dictionary
 

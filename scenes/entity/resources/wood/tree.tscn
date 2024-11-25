@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c6u0o8jjhp4gd" path="res://scenes/entity/resources/wood/tree.png" id="2_sbgn4"]
 [ext_resource type="Script" path="res://scenes/entity/components/network/NetworkComponent.gd" id="3_yjxxk"]
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="5_5y667"]
-[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="7_2l2ej"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="7_2l2ej"]
 [ext_resource type="PackedScene" uid="uid://b17vgvl5v7hpa" path="res://scenes/entity/components/death/death_component.tscn" id="8_nlm6g"]
 [ext_resource type="Texture2D" uid="uid://ciem7u1hinb1k" path="res://scenes/entity/resources/wood/tree_destroyed.png" id="9_2cwem"]
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="9_mlkxj"]

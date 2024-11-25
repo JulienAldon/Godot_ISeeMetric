@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://7ay25idlrphw" path="res://scenes/ui/minimap/minimap.tscn" id="2_mngvn"]
 [ext_resource type="PackedScene" uid="uid://dg3avobuf5qgf" path="res://scenes/ui/informations/panel/information_panel.tscn" id="4_3w7i4"]
 [ext_resource type="PackedScene" uid="uid://4tbd8aqita4l" path="res://scenes/ui/actions/panel/ui_rts_actions.tscn" id="5_hjow0"]
-[ext_resource type="Texture2D" uid="uid://lty362kk5tql" path="res://scenes/entity/icons/icon_remove.svg" id="6_fehvm"]
+[ext_resource type="Texture2D" uid="uid://hjvhlsegb5s4" path="res://scenes/entity/icons/delete_building-export.png" id="6_fehvm"]
 [ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="6_ivgrq"]
 [ext_resource type="Script" path="res://scenes/ui/informations/currency/currency_panel.gd" id="7_yid4m"]
 [ext_resource type="PackedScene" uid="uid://cyjhmi6tj0xyo" path="res://scenes/ui/informations/currency/currency_icon.tscn" id="8_bjf6l"]

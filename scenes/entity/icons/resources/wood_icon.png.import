@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://lty362kk5tql"
-path="res://.godot/imported/icon_remove.svg-369105327c1948655a4b23adb16a0ed9.ctex"
+uid="uid://cwddc0t0tmbce"
+path="res://.godot/imported/wood_icon.png-ab15c37130261c4fc004ec2572f96a23.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/entity/icons/icon_remove.svg"
-dest_files=["res://.godot/imported/icon_remove.svg-369105327c1948655a4b23adb16a0ed9.ctex"]
+source_file="res://scenes/entity/icons/resources/wood_icon.png"
+dest_files=["res://.godot/imported/wood_icon.png-ab15c37130261c4fc004ec2572f96a23.ctex"]
 
 [params]
 
@@ -32,6 +32,3 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
-svg/scale=1.0
-editor/scale_with_editor_scale=false
-editor/convert_colors_with_editor_theme=false

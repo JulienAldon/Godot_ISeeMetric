@@ -10,12 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://b16xsdnqifpbm" path="res://scenes/entity/components/movement/movement_component.tscn" id="7_8bo5c"]
 [ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="8_3kd1a"]
 [ext_resource type="AnimationLibrary" uid="uid://cy3r14fu7srgp" path="res://scenes/entity/units/td_character/td_character.res" id="8_xjo07"]
-[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="11_ess74"]
-[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_handler.tscn" id="12_8menw"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="11_ess74"]
+[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_component.tscn" id="12_8menw"]
 [ext_resource type="Script" path="res://scenes/entity/actions/build/Build.gd" id="13_61wp2"]
 [ext_resource type="Texture2D" uid="uid://c8u5pd8olagq0" path="res://scenes/entity/buildings/turret/basic_turret_construction.png" id="14_c1gwi"]
 [ext_resource type="Texture2D" uid="uid://cnqwaelhsga7d" path="res://scenes/entity/icons/buildings/basic_turret.png" id="14_ym3ic"]
-[ext_resource type="Script" path="res://scenes/entity/components/build/BuildComponent.gd" id="15_cs28k"]
+[ext_resource type="Script" path="res://scenes/entity/components/build/build_component.gd" id="15_cs28k"]
 [ext_resource type="Texture2D" uid="uid://qvk6yrhs8p6u" path="res://scenes/entity/icons/buildings/windmill.png" id="15_q2t4d"]
 [ext_resource type="Script" path="res://scenes/entity/actions/modes/build/grid_build_mode.gd" id="16_loc5e"]
 [ext_resource type="Texture2D" uid="uid://btvbi1oechyun" path="res://scenes/entity/buildings/windmill/windmill_construction.png" id="16_rxw6i"]
@@ -768,7 +768,7 @@ actions_container = NodePath(".")
 
 [node name="BuildTurret" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("cooldown", "time")]
 script = ExtResource("13_61wp2")
-building_scene = "res://scenes/td/building/turret.tscn"
+building_scene = "res://scenes/entity/buildings/turret/turret.tscn"
 build_preview_texture = ExtResource("14_c1gwi")
 title = "Turret"
 icon = ExtResource("14_ym3ic")
@@ -785,7 +785,7 @@ wait_time = 0.1
 
 [node name="BuildMill" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("cooldown", "time")]
 script = ExtResource("13_61wp2")
-building_scene = "res://scenes/td/building/windmill.tscn"
+building_scene = "res://scenes/entity/buildings/windmill/windmill.tscn"
 build_preview_texture = ExtResource("16_rxw6i")
 title = "WindMill"
 icon = ExtResource("15_q2t4d")
@@ -802,7 +802,7 @@ wait_time = 0.1
 
 [node name="BuildModule" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("cooldown", "time")]
 script = ExtResource("13_61wp2")
-building_scene = "res://scenes/td/building/module.tscn"
+building_scene = "res://scenes/entity/buildings/module/module.tscn"
 build_preview_texture = ExtResource("18_w7ai1")
 title = "Module"
 icon = ExtResource("18_t36sl")

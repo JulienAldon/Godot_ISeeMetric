@@ -6,13 +6,13 @@ class_name RtsCharacter
 @export var network: NetworkComponent
 @export var movement: NavigationComponent
 @export var sprite: AnimatedSprite2D
-@export var selection: SelectionSystem
+@export var selection: SelectionComponent
 @export var attack: AttackComponent
 @export var death: DeathComponent
 @export var stats: Node2D
 @export var animation: AnimationController
 @export var behaviours: StateMachine
-@export var action_controller: ActionHandler
+@export var action_controller: ActionComponent
 
 @export var player_marker: ColorRect
 

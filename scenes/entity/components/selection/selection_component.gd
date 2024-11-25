@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name SelectionSystem
+class_name SelectionComponent
 
 @export_group("Dependencies")
 #@export var health_component: HealthComponent
@@ -57,7 +57,6 @@ func _input(event):
 	#if event is InputEventMouseButton:
 		#if event.is_pressed():
 			#set_target_indicator(false)
-		
 
 func set_target_indicator(status):
 	selected['is_target'] = status

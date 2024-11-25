@@ -3,7 +3,7 @@ extends Entity
 class_name Building
 
 @export_group("Dependencies")
-@export var selection: SelectionSystem
+@export var selection: SelectionComponent
 @export var network: NetworkComponent
 @export var movement: RallyPointComponent
 

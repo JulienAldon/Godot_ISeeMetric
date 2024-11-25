@@ -2,7 +2,7 @@ extends Node2D
 
 class_name BuildComponent
 @export_group("Dependencies")
-@export var action_controller: ActionHandler
+@export var action_controller: ActionComponent
 @export var entity: Entity
 
 @export_group("Intern")

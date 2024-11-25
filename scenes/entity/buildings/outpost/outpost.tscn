@@ -3,16 +3,16 @@
 [ext_resource type="Script" path="res://scenes/entity/buildings/outpost/outpost.gd" id="1_chg77"]
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="2_67f2r"]
 [ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="2_pfug3"]
-[ext_resource type="Texture2D" uid="uid://cy6sgk1o02y3h" path="res://scenes/entity/icons/outpost.png" id="2_ptrjo"]
-[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_handler.tscn" id="2_upylq"]
+[ext_resource type="Texture2D" uid="uid://cy6sgk1o02y3h" path="res://scenes/entity/icons/buildings/outpost.png" id="2_ptrjo"]
+[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_component.tscn" id="2_upylq"]
 [ext_resource type="Texture2D" uid="uid://boequd8issf1h" path="res://scenes/entity/buildings/outpost/outpost.png" id="3_33l3u"]
 [ext_resource type="PackedScene" uid="uid://uoxwn3d5i7hk" path="res://scenes/entity/components/progress/capturing_progress.tscn" id="3_yw4n5"]
 [ext_resource type="Shader" path="res://dotted_line.gdshader" id="4_q3k8o"]
 [ext_resource type="Script" path="res://scenes/entity/components/capture/CaptureComponent.gd" id="6_8fmld"]
 [ext_resource type="PackedScene" uid="uid://b4hip7ftfm8ju" path="res://scenes/entity/buildings/outpost/slot/outpost_building_slot.tscn" id="6_hthc8"]
-[ext_resource type="Script" path="res://scenes/entity/components/build/BuildComponent.gd" id="9_lkppw"]
+[ext_resource type="Script" path="res://scenes/entity/components/build/build_component.gd" id="9_lkppw"]
 [ext_resource type="Script" path="res://scenes/entity/components/income/on_timer_income_component.gd" id="11_mxhdd"]
-[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="11_urvxy"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="11_urvxy"]
 [ext_resource type="Texture2D" uid="uid://c8kjoj4e0t8af" path="res://scenes/entity/icons/resources/gold.png" id="12_0q7rm"]
 [ext_resource type="Script" path="res://scripts/resources/yield.gd" id="12_0w0x3"]
 [ext_resource type="Script" path="res://scenes/entity/actions/modes/build/slot_build_mode.gd" id="13_3dmra"]
@@ -95,10 +95,13 @@ effect_shape = NodePath("EffectRange/CollisionShape2D")
 selection = NodePath("SelectionComponent")
 network = NodePath("NetworkComponent")
 movement = NodePath("RallyPointComponent")
+spawned_in_editor = null
 minimap_icon = "outpost"
 display_name = "Outpost"
 str_type = "Outpost"
 icon = ExtResource("2_ptrjo")
+vision_range = null
+controlled_by = null
 
 [node name="NetworkComponent" parent="." instance=ExtResource("2_pfug3")]
 

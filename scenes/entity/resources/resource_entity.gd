@@ -4,7 +4,7 @@ class_name ResourceEntity
 
 @export var death: DeathComponent
 @export var health: HealthComponent
-@export var selection: SelectionSystem
+@export var selection: SelectionComponent
 @export var income: IncomeComponent
 @export var hitbox: HitboxComponent
 

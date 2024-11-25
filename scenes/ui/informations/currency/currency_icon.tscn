@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cyjhmi6tj0xyo"]
 
 [ext_resource type="Script" path="res://scenes/ui/informations/currency/currency_icon.gd" id="1_pshdf"]
-[ext_resource type="Texture2D" uid="uid://cvjubghb3hspv" path="res://scenes/entity/icons/resource_down.png" id="2_1n0b6"]
-[ext_resource type="Texture2D" uid="uid://ynobhuku08yo" path="res://scenes/entity/icons/resource_up.png" id="3_6k4eo"]
-[ext_resource type="Texture2D" uid="uid://bcwphy31uuu48" path="res://scenes/entity/icons/resource_idle.png" id="3_v7a7y"]
+[ext_resource type="Texture2D" uid="uid://cvjubghb3hspv" path="res://scenes/entity/icons/resources/resource_down.png" id="2_1n0b6"]
+[ext_resource type="Texture2D" uid="uid://ynobhuku08yo" path="res://scenes/entity/icons/resources/resource_up.png" id="3_6k4eo"]
+[ext_resource type="Texture2D" uid="uid://bcwphy31uuu48" path="res://scenes/entity/icons/resources/resource_idle.png" id="3_v7a7y"]
 
 [node name="CurrencyUi" type="HBoxContainer" node_paths=PackedStringArray("icon_texture", "currency_label", "status_indicator")]
 size_flags_vertical = 4

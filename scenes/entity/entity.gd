@@ -15,6 +15,9 @@ var is_active: bool = true
 var scene: String
 var attacker_id: int
 
+func is_in_same_team(player_id):
+	return controlled_by == player_id
+
 func trigger_action(action):
 	if action is Build:
 		self.build.set_action_build_mode(action)

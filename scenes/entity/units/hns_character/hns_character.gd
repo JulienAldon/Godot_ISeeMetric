@@ -10,7 +10,7 @@ class_name HnsCharacter
 @export var weapon: Sprite2D
 @export var stats: Node2D
 @export var skills: Node2D
-@export var selection: SelectionSystem
+@export var selection: SelectionComponent
 @export var animation: AnimationController
 
 func _ready():

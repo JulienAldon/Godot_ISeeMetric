@@ -2,7 +2,7 @@ extends Action
 
 class_name Produce
 
-@export var unit_scene: String
+@export_file("*.tscn") var unit_scene: String
 @export var rally_point: RallyPointComponent
 var outpost_position: Vector2
 var outpost_controller: int

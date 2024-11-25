@@ -3,7 +3,7 @@ extends Building
 class_name Outpost
 
 @export_group("Dependencies")
-@export var action_controller: ActionHandler
+@export var action_controller: ActionComponent
 @export var capture: CaptureComponent
 @export var income: IncomeComponent
 @export var build: BuildComponent

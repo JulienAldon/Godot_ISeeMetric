@@ -3,7 +3,7 @@ extends TdBuilding
 @export var sprite: AnimatedSprite2D
 @export var health: HealthComponent
 @export var death: DeathComponent
-@export var action_controller: ActionHandler
+@export var action_controller: ActionComponent
 @export var effect: SpawnResourceComponent
 
 func _process(delta):

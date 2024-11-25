@@ -160,8 +160,8 @@ func change_level(scene: PackedScene):
 		c.queue_free()
 	var instantiated_scene = scene.instantiate()
 	level_container.add_child(instantiated_scene)
-	spawn_players(instantiated_scene.spawns.get_children())
 	is_level_loaded = true
+	spawn_players(instantiated_scene.spawns.get_children())
 
 func stop_game():
 	if level_container.get_children().size() > 0:

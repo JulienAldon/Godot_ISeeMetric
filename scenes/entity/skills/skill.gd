@@ -35,6 +35,8 @@ var duration: float
 var query: PhysicsShapeQueryParameters2D
 var radius: float = 10
 
+var has_hit: bool = false
+
 func set_area_of_effect(value):
 	if shape is CircleShape2D:
 		shape.radius = value
@@ -66,6 +68,7 @@ func start():
 	animation_tree.set_active(true)
 	set_process(true)
 	set_physics_process(true)
+	has_hit = false
 
 func configure():
 	if not multiplayer.is_server():
@@ -89,7 +92,8 @@ func check_collision():
 	query.transform = transfo
 	var result := get_world_2d().direct_space_state.intersect_shape(query, 100)
 	var hit_condition = result.size() > 0 and result[0].collider.controlled_by != controlled_by
-	if hit_condition:
+	if hit_condition and not has_hit:
+		has_hit = true
 		_hit_body(result.map(func(el): return el.collider))
 		if "parameters/conditions/hit" in animation_tree:
 			animation_tree["parameters/conditions/hit"] = true
@@ -98,8 +102,8 @@ func check_collision():
 func _process(delta):
 	if not multiplayer.is_server():
 		return
-	if Engine.get_process_frames() % 20 == 0:
-		check_collision()
+	#if Engine.get_process_frames() % 20 == 0:
+	check_collision()
 	for behaviour in behaviours:
 		behaviour.update(delta)
 
@@ -113,6 +117,7 @@ func stop():
 		behaviour.stop()
 	set_process(false)
 	set_physics_process(false)
+	has_hit = true
 	
 func _physics_process(delta):
 	for behaviour in behaviours:

@@ -1,0 +1,167 @@
+[gd_scene load_steps=27 format=3 uid="uid://bxnhc2lkyi48d"]
+
+[ext_resource type="Script" path="res://scenes/entity/buildings/factory/factory.gd" id="1_010vo"]
+[ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="1_dnymk"]
+[ext_resource type="Texture2D" uid="uid://4lkmk2eqwda5" path="res://scenes/entity/icons/buildings/factory.png" id="2_iehct"]
+[ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="2_r71x0"]
+[ext_resource type="PackedScene" uid="uid://d8gihj7ittof" path="res://scenes/entity/components/rally/rally_point_component.tscn" id="3_vrsxv"]
+[ext_resource type="Texture2D" uid="uid://4hue5430u13o" path="res://scenes/entity/buildings/factory/factory.png" id="5_1iri3"]
+[ext_resource type="Shader" path="res://unit_outline.gdshader" id="5_jw8aa"]
+[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_component.tscn" id="6_02q08"]
+[ext_resource type="Script" path="res://scenes/entity/components/build/build_phase_component.gd" id="7_b1rvi"]
+[ext_resource type="PackedScene" uid="uid://c7bi61flkl2h8" path="res://scenes/entity/actions/produce/produce.tscn" id="8_bxueh"]
+[ext_resource type="PackedScene" uid="uid://b17vgvl5v7hpa" path="res://scenes/entity/components/death/death_component.tscn" id="8_m46us"]
+[ext_resource type="Texture2D" uid="uid://ds0f4m1tswy4g" path="res://scenes/entity/icons/units/bomber.png" id="9_52fxa"]
+[ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="9_ho0hy"]
+[ext_resource type="Script" path="res://scripts/resources/yield.gd" id="10_hrcm5"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="10_m4rpd"]
+[ext_resource type="Texture2D" uid="uid://c8kjoj4e0t8af" path="res://scenes/entity/icons/resources/gold.png" id="11_4iy4x"]
+[ext_resource type="Texture2D" uid="uid://d0dui2ebo7i1" path="res://scenes/entity/icons/units/raider.png" id="12_okd2s"]
+[ext_resource type="Texture2D" uid="uid://dnhvgt5e4ws2w" path="res://scenes/entity/buildings/barrack/barracks_construction.png" id="15_8sqph"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_jotly"]
+properties/0/path = NodePath("..:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("../BuildingPhaseComponent:is_building")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("../HealthComponent:health")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1sisb"]
+size = Vector2(50, 22)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_n7fjq"]
+shader = ExtResource("5_jw8aa")
+shader_parameter/width = null
+shader_parameter/outline_color = null
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3c0s1"]
+atlas = ExtResource("5_1iri3")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xs26n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3c0s1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Resource" id="Resource_i64ia"]
+script = ExtResource("10_hrcm5")
+icon = ExtResource("11_4iy4x")
+value = 10
+type = 0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1hok"]
+atlas = ExtResource("15_8sqph")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u5icb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p1hok")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Factory" type="StaticBody2D" node_paths=PackedStringArray("health", "hitbox", "death", "build_phase", "action_controller", "selection", "network", "movement") groups=["building", "navigation", "player_entity"]]
+collision_layer = 38
+collision_mask = 8
+script = ExtResource("1_010vo")
+health = NodePath("HealthComponent")
+hitbox = NodePath("HitboxComponent")
+death = NodePath("DeathComponent")
+build_phase = NodePath("BuildingPhaseComponent")
+action_controller = NodePath("ActionComponent")
+selection = NodePath("SelectionComponent")
+network = NodePath("NetworkComponent")
+movement = NodePath("RallyPointComponent")
+display_name = "Factory"
+str_type = "factory"
+icon = ExtResource("2_iehct")
+
+[node name="NetworkComponent" parent="." instance=ExtResource("1_dnymk")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+replication_config = SubResource("SceneReplicationConfig_jotly")
+
+[node name="HitboxComponent" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character")]
+shape = SubResource("RectangleShape2D_1sisb")
+script = ExtResource("2_r71x0")
+health_component = NodePath("../HealthComponent")
+character = NodePath("..")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_n7fjq")
+position = Vector2(0, -15)
+sprite_frames = SubResource("SpriteFrames_xs26n")
+
+[node name="RallyPointComponent" parent="." instance=ExtResource("3_vrsxv")]
+
+[node name="ActionComponent" parent="." node_paths=PackedStringArray("body", "actions_container") instance=ExtResource("6_02q08")]
+body = NodePath("..")
+actions_container = NodePath(".")
+
+[node name="BomberProduction" parent="ActionComponent" node_paths=PackedStringArray("rally_point") instance=ExtResource("8_bxueh")]
+unit_scene = "res://scenes/entity/units/bomber/bomber.tscn"
+rally_point = NodePath("../../RallyPointComponent")
+title = "Bomber"
+icon = ExtResource("9_52fxa")
+cost = Array[ExtResource("10_hrcm5")]([SubResource("Resource_i64ia")])
+description = "Bomber can explode sacrificing itself to deal area damage"
+
+[node name="RaiderProduction" parent="ActionComponent" node_paths=PackedStringArray("rally_point") instance=ExtResource("8_bxueh")]
+unit_scene = "res://scenes/entity/units/raider/raider.tscn"
+rally_point = NodePath("../../RallyPointComponent")
+title = "Raider"
+icon = ExtResource("12_okd2s")
+description = "Raider is a fast and squishy harass unit."
+
+[node name="BuildingPhaseComponent" type="Node2D" parent="." node_paths=PackedStringArray("health", "sprite", "building", "building_sprite", "build_timer")]
+script = ExtResource("7_b1rvi")
+health = NodePath("../HealthComponent")
+sprite = NodePath("../AnimatedSprite2D")
+building = NodePath("..")
+building_sprite = NodePath("AnimatedSprite2D")
+build_timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="BuildingPhaseComponent"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="BuildingPhaseComponent"]
+position = Vector2(1, -15)
+sprite_frames = SubResource("SpriteFrames_u5icb")
+
+[node name="DeathComponent" parent="." node_paths=PackedStringArray("sprite", "health", "body", "corpse", "delete_timer") instance=ExtResource("8_m46us")]
+sprite = NodePath("../AnimatedSprite2D")
+health = NodePath("../HealthComponent")
+body = NodePath("..")
+corpse = NodePath("Corpse")
+delete_timer = NodePath("Timer")
+corpse_time = 5
+
+[node name="Corpse" type="Sprite2D" parent="DeathComponent"]
+visible = false
+position = Vector2(1, -15)
+texture = ExtResource("15_8sqph")
+
+[node name="Timer" type="Timer" parent="DeathComponent"]
+
+[node name="HealthComponent" parent="." instance=ExtResource("9_ho0hy")]
+position = Vector2(0, -36)
+scale = Vector2(1.5, 1.5)
+
+[node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("10_m4rpd")]
+network = NodePath("../NetworkComponent")
+sprites = [NodePath("../AnimatedSprite2D")]
+body = NodePath("..")

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="5_cxduu"]
 [ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="6_ij5ab"]
 [ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="7_mfb17"]
-[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="8_gltm4"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="8_gltm4"]
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="9_mdlo3"]
 [ext_resource type="Texture2D" uid="uid://dbmetj6n20oc2" path="res://scenes/entity/resources/wheat/wheat.png" id="10_s2pwl"]
 [ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="11_y54dr"]

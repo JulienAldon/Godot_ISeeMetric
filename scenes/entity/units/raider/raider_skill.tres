@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_51axo"]
 script = ExtResource("1_q2o7l")
-base = 15.0
+base = 1.0
 added = 0.0
 increased = 0.0
 more = 0.0
@@ -14,7 +14,7 @@ more = 0.0
 [resource]
 script = ExtResource("3_g62hs")
 type = 0
-damage_type = 0
+damage_type = 1
 movement = false
 cooldown = 0.0
 area_of_effect = 150

@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://nlcnfwavt8yc"]
 
-[ext_resource type="Script" path="res://scenes/entity/components/selection/selection_system.gd" id="1_gcht4"]
-[ext_resource type="Texture2D" uid="uid://b42u4x2wbagyt" path="res://scenes/entity/components/selection/select_cursor.png" id="2_wmana"]
+[ext_resource type="Script" path="res://scenes/entity/components/selection/selection_component.gd" id="1_w8jc1"]
+[ext_resource type="Texture2D" uid="uid://b42u4x2wbagyt" path="res://scenes/entity/components/selection/select_cursor.png" id="2_7fcf8"]
 
 [node name="SelectionComponent" type="Node2D" node_paths=PackedStringArray("target_cursor")]
-script = ExtResource("1_gcht4")
+script = ExtResource("1_w8jc1")
 target_cursor = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -12,4 +12,4 @@ visible = false
 modulate = Color(1, 0.352119, 0.528336, 1)
 z_index = 5
 scale = Vector2(0.6, 0.6)
-texture = ExtResource("2_wmana")
+texture = ExtResource("2_7fcf8")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwddc0t0tmbce"
-path="res://.godot/imported/wood_icon.png-687d2b769362baac13633ba000439654.ctex"
+uid="uid://bfy8v004srvat"
+path="res://.godot/imported/fortress.png-6fc2f996149bdb5a102180cdcefd77d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/entity/icons/wood_icon.png"
-dest_files=["res://.godot/imported/wood_icon.png-687d2b769362baac13633ba000439654.ctex"]
+source_file="res://scenes/entity/buildings/fortress/fortress.png"
+dest_files=["res://.godot/imported/fortress.png-6fc2f996149bdb5a102180cdcefd77d6.ctex"]
 
 [params]
 

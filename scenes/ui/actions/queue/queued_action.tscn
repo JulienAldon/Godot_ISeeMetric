@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/ui/informations/queue/queue_panel.gd" id="1_2brcv"]
 [ext_resource type="StyleBox" uid="uid://htnwatxi7p74" path="res://styles/ui_panel.tres" id="3_718qu"]
-[ext_resource type="Texture2D" uid="uid://bg1cvfm5gto25" path="res://scenes/entity/icons/default.png" id="3_gf1hq"]
+[ext_resource type="Texture2D" uid="uid://bg1cvfm5gto25" path="res://scenes/entity/icons/units/default.png" id="3_gf1hq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eulbl"]
 bg_color = Color(0.6, 0.6, 0.6, 0)

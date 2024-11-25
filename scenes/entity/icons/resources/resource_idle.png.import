@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0dui2ebo7i1"
-path="res://.godot/imported/raider.png-a3c2174528b73a8139ca7b409077167c.ctex"
+uid="uid://bcwphy31uuu48"
+path="res://.godot/imported/resource_idle.png-26c8b271bd1a9114bb659d5909d4bc14.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scenes/entity/icons/raider.png"
-dest_files=["res://.godot/imported/raider.png-a3c2174528b73a8139ca7b409077167c.ctex"]
+source_file="res://scenes/entity/icons/resources/resource_idle.png"
+dest_files=["res://.godot/imported/resource_idle.png-26c8b271bd1a9114bb659d5909d4bc14.ctex"]
 
 [params]
 

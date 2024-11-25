@@ -2,7 +2,7 @@ extends Action
 
 class_name Build
 
-@export var building_scene: String
+@export_file("*.tscn") var building_scene: String
 
 var controlled_by: int
 var build_pos: Vector2

@@ -60,12 +60,12 @@ func stop_interact_entity(_entity):
 
 func select_entity(entity: Entity):
 	select_controller.reset_selection()
-	if entity.is_in_group("rts_unit"):
+	if entity.is_in_same_team(player_id):
 		select_controller.set_selected([entity])
 
 func mass_select_entity(entities: Array):
 	select_controller.reset_selection()
-	if not false in entities.map(func(el): return el.is_in_group("rts_unit")):
+	if not false in entities.map(func(el): return el.is_in_same_team(player_id)):
 		select_controller.set_selected(entities)
 
 func command_or_append_unit_action(mouse_pos: Vector2, entity):

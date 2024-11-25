@@ -9,8 +9,8 @@ class_name TdCharacter
 @export var movement: MovementComponent
 @export var health: HealthComponent
 @export var hitbox: HitboxComponent
-@export var selection: SelectionSystem
-@export var action_controller: ActionHandler
+@export var selection: SelectionComponent
+@export var action_controller: ActionComponent
 @export var build: BuildComponent
 @export var attack: CollectComponent
 

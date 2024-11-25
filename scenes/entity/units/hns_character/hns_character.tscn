@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://clpqde20meqmd" path="res://scenes/entity/units/hns_character/skill_slot.tscn" id="12_cq1lr"]
 [ext_resource type="Script" path="res://scripts/resources/effect.gd" id="13_50xgb"]
 [ext_resource type="Script" path="res://scripts/resources/skill.gd" id="14_kiyuc"]
-[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="15_opsra"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="15_opsra"]
 [ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="16_mwkya"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_wrr6p"]

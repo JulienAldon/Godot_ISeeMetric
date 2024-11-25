@@ -615,7 +615,6 @@ tilemap_layer = NodePath("../Navigation/Ground")
 [node name="Navigation" type="Node2D" parent="."]
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="Navigation"]
-visible = false
 navigation_polygon = SubResource("NavigationPolygon_a1h70")
 use_edge_connections = false
 

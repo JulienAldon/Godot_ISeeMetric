@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Resource_v2oy8"]
 resource_local_to_scene = true
 script = ExtResource("1_2ou7u")
-base = 25.0
+base = 50.0
 added = 0.0
 increased = 0.0
 more = 0.0

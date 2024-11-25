@@ -1,7 +1,7 @@
 [gd_scene load_steps=77 format=3 uid="uid://bfvtfiwo5a8bd"]
 
 [ext_resource type="Script" path="res://scenes/entity/units/rts_character.gd" id="1_osq3d"]
-[ext_resource type="Texture2D" uid="uid://cq2jannuhd1mr" path="res://scenes/entity/icons/soldier.png" id="2_4stl3"]
+[ext_resource type="Texture2D" uid="uid://cq2jannuhd1mr" path="res://scenes/entity/icons/units/soldier.png" id="2_4stl3"]
 [ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="3_ddaek"]
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="4_odame"]
 [ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="5_cu575"]
@@ -9,8 +9,8 @@
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="7_pdusk"]
 [ext_resource type="Texture2D" uid="uid://6yh35k0xuhlr" path="res://scenes/entity/units/rts_character.png" id="8_tb017"]
 [ext_resource type="PackedScene" uid="uid://ckia2wdtsnvks" path="res://scenes/entity/components/navigation/navigation_component.tscn" id="9_18csj"]
-[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="10_kssli"]
-[ext_resource type="Script" path="res://scenes/entity/components/attack/RtsAttackComponent.gd" id="11_dn2x6"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="10_kssli"]
+[ext_resource type="Script" path="res://scenes/entity/components/attack/rts_attack_component.gd" id="11_dn2x6"]
 [ext_resource type="Script" path="res://scenes/entity/components/attack/ProjectileAttackStyle.gd" id="12_v1hvk"]
 [ext_resource type="Resource" uid="uid://dy8sshgc57vj8" path="res://scenes/entity/units/marauder/marauder_skill.tres" id="13_rye4n"]
 [ext_resource type="Script" path="res://scenes/entity/components/death/DeathComponent.gd" id="14_gm1pv"]
@@ -20,7 +20,7 @@
 [ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsIdle.gd" id="18_qcgsk"]
 [ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsMove.gd" id="19_vgx70"]
 [ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsAttack.gd" id="20_n2t6y"]
-[ext_resource type="Script" path="res://scenes/entity/components/action/action_handler.gd" id="21_gbgah"]
+[ext_resource type="Script" path="res://scenes/entity/components/action/action_component.gd" id="21_gbgah"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bcs1j"]
 properties/0/path = NodePath(".:position")
@@ -371,7 +371,7 @@ animation = &"rts_character/attack_right"
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_4wlwh"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_eaqsu"]
-graph_offset = Vector2(-106.817, 64.1321)
+graph_offset = Vector2(60, 48)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_xbh8k")
 nodes/Animation/position = Vector2(100, 100)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_4wlwh")
@@ -387,7 +387,7 @@ animation = &"rts_character/attack_right"
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_p826q"]
 graph_offset = Vector2(-145.326, 0)
 nodes/Animation/node = SubResource("AnimationNodeAnimation_oixfk")
-nodes/Animation/position = Vector2(20, 160)
+nodes/Animation/position = Vector2(-20, 100)
 nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_te15q")
 nodes/TimeScale/position = Vector2(300, 140)
 nodes/output/position = Vector2(460, 160)
@@ -517,7 +517,7 @@ states/Start/position = Vector2(19, 100)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_sdfri")
 states/Walk/position = Vector2(621, 100)
 transitions = ["Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_m6dvt"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_b61qp"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_gcv4w"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_m3w1n"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_6gu0m"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_xjtc7"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_v0olg")]
-graph_offset = Vector2(-100, -64)
+graph_offset = Vector2(-118, -79)
 
 [node name="RtsCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death", "stats", "animation", "behaviours", "action_controller", "player_marker") groups=["player_entity", "rts_unit"]]
 collision_layer = 3
@@ -551,12 +551,11 @@ replication_config = SubResource("SceneReplicationConfig_bcs1j")
 position = Vector2(0, -14)
 stats = NodePath("../Stats")
 
-[node name="Hitbox" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character", "animation")]
+[node name="Hitbox" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character")]
 shape = SubResource("CapsuleShape2D_gkunk")
 script = ExtResource("5_cu575")
 health_component = NodePath("../HealthComponent")
 character = NodePath("..")
-animation = NodePath("../AnimationComponent")
 
 [node name="PlayerMarker" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_8an8w")
@@ -627,7 +626,7 @@ wait_time = 0.5
 [node name="Stats" type="Node2D" parent="." node_paths=PackedStringArray("health")]
 script = ExtResource("15_at01u")
 health = NodePath("../HealthComponent")
-attack_speed = 2.0
+attack_speed = 1.0
 cast_speed = 0.0
 additionnal_projectiles = 0
 max_health = 150
@@ -635,7 +634,7 @@ move_speed = 60
 armor = 50
 magic_resist = 50
 
-[node name="AnimationComponent" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "animation_tree", "attack_controller")]
+[node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("sprite", "animation_tree", "attack_controller")]
 script = ExtResource("16_2hnw1")
 sprite = NodePath("../Sprite2D")
 animation_tree = NodePath("AnimationTree")
@@ -657,7 +656,7 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/attack = false
 parameters/conditions/idle = false
 parameters/conditions/moving = false
-parameters/Attack/blend_position = Vector2(0.000977516, 1.07365)
+parameters/Attack/blend_position = Vector2(0.000946045, -0.00658679)
 parameters/Attack/0/TimeScale/scale = 1.0
 parameters/Attack/1/TimeScale/scale = 1.0
 parameters/Attack/2/TimeScale/scale = 1.0

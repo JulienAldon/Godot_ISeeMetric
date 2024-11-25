@@ -13,7 +13,8 @@ var attacking = false
 
 func _ready():
 	animation_tree.active = true
-	animation_tree.animation_finished.connect(_on_animation_tree_animation_finished)
+	animation_tree.animation_finished.connect(_anim_finished)
+	print("anim connected")
 
 func get_idle():
 	return animation_tree["parameters/conditions/idle"]
@@ -70,11 +71,12 @@ func stop_attack(attack_types: Array[String]):
 	for attack in attack_types:
 		animation_tree["parameters/conditions/"+attack] = false
 
-func _on_animation_tree_animation_finished(anim_name):
+func _anim_finished(anim_name):
 	if anim_name.contains("hit"):
 		animation_tree["parameters/conditions/hit"] = false
 	elif anim_name.contains("death"):
 		animation_tree["parameters/conditions/death"] = false
+	print("stop anim", anim_name, self)
 	for i in attack_names:
 		if anim_name.contains(i):
 			stop_attack(attack_names)

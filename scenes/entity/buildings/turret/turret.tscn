@@ -6,7 +6,7 @@
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="3_p1jxy"]
 [ext_resource type="PackedScene" uid="uid://cxrcptlbws3jo" path="res://scenes/ui/actions/building/building_actions.tscn" id="3_qp0ej"]
 [ext_resource type="Texture2D" uid="uid://cs54qsfec242e" path="res://scenes/entity/buildings/turret/basic_turret.png" id="5_0xd2a"]
-[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="5_ksn7y"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="5_ksn7y"]
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="6_tod5c"]
 [ext_resource type="PackedScene" uid="uid://b17vgvl5v7hpa" path="res://scenes/entity/components/death/death_component.tscn" id="7_0ymch"]
 [ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="7_a3ta3"]
@@ -17,7 +17,7 @@
 [ext_resource type="Script" path="res://scripts/resources/effect.gd" id="12_sbd1q"]
 [ext_resource type="Script" path="res://scenes/entity/components/attack/ProjectileAttackStyle.gd" id="15_mgp6e"]
 [ext_resource type="Resource" uid="uid://b3l4kenqh1let" path="res://scenes/entity/buildings/turret/turret_skill.tres" id="16_gwjnc"]
-[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_handler.tscn" id="16_khc68"]
+[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_component.tscn" id="16_khc68"]
 [ext_resource type="Script" path="res://scenes/entity/actions/deconstruct/deconstruct_building.gd" id="17_hma3m"]
 [ext_resource type="Texture2D" uid="uid://bjd8p7m0fgmci" path="res://scenes/entity/icons/action/delete_building.png" id="18_36dea"]
 [ext_resource type="Script" path="res://scenes/entity/components/mode/mode_component.gd" id="21_medap"]
@@ -206,9 +206,9 @@ mouse_filter = 2
 
 [node name="ProjectileAttackStyle" type="Node2D" parent="TurretAttack" node_paths=PackedStringArray("body", "attack_point", "stats")]
 script = ExtResource("15_mgp6e")
-skill = ExtResource("16_gwjnc")
 body = NodePath("../..")
 attack_point = NodePath("AttackPoint")
+skill = ExtResource("16_gwjnc")
 stats = NodePath("../../CharacterStats")
 
 [node name="AttackPoint" type="Node2D" parent="TurretAttack/ProjectileAttackStyle"]

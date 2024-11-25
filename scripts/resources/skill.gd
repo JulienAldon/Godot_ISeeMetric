@@ -21,7 +21,7 @@ enum SkillType {
 @export var movement: bool = false
 @export var cooldown: float # seconds
 @export var area_of_effect: int # radius
-@export var scene: String
+@export_file("*.tscn") var scene: String
 @export var damage_effectiveness: float = 1
 @export var damage: Damage
 @export var weapon_compatibility: Array[Weapon.WeaponTypes]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/entity/units/rts_character.gd" id="1_7efhl"]
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="2_3sspx"]
-[ext_resource type="Texture2D" uid="uid://d0dui2ebo7i1" path="res://scenes/entity/icons/raider.png" id="2_k436u"]
+[ext_resource type="Texture2D" uid="uid://d0dui2ebo7i1" path="res://scenes/entity/icons/units/raider.png" id="2_k436u"]
 [ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="3_aj0nn"]
 [ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="4_qgd4l"]
 [ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="5_ib5sq"]
@@ -10,17 +10,17 @@
 [ext_resource type="Script" path="res://scenes/entity/components/death/DeathComponent.gd" id="6_luvw4"]
 [ext_resource type="Shader" path="res://dotted_line.gdshader" id="7_k2tkd"]
 [ext_resource type="Texture2D" uid="uid://c80fultdkea4k" path="res://scenes/entity/units/raider/raider.png" id="7_xwmd7"]
-[ext_resource type="Script" path="res://scenes/entity/components/attack/RtsAttackComponent.gd" id="8_o6oaa"]
+[ext_resource type="Script" path="res://scenes/entity/components/attack/rts_attack_component.gd" id="8_o6oaa"]
 [ext_resource type="Script" path="res://scenes/entity/components/attack/ProjectileAttackStyle.gd" id="9_q60fh"]
 [ext_resource type="Script" path="res://scenes/entity/components/behaviour/StateMachine.gd" id="10_cf7hh"]
 [ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsIdle.gd" id="11_shexb"]
 [ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsAttack.gd" id="12_f7fgl"]
 [ext_resource type="Script" path="res://scenes/entity/components/behaviour/RtsMove.gd" id="13_3ysbc"]
 [ext_resource type="Resource" uid="uid://bmfhd63v3n5rv" path="res://scenes/entity/units/raider/raider_skill.tres" id="13_hbbdk"]
-[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_handler.tscn" id="15_0mix5"]
+[ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_component.tscn" id="15_0mix5"]
 [ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="16_e4yp4"]
 [ext_resource type="PackedScene" uid="uid://ckia2wdtsnvks" path="res://scenes/entity/components/navigation/navigation_component.tscn" id="17_qo8e1"]
-[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="23_3br36"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="23_3br36"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g3mhs"]
 radius = 18.0
@@ -1327,9 +1327,9 @@ attack_timer = NodePath("Timer")
 
 [node name="ProjectileAttackStyle" type="Node2D" parent="RtsAttackComponent" node_paths=PackedStringArray("body", "attack_point", "stats")]
 script = ExtResource("9_q60fh")
-skill = ExtResource("13_hbbdk")
 body = NodePath("../..")
 attack_point = NodePath("../../AnimatedSprite2D/GPUParticles2D/Attack_point")
+skill = ExtResource("13_hbbdk")
 stats = NodePath("../../CharacterStats")
 
 [node name="Timer" type="Timer" parent="RtsAttackComponent"]

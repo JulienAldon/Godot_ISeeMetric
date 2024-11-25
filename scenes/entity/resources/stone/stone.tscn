@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="5_dg5qh"]
 [ext_resource type="Script" path="res://scripts/resources/yield.gd" id="6_8ap6h"]
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="6_8qq2x"]
-[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_system.tscn" id="7_w1461"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="7_w1461"]
 [ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="8_7g312"]
 [ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="9_kubju"]
 

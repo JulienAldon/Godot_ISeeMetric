@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b4qecf23eusp0"]
+[gd_scene load_steps=13 format=3 uid="uid://b4qecf23eusp0"]
 
 [ext_resource type="Script" path="res://scenes/players/player_controller.gd" id="1_ux3el"]
 [ext_resource type="PackedScene" uid="uid://cfjgwqiy0a2ov" path="res://scenes/players/king/ui/rts_ui.tscn" id="2_1ix23"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://scenes/players/controllers/move/move_units.gd" id="4_xh5ra"]
 [ext_resource type="Texture2D" uid="uid://c8kjoj4e0t8af" path="res://scenes/entity/icons/resources/gold.png" id="7_7vaaa"]
 [ext_resource type="Script" path="res://scripts/resources/yield.gd" id="7_moujk"]
+[ext_resource type="Texture2D" uid="uid://4lkmk2eqwda5" path="res://scenes/entity/icons/buildings/factory.png" id="10_xqdjx"]
+[ext_resource type="Texture2D" uid="uid://heevtjpcfxtb" path="res://scenes/entity/icons/buildings/fortress.png" id="11_jwohl"]
 
 [sub_resource type="Resource" id="Resource_on2xr"]
 script = ExtResource("7_moujk")
@@ -56,7 +58,20 @@ drag_bottom_margin = 0.1
 
 [node name="OutpostActions" type="Node2D" parent="."]
 
-[node name="Build" parent="OutpostActions" instance=ExtResource("3_fx0xa")]
-building_scene = "res://scenes/rts/buildings/barracks.tscn"
+[node name="BarrackBuild" parent="OutpostActions" instance=ExtResource("3_fx0xa")]
+building_scene = "res://scenes/entity/buildings/barrack/barracks.tscn"
+title = "Barrack"
 icon = ExtResource("4_tx15w")
 cost = Array[ExtResource("7_moujk")]([SubResource("Resource_on2xr")])
+description = "Can produce attack units"
+
+[node name="FactoryBuild" parent="OutpostActions" instance=ExtResource("3_fx0xa")]
+building_scene = "res://scenes/entity/buildings/factory/factory.tscn"
+title = "Factory"
+icon = ExtResource("10_xqdjx")
+description = "Can produce harass unit"
+
+[node name="FortressBuild" parent="OutpostActions" instance=ExtResource("3_fx0xa")]
+title = "Fortress"
+icon = ExtResource("11_jwohl")
+description = "Can produce ranged units"

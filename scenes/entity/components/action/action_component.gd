@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name ActionHandler
+class_name ActionComponent
 
 @export_category("Dependencies")
 @export var body: Node2D
