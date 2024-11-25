@@ -15,7 +15,6 @@ var attacking = false
 func _ready():
 	animation_tree.active = true
 	animation_tree.animation_finished.connect(_anim_finished)
-	print("anim connected")
 
 # Get animation tree idle state
 # @return: boolean true if entity is idle
@@ -71,7 +70,6 @@ func set_is_attack(attack_speed: float, direction: Vector2, animation_name: Stri
 	animation_tree["parameters/" + animation_name + "/2/TimeScale/scale"] = 1 / attack_speed
 	animation_tree["parameters/" + animation_name + "/3/TimeScale/scale"] = 1 / attack_speed
 
-
 # Set animation tree idle blend 
 # @params: direction in which the entity is facing
 func set_idle_blend(direction: Vector2):
@@ -95,7 +93,6 @@ func _anim_finished(anim_name):
 		animation_tree["parameters/conditions/hit"] = false
 	elif anim_name.contains("death"):
 		animation_tree["parameters/conditions/death"] = false
-	print("stop anim", anim_name, self)
 	for i in attack_names:
 		if anim_name.contains(i):
 			stop_attack(attack_names)

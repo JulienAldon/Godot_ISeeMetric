@@ -1,26 +1,27 @@
-[gd_scene load_steps=77 format=3 uid="uid://bfvtfiwo5a8bd"]
+[gd_scene load_steps=73 format=3 uid="uid://bfvtfiwo5a8bd"]
 
-[ext_resource type="Script" path="res://scenes/entity/units/rts_character.gd" id="1_osq3d"]
-[ext_resource type="Texture2D" uid="uid://cq2jannuhd1mr" path="res://scenes/entity/icons/units/soldier.png" id="2_4stl3"]
-[ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="3_ddaek"]
-[ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="4_odame"]
-[ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="5_cu575"]
-[ext_resource type="Shader" path="res://dotted_line.gdshader" id="6_2n2ke"]
-[ext_resource type="Shader" path="res://unit_outline.gdshader" id="7_pdusk"]
-[ext_resource type="Texture2D" uid="uid://6yh35k0xuhlr" path="res://scenes/entity/units/rts_character.png" id="8_tb017"]
-[ext_resource type="PackedScene" uid="uid://ckia2wdtsnvks" path="res://scenes/entity/components/navigation/navigation_component.tscn" id="9_18csj"]
-[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="10_kssli"]
-[ext_resource type="Script" path="res://scenes/entity/components/attack/rts_attack_component.gd" id="11_dn2x6"]
-[ext_resource type="Script" path="res://scenes/entity/components/attack/projectile_attack_style.gd" id="12_v1hvk"]
-[ext_resource type="Resource" uid="uid://dy8sshgc57vj8" path="res://scenes/entity/units/marauder/marauder_skill.tres" id="13_rye4n"]
-[ext_resource type="Script" path="res://scenes/entity/components/death/death_component.gd" id="14_gm1pv"]
-[ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="15_at01u"]
-[ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="16_2hnw1"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/state_machine.gd" id="17_xcrrb"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_idle.gd" id="18_qcgsk"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_move.gd" id="19_vgx70"]
-[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_attack.gd" id="20_n2t6y"]
-[ext_resource type="Script" path="res://scenes/entity/components/action/action_component.gd" id="21_gbgah"]
+[ext_resource type="Script" path="res://scenes/entity/units/rts_character.gd" id="1_rtuqn"]
+[ext_resource type="Texture2D" uid="uid://cq2jannuhd1mr" path="res://scenes/entity/icons/units/soldier.png" id="2_a4c48"]
+[ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="3_c40vb"]
+[ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="4_p2wke"]
+[ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="5_mhnuo"]
+[ext_resource type="Shader" path="res://dotted_line.gdshader" id="6_j2561"]
+[ext_resource type="Shader" path="res://unit_outline.gdshader" id="7_0i8lr"]
+[ext_resource type="Texture2D" uid="uid://6yh35k0xuhlr" path="res://scenes/entity/units/rts_character.png" id="8_kb3db"]
+[ext_resource type="PackedScene" uid="uid://ckia2wdtsnvks" path="res://scenes/entity/components/navigation/navigation_component.tscn" id="9_qwvh2"]
+[ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="10_4753f"]
+[ext_resource type="Script" path="res://scenes/entity/components/attack/rts_attack_component.gd" id="11_gxc7c"]
+[ext_resource type="Script" path="res://scenes/entity/components/attack/projectile_attack_style.gd" id="12_kgxs5"]
+[ext_resource type="Resource" uid="uid://dy8sshgc57vj8" path="res://scenes/entity/units/marauder/marauder_skill.tres" id="13_hsnm3"]
+[ext_resource type="Script" path="res://scenes/entity/components/death/death_component.gd" id="14_h53vu"]
+[ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="15_vkeug"]
+[ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="16_jlnot"]
+[ext_resource type="AnimationLibrary" uid="uid://dp7wfskkeefyh" path="res://scenes/entity/units/marauder/marauder_anim.res" id="17_p3qev"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/state_machine.gd" id="17_tx5vn"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_idle.gd" id="18_rdh64"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_move.gd" id="19_dx17w"]
+[ext_resource type="Script" path="res://scenes/entity/components/behaviour/rts_attack.gd" id="20_ikn2o"]
+[ext_resource type="Script" path="res://scenes/entity/components/action/action_component.gd" id="21_5anuc"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_bcs1j"]
 properties/0/path = NodePath(".:position")
@@ -63,7 +64,7 @@ height = 16.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8an8w"]
 resource_local_to_scene = true
-shader = ExtResource("6_2n2ke")
+shader = ExtResource("6_j2561")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/diameter = 1.0
 shader_parameter/thickness = 0.1
@@ -72,56 +73,56 @@ shader_parameter/phase = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_233ta"]
 resource_local_to_scene = true
-shader = ExtResource("7_pdusk")
+shader = ExtResource("7_0i8lr")
 shader_parameter/width = 0.0
 shader_parameter/outline_color = null
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kw3lx"]
-atlas = ExtResource("8_tb017")
+atlas = ExtResource("8_kb3db")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mw7dg"]
-atlas = ExtResource("8_tb017")
+atlas = ExtResource("8_kb3db")
 region = Rect2(64, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vr172"]
-atlas = ExtResource("8_tb017")
+atlas = ExtResource("8_kb3db")
 region = Rect2(64, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0k4qw"]
-atlas = ExtResource("8_tb017")
+atlas = ExtResource("8_kb3db")
 region = Rect2(192, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q22mt"]
-atlas = ExtResource("8_tb017")
+atlas = ExtResource("8_kb3db")
 region = Rect2(224, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o3j4j"]
-atlas = ExtResource("8_tb017")
+atlas = ExtResource("8_kb3db")
 region = Rect2(192, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0g3l1"]
-atlas = ExtResource("8_tb017")
+atlas = ExtResource("8_kb3db")
 region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qebkm"]
-atlas = ExtResource("8_tb017")
+atlas = ExtResource("8_kb3db")
 region = Rect2(0, 96, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymvgt"]
-atlas = ExtResource("8_tb017")
+atlas = ExtResource("8_kb3db")
 region = Rect2(32, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sotjy"]
-atlas = ExtResource("8_tb017")
+atlas = ExtResource("8_kb3db")
 region = Rect2(160, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8d3fv"]
-atlas = ExtResource("8_tb017")
+atlas = ExtResource("8_kb3db")
 region = Rect2(32, 128, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x05vt"]
-atlas = ExtResource("8_tb017")
+atlas = ExtResource("8_kb3db")
 region = Rect2(160, 128, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ekf6m"]
@@ -232,137 +233,6 @@ tracks/3/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g0epo"]
 _data = {
 "RESET": SubResource("Animation_lk06j")
-}
-
-[sub_resource type="Animation" id="Animation_ycsyr"]
-resource_name = "attack_right"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Attack"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.0333333, 0.166667, 0.4, 0.633333),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_5yj3t"]
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(0.8, 1.2), Vector2(1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -2), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_bn4ss"]
-resource_name = "idle_front"
-length = 0.6
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Idle"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_2sfpg"]
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:animation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"Walking"]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = false
-tracks/2/path = NodePath("Sprite2D:flip_h")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_aud3e"]
-_data = {
-"attack_right": SubResource("Animation_ycsyr"),
-"hit": SubResource("Animation_5yj3t"),
-"idle_front": SubResource("Animation_bn4ss"),
-"walk_right": SubResource("Animation_2sfpg")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xbh8k"]
@@ -520,13 +390,13 @@ states/Start/position = Vector2(19, 100)
 states/Walk/node = SubResource("AnimationNodeBlendSpace2D_sdfri")
 states/Walk/position = Vector2(621, 100)
 transitions = ["Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_m6dvt"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_b61qp"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_gcv4w"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_m3w1n"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_6gu0m"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_xjtc7"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_v0olg")]
-graph_offset = Vector2(-109, -196)
+graph_offset = Vector2(-46, -46)
 
-[node name="RtsCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death", "stats", "animation", "behaviours", "action_controller", "player_marker") groups=["player_entity", "rts_unit"]]
+[node name="Marauder" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death", "stats", "animation", "behaviours", "action_controller", "player_marker") groups=["player_entity", "rts_unit"]]
 collision_layer = 3
 collision_mask = 12
 input_pickable = true
-script = ExtResource("1_osq3d")
+script = ExtResource("1_rtuqn")
 health = NodePath("HealthComponent")
 hitbox = NodePath("Hitbox")
 network = NodePath("NetworkComponent")
@@ -540,23 +410,23 @@ animation = NodePath("AnimationComponent")
 behaviours = NodePath("StateMachine")
 action_controller = NodePath("ActionComponent")
 player_marker = NodePath("PlayerMarker")
-display_name = "rts"
-str_type = "rts_char"
-icon = ExtResource("2_4stl3")
+display_name = "Marauder"
+str_type = "marauder"
+icon = ExtResource("2_a4c48")
 
-[node name="NetworkComponent" parent="." instance=ExtResource("3_ddaek")]
+[node name="NetworkComponent" parent="." instance=ExtResource("3_c40vb")]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
 root_path = NodePath("../..")
 replication_config = SubResource("SceneReplicationConfig_bcs1j")
 
-[node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("4_odame")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("4_p2wke")]
 position = Vector2(0, -14)
 stats = NodePath("../Stats")
 
 [node name="Hitbox" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character")]
 shape = SubResource("CapsuleShape2D_gkunk")
-script = ExtResource("5_cu575")
+script = ExtResource("5_mhnuo")
 health_component = NodePath("../HealthComponent")
 character = NodePath("..")
 
@@ -574,24 +444,25 @@ sprite_frames = SubResource("SpriteFrames_ekf6m")
 animation = &"Idle"
 autoplay = "Idle"
 
-[node name="NavigationComponent" parent="." node_paths=PackedStringArray("network_component", "body", "sprite") instance=ExtResource("9_18csj")]
+[node name="NavigationComponent" parent="." node_paths=PackedStringArray("network_component", "body", "sprite", "stats") instance=ExtResource("9_qwvh2")]
 network_component = NodePath("../NetworkComponent")
 body = NodePath("..")
 detection_range = 30
 sprite = NodePath("../Sprite2D")
 max_separation_distance = 150
+stats = NodePath("../Stats")
 cohesion_weight = 0.0
 separation_weight = 1.0
 alignment_weight = 1.0
 
-[node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("10_kssli")]
+[node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("10_4753f")]
 network = NodePath("../NetworkComponent")
 sprites = [NodePath("../Sprite2D")]
 body = NodePath("..")
 has_colored_outline = true
 
 [node name="AttackComponent" type="Node2D" parent="." node_paths=PackedStringArray("stats", "network", "attack_style", "attack_timer")]
-script = ExtResource("11_dn2x6")
+script = ExtResource("11_gxc7c")
 stats = NodePath("../Stats")
 network = NodePath("../NetworkComponent")
 attack_style = NodePath("ProjectileAttackStyle")
@@ -600,16 +471,16 @@ attack_timer = NodePath("AttackRate")
 [node name="AttackRate" type="Timer" parent="AttackComponent"]
 
 [node name="ProjectileAttackStyle" type="Node2D" parent="AttackComponent" node_paths=PackedStringArray("body", "attack_point", "stats")]
-script = ExtResource("12_v1hvk")
+script = ExtResource("12_kgxs5")
 body = NodePath("../..")
 attack_point = NodePath("AttackPoint")
-skill = ExtResource("13_rye4n")
+skill = ExtResource("13_hsnm3")
 stats = NodePath("../../Stats")
 
 [node name="AttackPoint" type="Node2D" parent="AttackComponent/ProjectileAttackStyle"]
 
 [node name="DeathComponent" type="Node2D" parent="." node_paths=PackedStringArray("sprite", "health", "body", "corpse", "delete_timer")]
-script = ExtResource("14_gm1pv")
+script = ExtResource("14_h53vu")
 sprite = NodePath("../Sprite2D")
 health = NodePath("../HealthComponent")
 body = NodePath("..")
@@ -618,7 +489,7 @@ delete_timer = NodePath("Timer")
 
 [node name="Corpse" type="Sprite2D" parent="DeathComponent"]
 visible = false
-texture = ExtResource("8_tb017")
+texture = ExtResource("8_kb3db")
 hframes = 4
 vframes = 12
 frame = 41
@@ -627,18 +498,18 @@ frame = 41
 wait_time = 0.5
 
 [node name="Stats" type="Node2D" parent="." node_paths=PackedStringArray("health")]
-script = ExtResource("15_at01u")
+script = ExtResource("15_vkeug")
 health = NodePath("../HealthComponent")
 attack_speed = 1.0
 cast_speed = 0.0
 additionnal_projectiles = 0
 max_health = 150
-move_speed = 60
+move_speed = 70
 armor = 50
-magic_resist = 50
+magic_resist = 20
 
 [node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("sprite", "animation_tree", "attack_controller")]
-script = ExtResource("16_2hnw1")
+script = ExtResource("16_jlnot")
 sprite = NodePath("../Sprite2D")
 animation_tree = NodePath("AnimationTree")
 attack_controller = NodePath("../AttackComponent")
@@ -648,7 +519,7 @@ attack_names = Array[String](["attack"])
 root_node = NodePath("../..")
 libraries = {
 "": SubResource("AnimationLibrary_g0epo"),
-"rts_character": SubResource("AnimationLibrary_aud3e")
+"rts_character": ExtResource("17_p3qev")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="AnimationComponent"]
@@ -668,22 +539,22 @@ parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Walk/blend_position = Vector2(0, 0)
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
-script = ExtResource("17_xcrrb")
+script = ExtResource("17_tx5vn")
 initial_state = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("body")]
-script = ExtResource("18_qcgsk")
+script = ExtResource("18_rdh64")
 body = NodePath("../..")
 
 [node name="Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("body")]
-script = ExtResource("19_vgx70")
+script = ExtResource("19_dx17w")
 body = NodePath("../..")
 
 [node name="Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("body")]
-script = ExtResource("20_n2t6y")
+script = ExtResource("20_ikn2o")
 body = NodePath("../..")
 
 [node name="ActionComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "actions_container")]
-script = ExtResource("21_gbgah")
+script = ExtResource("21_5anuc")
 body = NodePath("..")
 actions_container = NodePath(".")

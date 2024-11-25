@@ -578,13 +578,14 @@ visible = false
 
 [node name="Timer" type="Timer" parent="DeathComponent"]
 
-[node name="NavigationComponent" parent="." node_paths=PackedStringArray("network_component", "body", "sprite") instance=ExtResource("9_d2ryi")]
+[node name="NavigationComponent" parent="." node_paths=PackedStringArray("network_component", "body", "sprite", "stats") instance=ExtResource("9_d2ryi")]
 network_component = NodePath("../NetworkComponent")
 body = NodePath("..")
 detection_range = 20
 sprite = NodePath("../AnimatedSprite2D")
 max_separation_distance = 100
 speed = 65
+stats = NodePath("../CharacterStats")
 cohesion_weight = 0.0
 separation_weight = 1.0
 alignment_weight = 1.0
@@ -649,6 +650,7 @@ health = NodePath("../HealthComponent")
 attack_speed = 1.0
 base_range = 20.0
 max_health = 60
+move_speed = 65
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("19_7ydl2")

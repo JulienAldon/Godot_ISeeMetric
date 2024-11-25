@@ -2,7 +2,7 @@ extends Node2D
 class_name AttackComponent
 
 @export_category("Dependencies")
-@export var stats: CharacterStats
+@export var stats: EntityStats
 @export var network: NetworkComponent
 @export var attack_style: AttackStyle
 var range_shape: Shape2D = CircleShape2D.new()

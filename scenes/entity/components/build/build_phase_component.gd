@@ -28,7 +28,7 @@ func build_phase_ended():
 	is_building = false
 
 func _process(delta):
-	sprite.visible = !is_building 
+	sprite.visible = !is_building
 	building_sprite.visible = is_building
 	if not is_multiplayer_authority():
 		return

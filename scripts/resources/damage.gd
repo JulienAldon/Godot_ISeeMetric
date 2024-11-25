@@ -7,4 +7,4 @@ class_name Damage
 @export var more: float # -> stats
 
 func calculate() -> int:
-	return floor((base + added) * increased * more)
+	return floor((base + added) * (1 + (increased/100)) * (1 + (more/100)))

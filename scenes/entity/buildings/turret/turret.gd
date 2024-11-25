@@ -4,7 +4,7 @@ class_name Turret
 
 @export var health: HealthComponent
 @export var death: DeathComponent
-@export var stats: CharacterStats
+@export var stats: EntityStats
 @export var sprite: AnimatedSprite2D
 @export var attack: AttackComponent
 @export var action_controller: ActionComponent

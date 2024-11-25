@@ -26,4 +26,4 @@ func trigger_action(action):
 		var player = GameManager.get_player(multiplayer.get_unique_id())
 		if self.action_controller.can_queue_action() and player.can_spend_currency(action.cost):
 			player.spend_currency(action.cost)
-			self.action_controller.queue_action(action, global_position + Vector2(0, 30))
+			self.action_controller.add_queue_action(action, global_position + Vector2(0, 30))

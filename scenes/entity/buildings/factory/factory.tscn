@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bxnhc2lkyi48d"]
+[gd_scene load_steps=28 format=3 uid="uid://bxnhc2lkyi48d"]
 
 [ext_resource type="Script" path="res://scenes/entity/buildings/factory/factory.gd" id="1_010vo"]
 [ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="1_dnymk"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://d8gihj7ittof" path="res://scenes/entity/components/rally/rally_point_component.tscn" id="3_vrsxv"]
 [ext_resource type="Texture2D" uid="uid://4hue5430u13o" path="res://scenes/entity/buildings/factory/factory.png" id="5_1iri3"]
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="5_jw8aa"]
+[ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="5_xx6pj"]
 [ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_component.tscn" id="6_02q08"]
 [ext_resource type="Script" path="res://scenes/entity/components/build/build_phase_component.gd" id="7_b1rvi"]
 [ext_resource type="PackedScene" uid="uid://c7bi61flkl2h8" path="res://scenes/entity/actions/produce/produce.tscn" id="8_bxueh"]
@@ -101,11 +102,28 @@ script = ExtResource("2_r71x0")
 health_component = NodePath("../HealthComponent")
 character = NodePath("..")
 
+[node name="EntityStats" type="Node2D" parent="." node_paths=PackedStringArray("health")]
+script = ExtResource("5_xx6pj")
+health = NodePath("../HealthComponent")
+attack_speed = 0.0
+cast_speed = 0.0
+base_range = 200.0
+additionnal_projectiles = 0
+max_health = 200
+move_speed = 0
+armor = 50
+magic_resist = 10
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 visible = false
 material = SubResource("ShaderMaterial_n7fjq")
 position = Vector2(0, -15)
 sprite_frames = SubResource("SpriteFrames_xs26n")
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("9_ho0hy")]
+position = Vector2(0, -36)
+scale = Vector2(1.5, 1.5)
+stats = NodePath("../EntityStats")
 
 [node name="RallyPointComponent" parent="." instance=ExtResource("3_vrsxv")]
 
@@ -156,10 +174,6 @@ position = Vector2(1, -15)
 texture = ExtResource("15_8sqph")
 
 [node name="Timer" type="Timer" parent="DeathComponent"]
-
-[node name="HealthComponent" parent="." instance=ExtResource("9_ho0hy")]
-position = Vector2(0, -36)
-scale = Vector2(1.5, 1.5)
 
 [node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("10_m4rpd")]
 network = NodePath("../NetworkComponent")

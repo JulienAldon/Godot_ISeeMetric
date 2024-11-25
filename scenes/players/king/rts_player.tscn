@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b4qecf23eusp0"]
+[gd_scene load_steps=15 format=3 uid="uid://b4qecf23eusp0"]
 
 [ext_resource type="Script" path="res://scenes/players/player_controller.gd" id="1_ux3el"]
 [ext_resource type="PackedScene" uid="uid://cfjgwqiy0a2ov" path="res://scenes/players/king/ui/rts_ui.tscn" id="2_1ix23"]
@@ -15,7 +15,19 @@
 [sub_resource type="Resource" id="Resource_on2xr"]
 script = ExtResource("7_moujk")
 icon = ExtResource("7_7vaaa")
-value = 0
+value = 15
+type = 0
+
+[sub_resource type="Resource" id="Resource_qrnsp"]
+script = ExtResource("7_moujk")
+icon = ExtResource("7_7vaaa")
+value = 20
+type = 0
+
+[sub_resource type="Resource" id="Resource_fi56o"]
+script = ExtResource("7_moujk")
+icon = ExtResource("7_7vaaa")
+value = 30
 type = 0
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("outpost_actions", "current_controller", "camera")]
@@ -34,7 +46,7 @@ camera_speed = 300
 cursor_animation_scene = "res://scenes/ui/cursors/click_animation.tscn"
 select_controller = NodePath("SelectController")
 char_scene = "res://scenes/entity/units/bomber/bomber.tscn"
-char_scene_2 = "res://scenes/entity/units/rts_character.tscn"
+char_scene_2 = "res://scenes/entity/units/marauder/marauder.tscn"
 char_scene_3 = "res://scenes/entity/units/raider/raider.tscn"
 move_controller = NodePath("MoveController")
 player = NodePath("..")
@@ -63,15 +75,18 @@ building_scene = "res://scenes/entity/buildings/barrack/barracks.tscn"
 title = "Barrack"
 icon = ExtResource("4_tx15w")
 cost = Array[ExtResource("7_moujk")]([SubResource("Resource_on2xr")])
-description = "Can produce attack units"
+description = "Can produce light units"
+
+[node name="FortressBuild" parent="OutpostActions" instance=ExtResource("3_fx0xa")]
+building_scene = "res://scenes/entity/buildings/fortress/fortress.tscn"
+title = "Fortress"
+icon = ExtResource("11_jwohl")
+cost = Array[ExtResource("7_moujk")]([SubResource("Resource_qrnsp")])
+description = "Can produce ranged units"
 
 [node name="FactoryBuild" parent="OutpostActions" instance=ExtResource("3_fx0xa")]
 building_scene = "res://scenes/entity/buildings/factory/factory.tscn"
 title = "Factory"
 icon = ExtResource("10_xqdjx")
-description = "Can produce harass unit"
-
-[node name="FortressBuild" parent="OutpostActions" instance=ExtResource("3_fx0xa")]
-title = "Fortress"
-icon = ExtResource("11_jwohl")
-description = "Can produce ranged units"
+cost = Array[ExtResource("7_moujk")]([SubResource("Resource_fi56o")])
+description = "Can produce tech unit"

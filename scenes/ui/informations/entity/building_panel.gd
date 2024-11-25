@@ -6,7 +6,7 @@ class_name BuildingInformationUi
 @export var production_container: HBoxContainer
 @export var current_queued_action: QueuedAction
 @export var name_label: Label
-var building: Node2D
+var building: Building
 
 var production_progress: float = 0
 var max_production_progress: float = 1

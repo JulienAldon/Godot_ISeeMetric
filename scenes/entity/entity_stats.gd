@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name CharacterStats
+class_name EntityStats
 
 @export var health: HealthComponent
 

@@ -95,13 +95,10 @@ effect_shape = NodePath("EffectRange/CollisionShape2D")
 selection = NodePath("SelectionComponent")
 network = NodePath("NetworkComponent")
 movement = NodePath("RallyPointComponent")
-spawned_in_editor = null
 minimap_icon = "outpost"
 display_name = "Outpost"
 str_type = "Outpost"
 icon = ExtResource("2_ptrjo")
-vision_range = null
-controlled_by = null
 
 [node name="NetworkComponent" parent="." instance=ExtResource("2_pfug3")]
 

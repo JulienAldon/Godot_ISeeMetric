@@ -8,6 +8,7 @@ class_name NavigationComponent
 @export var sprite: AnimatedSprite2D
 @export var max_separation_distance: int = 40
 @export var speed: int = 70
+@export var stats: EntityStats
 @export var cohesion_weight: float = 0.01
 @export var separation_weight: float = 0.02
 @export var alignment_weight: float = 0.5
@@ -19,6 +20,10 @@ var current_path_position: int = 0
 var local_units: Array = []
 
 var flocked_direction: Vector2
+
+func _ready():
+	if stats:
+		speed = stats.move_speed
 
 func colliders_reached_target():
 	if local_units.size() <= 0:

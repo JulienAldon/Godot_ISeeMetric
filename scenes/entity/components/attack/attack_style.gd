@@ -2,4 +2,4 @@ extends Node2D
 
 class_name AttackStyle
 
-@export var stats: CharacterStats
+@export var stats: EntityStats

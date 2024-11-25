@@ -1,7 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://bvp2o6337esre"]
+[gd_scene load_steps=28 format=3 uid="uid://bvp2o6337esre"]
 
-[ext_resource type="Script" path="res://scenes/entity/buildings/barrack/Barracks.gd" id="1_hc7ny"]
 [ext_resource type="Texture2D" uid="uid://dnhvgt5e4ws2w" path="res://scenes/entity/buildings/barrack/barracks_construction.png" id="1_q32yy"]
+[ext_resource type="Script" path="res://scenes/entity/buildings/barrack/barracks.gd" id="1_s25jo"]
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="1_wxhxh"]
 [ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="2_1o1h0"]
 [ext_resource type="PackedScene" uid="uid://3l1kpsyqp8xw" path="res://scenes/entity/components/network/network_component.tscn" id="2_miigx"]
@@ -9,12 +9,14 @@
 [ext_resource type="Texture2D" uid="uid://b4rqb6kbki28g" path="res://scenes/entity/buildings/barrack/barracks.png" id="2_pmw2o"]
 [ext_resource type="PackedScene" uid="uid://b17vgvl5v7hpa" path="res://scenes/entity/components/death/death_component.tscn" id="3_iaivd"]
 [ext_resource type="Shader" path="res://unit_outline.gdshader" id="4_t0nye"]
+[ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="6_nd7y6"]
 [ext_resource type="Texture2D" uid="uid://ddkd3htsactdf" path="res://scenes/entity/buildings/barrack/barracks_destruction.png" id="8_0l63m"]
 [ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="8_ug3km"]
 [ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_component.tscn" id="11_g61tk"]
 [ext_resource type="PackedScene" uid="uid://c7bi61flkl2h8" path="res://scenes/entity/actions/produce/produce.tscn" id="12_18i6w"]
-[ext_resource type="Texture2D" uid="uid://cq2jannuhd1mr" path="res://scenes/entity/icons/units/soldier.png" id="13_yjeer"]
 [ext_resource type="Script" path="res://scenes/entity/components/build/build_phase_component.gd" id="14_0tjq1"]
+[ext_resource type="Script" path="res://scripts/resources/yield.gd" id="14_i38yt"]
+[ext_resource type="Texture2D" uid="uid://c8kjoj4e0t8af" path="res://scenes/entity/icons/resources/gold.png" id="15_guv66"]
 [ext_resource type="PackedScene" uid="uid://d8gihj7ittof" path="res://scenes/entity/components/rally/rally_point_component.tscn" id="16_siwqb"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_vvj5i"]
@@ -53,6 +55,12 @@ animations = [{
 resource_local_to_scene = true
 size = Vector2(32, 11.3333)
 
+[sub_resource type="Resource" id="Resource_rlbak"]
+script = ExtResource("14_i38yt")
+icon = ExtResource("15_guv66")
+value = 10
+type = 0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0mur6"]
 resource_local_to_scene = true
 shader = ExtResource("4_t0nye")
@@ -79,7 +87,7 @@ animations = [{
 collision_layer = 38
 collision_mask = 8
 input_pickable = true
-script = ExtResource("1_hc7ny")
+script = ExtResource("1_s25jo")
 health = NodePath("HealthComponent")
 hitbox = NodePath("HitboxComponent")
 death = NodePath("DeathComponent")
@@ -105,9 +113,22 @@ position = Vector2(0, -18)
 sprite_frames = SubResource("SpriteFrames_hyrth")
 autoplay = "default"
 
-[node name="HealthComponent" parent="." instance=ExtResource("1_wxhxh")]
+[node name="Stats" type="Node2D" parent="." node_paths=PackedStringArray("health")]
+script = ExtResource("6_nd7y6")
+health = NodePath("../HealthComponent")
+attack_speed = 0.0
+cast_speed = 0.0
+base_range = 200.0
+additionnal_projectiles = 0
+max_health = 200
+move_speed = 0
+armor = 50
+magic_resist = 10
+
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("1_wxhxh")]
 position = Vector2(0, -50)
 scale = Vector2(1.5, 1.5)
+stats = NodePath("../Stats")
 
 [node name="HitboxComponent" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character")]
 scale = Vector2(1.5, 1.5)
@@ -141,18 +162,14 @@ body = NodePath("..")
 
 [node name="ActionComponent" parent="." node_paths=PackedStringArray("body", "actions_container") instance=ExtResource("11_g61tk")]
 body = NodePath("..")
-actions_container = NodePath("Actions")
+actions_container = NodePath(".")
 
-[node name="ActionsQueue" type="Node2D" parent="ActionComponent"]
-
-[node name="Actions" type="Node2D" parent="ActionComponent"]
-
-[node name="MarauderProduction" parent="ActionComponent/Actions" node_paths=PackedStringArray("rally_point") instance=ExtResource("12_18i6w")]
-unit_scene = "res://scenes/entity/units/rts_character.tscn"
-rally_point = NodePath("../../../RallyPointComponent")
-title = "Marauder"
-icon = ExtResource("13_yjeer")
-description = "Marauder is a heavy ranged unit."
+[node name="UnitProduction" parent="ActionComponent" node_paths=PackedStringArray("rally_point") instance=ExtResource("12_18i6w")]
+unit_scene = "res://scenes/entity/units/hunter/hunter.tscn"
+rally_point = NodePath("../../RallyPointComponent")
+title = "Hunter"
+cost = Array[ExtResource("14_i38yt")]([SubResource("Resource_rlbak")])
+description = "Hunter"
 
 [node name="BuildingPhaseComponent" type="Node2D" parent="." node_paths=PackedStringArray("health", "sprite", "building", "building_sprite", "build_timer")]
 script = ExtResource("14_0tjq1")

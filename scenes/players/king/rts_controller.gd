@@ -93,9 +93,9 @@ func show_cursor_anim(pos: Vector2):
 func filter_allies(e):
 	return e.controlled_by != player_id
 	
-@export var char_scene: String = ""
-@export var char_scene_2: String = ""
-@export var char_scene_3: String = ""
+@export_file("*.tscn") var char_scene: String = ""
+@export_file("*.tscn") var char_scene_2: String = ""
+@export_file("*.tscn") var char_scene_3: String = ""
 
 func can_queue_action(_action: Action):
 	var can_queue: bool = true
