@@ -56,13 +56,6 @@ func set_path(_path, index):
 	if path.size() - 1 > index:
 		current_path_position = index
 	path.append(target_position)
-	var tmp = path[0]
-
-	for elem in path:
-		if tmp.distance_to(elem) < 1:
-			path.erase(elem)
-		else:
-			tmp = elem
 
 func get_local_units(max_neighbours: int):
 	var result = []
@@ -129,7 +122,7 @@ func move_toward_target(delta):
 	if !local_units or Engine.get_process_frames() % 4 == 0:
 		local_units = get_local_units(5)
 	var group = local_units
-	if reached_target(20, path[current_path_position]):
+	if reached_target(10, path[current_path_position]):
 		current_path_position = get_path_point(path[current_path_position], 1)
 		if current_path_position == -1:
 			return

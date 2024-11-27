@@ -651,32 +651,17 @@ y_sort_enabled = true
 
 [node name="Outpost" parent="Outposts" instance=ExtResource("4_wj8vg")]
 position = Vector2(-1044, -547)
-spawned_in_editor = true
-vision_range = 200
-controlled_by = 1
 
 [node name="Outpost2" parent="Outposts" instance=ExtResource("4_wj8vg")]
 position = Vector2(-1043, 514)
-spawned_in_editor = true
-vision_range = 200
-controlled_by = 1
 
 [node name="Outpost3" parent="Outposts" instance=ExtResource("4_wj8vg")]
 position = Vector2(1012, 515)
-spawned_in_editor = true
-vision_range = 200
-controlled_by = 1
 
 [node name="Outpost4" parent="Outposts" instance=ExtResource("4_wj8vg")]
 position = Vector2(1011, -546)
-spawned_in_editor = true
-vision_range = 200
-controlled_by = 1
 
 [node name="Outpost7" parent="Outposts" instance=ExtResource("4_wj8vg")]
-spawned_in_editor = true
-vision_range = 200
-controlled_by = 1
 
 [node name="Resources" type="Node2D" parent="."]
 y_sort_enabled = true

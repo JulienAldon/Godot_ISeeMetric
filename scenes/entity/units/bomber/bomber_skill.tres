@@ -6,7 +6,7 @@
 
 [sub_resource type="Resource" id="Resource_afgho"]
 script = ExtResource("1_gsuc2")
-base = 150.0
+base = 55.0
 added = 0.0
 increased = 0.0
 more = 0.0
@@ -17,7 +17,7 @@ type = 0
 damage_type = 1
 movement = false
 cooldown = 0.0
-area_of_effect = 50
+area_of_effect = 30
 scene = "res://scenes/entity/skills/area/bomb_explosion.tscn"
 damage_effectiveness = 1.0
 damage = SubResource("Resource_afgho")
@@ -25,6 +25,6 @@ weapon_compatibility = Array[int]([])
 projectiles = 0
 base_duration = 1.0
 projectiles_scallable = false
-behaviours = Array[String](["res://scenes/entity/skills/behaviours/piercing/piercing.tscn", "res://scenes/entity/skills/behaviours/sacrificing/sacrificing.tscn"])
+behaviours = Array[String](["res://scenes/entity/skills/behaviours/damaging/damaging.tscn", "res://scenes/entity/skills/behaviours/sacrificing/sacrificing.tscn"])
 throw_speed = 0
 effects = Array[ExtResource("2_27od5")]([])

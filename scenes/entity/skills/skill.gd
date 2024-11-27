@@ -43,6 +43,9 @@ func set_area_of_effect(value):
 	elif shape is RectangleShape2D:
 		shape.set_size(Vector2(value, shape.size.y))
 		shape_offset = Vector2(-shape.size.x/2, shape.size.y/2).rotated(rotation)
+	if scallable_effect:
+			scallable_effect.scale = Vector2(radius / effect_base_radius, radius / effect_base_radius)
+			print(scallable_effect.scale)
 
 func _ready():
 	is_active = false
@@ -80,8 +83,6 @@ func configure():
 	if throw_speed:
 		speed = throw_speed
 	set_area_of_effect(radius)
-	if scallable_effect:
-		scallable_effect.scale = Vector2(radius / effect_base_radius, radius / effect_base_radius)
 
 func check_collision():
 	query.set_shape(shape)
@@ -91,10 +92,9 @@ func check_collision():
 	transfo.origin = transform.origin - shape_offset
 	query.transform = transfo
 	var result := get_world_2d().direct_space_state.intersect_shape(query, 100)
-	var hit_condition = result.size() > 0 and result[0].collider.controlled_by != controlled_by
-	if hit_condition and not has_hit:
-		has_hit = true
-		_hit_body(result.map(func(el): return el.collider))
+	var ennemy_hit = result.filter(func(el): return el.collider.controlled_by != controlled_by)
+	if ennemy_hit.size() > 0:
+		_hit_body(ennemy_hit.map(func(el): return el.collider))
 		if "parameters/conditions/hit" in animation_tree:
 			animation_tree["parameters/conditions/hit"] = true
 			stop()
@@ -124,7 +124,6 @@ func _physics_process(delta):
 		behaviour.physics_update(delta)
 
 func _hit_body(body_hit):
-	var hit = body_hit.filter(func(el): return el.controlled_by != controlled_by)
 	if multiplayer.is_server():
 		for behaviour in behaviours:
-			behaviour.hit(hit)
+			behaviour.hit(body_hit)

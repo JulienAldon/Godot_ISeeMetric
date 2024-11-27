@@ -10,8 +10,9 @@ func _ready():
 func command_movement(click_position, target, attack_move, group_map):
 	for unit in group_map.values():
 		if "movement" in unit:
-			var	path = remove_duplicates(tilemap.get_navigation_path(unit.position, click_position))
-			unit.command_navigation(click_position, group_map, path)
+			var	path = remove_duplicates(tilemap.get_navigation_path(unit.movement.global_position, click_position))
+			if "command_navigation" in unit:
+				unit.command_navigation(click_position, group_map, path)
 			if "attack" in unit:
 				unit.attack.attack_move = attack_move
 				unit.attack.set_target(target)

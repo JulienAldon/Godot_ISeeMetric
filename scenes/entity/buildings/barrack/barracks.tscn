@@ -191,3 +191,4 @@ sprite_frames = SubResource("SpriteFrames_04u0y")
 autoplay = "default"
 
 [node name="RallyPointComponent" parent="." instance=ExtResource("16_siwqb")]
+position = Vector2(0, 20)

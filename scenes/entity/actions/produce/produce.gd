@@ -4,18 +4,18 @@ class_name Produce
 
 @export_file("*.tscn") var unit_scene: String
 @export var rally_point: RallyPointComponent
-var outpost_position: Vector2
-var outpost_controller: int
+var building_position: Vector2
+var building_controller: int
 
-func start(outpost_pos, outpost_ctrl):
-	outpost_position = outpost_pos
-	outpost_controller = outpost_ctrl
+func start(building_position, building_ctrl):
+	building_position = building_position
+	building_controller = building_ctrl
 	time.start()
 	
 func _ready():
 	time.timeout.connect(production_finished)
 
 func production_finished():
-	GameManager.spawn_character(unit_scene, {"position": outpost_position, "controlled_by": outpost_controller, "spawn_path": rally_point.path})	
+	GameManager.spawn_character(unit_scene, {"position": rally_point.global_position, "controlled_by": building_controller, "spawn_path": rally_point.path})	
 	ActionFinished.emit()
 	time.stop()

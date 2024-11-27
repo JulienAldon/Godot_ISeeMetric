@@ -648,7 +648,7 @@ parameters/Walk/3/TimeScale/scale = 1.0
 script = ExtResource("11_conv2")
 health = NodePath("../HealthComponent")
 attack_speed = 1.0
-base_range = 20.0
+base_range = 35.0
 max_health = 60
 move_speed = 65
 

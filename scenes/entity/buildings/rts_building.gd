@@ -24,6 +24,11 @@ func _process(_delta):
 	if health and health.health <= 0:
 		dispawn()
 
+func command_navigation(pos: Vector2, _group, _path: Array) -> void:
+	var new_path = [movement.global_position] + _path.slice(1)
+	movement.path = new_path
+	movement.target_position = pos
+
 func deactivate_behaviour():
 	selection.set_target_indicator(false)
 	if hitbox:

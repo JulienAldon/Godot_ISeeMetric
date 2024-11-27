@@ -135,8 +135,8 @@ body = NodePath("..")
 actions_container = NodePath(".")
 
 [node name="MarauderProduction" parent="ActionComponent" node_paths=PackedStringArray("rally_point") instance=ExtResource("12_hbwir")]
-unit_scene = "res://scenes/entity/units/rts_character.tscn"
-rally_point = NodePath("")
+unit_scene = "res://scenes/entity/units/marauder/marauder.tscn"
+rally_point = NodePath("../../RallyPointComponent")
 title = "Marauder"
 icon = ExtResource("13_7ve4d")
 description = "Marauder is a heavy ranged unit."

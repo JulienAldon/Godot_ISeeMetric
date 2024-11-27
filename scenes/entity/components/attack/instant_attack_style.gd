@@ -15,5 +15,4 @@ func set_damage(value: Damage):
 	damage = value.calculate()
 
 func apply_damage(target, controlled_by):
-	print(damage)
 	target.hitbox.damage.rpc(damage, damage_type, controlled_by)

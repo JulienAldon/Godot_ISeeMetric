@@ -1235,10 +1235,13 @@ stats = NodePath("../CharacterStats")
 [node name="CharacterStats" type="Node2D" parent="." node_paths=PackedStringArray("health")]
 script = ExtResource("3_aj0nn")
 health = NodePath("../HealthComponent")
-attack_speed = 1.0
-base_range = 80.0
-max_health = 150
-move_speed = 85
+attack_speed = 0.5
+cast_speed = 0.5
+base_range = 70.0
+max_health = 50
+move_speed = 90
+armor = 20
+magic_resist = 20
 
 [node name="HitboxComponent" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character", "animation")]
 shape = SubResource("CircleShape2D_g3mhs")
@@ -1365,11 +1368,11 @@ network_component = NodePath("../NetworkComponent")
 body = NodePath("..")
 detection_range = 20
 sprite = NodePath("../AnimatedSprite2D")
-max_separation_distance = 1000
+max_separation_distance = 500
 speed = 120
 stats = NodePath("../CharacterStats")
 cohesion_weight = 0.0
-separation_weight = 0.5
+separation_weight = 1.0
 alignment_weight = 1.0
 
 [node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("23_3br36")]

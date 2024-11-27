@@ -500,13 +500,14 @@ wait_time = 0.5
 [node name="Stats" type="Node2D" parent="." node_paths=PackedStringArray("health")]
 script = ExtResource("15_vkeug")
 health = NodePath("../HealthComponent")
-attack_speed = 1.0
+attack_speed = 1.2
 cast_speed = 0.0
+base_range = 130.0
 additionnal_projectiles = 0
 max_health = 150
 move_speed = 70
-armor = 50
-magic_resist = 20
+armor = 70
+magic_resist = 50
 
 [node name="AnimationComponent" type="Node" parent="." node_paths=PackedStringArray("sprite", "animation_tree", "attack_controller")]
 script = ExtResource("16_jlnot")

@@ -15,11 +15,6 @@ func get_build_time() -> float:
 func set_build_time(value: float) -> void:
 	build_time = value
 
-func command_navigation(pos: Vector2, _group, _path: Array) -> void:
-	movement.global_position = pos
-	movement.path = _path
-	movement.target_position = pos
-
 func deactivate_behaviour():
 	GameManager.get_level_tilemap().bake_navigation()
 

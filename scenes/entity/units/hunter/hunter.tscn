@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://c5dt2a5f6jill"]
+[gd_scene load_steps=101 format=3 uid="uid://c5dt2a5f6jill"]
 
 [ext_resource type="Script" path="res://scenes/entity/units/rts_character.gd" id="1_171t2"]
 [ext_resource type="PackedScene" uid="uid://bc1ifnp3up1rc" path="res://scenes/entity/components/health/health_component.tscn" id="2_5sche"]
@@ -20,6 +20,29 @@
 [ext_resource type="Script" path="res://scenes/entity/components/attack/instant_attack_style.gd" id="18_kc7kp"]
 [ext_resource type="Script" path="res://scripts/resources/damage.gd" id="19_ngce5"]
 [ext_resource type="PackedScene" uid="uid://b17vgvl5v7hpa" path="res://scenes/entity/components/death/death_component.tscn" id="20_j51tx"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_l8yb3"]
+properties/0/path = NodePath("..:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("../AnimationController/AnimationTree:parameters/conditions/attack")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("../AnimationController/AnimationTree:parameters/conditions/idle")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("../AnimationController/AnimationTree:parameters/conditions/moving")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("../AnimationController/AnimationTree:parameters/Attack/blend_position")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("../AnimationController/AnimationTree:parameters/Walk/blend_position")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath("../HealthComponent:health")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cx5wt"]
 resource_local_to_scene = true
@@ -265,33 +288,7 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3, 0]
 }
 
-[sub_resource type="Animation" id="Animation_bw180"]
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Sprite2D:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"move_right"]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../Sprite2D:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.433333, 0.633333),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
+[sub_resource type="Animation" id="Animation_q76px"]
 
 [sub_resource type="Animation" id="Animation_ab47o"]
 length = 0.6
@@ -321,7 +318,33 @@ tracks/1/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_q76px"]
+[sub_resource type="Animation" id="Animation_bw180"]
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"move_right"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Sprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.433333, 0.633333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u8jlw"]
 _data = {
@@ -566,7 +589,7 @@ transitions = ["Idle", "Attack", SubResource("AnimationNodeStateMachineTransitio
 
 [sub_resource type="Resource" id="Resource_5pb2x"]
 script = ExtResource("19_ngce5")
-base = 5.0
+base = 8.0
 added = 0.0
 increased = 0.0
 more = 0.0
@@ -592,9 +615,14 @@ player_marker = NodePath("PlayerMarker")
 display_name = "Hunter"
 str_type = "hunter"
 
-[node name="HealthComponent" parent="." instance=ExtResource("2_5sche")]
+[node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("2_5sche")]
+position = Vector2(0, -20)
+stats = NodePath("../EntityStats")
 
 [node name="NetworkComponent" parent="." instance=ExtResource("3_ktapy")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+replication_config = SubResource("SceneReplicationConfig_l8yb3")
 
 [node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("4_4dqii")]
 network = NodePath("../NetworkComponent")
@@ -605,12 +633,14 @@ has_colored_outline = true
 [node name="NavigationComponent" parent="." node_paths=PackedStringArray("network_component", "body", "sprite", "stats") instance=ExtResource("5_t8n3d")]
 network_component = NodePath("../NetworkComponent")
 body = NodePath("..")
-detection_range = 100
+detection_range = 5
 sprite = NodePath("../Sprite2D")
-max_separation_distance = 500
+max_separation_distance = 140
 speed = 80
 stats = NodePath("../EntityStats")
+cohesion_weight = 0.0
 separation_weight = 1.0
+alignment_weight = 1.0
 
 [node name="PlayerMarker" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_cx5wt")
@@ -637,12 +667,12 @@ character = NodePath("..")
 [node name="EntityStats" type="Node2D" parent="." node_paths=PackedStringArray("health")]
 script = ExtResource("9_inkpk")
 health = NodePath("../HealthComponent")
-attack_speed = 2.0
+attack_speed = 1.5
 cast_speed = 0.0
 base_range = 25.0
-max_health = 5
+max_health = 100
 move_speed = 85
-armor = 20
+armor = 70
 magic_resist = 15
 
 [node name="ActionComponent" type="Node2D" parent="." node_paths=PackedStringArray("body", "actions_container")]

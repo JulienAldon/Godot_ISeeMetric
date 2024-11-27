@@ -17,13 +17,16 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath("AnimationTree:active")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath("ScallableEffect:scale")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [sub_resource type="Animation" id="Animation_snp2u"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/path = NodePath("ScallableEffect/GPUParticles2D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -38,7 +41,7 @@ resource_name = "idle"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("GPUParticles2D:emitting")
+tracks/0/path = NodePath("ScallableEffect/GPUParticles2D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -109,11 +112,13 @@ scale_min = 5.0
 scale_max = 15.0
 color_ramp = SubResource("GradientTexture1D_6w2al")
 
-[node name="RaiderProjectile" type="Node2D" node_paths=PackedStringArray("behaviours_container", "animation_tree", "animation_player")]
+[node name="RaiderProjectile" type="Node2D" node_paths=PackedStringArray("behaviours_container", "animation_tree", "animation_player", "scallable_effect")]
 script = ExtResource("1_32nh2")
 behaviours_container = NodePath("Behaviours")
 animation_tree = NodePath("AnimationTree")
 animation_player = NodePath("AnimationPlayer")
+scallable_effect = NodePath("ScallableEffect")
+effect_base_radius = 150.0
 shape = SubResource("RectangleShape2D_grjp0")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -132,7 +137,9 @@ tree_root = SubResource("AnimationNodeStateMachine_mhmk8")
 anim_player = NodePath("../AnimationPlayer")
 parameters/idle/TimeScale/scale = 1.0
 
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+[node name="ScallableEffect" type="Node2D" parent="."]
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ScallableEffect"]
 emitting = false
 amount = 30
 process_material = SubResource("ParticleProcessMaterial_33ql8")
