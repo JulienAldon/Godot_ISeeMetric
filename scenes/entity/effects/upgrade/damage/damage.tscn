@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2j56tjcrr5tv"]
+
+[ext_resource type="Script" path="res://scenes/entity/effects/upgrade/upgrade.gd" id="1_awh7c"]
+[ext_resource type="Script" path="res://scripts/resources/stat.gd" id="2_8cl67"]
+[ext_resource type="Texture2D" uid="uid://414sca4b2n4e" path="res://scenes/entity/icons/action/upgrade_damage.png" id="3_voejt"]
+
+[sub_resource type="Resource" id="Resource_tuko2"]
+script = ExtResource("2_8cl67")
+display_name = "Base damage"
+name = "added_physical_damage"
+value = 20.0
+
+[sub_resource type="Resource" id="Resource_knhoi"]
+script = ExtResource("2_8cl67")
+display_name = "Attack speed"
+name = "attack_speed"
+value = 2.0
+
+[sub_resource type="Resource" id="Resource_xep08"]
+script = ExtResource("2_8cl67")
+display_name = "Range"
+name = "base_range"
+value = -25.0
+
+[node name="Damage" type="Node2D"]
+script = ExtResource("1_awh7c")
+stats = Array[ExtResource("2_8cl67")]([SubResource("Resource_tuko2"), SubResource("Resource_knhoi"), SubResource("Resource_xep08")])
+effect_id = "module_damage_mode"
+icon = ExtResource("3_voejt")
+title = "Damage mode"
+description = "Add base damage, more attack speed. For less range"

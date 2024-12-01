@@ -2,6 +2,7 @@ extends Resource
 
 class_name EffectResource
 
+@export var effect_id: String
 @export var effect_path: String
 @export var base_duration: float
 

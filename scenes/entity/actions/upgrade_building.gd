@@ -19,7 +19,7 @@ func upgrade_building():
 	if not building:
 		ActionFinished.emit()
 		return
-	building.hitbox.apply_effect.rpc(upgrade_effect["effect_path"], upgrade_effect["base_duration"])
+	building.hitbox.apply_effect.rpc(upgrade_effect.effect_path, upgrade_effect.base_duration, str(building.get_instance_id()) + upgrade_effect.effect_id)
 
 	ActionFinished.emit()
 	time.stop()

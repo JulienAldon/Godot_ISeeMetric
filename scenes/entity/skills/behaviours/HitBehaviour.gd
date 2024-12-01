@@ -11,3 +11,4 @@ func apply_single_hit(body):
 func hit(hit_bodies):
 	for body in hit_bodies:
 		apply_single_hit(body)
+	

@@ -1,4 +1,5 @@
 extends SkillBehaviour
 
 func enter():
-	skill_entity.invoker.dispawn()
+	if skill_entity.invoker:
+		skill_entity.invoker.dispawn()

@@ -4,6 +4,7 @@ class_name Effect
 
 #@export var _name: String
 #@export var _description: String
+@export var effect_id: String
 @export var icon: Texture2D
 @export var duration: float
 @export var title: String

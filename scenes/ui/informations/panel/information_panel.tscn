@@ -16,27 +16,27 @@
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_e6fnp"]
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kw68x"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_7c4mh"]
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_n14af"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4kcxd"]
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_la3qg"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_lka5y"]
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_8kbtv"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_kcil5"]
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_w75le"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_70m8b"]
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wxkf2"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_psii8"]
 resource_local_to_scene = true
 size = Vector2(32, 32)
 
@@ -168,32 +168,32 @@ columns = 5
 
 [node name="Passives" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_kw68x")
+texture = SubResource("PlaceholderTexture2D_7c4mh")
 expand_mode = 1
 
 [node name="Passives6" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_n14af")
+texture = SubResource("PlaceholderTexture2D_4kcxd")
 expand_mode = 1
 
 [node name="Passives2" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_la3qg")
+texture = SubResource("PlaceholderTexture2D_lka5y")
 expand_mode = 1
 
 [node name="Passives3" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_8kbtv")
+texture = SubResource("PlaceholderTexture2D_kcil5")
 expand_mode = 1
 
 [node name="Passives4" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_w75le")
+texture = SubResource("PlaceholderTexture2D_70m8b")
 expand_mode = 1
 
 [node name="Passives5" parent="SelectionUnique/HBoxContainer/UnitInformations/Grid" instance=ExtResource("5_4ex2g")]
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_wxkf2")
+texture = SubResource("PlaceholderTexture2D_psii8")
 expand_mode = 1
 
 [node name="BuildingInformations" type="VBoxContainer" parent="SelectionUnique/HBoxContainer" node_paths=PackedStringArray("production_queue", "production_container", "current_queued_action", "name_label")]

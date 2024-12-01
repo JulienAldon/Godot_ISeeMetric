@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://ctnb0adqyubor"]
+[gd_scene load_steps=68 format=3 uid="uid://ctnb0adqyubor"]
 
 [ext_resource type="Script" path="res://scenes/entity/buildings/turret/turret.gd" id="1_ri0pb"]
 [ext_resource type="Texture2D" uid="uid://cnqwaelhsga7d" path="res://scenes/entity/icons/buildings/basic_turret.png" id="2_ein1a"]
@@ -14,25 +14,41 @@
 [ext_resource type="Shader" path="res://dotted_line.gdshader" id="9_8b8ru"]
 [ext_resource type="Texture2D" uid="uid://br4i6fpqm0l8g" path="res://scenes/entity/buildings/turret/basic_turret_destroyed.png" id="9_n23d5"]
 [ext_resource type="Script" path="res://scenes/entity/components/attack/turret_attack_component.gd" id="12_7xkv7"]
-[ext_resource type="Script" path="res://scripts/resources/effect.gd" id="12_sbd1q"]
 [ext_resource type="Script" path="res://scenes/entity/components/attack/projectile_attack_style.gd" id="15_mgp6e"]
 [ext_resource type="Resource" uid="uid://b3l4kenqh1let" path="res://scenes/entity/buildings/turret/turret_skill.tres" id="16_gwjnc"]
 [ext_resource type="PackedScene" uid="uid://cnc4fn42qv356" path="res://scenes/entity/components/action/action_component.tscn" id="16_khc68"]
 [ext_resource type="Script" path="res://scenes/entity/actions/deconstruct/deconstruct_building.gd" id="17_hma3m"]
 [ext_resource type="Texture2D" uid="uid://bjd8p7m0fgmci" path="res://scenes/entity/icons/action/delete_building.png" id="18_36dea"]
-[ext_resource type="Script" path="res://scenes/entity/components/mode/mode_component.gd" id="21_medap"]
-[ext_resource type="Script" path="res://scenes/entity/actions/upgrade_building.gd" id="21_ungkl"]
 [ext_resource type="PackedScene" uid="uid://03xyjps61uqo" path="res://scenes/entity/components/upgrade/upgrade_component.tscn" id="22_jamu8"]
-[ext_resource type="Texture2D" uid="uid://cvhilbk74ltjs" path="res://scenes/entity/icons/action/upgrade_range.png" id="22_nv2mx"]
-[ext_resource type="Script" path="res://scripts/resources/yield.gd" id="23_ddsxj"]
-[ext_resource type="Texture2D" uid="uid://ceq7po73aanm4" path="res://scenes/entity/icons/resources/rock.png" id="24_xxmlo"]
 [ext_resource type="Script" path="res://scenes/entity/actions/modes/change_mode.gd" id="26_gy6wf"]
+[ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="26_ypd2q"]
 [ext_resource type="Script" path="res://scenes/entity/actions/modes/focus/resource_focus.gd" id="27_s82si"]
 [ext_resource type="Texture2D" uid="uid://c7mtkqf0j3orc" path="res://scenes/entity/icons/action/resource_mode.png" id="28_fnau6"]
 [ext_resource type="Script" path="res://scenes/entity/actions/modes/focus/unit_focus.gd" id="28_ta1gv"]
 [ext_resource type="Texture2D" uid="uid://cj5okiwqf0da" path="res://scenes/entity/icons/action/unit_mode.png" id="30_xgpfo"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_efagi"]
+properties/0/path = NodePath("../AnimationController/AnimationTree:parameters/conditions/attack")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("../AnimationController/AnimationTree:parameters/attack/0/TimeScale/scale")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("../AnimationController/AnimationTree:parameters/attack/1/TimeScale/scale")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("../AnimationController/AnimationTree:parameters/attack/2/TimeScale/scale")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("../AnimationController/AnimationTree:parameters/attack/3/TimeScale/scale")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("../HealthComponent:max_health")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("../HealthComponent:health")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e2fsx"]
 size = Vector2(32, 32)
@@ -70,18 +86,198 @@ shader_parameter/thickness = 0.009
 shader_parameter/frequency = 100.0
 shader_parameter/phase = 0.0
 
-[sub_resource type="Resource" id="Resource_u80qx"]
-script = ExtResource("12_sbd1q")
-effect_path = "res://scenes/game/effects/upgrade_effect.tscn"
-base_duration = 0.0
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_8dbtl"]
+animation = &"attack"
 
-[sub_resource type="Resource" id="Resource_iakck"]
-script = ExtResource("23_ddsxj")
-icon = ExtResource("24_xxmlo")
-value = 0
-type = 3
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_1ify1"]
 
-[node name="BasicTurret" type="StaticBody2D" node_paths=PackedStringArray("health", "death", "stats", "sprite", "attack", "action_controller", "upgrade", "action_panel", "hitbox", "selection", "network") groups=["building", "navigation", "player_entity"]]
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_b7sg0"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_8dbtl")
+nodes/Animation/position = Vector2(100, 60)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_1ify1")
+nodes/TimeScale/position = Vector2(380, 80)
+nodes/output/position = Vector2(580, 140)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h8ug7"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_4fosw"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_7e700"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_h8ug7")
+nodes/Animation/position = Vector2(160, 80)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_4fosw")
+nodes/TimeScale/position = Vector2(360, 120)
+nodes/output/position = Vector2(540, 160)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tcu4g"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_tyvbh"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_sqv7a"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_tcu4g")
+nodes/Animation/position = Vector2(100, 80)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_tyvbh")
+nodes/TimeScale/position = Vector2(300, 100)
+nodes/output/position = Vector2(460, 140)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xkbfh"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_fdvv8"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_cppil"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_xkbfh")
+nodes/Animation/position = Vector2(180, 60)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_fdvv8")
+nodes/TimeScale/position = Vector2(420, 100)
+nodes/output/position = Vector2(580, 140)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_408iy"]
+blend_point_0/node = SubResource("AnimationNodeBlendTree_b7sg0")
+blend_point_0/pos = Vector2(0, 1.1)
+blend_point_1/node = SubResource("AnimationNodeBlendTree_7e700")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeBlendTree_sqv7a")
+blend_point_2/pos = Vector2(0, -1.1)
+blend_point_3/node = SubResource("AnimationNodeBlendTree_cppil")
+blend_point_3/pos = Vector2(-1, 0)
+min_space = Vector2(-1, -1.1)
+max_space = Vector2(1, 1.1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_owl7j"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_g4js8"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_b828d"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_owl7j")
+nodes/Animation/position = Vector2(260, 80)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_g4js8")
+nodes/TimeScale/position = Vector2(440, 80)
+nodes/output/position = Vector2(640, 120)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hak12"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_57mtj"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_xlc0r"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_hak12")
+nodes/Animation/position = Vector2(160, 80)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_57mtj")
+nodes/TimeScale/position = Vector2(380, 100)
+nodes/output/position = Vector2(540, 120)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kb3qm"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_qey3o"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_7fek8"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_kb3qm")
+nodes/Animation/position = Vector2(180, 60)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_qey3o")
+nodes/TimeScale/position = Vector2(400, 80)
+nodes/output/position = Vector2(560, 140)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_58jxh"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_q8cae"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_lsc7g"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_58jxh")
+nodes/Animation/position = Vector2(100, 60)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_q8cae")
+nodes/TimeScale/position = Vector2(320, 100)
+nodes/output/position = Vector2(500, 140)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_iyo47"]
+blend_point_0/node = SubResource("AnimationNodeBlendTree_b828d")
+blend_point_0/pos = Vector2(0, 1.1)
+blend_point_1/node = SubResource("AnimationNodeBlendTree_xlc0r")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeBlendTree_7fek8")
+blend_point_2/pos = Vector2(0, -1.1)
+blend_point_3/node = SubResource("AnimationNodeBlendTree_lsc7g")
+blend_point_3/pos = Vector2(-1, 0)
+min_space = Vector2(-1, -1.1)
+max_space = Vector2(1, 1.1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sghtb"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_d8hls"]
+advance_mode = 2
+advance_condition = &"attack"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hmq04"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_0uwid"]
+states/attack/node = SubResource("AnimationNodeBlendSpace2D_408iy")
+states/attack/position = Vector2(589, 100)
+states/idle/node = SubResource("AnimationNodeBlendSpace2D_iyo47")
+states/idle/position = Vector2(370, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_sghtb"), "idle", "attack", SubResource("AnimationNodeStateMachineTransition_d8hls"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_hmq04")]
+graph_offset = Vector2(31.0027, -28.0984)
+
+[sub_resource type="Animation" id="Animation_h6ui6"]
+resource_name = "idle"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_0spwl"]
+resource_name = "attack"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.8, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_b1xbt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../AnimatedSprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xnui0"]
+_data = {
+"RESET": SubResource("Animation_b1xbt"),
+"attack": SubResource("Animation_0spwl"),
+"idle": SubResource("Animation_h6ui6")
+}
+
+[node name="BasicTurret" type="AnimatableBody2D" node_paths=PackedStringArray("health", "death", "sprite", "attack", "action_controller", "upgrade", "animation", "action_panel", "hitbox", "selection", "network", "stats") groups=["building", "navigation", "player_entity"]]
 texture_filter = 2
 collision_layer = 38
 collision_mask = 8
@@ -89,21 +285,22 @@ input_pickable = true
 script = ExtResource("1_ri0pb")
 health = NodePath("HealthComponent")
 death = NodePath("DeathComponent")
-stats = NodePath("CharacterStats")
 sprite = NodePath("AnimatedSprite2D")
 attack = NodePath("TurretAttack")
 action_controller = NodePath("ActionComponent")
 upgrade = NodePath("UpgradeComponent")
+animation = NodePath("AnimationController")
 action_panel = NodePath("BuildingActions")
 hitbox = NodePath("HitboxComponent")
 selection = NodePath("SelectionComponent")
 network = NodePath("NetworkComponent")
+stats = NodePath("EntityStats")
 display_name = "Basic Turret"
 str_type = "Turret"
 icon = ExtResource("2_ein1a")
 
 [node name="BuildingActions" parent="." instance=ExtResource("3_qp0ej")]
-z_index = 3
+z_index = 5
 offset_left = -42.0
 offset_top = -61.0
 offset_right = 41.0
@@ -124,7 +321,7 @@ character = NodePath("..")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 2
 material = SubResource("ShaderMaterial_2tojv")
-position = Vector2(-1, -6)
+position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_520pi")
 autoplay = "default"
 frame_progress = 1.0
@@ -138,9 +335,9 @@ node_shown_on_hover = [NodePath("../TurretAttack/TargetDetection/TextureRect")]
 
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("6_tod5c")]
 z_index = 3
-position = Vector2(-1, 6)
-scale = Vector2(2, 2)
-stats = NodePath("../CharacterStats")
+position = Vector2(0, -39)
+scale = Vector2(1, 1)
+stats = NodePath("../EntityStats")
 
 [node name="DeathComponent" parent="." node_paths=PackedStringArray("sprite", "health", "body", "corpse", "delete_timer") instance=ExtResource("7_0ymch")]
 sprite = NodePath("../AnimatedSprite2D")
@@ -157,11 +354,11 @@ visible = false
 position = Vector2(-1, -6)
 texture = ExtResource("9_n23d5")
 
-[node name="CharacterStats" type="Node2D" parent="." node_paths=PackedStringArray("health")]
+[node name="EntityStats" type="Node2D" parent="." node_paths=PackedStringArray("health")]
 script = ExtResource("8_t2hus")
 health = NodePath("../HealthComponent")
 cast_speed = 0.0
-base_range = 200.0
+base_range = 150.0
 max_health = 500
 move_speed = 0
 armor = 150
@@ -170,7 +367,7 @@ armor = 150
 script = ExtResource("12_7xkv7")
 collision = NodePath("TargetDetection/CollisionShape2D")
 range_delimiter = NodePath("TargetDetection/TextureRect")
-stats = NodePath("../CharacterStats")
+stats = NodePath("../EntityStats")
 network = NodePath("../NetworkComponent")
 attack_style = NodePath("ProjectileAttackStyle")
 attack_timer = NodePath("AttackTimer")
@@ -209,7 +406,7 @@ script = ExtResource("15_mgp6e")
 body = NodePath("../..")
 attack_point = NodePath("AttackPoint")
 skill = ExtResource("16_gwjnc")
-stats = NodePath("../../CharacterStats")
+stats = NodePath("../../EntityStats")
 
 [node name="AttackPoint" type="Node2D" parent="TurretAttack/ProjectileAttackStyle"]
 position = Vector2(-2, -41)
@@ -232,23 +429,6 @@ wait_time = 0.1
 
 [node name="Cooldown" type="Timer" parent="ActionComponent/RemoveBuilding"]
 wait_time = 0.2
-
-[node name="UpgradeBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("building", "cooldown", "time")]
-script = ExtResource("21_ungkl")
-building = NodePath("../..")
-upgrade_effect = SubResource("Resource_u80qx")
-title = "Upgrade turret"
-icon = ExtResource("22_nv2mx")
-cooldown = NodePath("Cooldown")
-time = NodePath("Timer")
-cost = Array[ExtResource("23_ddsxj")]([SubResource("Resource_iakck")])
-description = "Upgrade turret to next tier"
-
-[node name="Timer" type="Timer" parent="ActionComponent/UpgradeBuilding"]
-wait_time = 0.1
-
-[node name="Cooldown" type="Timer" parent="ActionComponent/UpgradeBuilding"]
-wait_time = 0.1
 
 [node name="ChangeModeBuilding" type="Node2D" parent="ActionComponent" node_paths=PackedStringArray("possible_mode", "building_ui", "cooldown", "time")]
 script = ExtResource("26_gy6wf")
@@ -293,13 +473,37 @@ wait_time = 0.1
 [node name="Cooldown" type="Timer" parent="ActionComponent/ChangeModeBuilding/UnitFocusMode"]
 wait_time = 0.1
 
-[node name="ModeComponent" type="Node2D" parent="."]
-script = ExtResource("21_medap")
-
 [node name="UpgradeComponent" parent="." node_paths=PackedStringArray("action_controller", "stats") instance=ExtResource("22_jamu8")]
 max_tier = 3
 action_controller = NodePath("../ActionComponent")
-stats = NodePath("../CharacterStats")
+stats = NodePath("../EntityStats")
+
+[node name="AnimationController" type="Node" parent="." node_paths=PackedStringArray("sprite", "animation_tree", "attack_controller")]
+script = ExtResource("26_ypd2q")
+sprite = NodePath("../AnimatedSprite2D")
+animation_tree = NodePath("AnimationTree")
+attack_controller = NodePath("../TurretAttack")
+attack_names = Array[String](["attack"])
+
+[node name="AnimationTree" type="AnimationTree" parent="AnimationController"]
+tree_root = SubResource("AnimationNodeStateMachine_0uwid")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/attack = false
+parameters/attack/blend_position = Vector2(0, 0)
+parameters/attack/0/TimeScale/scale = 1.0
+parameters/attack/1/TimeScale/scale = 1.0
+parameters/attack/2/TimeScale/scale = 1.0
+parameters/attack/3/TimeScale/scale = 1.0
+parameters/idle/blend_position = Vector2(0, 0)
+parameters/idle/0/TimeScale/scale = 1.0
+parameters/idle/1/TimeScale/scale = 1.0
+parameters/idle/2/TimeScale/scale = 1.0
+parameters/idle/3/TimeScale/scale = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationController"]
+libraries = {
+"": SubResource("AnimationLibrary_xnui0")
+}
 
 [connection signal="body_entered" from="TurretAttack/TargetDetection" to="TurretAttack" method="_on_target_detection_body_entered"]
 [connection signal="body_exited" from="TurretAttack/TargetDetection" to="TurretAttack" method="_on_target_detection_body_exited"]

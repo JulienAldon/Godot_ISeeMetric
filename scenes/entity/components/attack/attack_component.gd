@@ -18,7 +18,7 @@ var force_move: bool = false
 var nearby_targets: Array = []
 
 func _ready():
-	attack_timer.wait_time = 1 / stats.attack_speed
+	attack_timer.wait_time = 1 / stats.get_attack_speed()
 	attack_timer.timeout.connect(stop_attack_cooldown)
 	range_shape.radius = stats.get_range()
 
@@ -98,7 +98,7 @@ func apply_damage() -> void:
 
 # Start to attack a target.
 func attack_target() -> void:
-	attack_timer.wait_time = 1 / stats.attack_speed
+	attack_timer.wait_time = 1 / stats.get_attack_speed()
 	attack_timer.start()
 	can_attack = false
 
@@ -107,6 +107,7 @@ func attack_target() -> void:
 func compute_nearby_target() -> Array:
 	var query = PhysicsShapeQueryParameters2D.new()
 	var space = get_world_2d().direct_space_state
+	range_shape.radius = stats.get_range()
 	query.shape = range_shape
 	query.collision_mask = 2
 	query.transform = Transform2D(0, global_position)

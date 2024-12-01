@@ -8,7 +8,6 @@ var currencies_ui: Array
 func _ready():
 	currencies_ui = currency_container.get_children()
 
-
 func update_currencies(currencies: Dictionary):
 	for currency_ui in currencies_ui:
 		var currency_type: GameManager.CurrencyType = currency_ui.get_currency_type()

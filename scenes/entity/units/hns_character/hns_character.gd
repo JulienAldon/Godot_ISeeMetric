@@ -8,7 +8,6 @@ class_name HnsCharacter
 @export var sprite: AnimatedSprite2D
 @export var attack_point: Node2D
 @export var weapon: Sprite2D
-@export var stats: Node2D
 @export var skills: Node2D
 @export var selection: SelectionComponent
 @export var animation: AnimationController

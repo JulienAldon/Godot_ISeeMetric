@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EffectResource" load_steps=2 format=3 uid="uid://dsgqrepg8051h"]
+
+[ext_resource type="Script" path="res://scripts/resources/effect.gd" id="1_wbkly"]
+
+[resource]
+script = ExtResource("1_wbkly")
+effect_id = "module_range_mode"
+effect_path = "res://scenes/entity/effects/upgrade/range/range.tscn"
+base_duration = 0.0

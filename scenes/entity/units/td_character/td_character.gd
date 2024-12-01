@@ -5,7 +5,6 @@ class_name TdCharacter
 @export var network: NetworkComponent
 @export var animation: AnimationController
 @export var sprite: AnimatedSprite2D
-@export var stats: EntityStats
 @export var movement: MovementComponent
 @export var health: HealthComponent
 @export var hitbox: HitboxComponent

@@ -1,10 +1,13 @@
 extends TdBuilding
 
+class_name Module
+
 @export var sprite: AnimatedSprite2D
 @export var health: HealthComponent
 @export var death: DeathComponent
 @export var action_controller: ActionComponent
 @export var upgrade: UpgradeComponent
+@export var propagation: EffectPropagationComponent
 
 func dispawn():
 	if death:
@@ -23,4 +26,6 @@ func deactivate_behaviour():
 		hitbox.disabled = true
 	set_process(false)
 	set_physics_process(false)
+	propagation.remove_local_entities_effects()
 	super()
+	

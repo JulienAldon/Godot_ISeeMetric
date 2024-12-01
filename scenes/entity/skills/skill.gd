@@ -44,8 +44,7 @@ func set_area_of_effect(value):
 		shape.set_size(Vector2(value, shape.size.y))
 		shape_offset = Vector2(-shape.size.x/2, shape.size.y/2).rotated(rotation)
 	if scallable_effect:
-			scallable_effect.scale = Vector2(radius / effect_base_radius, radius / effect_base_radius)
-			print(scallable_effect.scale)
+		scallable_effect.scale = Vector2(radius / effect_base_radius, radius / effect_base_radius)
 
 func _ready():
 	is_active = false
@@ -74,8 +73,6 @@ func start():
 	has_hit = false
 
 func configure():
-	if not multiplayer.is_server():
-		return
 	if invoker_path:
 		invoker = get_node(invoker_path)
 	if target_path:
@@ -93,9 +90,10 @@ func check_collision():
 	query.transform = transfo
 	var result := get_world_2d().direct_space_state.intersect_shape(query, 100)
 	var ennemy_hit = result.filter(func(el): return el.collider.controlled_by != controlled_by)
-	if ennemy_hit.size() > 0:
-		_hit_body(ennemy_hit.map(func(el): return el.collider))
-		if "parameters/conditions/hit" in animation_tree:
+	if ennemy_hit.size() > 0 and not has_hit:
+		var hit_bodies = ennemy_hit.map(func(el): return el.collider)
+		_hit_body(hit_bodies)
+		if "parameters/conditions/hit" in animation_tree and target in hit_bodies:
 			animation_tree["parameters/conditions/hit"] = true
 			stop()
 
@@ -107,17 +105,19 @@ func _process(delta):
 	for behaviour in behaviours:
 		behaviour.update(delta)
 
+func call_stop():
+	stop()
+
 func stop():
-	is_active = false
-	visible = false
 	if "parameters/conditions/hit" in animation_tree:
 		animation_tree["parameters/conditions/hit"] = false
 	animation_tree.set_active(false)
 	for behaviour in behaviours:
 		behaviour.stop()
+	is_active = false
+	visible = false
 	set_process(false)
 	set_physics_process(false)
-	has_hit = true
 	
 func _physics_process(delta):
 	for behaviour in behaviours:

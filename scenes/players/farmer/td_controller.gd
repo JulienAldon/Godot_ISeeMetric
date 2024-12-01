@@ -57,7 +57,7 @@ func _process(_delta):
 	if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		if character.attack.is_attack_possible() and character.attack.is_in_range(character.global_position):
 			character.attack.attack_target()
-			character.animation.set_is_attack(1 / character.stats.attack_speed,  character.attack.target.global_position - character.global_position, "Action")
+			character.animation.set_is_attack(1 / character.stats.get_attack_speed(),  character.attack.target.global_position - character.global_position, "Action")
 	#if trigger_action and selected_skill:
 		#trigger_skill(selected_skill)
 

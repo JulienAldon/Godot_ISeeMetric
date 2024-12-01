@@ -7,8 +7,8 @@ class_name Produce
 var building_position: Vector2
 var building_controller: int
 
-func start(building_position, building_ctrl):
-	building_position = building_position
+func start(_building_position, building_ctrl):
+	building_position = _building_position
 	building_controller = building_ctrl
 	time.start()
 	

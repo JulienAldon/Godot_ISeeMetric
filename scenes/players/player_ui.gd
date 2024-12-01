@@ -1,6 +1,7 @@
 extends CanvasLayer
 class_name PlayerUi
 
+
 @export_category("Label")
 @export var name_label: Label
 @export var level: Label
@@ -10,6 +11,12 @@ class_name PlayerUi
 @export var minimap: Minimap
 @export var informations_panel: InformationUi
 @export var action_panel: ActionPanel
+
+var controlled_by: int = 1
+
+func _enter_tree():
+	set_multiplayer_authority(controlled_by)
+
 
 func show_informations(entities: Array):
 	informations_panel.show()

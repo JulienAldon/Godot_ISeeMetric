@@ -392,7 +392,7 @@ states/Walk/position = Vector2(621, 100)
 transitions = ["Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_m6dvt"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_b61qp"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_gcv4w"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_m3w1n"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_6gu0m"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_xjtc7"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_v0olg")]
 graph_offset = Vector2(-46, -46)
 
-[node name="Marauder" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death", "stats", "animation", "behaviours", "action_controller", "player_marker") groups=["player_entity", "rts_unit"]]
+[node name="Marauder" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death", "animation", "behaviours", "action_controller", "player_marker", "stats") groups=["player_entity", "rts_unit"]]
 collision_layer = 3
 collision_mask = 12
 input_pickable = true
@@ -405,11 +405,11 @@ sprite = NodePath("Sprite2D")
 selection = NodePath("SelectionComponent")
 attack = NodePath("AttackComponent")
 death = NodePath("DeathComponent")
-stats = NodePath("Stats")
 animation = NodePath("AnimationComponent")
 behaviours = NodePath("StateMachine")
 action_controller = NodePath("ActionComponent")
 player_marker = NodePath("PlayerMarker")
+stats = NodePath("Stats")
 display_name = "Marauder"
 str_type = "marauder"
 icon = ExtResource("2_a4c48")

@@ -36,6 +36,13 @@ func show_or_spawn(scene, informations):
 			object[key] = informations[key]
 		object.configure()
 		object.start()
+	#else:
+		#var entity = load(scene)
+		#entity.instanciate()
+		#for key in informations.keys():
+			#object[key] = informations[key]
+		#entity.configure()
+		#entity.start()
 
 func _ready():
 	if not multiplayer.is_server():

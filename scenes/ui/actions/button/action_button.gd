@@ -2,8 +2,6 @@ extends PanelContainer
 
 class_name ActionButton
 
-@export var player: PlayerController
-@export var action: Action
 @export var cooldown_background: Control
 @export var cooldown_label: Label
 @export var cooldown: Timer
@@ -11,6 +9,9 @@ class_name ActionButton
 @export var hover_texture: TextureRect
 @export var icon: TextureRect
 @export var key: InputEventAction
+@export var parent_panel: ActionPanel
+
+var action: Action
 
 var can_start: bool = true
 
@@ -69,7 +70,10 @@ func _on_button_pressed():
 func can_buy():
 	if not is_instance_valid(action):
 		return false
-	var _player = GameManager.get_player(multiplayer.get_unique_id())
+	var player_id = multiplayer.get_unique_id()
+	if "entity" in parent_panel and parent_panel.entity:
+		player_id = parent_panel.entity.controlled_by
+	var _player = GameManager.get_player(player_id)
 	return _player.can_queue_action(action)
 
 func _on_button_mouse_entered():

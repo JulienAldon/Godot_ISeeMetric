@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://degclymg64qb5"]
+
+[ext_resource type="Script" path="res://scenes/entity/effects/upgrade/upgrade.gd" id="1_dnf8n"]
+[ext_resource type="Script" path="res://scripts/resources/stat.gd" id="2_wnii5"]
+[ext_resource type="Texture2D" uid="uid://cvhilbk74ltjs" path="res://scenes/entity/icons/action/upgrade_range.png" id="3_m7jia"]
+
+[sub_resource type="Resource" id="Resource_aaks4"]
+script = ExtResource("2_wnii5")
+display_name = "Health regeneration"
+name = "health_regeneration"
+value = 25.0
+
+[sub_resource type="Resource" id="Resource_cekc6"]
+script = ExtResource("2_wnii5")
+display_name = "Max health"
+name = "max_health"
+value = 200.0
+
+[sub_resource type="Resource" id="Resource_nxagn"]
+script = ExtResource("2_wnii5")
+display_name = "Base damage"
+name = "added_physical_damage"
+value = -10.0
+
+[node name="Health" type="Node2D"]
+script = ExtResource("1_dnf8n")
+stats = Array[ExtResource("2_wnii5")]([SubResource("Resource_aaks4"), SubResource("Resource_cekc6"), SubResource("Resource_nxagn")])
+effect_id = "module_health_mode"
+icon = ExtResource("3_m7jia")
+title = "Health mode"
+description = "Add health and base regeneration, reduce damages."

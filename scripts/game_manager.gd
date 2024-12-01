@@ -72,8 +72,6 @@ func get_level_tilemap():
 	return level_loaded[0].get_tilemap()
 
 func spawn_entity(scene: String, informations: Dictionary):
-	if not multiplayer.is_server():
-		return
 	var info = informations
 	var entity_spawner = get_node_or_null("/root/Multiplayer/Entities")
 	if !entity_spawner:

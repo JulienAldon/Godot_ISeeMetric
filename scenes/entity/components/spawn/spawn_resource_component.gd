@@ -11,7 +11,8 @@ class_name SpawnResourceComponent
 @export var spawn_timer: Timer
 var can_spawn: bool = true
 var entities: Array
-var current_scene: GameManager.CurrencyType = GameManager.CurrencyType.WHEAT
+@export_category("Network")
+@export var current_scene: GameManager.CurrencyType = GameManager.CurrencyType.WHEAT
 
 func _ready():
 	if not is_multiplayer_authority():
@@ -47,9 +48,9 @@ func is_overlapping_entity(shape: Shape2D, pos: Vector2, filter_func = null, max
 	return result.filter(filter_func).size() > max_entity
 
 @rpc("call_local", "any_peer")
-func spawn_resource(informations):
-	GameManager.spawn_entity(resource_scenes[current_scene], informations)
-
+func spawn_resource(scene, informations):
+	GameManager.spawn_entity(scene, informations)
+	
 func _spawn_cooldown_finish():
 	if not can_spawn:
 		return
@@ -59,4 +60,4 @@ func _spawn_cooldown_finish():
 		"position": find_point_in_effect_range(),
 		"controlled_by": 0,
 	}
-	spawn_resource.rpc_id(1, informations)
+	spawn_resource.rpc(resource_scenes[current_scene], informations)

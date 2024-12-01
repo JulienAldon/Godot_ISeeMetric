@@ -4,6 +4,7 @@ class_name SpawnTypeMode
 
 @export var resource_spawner: SpawnResourceComponent
 @export var resource: GameManager.CurrencyType
+
 func _ready():
 	time.timeout.connect(set_resource_to_spawn)
 

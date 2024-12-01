@@ -82,7 +82,7 @@ icon = ExtResource("12_0q7rm")
 value = 10
 type = 0
 
-[node name="Outpost" type="StaticBody2D" node_paths=PackedStringArray("action_controller", "capture", "income", "build", "effect_shape", "selection", "network", "movement") groups=["building", "minimap_item", "navigation"]]
+[node name="Outpost" type="AnimatableBody2D" node_paths=PackedStringArray("action_controller", "capture", "income", "build", "effect_shape", "selection", "network", "movement") groups=["building", "minimap_item", "navigation"]]
 texture_filter = 2
 collision_layer = 6
 input_pickable = true

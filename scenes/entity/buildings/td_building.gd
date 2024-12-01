@@ -18,11 +18,6 @@ func _enter_tree():
 		return
 	player.current_controller.add_building(self)
 
-func _exit_tree():
-	if not player:
-		return
-	player.current_controller.remove_building(self)
-
 func is_in_outpost_range():
 	var outposts = GameManager.get_level_outposts()
 	for outpost in outposts:
@@ -46,12 +41,16 @@ func take_damage_tick(delta):
 
 func _process(_delta):
 	pass
-	#if not in_outpost_range:
-		#take_damage_tick(delta)
+	#if in_outpost_range:
+		# buff mechanic (more resource yield in oupost resource type, turrets are stronger...)
+
 
 func deactivate_behaviour():
 	action_panel.hide()
 	super()
+	if not player:
+		return
+	player.current_controller.remove_building(self)
 
 func trigger_action(action):
 	if action is Build:

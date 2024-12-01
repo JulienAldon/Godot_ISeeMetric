@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dp18taktkggws"]
 
-[ext_resource type="Script" path="res://scenes/entity/skills/behaviours/HitBehaviour.gd" id="1_87g6k"]
+[ext_resource type="Script" path="res://scenes/entity/skills/behaviours/damaging/damaging.gd" id="1_f8dme"]
 
 [node name="Damaging" type="Node2D"]
-script = ExtResource("1_87g6k")
+script = ExtResource("1_f8dme")

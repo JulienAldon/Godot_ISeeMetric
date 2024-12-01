@@ -59,4 +59,4 @@ func _on_timer_timeout():
 	if free_on_death:
 		delete_corpse.rpc()
 	else:
-		body.hide()
+		corpse.hide()

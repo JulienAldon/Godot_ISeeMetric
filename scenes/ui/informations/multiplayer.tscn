@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b5pnpbxbv7s4y"]
+[gd_scene load_steps=19 format=3 uid="uid://b5pnpbxbv7s4y"]
 
 [ext_resource type="PackedScene" uid="uid://hy5mfuk4bsut" path="res://scenes/ui/menu/menu.tscn" id="1_bjl1e"]
 [ext_resource type="Script" path="res://scripts/multiplayer_controller.gd" id="1_ehst3"]
@@ -16,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://dixgs7eqqjk8k" path="res://scenes/entity/resources/wood/spawn_tree_skill.tres" id="14_8ewng"]
 [ext_resource type="Resource" uid="uid://b1ifgeyebdoii" path="res://scenes/entity/resources/wheat/spawn_wheat_skill.tres" id="15_yvm1v"]
 [ext_resource type="Resource" uid="uid://do4rnm6l8145h" path="res://scenes/entity/resources/stone/spawn_stone_skill.tres" id="16_e2qqf"]
+[ext_resource type="Resource" uid="uid://3dt82q266f7p" path="res://scenes/entity/buildings/turret/range_skill.tres" id="17_6bd4f"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_3igut"]
 
@@ -56,8 +57,9 @@ y_sort_enabled = true
 spawn_path = NodePath("../Entities")
 
 [node name="Entities" type="Node2D" parent="." node_paths=PackedStringArray("entity_spawner")]
+y_sort_enabled = true
 script = ExtResource("6_off82")
-scenes = Array[ExtResource("7_w6w35")]([ExtResource("8_ro0pj"), ExtResource("9_yg6f5"), ExtResource("10_7yh7g"), ExtResource("11_veons"), ExtResource("14_8ewng"), ExtResource("15_yvm1v"), ExtResource("16_e2qqf")])
+scenes = Array[ExtResource("7_w6w35")]([ExtResource("8_ro0pj"), ExtResource("9_yg6f5"), ExtResource("10_7yh7g"), ExtResource("11_veons"), ExtResource("14_8ewng"), ExtResource("15_yvm1v"), ExtResource("16_e2qqf"), ExtResource("17_6bd4f")])
 scenes_to_spawn = 50
 entity_spawner = NodePath("../EntitySpawner")
 

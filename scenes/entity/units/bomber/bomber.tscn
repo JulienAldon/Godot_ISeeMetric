@@ -489,7 +489,7 @@ states/Walk/position = Vector2(683, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_lpddn"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_8r7s5"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_jfud8"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_3onmk"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_w36gl"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_1be2t"), "Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_qie2r")]
 graph_offset = Vector2(4, -45)
 
-[node name="Bomber" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death", "stats", "animation", "behaviours", "action_controller", "player_marker") groups=["player_entity", "rts_unit"]]
+[node name="Bomber" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death", "animation", "behaviours", "action_controller", "player_marker", "stats") groups=["player_entity", "rts_unit"]]
 collision_layer = 3
 collision_mask = 12
 input_pickable = true
@@ -502,11 +502,11 @@ sprite = NodePath("AnimatedSprite2D")
 selection = NodePath("SelectionComponent")
 attack = NodePath("RtsAttackComponent")
 death = NodePath("DeathComponent")
-stats = NodePath("CharacterStats")
 animation = NodePath("AnimationComponent")
 behaviours = NodePath("StateMachine")
 action_controller = NodePath("ActionComponent")
 player_marker = NodePath("PlayerMarker")
+stats = NodePath("CharacterStats")
 display_name = "Bomber"
 str_type = "bomber"
 icon = ExtResource("2_8vmb6")

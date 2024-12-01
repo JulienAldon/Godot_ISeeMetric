@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="EffectResource" load_steps=2 format=3 uid="uid://1arnatn00h1c"]
+
+[ext_resource type="Script" path="res://scripts/resources/effect.gd" id="1_vyagf"]
+
+[resource]
+script = ExtResource("1_vyagf")
+effect_id = "module_damage_mode"
+effect_path = "res://scenes/entity/effects/upgrade/damage/damage.tscn"
+base_duration = 0.0

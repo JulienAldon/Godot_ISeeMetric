@@ -829,11 +829,13 @@ more = 0.0
 
 [sub_resource type="Resource" id="Resource_jjp2o"]
 script = ExtResource("13_50xgb")
+effect_id = ""
 effect_path = "res://scenes/skills/effects/stun.tscn"
 base_duration = 1.0
 
 [sub_resource type="Resource" id="Resource_ttblq"]
 script = ExtResource("13_50xgb")
+effect_id = ""
 effect_path = "res://scenes/skills/effects/dot.tscn"
 base_duration = 5.0
 
@@ -1178,7 +1180,7 @@ states/Walk/position = Vector2(689.22, 100)
 transitions = ["Walk", "Attack", SubResource("AnimationNodeStateMachineTransition_1f3y6"), "Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_f30m7"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_cd33v"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_xw7bp"), "Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_m7a2f"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_epyi1"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_d7d6u"), "Idle", "Projectile_Attack", SubResource("AnimationNodeStateMachineTransition_8ncjh"), "Projectile_Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_4dl63"), "Projectile_Attack", "Walk", SubResource("AnimationNodeStateMachineTransition_q7ci5"), "Walk", "Projectile_Attack", SubResource("AnimationNodeStateMachineTransition_v7l4c")]
 graph_offset = Vector2(20.22, -84)
 
-[node name="HnsCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "attack_point", "weapon", "stats", "skills", "selection", "animation") groups=["minimap_item", "player_entity"]]
+[node name="HnsCharacter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "attack_point", "weapon", "skills", "selection", "animation", "stats") groups=["minimap_item", "player_entity"]]
 z_index = 1
 scale = Vector2(2, 2)
 collision_layer = 18
@@ -1191,10 +1193,10 @@ movement = NodePath("MovementComponent")
 sprite = NodePath("Sprite2D")
 attack_point = NodePath("AttackPoint")
 weapon = NodePath("Weapon")
-stats = NodePath("Stats")
 skills = NodePath("Skills")
 selection = NodePath("SelectionComponent")
 animation = NodePath("AnimationComponent")
+stats = NodePath("Stats")
 display_name = "Hns"
 
 [node name="NetworkComponent" parent="." instance=ExtResource("1_gnrgf")]
@@ -1206,7 +1208,6 @@ replication_config = SubResource("SceneReplicationConfig_wrr6p")
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("2_ts8xx")]
 z_index = 1
 position = Vector2(0, -16)
-scale = Vector2(0.5, 0.5)
 stats = NodePath("../Stats")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]

@@ -4,11 +4,11 @@ class_name Turret
 
 @export var health: HealthComponent
 @export var death: DeathComponent
-@export var stats: EntityStats
 @export var sprite: AnimatedSprite2D
 @export var attack: AttackComponent
 @export var action_controller: ActionComponent
 @export var upgrade: UpgradeComponent
+@export var animation: AnimationController
 
 func dispawn():
 	if death:
@@ -24,6 +24,7 @@ func _process(delta):
 		attack.set_target(attack.get_target())
 		if attack.is_attack_possible():
 			attack.attack_target()
+			animation.set_is_attack(stats.get_attack_speed(), Vector2.ONE, "attack")
 
 func deactivate_behaviour():
 	selection.set_target_indicator(false)

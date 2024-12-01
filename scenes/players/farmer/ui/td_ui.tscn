@@ -135,30 +135,35 @@ action_container = NodePath("HBoxContainer")
 [node name="HBoxContainer" type="HBoxContainer" parent="Actions"]
 layout_mode = 2
 
-[node name="UIAction" parent="Actions/HBoxContainer" instance=ExtResource("6_nlrqw")]
+[node name="UIAction" parent="Actions/HBoxContainer" node_paths=PackedStringArray("parent_panel") instance=ExtResource("6_nlrqw")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_bnbdv")
 key = SubResource("InputEventAction_osrjj")
+parent_panel = NodePath("../..")
 
-[node name="UIAction2" parent="Actions/HBoxContainer" instance=ExtResource("6_nlrqw")]
+[node name="UIAction2" parent="Actions/HBoxContainer" node_paths=PackedStringArray("parent_panel") instance=ExtResource("6_nlrqw")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2x8ri")
 key = SubResource("InputEventAction_tfxua")
+parent_panel = NodePath("../..")
 
-[node name="UIAction3" parent="Actions/HBoxContainer" instance=ExtResource("6_nlrqw")]
+[node name="UIAction3" parent="Actions/HBoxContainer" node_paths=PackedStringArray("parent_panel") instance=ExtResource("6_nlrqw")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sjhu1")
 key = SubResource("InputEventAction_52b4p")
+parent_panel = NodePath("../..")
 
-[node name="UIAction4" parent="Actions/HBoxContainer" instance=ExtResource("6_nlrqw")]
+[node name="UIAction4" parent="Actions/HBoxContainer" node_paths=PackedStringArray("parent_panel") instance=ExtResource("6_nlrqw")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_wikal")
 key = SubResource("InputEventAction_qbjw3")
+parent_panel = NodePath("../..")
 
-[node name="UIAction5" parent="Actions/HBoxContainer" instance=ExtResource("6_nlrqw")]
+[node name="UIAction5" parent="Actions/HBoxContainer" node_paths=PackedStringArray("parent_panel") instance=ExtResource("6_nlrqw")]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_sa28c")
 key = SubResource("InputEventAction_pu4p0")
+parent_panel = NodePath("../..")
 
 [node name="NbBuilding" type="Label" parent="."]
 offset_left = 183.0

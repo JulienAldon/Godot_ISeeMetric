@@ -24,17 +24,30 @@ func control():
 	pass
 
 @rpc("any_peer", "call_local")
-func apply_effect(effect_path: String, duration: float):
-	if not is_multiplayer_authority():
-		return
+func apply_effect(effect_path: String, duration: float, effect_id: String):
 	var effect = load(effect_path).instantiate()
 	effect.duration = duration
+	effect.effect_id = effect_id
 	add_child(effect)
 	effect.start(character)
 	current_effects.append(effect)
 
+@rpc("any_peer", "call_local")
+func remove_effect(effect_name):
+	for effect in current_effects:
+		print(effect.effect_id," ", multiplayer.get_unique_id(), " ", effect_name)
+		if effect.effect_id == effect_name:
+			effect.stop()
+			current_effects.erase(effect)
+	
 func get_effects():
 	return current_effects
+
+func has_effect(effect_id: String):
+	for effect in current_effects:
+		if effect.effect_id == effect_id:
+			return true
+	return false
 
 func _process(delta):
 	if not is_multiplayer_authority():
@@ -42,6 +55,3 @@ func _process(delta):
 	for effect in current_effects:
 		if not effect.expired:
 			effect.update(delta)
-		else:
-			effect.stop()
-			current_effects.erase(effect)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://deqj7jv2gkugs"]
+[gd_scene load_steps=33 format=3 uid="uid://deqj7jv2gkugs"]
 
 [ext_resource type="Script" path="res://scenes/entity/buildings/windmill/windmill.gd" id="1_622jx"]
 [ext_resource type="Texture2D" uid="uid://dxudhfnuucocm" path="res://scenes/entity/buildings/windmill/windmill.png" id="1_sai4a"]
@@ -22,6 +22,11 @@
 [ext_resource type="Texture2D" uid="uid://b6a3uanemf4fc" path="res://scenes/entity/icons/resources/wheat_collected.png" id="19_rkeot"]
 [ext_resource type="Texture2D" uid="uid://ceq7po73aanm4" path="res://scenes/entity/icons/resources/rock.png" id="20_fdgvx"]
 [ext_resource type="Texture2D" uid="uid://byupv4stib2w8" path="res://scenes/entity/icons/resources/wood.png" id="21_a7kw8"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_5yedm"]
+properties/0/path = NodePath("../SpawnResource:current_scene")
+properties/0/spawn = true
+properties/0/replication_mode = 1
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c8pog"]
 resource_local_to_scene = true
@@ -187,7 +192,7 @@ size = Vector2(150, 150)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_krwcu"]
 size = Vector2(32, 32)
 
-[node name="Windmill" type="StaticBody2D" node_paths=PackedStringArray("sprite", "health", "death", "action_controller", "effect", "action_panel", "hitbox", "selection", "network") groups=["building", "navigation", "player_entity"]]
+[node name="Windmill" type="AnimatableBody2D" node_paths=PackedStringArray("sprite", "health", "death", "action_controller", "effect", "action_panel", "hitbox", "selection", "network", "stats") groups=["building", "navigation", "player_entity"]]
 collision_layer = 38
 collision_mask = 0
 input_pickable = true
@@ -201,11 +206,15 @@ action_panel = NodePath("BuildingActions")
 hitbox = NodePath("HitboxComponent")
 selection = NodePath("SelectionComponent")
 network = NodePath("NetworkComponent")
+stats = NodePath("EntityStats")
 display_name = "WindMill"
 str_type = "windmill"
 icon = ExtResource("2_pxeuc")
 
 [node name="NetworkComponent" parent="." instance=ExtResource("5_nfskt")]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+replication_config = SubResource("SceneReplicationConfig_5yedm")
 
 [node name="Sprites" type="Node2D" parent="."]
 z_index = 2
@@ -280,24 +289,26 @@ character = NodePath("..")
 [node name="HealthComponent" parent="." node_paths=PackedStringArray("stats") instance=ExtResource("6_2lh4h")]
 z_index = 3
 position = Vector2(-1, -3)
-scale = Vector2(2, 2)
-stats = NodePath("../CharacterStats")
+scale = Vector2(1, 1)
+stats = NodePath("../EntityStats")
 
 [node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("7_57wrl")]
 network = NodePath("../NetworkComponent")
 sprites = [NodePath("../Sprites/AnimatedSprite2D")]
 body = NodePath("..")
 
-[node name="CharacterStats" type="Node2D" parent="."]
+[node name="EntityStats" type="Node2D" parent="." node_paths=PackedStringArray("health")]
 script = ExtResource("8_4lcsh")
+health = NodePath("../HealthComponent")
 max_health = 500
 
-[node name="BuildingActions" parent="." instance=ExtResource("10_okrin")]
+[node name="BuildingActions" parent="." node_paths=PackedStringArray("entity") instance=ExtResource("10_okrin")]
 z_index = 3
 offset_left = -42.0
 offset_top = -61.0
 offset_right = 41.0
 offset_bottom = -36.0
+entity = NodePath("")
 
 [node name="DeathComponent" parent="." node_paths=PackedStringArray("sprite", "health", "body", "corpse", "delete_timer") instance=ExtResource("9_5x21d")]
 sprite = NodePath("../Sprites")
@@ -395,9 +406,9 @@ wait_time = 0.1
 script = ExtResource("17_2b82k")
 network = NodePath("../NetworkComponent")
 resource_scenes = {
-2: "res://scenes/game/tree.tscn",
-3: "res://scenes/game/stone.tscn",
-4: "res://scenes/game/wheat.tscn"
+2: "res://scenes/entity/resources/wood/tree.tscn",
+3: "res://scenes/entity/resources/stone/stone.tscn",
+4: "res://scenes/entity/resources/wheat/wheat.tscn"
 }
 effect_shape = SubResource("RectangleShape2D_1apkk")
 spawned_entity_shape = SubResource("RectangleShape2D_krwcu")

@@ -29,6 +29,7 @@ func instantiate_player(informations: Dictionary):
 	var current_player = faction_scenes[informations["faction"]].instantiate()
 	var player_ui = current_player.ui_scene.instantiate()
 	player_ui.minimap.player = current_player
+	player_ui.controlled_by = informations["id"]
 	current_player.set_player_ui(player_ui)
 	current_player.set_player_id(informations["id"])
 	current_player.set_player_name(informations["name"])

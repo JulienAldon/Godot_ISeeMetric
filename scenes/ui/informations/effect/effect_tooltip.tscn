@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://pve3kl7fjtif"]
+
+[ext_resource type="Script" path="res://scenes/ui/informations/effect/effect_tooltip.gd" id="1_35fvu"]
+
+[node name="EffectTooltip" type="Control" node_paths=PackedStringArray("title", "description", "duration")]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 246.0
+offset_bottom = 165.0
+script = ExtResource("1_35fvu")
+title = NodePath("VBoxContainer/HBoxContainer/title")
+description = NodePath("VBoxContainer/description")
+duration = NodePath("VBoxContainer/HBoxContainer/duration")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 217.0
+offset_bottom = 75.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Effect title that is long"
+
+[node name="duration" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 10
+text = "5 s."
+
+[node name="description" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Effect description that describes added stats :
++10 hp
+-20 range"

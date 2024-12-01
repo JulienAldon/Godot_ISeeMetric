@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://crm0ttdvjehor"]
+[gd_scene load_steps=30 format=3 uid="uid://crm0ttdvjehor"]
 
 [ext_resource type="Script" path="res://scenes/entity/resources/stone/stone.gd" id="1_eqrmy"]
 [ext_resource type="Texture2D" uid="uid://c3iven3jvfm4i" path="res://scenes/entity/resources/stone/rock.png" id="2_pastw"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://nlcnfwavt8yc" path="res://scenes/entity/components/selection/selection_component.tscn" id="7_w1461"]
 [ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="8_7g312"]
 [ext_resource type="Script" path="res://scenes/entity/components/animation/animation_controller.gd" id="9_kubju"]
+[ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="13_f7nx1"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_41r57"]
 resource_local_to_scene = true
@@ -39,6 +40,23 @@ script = ExtResource("6_8ap6h")
 icon = ExtResource("2_vuqx1")
 value = 10
 type = 3
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_mve14"]
+properties/0/path = NodePath("..:is_active")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("..:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("../HealthComponent:visible")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("../AnimationComponent/AnimationTree:parameters/conditions/hit")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("..:position")
+properties/4/spawn = true
+properties/4/replication_mode = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vaa80"]
 radius = 11.0
@@ -132,7 +150,7 @@ _data = {
 "idle": SubResource("Animation_18rvn")
 }
 
-[node name="Stone" type="StaticBody2D" node_paths=PackedStringArray("network", "death", "health", "selection", "income", "hitbox") groups=["resource"]]
+[node name="Stone" type="StaticBody2D" node_paths=PackedStringArray("network", "death", "health", "selection", "income", "hitbox", "stats") groups=["resource"]]
 collision_layer = 2
 collision_mask = 0
 input_pickable = true
@@ -143,6 +161,7 @@ health = NodePath("HealthComponent")
 selection = NodePath("SelectionComponent")
 income = NodePath("IncomeComponent")
 hitbox = NodePath("HitboxComponent")
+stats = NodePath("EntityStats")
 display_name = "Rock"
 str_type = "rock"
 icon = ExtResource("2_vuqx1")
@@ -172,8 +191,11 @@ income = SubResource("Resource_oh0i6")
 
 [node name="NetworkComponent" parent="." instance=ExtResource("5_dg5qh")]
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+replication_config = SubResource("SceneReplicationConfig_mve14")
+
 [node name="HealthComponent" parent="." instance=ExtResource("6_8qq2x")]
-visible = false
+position = Vector2(-1, -14)
 
 [node name="SelectionComponent" parent="." node_paths=PackedStringArray("network", "sprites", "body") instance=ExtResource("7_w1461")]
 network = NodePath("../NetworkComponent")
@@ -201,3 +223,6 @@ parameters/conditions/hit = false
 libraries = {
 "": SubResource("AnimationLibrary_4wafb")
 }
+
+[node name="EntityStats" type="Node2D" parent="."]
+script = ExtResource("13_f7nx1")

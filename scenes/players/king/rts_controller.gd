@@ -83,7 +83,7 @@ func command_or_append_unit_action(mouse_pos: Vector2, entity):
 		var attack_move = false
 		if Input.is_key_pressed(KEY_CTRL):
 			attack_move = true
-		move_controller.command_movement(mouse_pos, target, attack_move or target, group_map)
+		move_controller.command_movement(mouse_pos, target, attack_move, group_map)
 
 func show_cursor_anim(pos: Vector2):
 	var anim = load(cursor_animation_scene).instantiate()

@@ -4,7 +4,7 @@ class_name RtsAttack
 
 func trigger_attack():
 	body.attack.attack_target()
-	body.animation.set_is_attack(1 / body.stats.attack_speed, body.movement.current_direction, "Attack")
+	body.animation.set_is_attack(1 / body.stats.get_attack_speed(), body.movement.current_direction, "Attack")
 
 func update(_delta):
 	if body.attack.is_attack_possible() and not body.animation.attacking:

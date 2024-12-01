@@ -589,12 +589,12 @@ transitions = ["Idle", "Attack", SubResource("AnimationNodeStateMachineTransitio
 
 [sub_resource type="Resource" id="Resource_5pb2x"]
 script = ExtResource("19_ngce5")
-base = 8.0
+base = 15.0
 added = 0.0
 increased = 0.0
 more = 0.0
 
-[node name="Hunter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death", "stats", "animation", "behaviours", "action_controller", "player_marker") groups=["player_entity", "rts_unit"]]
+[node name="Hunter" type="CharacterBody2D" node_paths=PackedStringArray("health", "hitbox", "network", "movement", "sprite", "selection", "attack", "death", "animation", "behaviours", "action_controller", "player_marker", "stats") groups=["player_entity", "rts_unit"]]
 collision_layer = 3
 collision_mask = 12
 input_pickable = true
@@ -607,11 +607,11 @@ sprite = NodePath("Sprite2D")
 selection = NodePath("SelectionComponent")
 attack = NodePath("AttackComponent")
 death = NodePath("DeathComponent")
-stats = NodePath("EntityStats")
 animation = NodePath("AnimationController")
 behaviours = NodePath("StateMachine")
 action_controller = NodePath("ActionComponent")
 player_marker = NodePath("PlayerMarker")
+stats = NodePath("EntityStats")
 display_name = "Hunter"
 str_type = "hunter"
 

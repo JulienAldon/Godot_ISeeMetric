@@ -28,7 +28,7 @@ enum SkillType {
 @export var projectiles: int
 @export var base_duration: float #seconds
 @export var projectiles_scallable: bool
-@export var behaviours: Array[String]
+@export_file("*.tscn") var behaviours: Array[String]
 @export var throw_speed: int
 @export var effects: Array[EffectResource]
 

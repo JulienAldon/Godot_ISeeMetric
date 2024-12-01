@@ -3,8 +3,9 @@ extends Node2D
 
 class_name Entity
 
-var is_active: bool = true
+@export var is_active: bool = true
 @export var spawned_in_editor: bool = true
+@export var stats: EntityStats
 
 @export var minimap_icon: String
 @export var display_name: String

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bxh73akmlo0fu"]
+[gd_scene load_steps=32 format=3 uid="uid://bxh73akmlo0fu"]
 
 [ext_resource type="Script" path="res://scenes/entity/components/hitbox/hitbox_component.gd" id="1_rmd40"]
 [ext_resource type="Script" path="res://scenes/entity/resources/wood/Tree.gd" id="1_vud0p"]
@@ -13,6 +13,24 @@
 [ext_resource type="PackedScene" uid="uid://dtpakrxno6dna" path="res://scenes/entity/components/income/on_death_income_component.tscn" id="11_56ui3"]
 [ext_resource type="Texture2D" uid="uid://byupv4stib2w8" path="res://scenes/entity/icons/resources/wood.png" id="12_yor58"]
 [ext_resource type="Script" path="res://scripts/resources/yield.gd" id="13_sxrbg"]
+[ext_resource type="Script" path="res://scenes/entity/entity_stats.gd" id="14_rp8xf"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_87c8l"]
+properties/0/path = NodePath("..:is_active")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("..:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("../HealthComponent:visible")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("..:position")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("../AnimationComponent/AnimationTree:parameters/conditions/hit")
+properties/4/spawn = true
+properties/4/replication_mode = 2
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_66qw1"]
 size = Vector2(13, 22)
@@ -139,7 +157,7 @@ icon = ExtResource("12_yor58")
 value = 20
 type = 2
 
-[node name="Tree" type="StaticBody2D" node_paths=PackedStringArray("network", "death", "health", "selection", "income", "hitbox") groups=["navigation", "resource"]]
+[node name="Tree" type="StaticBody2D" node_paths=PackedStringArray("network", "death", "health", "selection", "income", "hitbox", "stats") groups=["navigation", "resource"]]
 collision_layer = 78
 collision_mask = 0
 input_pickable = true
@@ -150,6 +168,7 @@ health = NodePath("HealthComponent")
 selection = NodePath("SelectionComponent")
 income = NodePath("IncomeComponent")
 hitbox = NodePath("HitboxComponent")
+stats = NodePath("EntityStats")
 display_name = "Tree"
 str_type = "Tree"
 icon = ExtResource("2_sbgn4")
@@ -157,6 +176,9 @@ controlled_by = 0
 
 [node name="NetworkComponent" type="Node2D" parent="."]
 script = ExtResource("3_yjxxk")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="NetworkComponent"]
+replication_config = SubResource("SceneReplicationConfig_87c8l")
 
 [node name="HitboxComponent" type="CollisionShape2D" parent="." node_paths=PackedStringArray("health_component", "character", "animation")]
 position = Vector2(0.5, -10)
@@ -217,3 +239,6 @@ parameters/conditions/hit = false
 
 [node name="IncomeComponent" parent="." instance=ExtResource("11_56ui3")]
 income = SubResource("Resource_vh2u8")
+
+[node name="EntityStats" type="Node2D" parent="."]
+script = ExtResource("14_rp8xf")

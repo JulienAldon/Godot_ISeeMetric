@@ -2,6 +2,8 @@ extends ActionPanel
 
 class_name FloatingBuildingAction
 
+@export var entity: Entity
+
 func get_saved_actions():
 	return saved_actions
 

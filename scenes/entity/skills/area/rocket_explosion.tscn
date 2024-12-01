@@ -1,12 +1,51 @@
-[gd_scene load_steps=23 format=3 uid="uid://cd87f5bepefn6"]
+[gd_scene load_steps=29 format=3 uid="uid://cd87f5bepefn6"]
 
 [ext_resource type="Script" path="res://scenes/entity/skills/skill.gd" id="1_uud2t"]
 [ext_resource type="Texture2D" uid="uid://mhvj63kc3dah" path="res://scenes/levels/fog/Light.png" id="2_owhjw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bgrr0"]
-radius = 32.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_q5kwu"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:visible")
+properties/1/spawn = true
+properties/1/replication_mode = 2
+properties/2/path = NodePath("Effect:scale")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("AnimationTree:active")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath(".:rotation")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tnkme"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_1t21g"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_0puxf"]
+nodes/Animation/node = SubResource("AnimationNodeAnimation_tnkme")
+nodes/Animation/position = Vector2(140, 60)
+nodes/TimeScale/node = SubResource("AnimationNodeTimeScale_1t21g")
+nodes/TimeScale/position = Vector2(394, 107)
+nodes/output/position = Vector2(480, 120)
+node_connections = [&"TimeScale", 0, &"Animation", &"output", 0, &"TimeScale"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0uvcd"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u2htm"]
+switch_mode = 2
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_08s0y"]
+states/idle/node = SubResource("AnimationNodeBlendTree_0puxf")
+states/idle/position = Vector2(435, 64)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_0uvcd"), "idle", "End", SubResource("AnimationNodeStateMachineTransition_u2htm")]
 
 [sub_resource type="Animation" id="Animation_jvpfx"]
 length = 0.001
@@ -37,7 +76,6 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_jx2xc"]
 resource_name = "idle"
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -45,7 +83,7 @@ tracks/0/path = NodePath("Effect/GPUParticles2D:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.966667),
+"times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -57,10 +95,24 @@ tracks/1/path = NodePath("Effect/GPUParticles2D2:emitting")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.0333333, 0.966667),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false, true, false]
+"values": [true, false]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.933333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"call_stop"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3gqxx"]
@@ -101,12 +153,12 @@ curve = SubResource("Curve_yu27f")
 particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
 spread = 60.0
-initial_velocity_min = 50.0
-initial_velocity_max = 120.0
+initial_velocity_min = 5.0
+initial_velocity_max = 30.0
 directional_velocity_min = -32.0
 directional_velocity_max = -10.0
 directional_velocity_curve = SubResource("CurveXYZTexture_3m16d")
-gravity = Vector3(0, 98, 0)
+gravity = Vector3(0, 200, 0)
 damping_min = 50.0
 damping_max = 60.0
 scale_min = 0.5
@@ -134,10 +186,8 @@ gradient = SubResource("Gradient_85e1i")
 particle_flag_disable_z = true
 direction = Vector3(0, -1, 0)
 spread = 180.0
-initial_velocity_min = 32.26
-initial_velocity_max = 56.45
-angular_velocity_min = -49.32
-angular_velocity_max = 29.59
+initial_velocity_min = 5.0
+initial_velocity_max = 20.0
 gravity = Vector3(0, 0, 0)
 color_ramp = SubResource("GradientTexture1D_tn8st")
 alpha_curve = SubResource("CurveTexture_tqp7c")
@@ -148,13 +198,18 @@ behaviours_container = NodePath("Behaviours")
 animation_tree = NodePath("AnimationTree")
 animation_player = NodePath("AnimationPlayer")
 scallable_effect = NodePath("Effect")
+effect_base_radius = 10.0
 shape = SubResource("CircleShape2D_bgrr0")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_q5kwu")
 
 [node name="Behaviours" type="Node2D" parent="."]
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_08s0y")
 anim_player = NodePath("../AnimationPlayer")
+parameters/idle/TimeScale/scale = 1.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -167,6 +222,7 @@ libraries = {
 emitting = false
 amount = 50
 process_material = SubResource("ParticleProcessMaterial_3lobi")
+lifetime = 0.8
 one_shot = true
 speed_scale = 2.0
 explosiveness = 1.0

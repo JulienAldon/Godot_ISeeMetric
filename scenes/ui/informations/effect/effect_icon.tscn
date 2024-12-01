@@ -1,11 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://bwsy8kydswf1j"]
+[gd_scene load_steps=4 format=3 uid="uid://bwsy8kydswf1j"]
 
 [ext_resource type="Script" path="res://scenes/ui/informations/effect/effect_icon.gd" id="1_pmobh"]
+[ext_resource type="Script" path="res://scenes/entity/components/tooltip/tooltip.gd" id="2_xjvxi"]
+[ext_resource type="PackedScene" uid="uid://pve3kl7fjtif" path="res://scenes/ui/informations/effect/effect_tooltip.tscn" id="3_e0yhg"]
 
 [node name="Passives" type="TextureRect" node_paths=PackedStringArray("stacks")]
 custom_minimum_size = Vector2(16, 16)
 script = ExtResource("1_pmobh")
 stacks = NodePath("nbStacks")
+
+[node name="Tooltip" type="Button" parent="." node_paths=PackedStringArray("information_node")]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+tooltip_text = "test"
+focus_mode = 0
+mouse_default_cursor_shape = 2
+flat = true
+script = ExtResource("2_xjvxi")
+tooltip = ExtResource("3_e0yhg")
+information_node = NodePath("..")
+information_variable = "effect"
 
 [node name="nbStacks" type="Label" parent="."]
 layout_mode = 0

@@ -47,7 +47,7 @@ func update_fog_image_texture():
 
 func is_in_range(positions, unit_pos):
 	for pos in positions:
-		if unit_pos.distance_to(pos) < positions[pos]:
+		if pos.distance_to(unit_pos) < positions[pos]:
 			return true
 	return false
 
@@ -68,7 +68,7 @@ func update_fog_units():
 			unit.show()
 		else:
 			unit.hide()
-				
+				#
 	
 func _process(_delta):
 	update_fog_units()

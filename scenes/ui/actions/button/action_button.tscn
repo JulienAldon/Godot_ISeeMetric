@@ -45,7 +45,7 @@ layout_mode = 2
 texture = SubResource("GradientTexture1D_7cd3x")
 expand_mode = 1
 
-[node name="Button" type="Button" parent="." node_paths=PackedStringArray("action_ui")]
+[node name="Button" type="Button" parent="." node_paths=PackedStringArray("information_node")]
 custom_minimum_size = Vector2(17, 17)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -58,7 +58,8 @@ icon_alignment = 1
 expand_icon = true
 script = ExtResource("3_7andd")
 tooltip = ExtResource("4_3x0gb")
-action_ui = NodePath("..")
+information_node = NodePath("..")
+information_variable = "action"
 
 [node name="Cooldown" type="Timer" parent="."]
 one_shot = true
